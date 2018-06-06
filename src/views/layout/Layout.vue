@@ -23,6 +23,13 @@ export default {
     TagsView
   },
   mixins: [ResizeMixin],
+  created(){
+    let admin = JSON.parse(sessionStorage.getItem('admin'));
+    if(!admin){
+      this.$router.push({ name:'Login' });
+      return
+    }
+  },
   computed: {
     sidebar() {
       return this.$store.state.app.sidebar

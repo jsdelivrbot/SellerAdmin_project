@@ -10,20 +10,20 @@ Vue.use(Router)
 import Layout from '../views/layout/Layout'
 
 /**
-* hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
-* alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
-*                                if not set alwaysShow, only more than one route under the children
-*                                it will becomes nested mode, otherwise not show the root menu
-* redirect: noredirect           if `redirect:noredirect` will no redirct in the breadcrumb
-* name:'router-name'             the name is used by <keep-alive> (must set!!!)
-* meta : {
+ * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
+ * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
+ *                                if not set alwaysShow, only more than one route under the children
+ *                                it will becomes nested mode, otherwise not show the root menu
+ * redirect: noredirect           if `redirect:noredirect` will no redirct in the breadcrumb
+ * name:'router-name'             the name is used by <keep-alive> (must set!!!)
+ * meta : {
     title: 'title'               the name show in submenu and breadcrumb (recommend set)
     icon: 'svg-name'             the icon show in the sidebar,
   }
-**/
+ **/
 export const constantRouterMap = [
-  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
-  { path: '/404', component: () => import('@/views/404'), hidden: true },
+  {path: '/login', component: () => import('@/views/login/index'), hidden: true},
+  {path: '/404', component: () => import('@/views/404'), hidden: true},
 
   {
     path: '/',
@@ -42,23 +42,64 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    meta: {title: 'Example', icon: 'example'},
     children: [
       {
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        meta: {title: 'Table', icon: 'table'}
       },
       {
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: {title: 'Tree', icon: 'tree'}
       }
     ]
   },
-
+  {
+    path: '/travel',
+    component: Layout,
+    name: 'Travel',
+    meta: {title: '旅行社', icon: 'example'},
+    children: [
+      {
+        path: 'adminMerchantProducts',
+        name: 'AdminMerchantProducts',
+        component: () => import('@/views/travel/AdminMerchantProducts'),
+        meta: {title: '商家产品信息', icon: 'table'},
+        children:[
+          {
+            path: 'adminQueryProductInformation',
+            name: 'adminQueryProductInformation',
+            hidden: true,
+            alwaysShow: true,
+            component: () => import('@/views/travel/AdminQueryProductInformation'),
+            meta: {title: '产品线路信息', icon: 'table'}
+          },
+        ]
+      },
+      {
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: {title: 'Tree', icon: 'tree'}
+      }
+    ]
+  },
+  {
+    path: '/travelAgency',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'TravelAgency',
+        component: () => import('@/views/agencies/index'),
+        meta: {title: '供应商信息', icon: 'form'}
+      }
+    ]
+  },
   {
     path: '/form',
     component: Layout,
@@ -67,17 +108,17 @@ export const constantRouterMap = [
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        meta: {title: 'Form', icon: 'form'}
       }
     ]
   },
 
-  { path: '*', redirect: '/404', hidden: true }
+  {path: '*', redirect: '/404', hidden: true}
 ]
 
 export default new Router({
   // mode: 'history', //后端支持可开
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes: constantRouterMap
 })
 

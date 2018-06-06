@@ -62,23 +62,22 @@ export const constantRouterMap = [
     path: '/travel',
     component: Layout,
     name: 'Travel',
+    alwaysShow: false,
     meta: {title: '旅行社', icon: 'example'},
     children: [
       {
         path: 'adminMerchantProducts',
         name: 'AdminMerchantProducts',
         component: () => import('@/views/travel/AdminMerchantProducts'),
-        meta: {title: '商家产品信息', icon: 'table'},
-        children:[
-          {
-            path: 'adminQueryProductInformation',
-            name: 'adminQueryProductInformation',
-            hidden: true,
-            alwaysShow: true,
-            component: () => import('@/views/travel/AdminQueryProductInformation'),
-            meta: {title: '产品线路信息', icon: 'table'}
-          },
-        ]
+        meta: {title: '商家产品', icon: 'table'}
+      },
+      {
+        path: 'adminQueryProductInformation',
+        name: 'adminQueryProductInformation',
+        hidden: true,
+        alwaysShow: true,
+        component: () => import('@/views/travel/AdminQueryProductInformation'),
+        meta: {title: '产品线路信息', icon: 'table'}
       },
       {
         path: 'tree',

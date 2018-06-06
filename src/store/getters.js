@@ -26,5 +26,6 @@ const getters = {
   adminProductLine:state=>state.travelAgency.adminProductLine,
   updateAdminQueryProductInformationObj:state=>state.travelAgency.updateAdminQueryProductInformationObj,
   adminProductLineManagementId:state=>state.travelAgency.adminProductLineManagementId,
+  adminMerchantProductsId:state=>state.travelAgency.adminMerchantProductsId,
 }
 export default getters

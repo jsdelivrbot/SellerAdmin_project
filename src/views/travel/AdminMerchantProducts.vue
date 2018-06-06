@@ -1716,7 +1716,7 @@
       //点击跳转到产品线路管理
       productLineManagement(id){
         this.$store.commit('adminProductLineManagementId', id);
-        this.$router.push({path: '/travel/adminMerchantProducts/adminQueryProductInformation'})
+        this.$router.push({path: '/travel/adminQueryProductInformation'})
         sessionStorage.setItem('index', '1')
       }
     },

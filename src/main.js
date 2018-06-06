@@ -15,6 +15,7 @@ import store from './store'
 import VueLazyLoad from 'vue-lazyload'
 import axios from 'axios'
 import * as filters from './filters'
+import i18n from './lang'
 Vue.use(VueLazyLoad,{
   error:'../static/img/error.jpg',
   loading:'../static/img/loading.gif'
@@ -37,6 +38,7 @@ new Vue({
   router,
   store,
   filters,
+  i18n,
   template: '<App/>',
   components: { App }
 })

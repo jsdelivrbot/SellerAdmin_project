@@ -1671,7 +1671,6 @@ export default {
     return new Promise( (relove, reject) =>{
       adminSupplier(data).then(response => {
           var data = response.data;
-        console.log(data)
           if (Number(data.resultcode) == 200) {
             let resulte = data.data
             for (var i = 0; i < resulte.length; i++) {

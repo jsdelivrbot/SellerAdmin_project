@@ -2,6 +2,8 @@ export default {
   route: {
     dashboard: '首页',
     introduction: '简述',
+    hotel:'酒店後台管理',
+    hotelDetail:'酒店基本信息',
     documentation: '文档',
     guide: '引导页',
     travel:'旅行社',

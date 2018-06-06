@@ -29,5 +29,11 @@ const getters = {
   adminMerchantProductsId:state=>state.travelAgency.adminMerchantProductsId,
   adminSupplierListObj:state=>state.travelAgency.adminSupplierListObj,
   changeScopeOfOperationList:state=>state.travelAgency.changeScopeOfOperationList,
+
+  myHotelDetailsList:state=>state.hotel.myHotelDetailsList,
+  provinceHotelDataList:state=>state.hotel.provinceHotelDataList,
+  cityHotelDataList:state=>state.hotel.cityHotelDataList,
+  countyHotelDataList:state=>state.hotel.countyHotelDataList,
+  updateHotelDetilsObj:state=>state.hotel.updateHotelDetilsObj,
 }
 export default getters

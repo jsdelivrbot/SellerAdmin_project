@@ -5,6 +5,8 @@ export default {
     documentation: 'Documentation',
     guide: 'Guide',
     travel:'Travel',
+    hotel:'Hotel',
+    hotelDetail:'Hotel Detail',
     productLine:'Product Line',
     vendorInformation:'Vendor Information',
     adminMerchantProducts:'Merchant Products',

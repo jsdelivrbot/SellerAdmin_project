@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const _import = require('./_import_' + process.env.NODE_ENV)
+const _import = require('./_import_' + process.env.NODE_ENV);
 
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
 // detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
@@ -8,7 +8,7 @@ const _import = require('./_import_' + process.env.NODE_ENV)
 Vue.use(Router)
 
 /* Layout */
-import Layout from '../views/layout/Layout'
+import Layout from '../views/layout/Layout';
 
 /**
  * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -70,6 +70,23 @@ export const constantRouterMap = [
         component: () => import('@/views/travel/AdminQueryProductInformation'),
         meta: {title: 'productLine', icon: 'table'}
       }
+    ]
+  },
+  {
+    path: '/hotel',
+    component: Layout,
+    name: 'Hotel',
+    redirect: '/hotel/hotelDetil',
+    // alwaysShow: false,
+    meta: {title: 'hotel', icon: 'example'},
+    children: [
+      {
+        path: 'hotelDetil',
+        name: 'HotelDetil',
+        component: () => import('@/views/hotel/HotelDetil'),
+        meta: {title: 'hotelDetail ', icon: 'table'}
+      },
+
     ]
   },
 

@@ -27,5 +27,7 @@ const getters = {
   updateAdminQueryProductInformationObj:state=>state.travelAgency.updateAdminQueryProductInformationObj,
   adminProductLineManagementId:state=>state.travelAgency.adminProductLineManagementId,
   adminMerchantProductsId:state=>state.travelAgency.adminMerchantProductsId,
+  adminSupplierListObj:state=>state.travelAgency.adminSupplierListObj,
+  changeScopeOfOperationList:state=>state.travelAgency.changeScopeOfOperationList,
 }
 export default getters

@@ -5,6 +5,8 @@ export default {
     documentation: '文档',
     guide: '引导页',
     travel:'旅行社',
+    VendorInformation:'供应商信息',
+    productLine:'产品线路信息',
     adminMerchantProducts:'商家产品信息',
     permission: '权限测试页',
     pagePermission: '页面权限',

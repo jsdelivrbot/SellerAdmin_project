@@ -26,66 +26,15 @@ export const constantRouterMap = [
   {path: '/404', component: () => import('@/views/404'), hidden: true},
 
   {
-    path: '/',
+    path: '',
     component: Layout,
-    redirect: '/dashboard',
-    name: 'Dashboard',
-    hidden: true,
+    redirect: 'dashboard',
     children: [{
       path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
+      component:  () => import('@/views/dashboard'),
+      name: 'dashboard',
+      meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
     }]
-  },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: {title: 'Example', icon: 'example'},
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: {title: 'Table', icon: 'table'}
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: {title: 'Tree', icon: 'tree'}
-      }
-    ]
-  },
-  {
-    path: '/travel',
-    component: Layout,
-    name: 'Travel',
-    alwaysShow: false,
-    meta: {title: '旅行社', icon: 'example'},
-    children: [
-      {
-        path: 'adminMerchantProducts',
-        name: 'AdminMerchantProducts',
-        component: () => import('@/views/travel/AdminMerchantProducts'),
-        meta: {title: '商家产品', icon: 'table'}
-      },
-      {
-        path: 'adminQueryProductInformation',
-        name: 'adminQueryProductInformation',
-        hidden: true,
-        alwaysShow: true,
-        component: () => import('@/views/travel/AdminQueryProductInformation'),
-        meta: {title: '产品线路信息', icon: 'table'}
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: {title: 'Tree', icon: 'tree'}
-      }
-    ]
   },
   {
     path: '/travelAgency',
@@ -95,19 +44,30 @@ export const constantRouterMap = [
         path: 'index',
         name: 'TravelAgency',
         component: () => import('@/views/agencies/index'),
-        meta: {title: '供应商信息', icon: 'form'}
+        meta: {title: 'VendorInformation', icon: 'form'}
       }
     ]
   },
   {
-    path: '/form',
+    path: '/travel',
     component: Layout,
+    name: 'Travel',
+    alwaysShow: false,
+    meta: {title: 'travel', icon: 'example'},
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: {title: 'Form', icon: 'form'}
+        path: 'adminMerchantProducts',
+        name: 'AdminMerchantProducts',
+        component: () => import('@/views/travel/AdminMerchantProducts'),
+        meta: {title: 'adminMerchantProducts', icon: 'table'}
+      },
+      {
+        path: 'adminQueryProductInformation',
+        name: 'adminQueryProductInformation',
+        hidden: true,
+        alwaysShow: true,
+        component: () => import('@/views/travel/AdminQueryProductInformation'),
+        meta: {title: 'productLine', icon: 'table'}
       }
     ]
   },

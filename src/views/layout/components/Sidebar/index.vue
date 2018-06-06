@@ -20,6 +20,8 @@ import SidebarItem from './SidebarItem'
 
 export default {
   components: { SidebarItem },
+  created(){
+  },
   computed: {
     ...mapGetters([
       'sidebar'

@@ -81,15 +81,15 @@
                 <span>{{ props.row.sm_ai_CertExpireTo}}</span>
               </el-form-item>
               <el-form-item label="营业执照扫描件 :">
-                <img :src="item" alt="" v-for="item in props.row.sm_ai_CertImage"
-                     style="width: 100px;height: 100px" v-show="props.row.sm_ai_CertImage.length">
+                <img alt="" v-for="item in props.row.sm_ai_CertImage"
+                     style="width: 100px;height: 100px" v-show="props.row.sm_ai_CertImage.length" v-lazy="item">
               </el-form-item>
               <el-form-item label="税务登记号 :">
                 <span>{{ props.row.sm_ai_FeeNo}}</span>
               </el-form-item>
               <el-form-item label="税务登记证扫描件 :">
-                <img :src="item" alt="" v-for="item in props.row.sm_ai_FeeImage"
-                     style="width: 100px;height: 100px" v-show="props.row.sm_ai_FeeImage.length">
+                <img alt="" v-for="item in props.row.sm_ai_FeeImage"
+                     style="width: 100px;height: 100px" v-show="props.row.sm_ai_FeeImage.length" v-lazy="item">
               </el-form-item>
               <el-form-item label="审核状态 :">
                 <span>{{ props.row.sm_ai_IsPass | getPass}}</span>

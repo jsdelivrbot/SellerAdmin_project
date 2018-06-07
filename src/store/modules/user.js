@@ -31,8 +31,8 @@ const user = {
         login(userInfo).then(response => {
           const data = response.data
           if(Number(data.resultcode)==200){
-            setToken(data.token)
-            commit('SET_TOKEN', data.token)
+            // setToken(data.token)
+            // commit('SET_TOKEN', data.token)
             sessionStorage.setItem('admin',JSON.stringify(data.data))
             resolve(data.data)
           }else{
@@ -64,15 +64,6 @@ const user = {
       })
     },
 
-    // 登出
-    LogOut({ commit, state }) {
-      return new Promise((resolve, reject) => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          removeToken()
-          resolve()
-      })
-    },
 
     // 前端 登出
     FedLogOut({ commit }) {

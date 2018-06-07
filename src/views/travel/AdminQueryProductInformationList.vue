@@ -5,13 +5,13 @@
       <!--<el-tree :data="data" :props="defaultProps" :default-expand-all="isOff"></el-tree>-->
     <!--</div>-->
     <div class="contentBox">
-      <div style="margin: 30px 0 30px 0px">
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item to="AdminMerchantProducts">商家产品</el-breadcrumb-item>
-          <el-breadcrumb-item  @click.native="toLine" style="cursor: pointer;color: #000;font-weight: bold;">产品线路</el-breadcrumb-item>
-          <el-breadcrumb-item>{{name}}</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
+      <!--<div style="margin: 30px 0 30px 0px">-->
+        <!--<el-breadcrumb separator-class="el-icon-arrow-right">-->
+          <!--<el-breadcrumb-item to="AdminMerchantProducts">商家产品</el-breadcrumb-item>-->
+          <!--<el-breadcrumb-item  @click.native="toLine" style="cursor: pointer;color: #000;font-weight: bold;">产品线路</el-breadcrumb-item>-->
+          <!--<el-breadcrumb-item>{{name}}</el-breadcrumb-item>-->
+        <!--</el-breadcrumb>-->
+      <!--</div>-->
       <h1>产品线路管理</h1>
       <el-tabs v-model="activeName" @tab-click="tab">
         <el-tab-pane label="产品线路出发城市" name="产品线路出发城市">

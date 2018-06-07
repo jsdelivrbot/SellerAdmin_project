@@ -5,7 +5,11 @@ export default {
     documentation: 'Documentation',
     guide: 'Guide',
     travel:'Travel',
+
+    ticket:'Ticket',
+    ticketAttractions:'Ticket Attractions',
     productLine:'Product Line',
+    ProductLineManagement:'Product Line Management',
     vendorInformation:'Vendor Information',
     adminMerchantProducts:'Merchant Products',
     permission: 'Permission',

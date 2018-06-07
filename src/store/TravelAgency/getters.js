@@ -86,6 +86,8 @@ export default {
   adminScheduleTimeManagementId: state => state.adminScheduleTimeManagementId,
   adminTimeActivityManagementId: state => state.adminTimeActivityManagementId,
   adminActivityMealManagementId: state => state.adminActivityMealManagementId,
+
   //旅行社
   TravelAgencyOrderList: state => state.TravelAgencyOrderList,
+
 }

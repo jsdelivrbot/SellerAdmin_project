@@ -5,12 +5,7 @@
         <!--<p style="font-weight: bold;font-size: 20px;margin-bottom: 20px">添加流程:</p>-->
         <!--<el-tree :data="data" :props="defaultProps" :default-expand-all="isOff"></el-tree>-->
       <!--</div>-->
-      <div style="margin: 30px 0 0 20px">
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item @click.native="toMerch" style="cursor: pointer;color: #000;font-weight: bold;">商家产品</el-breadcrumb-item>
-          <el-breadcrumb-item>产品线路</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
+
       <h1 class="userClass">产品线路信息</h1>
 
       <!--查询栏-->
@@ -337,7 +332,7 @@
         };
         this.isLoading = true;
         this.$store.dispatch('initAdminProductLine', GetProductLine)
-        .then(() => {
+            .then(() => {
           this.isLoading = false;
         }, err => {
           this.$notify({
@@ -458,7 +453,8 @@
       //点击跳转到线路日程管理
       queryProductInformationDetail(id) {
         this.$store.commit('adminLineScheduleManagementId', id);
-        this.$router.push({name: 'AdminQueryProductInformationList'})
+        // this.$router.push({name: 'AdminQueryProductInformationList'})
+        this.$router.push({path: '/travel/adminQueryProductInformationList'})
         sessionStorage.setItem('index', '2')
       }
     },

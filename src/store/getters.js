@@ -29,5 +29,13 @@ const getters = {
   adminMerchantProductsId:state=>state.travelAgency.adminMerchantProductsId,
   adminSupplierListObj:state=>state.travelAgency.adminSupplierListObj,
   changeScopeOfOperationList:state=>state.travelAgency.changeScopeOfOperationList,
+  adminLineScheduleManagementId:state=>state.travelAgency.adminLineScheduleManagementId,
+  adminRouteDepartureCity:state=>state.travelAgency.adminRouteDepartureCity,
+  updateAdminRouteDepartureCityObj:state=>state.travelAgency.updateAdminRouteDepartureCityObj,
+  adminLinePriceList:state=>state.travelAgency.adminLinePriceList,
+  updateAdminLinePriceObj:state=>state.travelAgency.updateAdminLinePriceObj,
+  adminLinePrepare:state=>state.travelAgency.adminLinePrepare,
+  // ticketAttractionsList:state=>state.ticket.ticketAttractionsList,
+ // initTicketAttractions:state=>state.ticket.initTicketAttractions,
 }
 export default getters

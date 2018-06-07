@@ -69,6 +69,29 @@ export const constantRouterMap = [
         alwaysShow: true,
         component: () => import('@/views/travel/AdminQueryProductInformation'),
         meta: {title: 'productLine', icon: 'table'}
+      },
+      {
+        path: 'adminQueryProductInformationList',
+        name: 'adminQueryProductInformationList',
+        hidden: true,
+        alwaysShow: true,
+        component: () => import('@/views/travel/AdminQueryProductInformationList'),
+        meta: {title: 'ProductLineManagement', icon: 'table'}
+      }
+    ]
+  },
+  {
+    path: '/ticket',
+    component: Layout,
+    name: 'Ticket',
+     alwaysShow: true,
+    meta: {title: 'ticket', icon: 'tab'},
+    children: [
+      {
+        path: 'ticketAttractions',
+        name: 'TicketAttractions',
+        component: () => import('@/views/ticket/TicketAttractions'),
+        meta: {title: 'ticketAttractions'}
       }
     ]
   },

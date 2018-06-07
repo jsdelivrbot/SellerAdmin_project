@@ -140,23 +140,6 @@ export const constantRouterMap = [
       }
     ]
   },
-  /***/
-  // {
-  //   path: '/ticketMap',
-  //   component: Layout,
-  //   name: 'TicketMap',
-  //   alwaysShow: TRUE,
-  //   meta: {title: 'ticketMap'},
-  //   children: [
-  //     {
-  //       path: 'ticketMap',
-  //       name: 'TicketMap',
-  //       alwaysShow: false,
-  //       component: () => import('@/views/ticket/TicketMap'),
-  //       meta: {title: 'ticketMap'}
-  //     }]
-  // },
-  /**/
   {
     path: '/hotel',
     component: Layout,
@@ -255,11 +238,85 @@ export const constantRouterMap = [
         component: () => import('@/views/hotel/HotelTheme'),
         meta: {title: 'hotelTheme ', icon: 'table'}
       },
+    ]
+  },
+  {
+    path: '/food',
+    component: Layout,
+    name: 'Food',
+    alwaysShow: true,
+    meta: {title: 'food', icon: 'star'},
+    children: [
+      {
+        path: 'foodStoreInformation',
+        name: 'FoodStoreInformation',
+        component: () => import('@/views/food/FoodStoreInformation'),
+        meta: {title: 'foodStoreInformation'}
+      },
+      {
+        path: 'foodStorePicture',
+        name: 'FoodStorePicture',
+        component: () => import('@/views/food/FoodStorePicture'),
+        meta: {title: 'foodStorePicture'}
+      },
+      {
+        path: 'foodStoreRecommend',
+        name: 'FoodStoreRecommend',
+        component: () => import('@/views/food/FoodStoreRecommend'),
+        meta: {title: 'foodStoreRecommend'}
+      }, {
+        path: 'foodStoreProduct',
+        name: 'FoodStoreProduct',
+        component: () => import('@/views/food/FoodStoreProduct'),
+        meta: {title: 'foodStoreProduct'}
+      }, {
+        path: 'foodStoreProductPicture',
+        name: 'FoodStoreProductPicture',
+        component: () => import('@/views/food/FoodStoreProductPicture'),
+        meta: {title: 'foodStoreProductPicture'}
+      }, {
+        path: 'foodStoreRoom',
+        name: 'FoodStoreRoom',
+        component: () => import('@/views/food/FoodStoreRoom'),
+        meta: {title: 'foodStoreRoom'}
+      }, {
+        path: 'foodRoomPicture',
+          name: 'FoodRoomPicture',
+        component: () => import('@/views/food/FoodRoomPicture'),
+        meta: {title: 'foodRoomPicture'}
+      }, {
+        path: 'foodStoreRoomTabel',
+        name: 'FoodStoreRoomTabel',
+        component: () => import('@/views/food/FoodStoreRoomTabel'),
+        meta: {title: 'foodStoreRoomTabel'}
+      }, {
+        path: 'foodStoreTableTime',
+        name: 'FoodStoreTableTime',
+        component: () => import('@/views/food/FoodStoreTableTime'),
+        meta: {title: 'foodStoreTableTime'}
+      }, {
+        path: 'foodStoreOrderingTime',
+        name: 'FoodStoreOrderingTime',
+        component: () => import('@/views/food/FoodStoreOrderingTime'),
+        meta: {title: 'foodStoreOrderingTime'}
+      }, {
+        path: 'foodStoppingPlace',
+        name: 'FoodStoppingPlace',
+        component: () => import('@/views/food/FoodStoppingPlace'),
+        meta: {title: 'foodStoppingPlace'}
+      },{
+        path: 'foodStoreConfirmOrder',
+        name: 'FoodStoreConfirmOrder',
+        component: () => import('@/views/food/FoodStoreConfirmOrder'),
+        meta: {title: 'foodStoreConfirmOrder'}
+      },
+
+
+
 
 
     ]
   },
-
   {path: '*', redirect: '/404', hidden: true}
 ]
 

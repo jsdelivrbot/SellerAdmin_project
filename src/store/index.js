@@ -4,6 +4,7 @@ import app from './modules/app'
 import user from './modules/user'
 import travelAgency from './TravelAgency'
 import ticket from './Ticket'
+import food from './Food'
 import tagsView from './modules/tagsView'
 import hotel from './Hotel'
 import getters from './getters'
@@ -17,7 +18,9 @@ const store = new Vuex.Store({
     ticket,
     app,
     user,
-    hotel
+    hotel,
+    food
+
   },
   getters
 });

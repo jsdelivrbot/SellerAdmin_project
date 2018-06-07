@@ -20,7 +20,7 @@ export default {
   ticketTypeTicketPriceList: state => state.ticketTypeTicketPriceList,
   ticketQueryOrderList: state => state.ticketQueryOrderList,
   ticketMapList: state => state.ticketMapList,
-
+ // ToggleDevice: state => state.ToggleDevice,
   //参数
   //门票
 

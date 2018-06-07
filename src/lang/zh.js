@@ -20,14 +20,18 @@ export default {
     hotelRoomRoomFacilities:'酒店房间房间设施',
     hotelTheme:'酒店主题信息',
 
-
-
-
-    documentation: '文档',
-    guide: '引导页',
     travel:'旅行社',
     ticket:'门票后台管理',
     ticketAttractions:'门票景点信息管理',
+    ticketPredeterminedInstructions:'门票预订须知',
+    ticketTrafficInformation:'门票交通信息',
+    ticketType:'门票票种',
+    ticketTypeTicketPrice:"门票票种_票价",
+    ticketQueryOrder:"门票查询订单",
+    ticketApplyShowHomePage:"门票申请景点展示",
+
+    documentation: '文档',
+    guide: '引导页',
     VendorInformation:'供应商信息',
     productLine:'产品线路信息',
     ProductLineManagement:'产品线路',

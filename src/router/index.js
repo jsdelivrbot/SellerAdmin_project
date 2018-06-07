@@ -93,9 +93,70 @@ export const constantRouterMap = [
         name: 'TicketAttractions',
         component: () => import('@/views/ticket/TicketAttractions'),
         meta: {title: 'ticketAttractions'}
+      },
+      {
+        path: 'ticketMap',
+        name: 'TicketMap',
+        hidden:true,
+        alwaysShow: true,
+        component: () => import('@/views/ticket/TicketMap'),
+        meta: {title: 'ticketMap'}
+      },
+       {
+         path: 'ticketPredeterminedInstructions',
+           name: 'TicketPredeterminedInstructions',
+         component: () => import('@/views/ticket/TicketPredeterminedInstructions'),
+         meta: {title: 'ticketPredeterminedInstructions'}
+       },
+      {
+        path: 'ticketTrafficInformation',
+        name: 'TicketTrafficInformation',
+        component: () => import('@/views/ticket/TicketTrafficInformation'),
+        meta: {title: 'ticketTrafficInformation'}
+      },
+      {
+        path: 'ticketType',
+        name: 'TicketType',
+        component: () => import('@/views/ticket/TicketType'),
+        meta: {title: 'ticketType'}
+      },
+      {
+        path: 'ticketTypeTicketPrice',
+        name: 'TicketTypeTicketPrice',
+        component: () => import('@/views/ticket/TicketTypeTicketPrice'),
+        meta: {title: 'ticketTypeTicketPrice'}
+      },
+      {
+        path: 'ticketQueryOrder',
+        name: 'TicketQueryOrder',
+        component: () => import('@/views/ticket/TicketQueryOrder'),
+        meta: {title: 'ticketQueryOrder'}
+      },
+      {
+        path: 'ticketApplyShowHomePage',
+        name: 'TicketApplyShowHomePage',
+        component: () => import('@/views/ticket/TicketApplyShowHomePage'),
+        meta: {title: 'ticketApplyShowHomePage'}
       }
     ]
   },
+  /***/
+  // {
+  //   path: '/ticketMap',
+  //   component: Layout,
+  //   name: 'TicketMap',
+  //   alwaysShow: TRUE,
+  //   meta: {title: 'ticketMap'},
+  //   children: [
+  //     {
+  //       path: 'ticketMap',
+  //       name: 'TicketMap',
+  //       alwaysShow: false,
+  //       component: () => import('@/views/ticket/TicketMap'),
+  //       meta: {title: 'ticketMap'}
+  //     }]
+  // },
+  /**/
   {
     path: '/hotel',
     component: Layout,

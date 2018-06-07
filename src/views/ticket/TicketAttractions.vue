@@ -625,7 +625,9 @@
     methods: {
       //添加地图导览
       AddMap(id){
-        this.$router.push({name:'TicketMap',query:{id:id}})
+        console.log(id)
+        this.$router.push({path: '/ticket/TicketMap',query:{id:id}})
+       // this.$router.push({name:'TicketMap',query:{id:id}})
       },
       clickGo(id) {
         if (this.value == 0) {

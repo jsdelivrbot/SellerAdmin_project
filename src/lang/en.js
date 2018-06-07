@@ -8,6 +8,13 @@ export default {
 
     ticket:'Ticket',
     ticketAttractions:'Ticket Attractions',
+    ticketPredeterminedInstructions:'Ticket Predetermined Instructions',
+    ticketTrafficInformation:'Ticket Traffic Information',
+    ticketType:'Ticket Type',
+    ticketTypeTicketPrice:"ticketTypeTicketPrice",
+    ticketQueryOrder:"Ticket Query Order",
+    ticketApplyShowHomePage:"Ticket Apply Show Home Page",
+
     hotel:'Hotel',
     hotelDetail:'Hotel Detail',
     hotelConfirmOrder: 'HotelConfirmOrder',
@@ -28,11 +35,9 @@ export default {
     HotelTheme: 'HotelTheme',
 
 
-
-
-
     productLine:'Product Line',
     ProductLineManagement:'Product Line Management',
+
     vendorInformation:'Vendor Information',
     adminMerchantProducts:'Merchant Products',
     permission: 'Permission',

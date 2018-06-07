@@ -7,7 +7,7 @@ const app = {
       withoutAnimation: false
     },
     device: 'desktop',
-    language: Cookies.get('language') || 'en'
+    language: Cookies.get('language') || 'zh'
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
@@ -39,7 +39,7 @@ const app = {
     closeSideBar({ commit }, { withoutAnimation }) {
       commit('CLOSE_SIDEBAR', withoutAnimation)
     },
-    toggleDevice({ commit }, device) {
+    ToggleDevice({ commit }, device) {
       commit('TOGGLE_DEVICE', device)
     },
     setLanguage({ commit }, language) {

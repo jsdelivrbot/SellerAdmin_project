@@ -126,8 +126,8 @@
               <el-button v-popover:popover1 size="small">移入查看</el-button>
             </el-form-item>
             <el-form-item label="展示图片地址:">
-              <img :src="item" alt="" v-for="item in props.row.ta_tg_ShowImages"
-                   style="width: 100px;height: 100px;margin-right: 10px">
+              <img  alt="" v-for="item in props.row.ta_tg_ShowImages"
+                   style="width: 100px;height: 100px;margin-right: 10px" v-lazy="item">
             </el-form-item>
             <el-form-item label="产品创建时间:">
               <span>{{ props.row.ta_tg_CreateDateTime }}</span>
@@ -184,14 +184,19 @@
       </el-table-column>
     </el-table>
     <!--分页-->
-    <div class="block" style="float: right;">
-      <el-pagination
-        @current-change="handleCurrentChange"
-        :page-size="5"
-        layout="total, prev, pager, next"
-        :total="total"
-        v-show="total"
-      >
+    <!--<div class="block" style="float: right;">-->
+      <!--<el-pagination-->
+        <!--@current-change="handleCurrentChange"-->
+        <!--:page-size="5"-->
+        <!--layout="total, prev, pager, next"-->
+        <!--:total="total"-->
+        <!--v-show="total"-->
+      <!--&gt;-->
+      <!--</el-pagination>-->
+
+    <!--</div>-->
+    <div class="pagination-container" style="float: right;margin-top: 10px">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total" v-show="total">
       </el-pagination>
     </div>
     <!--添加产品-->
@@ -666,6 +671,14 @@
     name: '',
     data(){
       return {
+        listQuery: {
+          page: 1,
+          limit: 10,
+          importance: undefined,
+          title: undefined,
+          type: undefined,
+          sort: '+id'
+        },
         title:'',
         recommendedReasonContent:'',//添加推荐理由内容
         goodIntroduceContent:'',
@@ -1568,7 +1581,7 @@
           "ID": '',
           'isDelete': 0,
           "page": page ? page : 1,
-          "rows": 5
+          "rows": 10
         };
         if(this.num){
           options.page = this.num;
@@ -1596,6 +1609,10 @@
 
       //分页
       handleCurrentChange(num){
+        this.num = num;
+        this.initData(this.productsID, num);
+      },
+      handleSizeChange(num) {
         this.num = num;
         this.initData(this.productsID, num);
       },

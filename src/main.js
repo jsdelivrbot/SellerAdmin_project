@@ -26,7 +26,7 @@ Object.keys(filters).forEach((key) => {
 })
 
 import '@/icons' // icon
-import '@/permission' // permission control
+// import '@/permission' // permission control
 
 Vue.use(ElementUI, { locale })
 Vue.prototype.$http = axios;

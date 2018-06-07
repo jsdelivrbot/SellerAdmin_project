@@ -75,7 +75,7 @@ export default {
             this.loading = false;
             switch (data.sm_ui_RoleID){
               case 2:
-                this.$router.push({ path: '/' });
+                this.$router.push({ name:'dashboard' });
                 break;
               default:
                 this.$notify({

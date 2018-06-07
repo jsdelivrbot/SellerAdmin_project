@@ -19,7 +19,7 @@
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
+          <img class="user-avatar"  v-lazy="userInfo.sm_ui_HeadImage">
           <i class="el-icon-caret-bottom"></i>
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -67,14 +67,30 @@
         'avatar'
       ])
     },
+    data(){
+      return {
+        userInfo:{}
+      }
+    },
+    created(){
+      this.userInfo = JSON.parse(sessionStorage.getItem('admin'));
+      if(!this.userInfo){
+        this.$router.push({ name:'Login' });
+        return
+      }
+    },
     methods: {
       toggleSideBar() {
         this.$store.dispatch('toggleSideBar')
       },
       logout() {
-        this.$store.dispatch('LogOut').then(() => {
-          location.reload()// In order to re-instantiate the vue-router object to avoid bugs
-        })
+//        this.$store.dispatch('LogOut').then(() => {
+//          location.reload()// In order to re-instantiate the vue-router object to avoid bugs
+//        })
+        sessionStorage.removeItem('admin');
+        setTimeout(()=>{
+          location.reload()
+        },200)
       }
     }
   }

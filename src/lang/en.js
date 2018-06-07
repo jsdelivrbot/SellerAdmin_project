@@ -8,6 +8,29 @@ export default {
 
     ticket:'Ticket',
     ticketAttractions:'Ticket Attractions',
+    hotel:'Hotel',
+    hotelDetail:'Hotel Detail',
+    hotelConfirmOrder: 'HotelConfirmOrder',
+    HotelFacilitiesServices: 'HotelFacilitiesServices',
+    HotelFacilitiesServicesFacilities: 'HotelFacilitiesServicesFacilities',
+    HotelIcon: 'HotelIcon',
+    HotelImage: 'HotelImage',
+    HotelLotRoomNumber: 'HotelLotRoomNumber',
+    HotelOrderDetails: 'HotelOrderDetails',
+    Index: 'Index',
+    HotelQueryRecommend: 'HotelQueryRecommend',
+    HotelRoom: 'HotelRoom',
+    HotelRoomEntity: 'HotelRoomEntity',
+    HotelRoomNumber: 'HotelRoomNumber',
+    HotelRoomProduct: 'HotelRoomProduct',
+    HotelPolicy: 'HotelPolicy',
+    HotelRoomRoomFacilities: 'HotelRoomRoomFacilities',
+    HotelTheme: 'HotelTheme',
+
+
+
+
+
     productLine:'Product Line',
     ProductLineManagement:'Product Line Management',
     vendorInformation:'Vendor Information',

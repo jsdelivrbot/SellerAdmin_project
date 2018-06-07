@@ -2,6 +2,27 @@ export default {
   route: {
     dashboard: '首页',
     introduction: '简述',
+    hotel:'酒店台管理',
+    hotelDetail:'酒店基本信息',
+    hotelConfirmOrder:'酒店确认订单',
+    hotelFacilitiesServices:'酒店设施服务',
+    hotelFacilitiesServicesFacilities:'酒店设施服务设施',
+    hotelIcon:'酒店图标信息',
+    hotelImage:'酒店图片信息',
+    hotelLotRoomNumber:'酒店批量生成房间',
+    hotelOrderDetails:'酒店订单明细',
+    hotelQueryRecommend:'酒店推荐信息',
+    hotelRoom:'酒店房间管理',
+    hotelRoomEntity:'酒店房间实体',
+    hotelRoomNumber:'酒店生成房间数',
+    hotelPolicy:'酒店政策信息',
+    hotelRoomProduct:'酒店房间产品',
+    hotelRoomRoomFacilities:'酒店房间房间设施',
+    hotelTheme:'酒店主题信息',
+
+
+
+
     documentation: '文档',
     guide: '引导页',
     travel:'旅行社',

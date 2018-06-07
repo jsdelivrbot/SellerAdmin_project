@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const _import = require('./_import_' + process.env.NODE_ENV)
+const _import = require('./_import_' + process.env.NODE_ENV);
 
 // in development-env not use lazy-loading, because lazy-loading too many pages will cause webpack hot update too slow. so only in production use lazy-loading;
 // detail: https://panjiachen.github.io/vue-element-admin-site/#/lazy-loading
@@ -8,7 +8,7 @@ const _import = require('./_import_' + process.env.NODE_ENV)
 Vue.use(Router)
 
 /* Layout */
-import Layout from '../views/layout/Layout'
+import Layout from '../views/layout/Layout';
 
 /**
  * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -23,8 +23,9 @@ import Layout from '../views/layout/Layout'
   }
  **/
 export const constantRouterMap = [
-  { path: '/login', component: _import('login/index'), hidden: true },
+  { path: '/login',name:'Login', component: _import('login/index'), hidden: true },
   {path: '/404', component: () => import('@/views/404'), hidden: true},
+  { path: '/', component: _import('login/index'), hidden: true },
 
   {
     path: '',
@@ -93,6 +94,108 @@ export const constantRouterMap = [
         component: () => import('@/views/ticket/TicketAttractions'),
         meta: {title: 'ticketAttractions'}
       }
+    ]
+  },
+  {
+    path: '/hotel',
+    component: Layout,
+    name: 'Hotel',
+    redirect: '/hotel/hotelDetil',
+    // alwaysShow: false,
+    meta: {title: 'hotel', icon: 'example'},
+    children: [
+      {
+        path: 'hotelDetil',
+        name: 'HotelDetil',
+        component: () => import('@/views/hotel/HotelDetil'),
+        meta: {title: 'hotelDetail ', icon: 'table'}
+      },
+      {
+        path: 'hotelConfirmOrder',
+        name: 'HotelConfirmOrder',
+        component: () => import('@/views/hotel/HotelConfirmOrder'),
+        meta: {title: 'hotelConfirmOrder ', icon: 'table'}
+      },
+      {
+        path: 'hotelFacilitiesServices',
+        name: 'HotelFacilitiesServices',
+        component: () => import('@/views/hotel/HotelFacilitiesServices'),
+        meta: {title: 'hotelFacilitiesServices ', icon: 'table'}
+      },
+      {
+        path: 'hotelIcon',
+        name: 'HotelIcon',
+        component: () => import('@/views/hotel/HotelIcon'),
+        meta: {title: 'hotelIcon ', icon: 'table'}
+      },
+      {
+        path: 'hotelImage',
+        name: 'HotelImage',
+        component: () => import('@/views/hotel/HotelImage'),
+        meta: {title: 'hotelImage ', icon: 'table'}
+      },
+      {
+        path: 'hotelLotRoomNumber',
+        name: 'HotelLotRoomNumber',
+        component: () => import('@/views/hotel/HotelLotRoomNumber'),
+        meta: {title: 'hotelLotRoomNumber ', icon: 'table'}
+      },
+      {
+        path: 'hotelOrderDetails',
+        name: 'HotelOrderDetails',
+        component: () => import('@/views/hotel/HotelOrderDetails'),
+        meta: {title: 'hotelOrderDetails ', icon: 'table'}
+      },
+      {
+        path: 'hotelPolicy',
+        name: 'HotelPolicy',
+        component: () => import('@/views/hotel/HotelPolicy'),
+        meta: {title: 'hotelPolicy ', icon: 'table'}
+      },
+      {
+        path: 'hotelQueryRecommend',
+        name: 'HotelQueryRecommend',
+        component: () => import('@/views/hotel/HotelQueryRecommend'),
+        meta: {title: 'hotelQueryRecommend ', icon: 'table'}
+      },
+      {
+        path: 'hotelRoom',
+        name: 'HotelRoom',
+        component: () => import('@/views/hotel/HotelRoom'),
+        meta: {title: 'hotelRoom ', icon: 'table'}
+      },
+      {
+        path: 'hotelRoomEntity',
+        name: 'HotelRoomEntity',
+        component: () => import('@/views/hotel/HotelRoomEntity'),
+        meta: {title: 'hotelRoomEntity ', icon: 'table'}
+      },
+      {
+        path: 'hotelRoomNumber',
+        name: 'HotelRoomNumber',
+        component: () => import('@/views/hotel/HotelRoomNumber'),
+        meta: {title: 'hotelRoomNumber ', icon: 'table'}
+      },
+      {
+        path: 'hotelRoomProduct',
+        name: 'HotelRoomProduct',
+        component: () => import('@/views/hotel/HotelRoomProduct'),
+        meta: {title: 'hotelRoomProduct ', icon: 'table'}
+      },
+      {
+        path: 'hotelRoomRoomFacilities',
+        name: 'HotelRoomRoomFacilities',
+        component: () => import('@/views/hotel/HotelRoomRoomFacilities'),
+        meta: {title: 'hotelRoomRoomFacilities ', icon: 'table'}
+      },
+      {
+        path: 'hotelTheme',
+        name: 'HotelTheme',
+        component: () => import('@/views/hotel/HotelTheme'),
+        meta: {title: 'hotelTheme ', icon: 'table'}
+      },
+
+
     ]
   },
 

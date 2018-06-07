@@ -10,10 +10,10 @@ exports.assetsPath = function (_path) {
     : config.dev.assetsSubDirectory
 
   return path.posix.join(assetsSubDirectory, _path)
-}
+};
 
 exports.cssLoaders = function (options) {
-  options = options || {}
+  options = options || {};
 
   const cssLoader = {
     loader: 'css-loader',
@@ -80,16 +80,16 @@ exports.styleLoaders = function (options) {
   }
 
   return output
-}
+};
 
 exports.createNotifierCallback = () => {
-  const notifier = require('node-notifier')
+  const notifier = require('node-notifier');
 
   return (severity, errors) => {
     if (severity !== 'error') return
 
-    const error = errors[0]
-    const filename = error.file && error.file.split('!').pop()
+    const error = errors[0];
+    const filename = error.file && error.file.split('!').pop();
 
     notifier.notify({
       title: packageConfig.name,

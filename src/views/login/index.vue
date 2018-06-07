@@ -43,8 +43,8 @@ export default {
         password: 'admin'
       },
       loginRules: {
-        username: [{ required: true, message: '请输入账号', trigger: 'blur' },],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' },]
+        username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       },
       loading: false,
       pwdType: 'password'
@@ -61,21 +61,21 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.loading = true
+          this.loading = true;
           var loginParams = {
-            "loginUserID": "huileyou",
-            "loginUserPass": "123",
-            "operateUserID": "",
-            "operateUserName": "",
-            "pcName": "",
-            "userID": this.loginForm.username,
-            "password": this.loginForm.password,
+            'loginUserID': 'huileyou',
+            'loginUserPass': '123',
+            'operateUserID': '',
+            'operateUserName': '',
+            'pcName': '',
+            'userID': this.loginForm.username,
+            'password': this.loginForm.password
           };
           this.$store.dispatch('Login', loginParams).then((data) => {
             this.loading = false;
             switch (data.sm_ui_RoleID){
               case 2:
-                this.$router.push({ path: '/' });
+                this.$router.push({ name:'dashboard' });
                 break;
               default:
                 this.$notify({
@@ -86,11 +86,11 @@ export default {
             }
 
           }).catch((err) => {
-            console.log(err)
-            this.loading = false
+            console.log(err);
+            this.loading = false;
           })
         } else {
-          console.log('error submit!!')
+          console.log('error submit!!');
           return false
         }
       })

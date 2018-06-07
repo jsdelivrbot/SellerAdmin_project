@@ -5,6 +5,7 @@ import user from './modules/user'
 import travelAgency from './TravelAgency'
 import ticket from './Ticket'
 import tagsView from './modules/tagsView'
+import hotel from './Hotel'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -15,9 +16,10 @@ const store = new Vuex.Store({
     travelAgency,
     ticket,
     app,
-    user
+    user,
+    hotel
   },
   getters
-})
+});
 
 export default store

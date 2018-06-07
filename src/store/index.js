@@ -18,6 +18,6 @@ const store = new Vuex.Store({
     hotel
   },
   getters
-})
+});
 
 export default store

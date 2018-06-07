@@ -10,7 +10,7 @@ export default {
       }).then(data=>{
         var data = data.data;
         if(Number(data.resultcode)==200){
-          commit('initHotelThemeType',data.data)
+          commit('initHotelThemeType',data.data);
           relove(data.resultcontent)
         }else{
           reject(data.resultcontent)

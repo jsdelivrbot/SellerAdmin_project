@@ -6,7 +6,7 @@ import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'// element-ui lang
 import enLocale from './en'
 import zhLocale from './zh'
 
-Vue.use(VueI18n)
+Vue.use(VueI18n);
 
 const messages = {
   en: {
@@ -17,11 +17,11 @@ const messages = {
     ...zhLocale,
     ...elementZhLocale
   }
-}
+};
 
 const i18n = new VueI18n({
   locale: Cookies.get('language') || 'zh', // set locale
   messages // set locale messages
-})
+});
 
 export default i18n

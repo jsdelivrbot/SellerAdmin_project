@@ -47,7 +47,7 @@ const permission = {
           for(var i=0;i<constantRouterMap.length;i++){
             if(constantRouterMap[i].name=='Travel'){
               console.log(constantRouterMap[i])
-              constantRouterMap[i].hidden = true;
+              constantRouterMap[i].hidden = false;
             }
           }
       }

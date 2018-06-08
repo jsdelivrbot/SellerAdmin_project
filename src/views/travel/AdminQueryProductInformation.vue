@@ -447,7 +447,8 @@
       //点击跳转到产品特色管理
       productCharacteristicManagement(id) {
         this.$store.commit('adminProductCharacteristicManagementId', id);
-        this.$router.push({name: 'AdminProductFeatures'})
+        //this.$router.push({name: 'AdminProductFeatures'})
+        this.$router.push({path: '/travel/AdminProductFeatures'})
         sessionStorage.setItem('index', '3')
       },
       //点击跳转到线路日程管理

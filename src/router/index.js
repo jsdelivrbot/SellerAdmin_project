@@ -94,6 +94,50 @@ export const constantRouterMap = [
         name: 'TicketAttractions',
         component: () => import('@/views/ticket/TicketAttractions'),
         meta: {title: 'ticketAttractions'}
+      },
+      {
+        path: 'ticketMap',
+        name: 'TicketMap',
+        hidden:true,
+        alwaysShow: true,
+        component: () => import('@/views/ticket/TicketMap'),
+        meta: {title: 'ticketMap'}
+      },
+       {
+         path: 'ticketPredeterminedInstructions',
+           name: 'TicketPredeterminedInstructions',
+         component: () => import('@/views/ticket/TicketPredeterminedInstructions'),
+         meta: {title: 'ticketPredeterminedInstructions'}
+       },
+      {
+        path: 'ticketTrafficInformation',
+        name: 'TicketTrafficInformation',
+        component: () => import('@/views/ticket/TicketTrafficInformation'),
+        meta: {title: 'ticketTrafficInformation'}
+      },
+      {
+        path: 'ticketType',
+        name: 'TicketType',
+        component: () => import('@/views/ticket/TicketType'),
+        meta: {title: 'ticketType'}
+      },
+      {
+        path: 'ticketTypeTicketPrice',
+        name: 'TicketTypeTicketPrice',
+        component: () => import('@/views/ticket/TicketTypeTicketPrice'),
+        meta: {title: 'ticketTypeTicketPrice'}
+      },
+      {
+        path: 'ticketQueryOrder',
+        name: 'TicketQueryOrder',
+        component: () => import('@/views/ticket/TicketQueryOrder'),
+        meta: {title: 'ticketQueryOrder'}
+      },
+      {
+        path: 'ticketApplyShowHomePage',
+        name: 'TicketApplyShowHomePage',
+        component: () => import('@/views/ticket/TicketApplyShowHomePage'),
+        meta: {title: 'ticketApplyShowHomePage'}
       }
     ]
   },
@@ -195,11 +239,85 @@ export const constantRouterMap = [
         component: () => import('@/views/hotel/HotelTheme'),
         meta: {title: 'hotelTheme ', icon: 'table'}
       },
+    ]
+  },
+  {
+    path: '/food',
+    component: Layout,
+    name: 'Food',
+    alwaysShow: true,
+    meta: {title: 'food', icon: 'star'},
+    children: [
+      {
+        path: 'foodStoreInformation',
+        name: 'FoodStoreInformation',
+        component: () => import('@/views/food/FoodStoreInformation'),
+        meta: {title: 'foodStoreInformation'}
+      },
+      {
+        path: 'foodStorePicture',
+        name: 'FoodStorePicture',
+        component: () => import('@/views/food/FoodStorePicture'),
+        meta: {title: 'foodStorePicture'}
+      },
+      {
+        path: 'foodStoreRecommend',
+        name: 'FoodStoreRecommend',
+        component: () => import('@/views/food/FoodStoreRecommend'),
+        meta: {title: 'foodStoreRecommend'}
+      }, {
+        path: 'foodStoreProduct',
+        name: 'FoodStoreProduct',
+        component: () => import('@/views/food/FoodStoreProduct'),
+        meta: {title: 'foodStoreProduct'}
+      }, {
+        path: 'foodStoreProductPicture',
+        name: 'FoodStoreProductPicture',
+        component: () => import('@/views/food/FoodStoreProductPicture'),
+        meta: {title: 'foodStoreProductPicture'}
+      }, {
+        path: 'foodStoreRoom',
+        name: 'FoodStoreRoom',
+        component: () => import('@/views/food/FoodStoreRoom'),
+        meta: {title: 'foodStoreRoom'}
+      }, {
+        path: 'foodRoomPicture',
+          name: 'FoodRoomPicture',
+        component: () => import('@/views/food/FoodRoomPicture'),
+        meta: {title: 'foodRoomPicture'}
+      }, {
+        path: 'foodStoreRoomTabel',
+        name: 'FoodStoreRoomTabel',
+        component: () => import('@/views/food/FoodStoreRoomTabel'),
+        meta: {title: 'foodStoreRoomTabel'}
+      }, {
+        path: 'foodStoreTableTime',
+        name: 'FoodStoreTableTime',
+        component: () => import('@/views/food/FoodStoreTableTime'),
+        meta: {title: 'foodStoreTableTime'}
+      }, {
+        path: 'foodStoreOrderingTime',
+        name: 'FoodStoreOrderingTime',
+        component: () => import('@/views/food/FoodStoreOrderingTime'),
+        meta: {title: 'foodStoreOrderingTime'}
+      }, {
+        path: 'foodStoppingPlace',
+        name: 'FoodStoppingPlace',
+        component: () => import('@/views/food/FoodStoppingPlace'),
+        meta: {title: 'foodStoppingPlace'}
+      },{
+        path: 'foodStoreConfirmOrder',
+        name: 'FoodStoreConfirmOrder',
+        component: () => import('@/views/food/FoodStoreConfirmOrder'),
+        meta: {title: 'foodStoreConfirmOrder'}
+      },
+
+
+
 
 
     ]
   },
-
   {path: '*', redirect: '/404', hidden: true}
 ]
 

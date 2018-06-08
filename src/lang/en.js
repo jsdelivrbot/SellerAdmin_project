@@ -8,6 +8,27 @@ export default {
 
     ticket:'Ticket',
     ticketAttractions:'Ticket Attractions',
+    ticketPredeterminedInstructions:'Ticket Predetermined Instructions',
+    ticketTrafficInformation:'Ticket Traffic Information',
+    ticketType:'Ticket Type',
+    ticketTypeTicketPrice:"ticketTypeTicketPrice",
+    ticketQueryOrder:"Ticket Query Order",
+    ticketApplyShowHomePage:"Ticket Apply Show Home Page",
+
+    food:"Food Management",
+    foodStoreInformation:'Food Store Information',
+    foodStorePicture:"Food Store Picture",
+    foodStoreRecommend:'Food Store Recommend',
+    foodStoreProduct:'Food Store Product',
+    foodStoreProductPicture:'Food Store Product Picture',
+    foodStoreRoom:'Food Store Room',
+    foodRoomPicture:'Food Room Picture',
+    foodStoreRoomTabel:"Food Store Room Tabel",
+    foodStoreTableTime:'Food Store Table Time',
+    foodStoreOrderingTime:'Food Store Ordering Time',
+    foodStoppingPlace:"Food Stopping Place",
+    foodStoreConfirmOrder:'Food Store Confirm Order',
+
     hotel:'Hotel',
     hotelDetail:'Hotel Detail',
     hotelConfirmOrder: 'HotelConfirmOrder',
@@ -28,11 +49,9 @@ export default {
     HotelTheme: 'HotelTheme',
 
 
-
-
-
     productLine:'Product Line',
     ProductLineManagement:'Product Line Management',
+
     vendorInformation:'Vendor Information',
     adminMerchantProducts:'Merchant Products',
     permission: 'Permission',

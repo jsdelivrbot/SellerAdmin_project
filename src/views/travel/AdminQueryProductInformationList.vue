@@ -126,7 +126,8 @@
     },
     methods: {
       toLine(){
-        this.$router.push({name:'AdminQueryProductInformation',query:{lineID:this.adminProductLineManagementId}})
+        this.$router.push({path: '/travel/AdminQueryProductInformation',query:{lineID:this.adminProductLineManagementId}})
+        //this.$router.push({name:'AdminQueryProductInformation',query:{lineID:this.adminProductLineManagementId}})
       },
       tab(){
         this.name = this.activeName

@@ -286,7 +286,7 @@
             "loginUserPass": "123",
             "operateUserID": "",
             "operateUserName": "",
-            "tradeID": obj.sm_ai_ID ? obj.sm_ai_ID : '',
+            "tradeID": obj.sm_ui_ID ? obj.sm_ui_ID : '',
             goodTitle: name ? name : '',
             "userID": "",
             "pcName": "",

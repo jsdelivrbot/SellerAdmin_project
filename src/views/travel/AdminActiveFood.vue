@@ -298,14 +298,14 @@
             "rows": 100
           };
           this.$store.dispatch('initAdminTradeGoodList', options)
-          .then((data) => {
-            relove(data)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+            .then((data) => {
+              relove(data)
+            }, err => {
+              this.$notify({
+                message: err,
+                type: 'error'
+              });
+            })
         })
       },
       querySearchAsync(queryString, cb) {
@@ -369,13 +369,13 @@
           "goodID": this.TimeID? this.TimeID : ''
         };
         this.$store.dispatch('initAdminTimeActivities', initScheduleTimeOptions)
-        .then(() => {
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(() => {
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //初始化数据
       initData(id) {

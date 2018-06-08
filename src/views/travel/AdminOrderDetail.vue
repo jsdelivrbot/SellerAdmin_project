@@ -55,7 +55,7 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "tradeID": admin.sm_ai_ID,//商户编码
+          "tradeID": admin.sm_ui_ID,//商户编码
           "page": page?page:1,
           "rows": 20
         };

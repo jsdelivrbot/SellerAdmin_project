@@ -1,6 +1,6 @@
-import axios from 'axios'
-import {postPromise} from '@/assets/js/public'
-import {adminSupplier} from '@/api/agencies'
+// import axios from 'axios'
+// import {postPromise} from '@/assets/js/public'
+// import {adminSupplier} from '@/api/agencies'
 export default {
   //美食房间图片上传
   foodUploadAdminImgs(store, data) {

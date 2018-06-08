@@ -1,7 +1,7 @@
 /**
  * Created by liuxiang on 18/05/03.
  */
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   /************************************************微电影审核表********************************************************************/

@@ -1,9 +1,9 @@
 /**
  * Created by leibo on 18/1/2.
  */
-import axios from 'axios'
+// import axios from 'axios'
 import {postPromise} from '@/assets/js/public'
-import {adminSupplier} from '@/api/agencies'
+// import {adminSupplier} from '@/api/agencies'
 
 export default {
 
@@ -1668,35 +1668,40 @@ export default {
   },
   //初始化供应商信息
   initAdminSupplier({commit}, data) {
-    return new Promise( (relove, reject) =>{
-      adminSupplier(data).then(response => {
-          var data = response.data;
-          if (Number(data.resultcode) == 200) {
-            let resulte = data.data
-            for (var i = 0; i < resulte.length; i++) {
-              if (resulte[i].sm_ai_CertImage) {
-                resulte[i].sm_ai_CertImage = resulte[i].sm_ai_CertImage.split(',')
-              } else {
-                resulte[i].sm_ai_CertImage = []
-              }
-              if (data.data[i].sm_ai_OtherImage) {
-                resulte[i].sm_ai_OtherImage = resulte[i].sm_ai_OtherImage.split(',')
-              } else {
-                resulte[i].sm_ai_OtherImage = []
-              }
-              if (data.data[i].sm_ai_FeeImage) {
-                resulte[i].sm_ai_FeeImage = resulte[i].sm_ai_FeeImage.split(',')
-              } else {
-                resulte[i].sm_ai_FeeImage = []
-              }
+    return new Promise(function (relove, reject) {
+      axios.post('http://webservice.1000da.com.cn/AgentInfo/Select', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(data => {
+        var data = data.data;
+        if (Number(data.resultcode) == 200) {
+          let resulte = data.data
+          for (var i = 0; i < resulte.length; i++) {
+            if (resulte[i].sm_ai_CertImage) {
+              resulte[i].sm_ai_CertImage = resulte[i].sm_ai_CertImage.split(',')
+            } else {
+              resulte[i].sm_ai_CertImage = []
             }
-            commit('initAdminSupplier', data.data)
-
-            relove(data.data)
-          } else {
-            reject(data.resultcontent)
+            if (data.data[i].sm_ai_OtherImage) {
+              resulte[i].sm_ai_OtherImage = resulte[i].sm_ai_OtherImage.split(',')
+            } else {
+              resulte[i].sm_ai_OtherImage = []
+            }
+            if (data.data[i].sm_ai_FeeImage) {
+              resulte[i].sm_ai_FeeImage = resulte[i].sm_ai_FeeImage.split(',')
+            } else {
+              resulte[i].sm_ai_FeeImage = []
+            }
           }
-        })
+          commit('initAdminSupplier', data.data)
+
+          relove(data.data)
+        } else {
+          reject(data.resultcontent)
+        }
+      })
     })
   },
   // //经营范围

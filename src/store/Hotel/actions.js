@@ -1,4 +1,4 @@
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   //惠乐游酒店主题类别
   initHotelThemeType({commit},data){

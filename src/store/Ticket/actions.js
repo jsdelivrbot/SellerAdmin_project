@@ -1,9 +1,9 @@
 /**
  * Created by leibo on 18/3/29.
  */
-import axios from 'axios'
-import {postPromise} from '@/assets/js/public'
-import {adminSupplier} from '@/api/agencies'
+// import axios from 'axios'
+// import {postPromise} from '@/assets/js/public'
+// import {adminSupplier} from '@/api/agencies'
 
 export default {
   //查询景点主题分类信息

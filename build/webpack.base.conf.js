@@ -99,6 +99,9 @@ module.exports = {
     child_process: 'empty'
   },
   externals: {
-    'vue': 'Vue'
+    'vue': 'Vue',
+    'axios':'axios',
+    'element-ui':'ELEMENT',
+    'vue-i18n':'VueI18n'
   },
 }

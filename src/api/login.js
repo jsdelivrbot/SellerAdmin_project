@@ -1,5 +1,4 @@
-import request from '@/utils/request'
-import axios from 'axios'
+// import axios from 'axios'
 
 export function login(userInfo) {
   return axios({
@@ -12,17 +11,3 @@ export function login(userInfo) {
   })
 }
 
-export function getInfo(token) {
-  return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
-  })
-}
-
-export function logout() {
-  return request({
-    url: '/user/logout',
-    method: 'post'
-  })
-}

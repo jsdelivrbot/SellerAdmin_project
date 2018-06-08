@@ -511,6 +511,7 @@
         .then(userInfo => {
           this.isLoading = false;
         }, err => {
+          console.log(err)
           this.$notify({
             message: err,
             type: 'error'

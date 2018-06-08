@@ -833,7 +833,7 @@
       this.$store.dispatch('initProvice', sCity)
       let obj = JSON.parse(sessionStorage.getItem('admin'));
       this.userObj = obj;
-      this.productsID = obj.sm_ai_ID
+      this.productsID = obj.sm_ui_ID
     },
     methods: {
       //查询很多

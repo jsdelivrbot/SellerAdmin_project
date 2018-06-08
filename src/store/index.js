@@ -9,6 +9,7 @@ import tagsView from './modules/tagsView'
 import hotel from './Hotel'
 import adverts from './adverts'
 import movie from './movie'
+import car from './Car'
 import permission from './modules/permission'
 import getters from './getters'
 
@@ -25,6 +26,7 @@ const store = new Vuex.Store({
     hotel,
     adverts,
     movie,
+    car,
     food
 
   },

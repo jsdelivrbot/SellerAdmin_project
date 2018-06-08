@@ -57,6 +57,15 @@ export default {
     vMovieVideoCategories:'微电影视频分类',
     vMovieVideoSeries:'微电影视频系列',
 
+    car:'租车后台管理',
+    carCompanyCar:'租车公司汽车管理',
+    carConfirmOrder:'租车确认订单',
+    carHome:'租车公司基本信息',
+    carOrderDetails:'租车订单明细',
+    carPreferentialPolicies:'租车优惠政策管理',
+    carProduct:'租车汽车产品管理',
+    carStore:'租车门店管理',
+
     documentation: '文档',
     guide: '引导页',
     VendorInformation:'供应商信息',

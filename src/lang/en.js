@@ -61,6 +61,14 @@ export default {
     VMovieVideoCategories: 'VMovieVideoCategories',
     VMovieVideoSeries: 'VMovieVideoSeries',
 
+    Car: 'Car',
+    CarConfirmOrder: 'CarConfirmOrder',
+    CarHome: 'CarHome',
+    CarOrderDetails: 'CarOrderDetails',
+    CarPreferentialPolicies: 'CarPreferentialPolicies',
+    CarProduct: 'CarProduct',
+    CarStore: 'CarStore',
+
     productLine:'Product Line',
     ProductLineManagement:'Product Line Management',
 

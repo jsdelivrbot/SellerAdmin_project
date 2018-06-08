@@ -398,6 +398,61 @@ export const constantRouterMap = [
     ]
   },
   /**
+   *  租车
+   **/
+  {
+    path: '/car',
+    component: Layout,
+    name: 'Car',
+    redirect: '/car/CarCompanyCar',
+    // alwaysShow: false,
+    meta: {title: 'car', icon: 'example'},
+    children: [
+      {
+        path: 'carCompanyCar',
+        name: 'CarCompanyCar',
+        component: () => import('@/views/car/CarCompanyCar'),
+        meta: {title: 'carCompanyCar '}
+      },
+      {
+        path: 'carConfirmOrder',
+        name: 'CarConfirmOrder',
+        component: () => import('@/views/car/CarConfirmOrder'),
+        meta: {title: 'carConfirmOrder '}
+      },
+      {
+        path: 'carHome',
+        name: 'CarHome',
+        component: () => import('@/views/car/CarHome'),
+        meta: {title: 'carHome '}
+      },
+      {
+        path: 'carOrderDetails',
+        name: 'CarOrderDetails',
+        component: () => import('@/views/car/CarOrderDetails'),
+        meta: {title: 'carOrderDetails '}
+      },
+      {
+        path: 'carPreferentialPolicies',
+        name: 'CarPreferentialPolicies',
+        component: () => import('@/views/car/CarPreferentialPolicies'),
+        meta: {title: 'carPreferentialPolicies '}
+      },
+      {
+        path: 'carStore',
+        name: 'CarStore',
+        component: () => import('@/views/car/CarStore'),
+        meta: {title: 'carStore '}
+      },
+      /*      {
+              path: 'carProduct',
+              name: 'CarProduct',
+              component: () => import('@/views/car/CarProduct'),
+              meta: {title: 'carProduct '}
+            },*/
+    ]
+  },
+  /**
    *  404
    **/
   {path: '*', redirect: '/404', hidden: true}

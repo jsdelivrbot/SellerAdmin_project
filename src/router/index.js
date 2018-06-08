@@ -167,92 +167,94 @@ export const constantRouterMap = [
         path: 'hotelDetil',
         name: 'HotelDetil',
         component: () => import('@/views/hotel/HotelDetil'),
-        meta: {title: 'hotelDetail ', icon: 'table'}
+        meta: {title: 'hotelDetail '}
       },
       {
         path: 'hotelConfirmOrder',
         name: 'HotelConfirmOrder',
         component: () => import('@/views/hotel/HotelConfirmOrder'),
-        meta: {title: 'hotelConfirmOrder ', icon: 'table'}
+        meta: {title: 'hotelConfirmOrder '}
       },
       {
         path: 'hotelFacilitiesServices',
         name: 'HotelFacilitiesServices',
         component: () => import('@/views/hotel/HotelFacilitiesServices'),
-        meta: {title: 'hotelFacilitiesServices ', icon: 'table'}
+        meta: {title: 'hotelFacilitiesServices '}
       },
       {
         path: 'hotelIcon',
         name: 'HotelIcon',
         component: () => import('@/views/hotel/HotelIcon'),
-        meta: {title: 'hotelIcon ', icon: 'table'}
+        meta: {title: 'hotelIcon '}
       },
       {
         path: 'hotelImage',
         name: 'HotelImage',
         component: () => import('@/views/hotel/HotelImage'),
-        meta: {title: 'hotelImage ', icon: 'table'}
+        meta: {title: 'hotelImage '}
       },
       {
         path: 'hotelLotRoomNumber',
         name: 'HotelLotRoomNumber',
         component: () => import('@/views/hotel/HotelLotRoomNumber'),
-        meta: {title: 'hotelLotRoomNumber ', icon: 'table'}
+        meta: {title: 'hotelLotRoomNumber '}
       },
       {
         path: 'hotelOrderDetails',
         name: 'HotelOrderDetails',
         component: () => import('@/views/hotel/HotelOrderDetails'),
-        meta: {title: 'hotelOrderDetails ', icon: 'table'}
+        meta: {title: 'hotelOrderDetails '}
       },
       {
         path: 'hotelPolicy',
         name: 'HotelPolicy',
         component: () => import('@/views/hotel/HotelPolicy'),
-        meta: {title: 'hotelPolicy ', icon: 'table'}
+        meta: {title: 'hotelPolicy '}
       },
       {
         path: 'hotelQueryRecommend',
         name: 'HotelQueryRecommend',
         component: () => import('@/views/hotel/HotelQueryRecommend'),
-        meta: {title: 'hotelQueryRecommend ', icon: 'table'}
+        meta: {title: 'hotelQueryRecommend '}
       },
       {
         path: 'hotelRoom',
         name: 'HotelRoom',
         component: () => import('@/views/hotel/HotelRoom'),
-        meta: {title: 'hotelRoom ', icon: 'table'}
+        meta: {title: 'hotelRoom '}
       },
       {
         path: 'hotelRoomEntity',
         name: 'HotelRoomEntity',
         component: () => import('@/views/hotel/HotelRoomEntity'),
-        meta: {title: 'hotelRoomEntity ', icon: 'table'}
+        meta: {title: 'hotelRoomEntity '}
       },
       {
         path: 'hotelRoomNumber',
         name: 'HotelRoomNumber',
         component: () => import('@/views/hotel/HotelRoomNumber'),
-        meta: {title: 'hotelRoomNumber ', icon: 'table'}
+        meta: {title: 'hotelRoomNumber '}
       },
       {
         path: 'hotelRoomProduct',
         name: 'HotelRoomProduct',
         component: () => import('@/views/hotel/HotelRoomProduct'),
-        meta: {title: 'hotelRoomProduct ', icon: 'table'}
+        meta: {title: 'hotelRoomProduct '}
       },
       {
         path: 'hotelRoomRoomFacilities',
         name: 'HotelRoomRoomFacilities',
         component: () => import('@/views/hotel/HotelRoomRoomFacilities'),
-        meta: {title: 'hotelRoomRoomFacilities ', icon: 'table'}
+        meta: {title: 'hotelRoomRoomFacilities '}
       },
       {
         path: 'hotelTheme',
         name: 'HotelTheme',
         component: () => import('@/views/hotel/HotelTheme'),
-        meta: {title: 'hotelTheme ', icon: 'table'}
+        meta: {title: 'hotelTheme '}
       },
+
+
     ]
   },
   /**

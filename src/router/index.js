@@ -97,6 +97,7 @@ export const constantRouterMap = [
     path: '/ticket',
     component: Layout,
     name: 'Ticket',
+    hidden: true,
      alwaysShow: true,
     meta: {title: 'ticket', icon: 'tab'},
     children: [
@@ -159,6 +160,7 @@ export const constantRouterMap = [
     path: '/hotel',
     component: Layout,
     name: 'Hotel',
+    hidden:true,
     redirect: '/hotel/hotelDetil',
     // alwaysShow: false,
     meta: {title: 'hotel', icon: 'example'},
@@ -264,6 +266,7 @@ export const constantRouterMap = [
     path: '/food',
     component: Layout,
     name: 'Food',
+    hidden:true,
     alwaysShow: true,
     meta: {title: 'food', icon: 'star'},
     children: [
@@ -344,6 +347,7 @@ export const constantRouterMap = [
     path: '/movie',
     component: Layout,
     name: 'Movie',
+    hidden:true,
     redirect: '/movie/vMovieCheckTable',
     // alwaysShow: false,
     meta: {title: 'movie', icon: 'example'},
@@ -406,6 +410,7 @@ export const constantRouterMap = [
     path: '/car',
     component: Layout,
     name: 'Car',
+    hidden:true,
     redirect: '/car/CarCompanyCar',
     // alwaysShow: false,
     meta: {title: 'car', icon: 'example'},
@@ -446,12 +451,12 @@ export const constantRouterMap = [
         component: () => import('@/views/car/CarStore'),
         meta: {title: 'carStore '}
       },
-      /*      {
-              path: 'carProduct',
-              name: 'CarProduct',
-              component: () => import('@/views/car/CarProduct'),
-              meta: {title: 'carProduct '}
-            },*/
+       {
+          path: 'carProduct',
+          name: 'CarProduct',
+          component: () => import('@/views/car/CarProduct'),
+          meta: {title: 'carProduct'}
+        },
     ]
   },
   /**

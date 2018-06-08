@@ -6572,10 +6572,6 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
-vue@2.5.10:
-  version "2.5.10"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.10.tgz#dcd772e2594ba994145f2f09522149d9a1e7841a"
-
 vuex@3.0.1:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/vuex/download/vuex-3.0.1.tgz#e761352ebe0af537d4bb755a9b9dc4be3df7efd2"

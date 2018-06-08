@@ -66,7 +66,6 @@ export default {
       })
         .then(data => {
           var data = data.data;
-          console.log(data)
           if (Number(data.resultcode) == 200) {
             commit('initHotelProvinceData', data.data)
             relove()

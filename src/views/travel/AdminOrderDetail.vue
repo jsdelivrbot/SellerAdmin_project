@@ -59,7 +59,6 @@
           "page": page?page:1,
           "rows": 20
         };
-        console.log(options)
       },
       //查询
       search(){

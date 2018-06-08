@@ -877,7 +877,7 @@
               this.updateAdminMerchantProductsObj.backRule = data
             })
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.backRuleList.push({
@@ -908,7 +908,7 @@
           .then(()=>{
             this.updateBackRuleListDialog = false;
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.updateBackRuleListDialog = false;
@@ -934,7 +934,7 @@
               this.updateAdminMerchantProductsObj.backRule = data
             })
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.backRuleList = this.backRuleList.filter((item,v)=>{
@@ -977,7 +977,7 @@
               this.updateAdminMerchantProductsObj.bookKnow = data
             })
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.bookList.push({
@@ -1008,7 +1008,7 @@
           .then(()=>{
             this.updateBookListDialog = false;
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.updateBookListDialog = false;
@@ -1034,7 +1034,7 @@
               this.updateAdminMerchantProductsObj.bookKnow = data
             })
           },err=>{
-            console.log(err)
+
           })
         }
         else{
@@ -1077,7 +1077,7 @@
               this.updateAdminMerchantProductsObj.feeNotIn = data
             })
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.feeNotInList.push({
@@ -1108,7 +1108,7 @@
           .then(()=>{
             this.updateFeeInNotListDialog = false;
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.updateFeeInNotListDialog = false;
@@ -1134,7 +1134,7 @@
               this.updateAdminMerchantProductsObj.feeNotIn = data
             })
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.feeNotInList = this.feeNotInList.filter((item,v)=>{
@@ -1178,7 +1178,7 @@
               this.updateAdminMerchantProductsObj.feeIn = data
             })
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.feeInfoList.push({
@@ -1210,7 +1210,7 @@
           .then(()=>{
             this.updateFeeInfoListDialog = false;
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.updateFeeInfoListDialog = false;
@@ -1237,7 +1237,7 @@
               this.updateAdminMerchantProductsObj.feeIn = data
             })
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.feeInfoList = this.feeInfoList.filter((item,v)=>{
@@ -1276,7 +1276,7 @@
               this.updateAdminMerchantProductsObj.goodIntroduce = data
             })
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.goodIntroduce.push({
@@ -1307,7 +1307,7 @@
           .then(()=>{
             this.updateGoodIntroduceDialog = false;
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.updateGoodIntroduceDialog = false;
@@ -1334,7 +1334,7 @@
               this.updateAdminMerchantProductsObj.goodIntroduce = data
             })
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.goodIntroduce = this.goodIntroduce.filter((item,v)=>{
@@ -1374,7 +1374,7 @@
               this.updateAdminMerchantProductsObj.buyReason = data
             })
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.buyReason.push({
@@ -1406,7 +1406,7 @@
           .then(()=>{
             this.updateBuyReasonDialog = false;
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.updateBuyReasonDialog = false;
@@ -1432,7 +1432,7 @@
               this.updateAdminMerchantProductsObj.buyReason = data
             })
           },err=>{
-            console.log(err)
+
           })
         }else{
           this.buyReason = this.buyReason.filter((item,v)=>{

@@ -142,7 +142,7 @@
           </el-form-item>
           <!--<el-form-item label="城市编码:" :label-width="formLabelWidth">-->
             <!--<el-input v-model="updateAdminRouteDepartureCityObj.ts_cc_Code" placeholder="请输入城市编码"></el-input>-->
-          </el-form-item>
+          <!--</el-form-item>-->
           <el-form-item label="城市:" :label-width="formLabelWidth">
             <el-select v-model="provice" placeholder="请选择省份" @change="changeProvice">
               <el-option

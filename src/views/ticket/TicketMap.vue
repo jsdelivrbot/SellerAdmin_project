@@ -286,7 +286,6 @@
       UpLoadvideo() {
         var fd = new FormData();
         fd.append("fileUploadOss", this.$refs.UpLoad.files[0])
-        console.log(2331,this.$refs.UpLoad.files[0])
         let VideoName=this.$refs.UpLoad.files[0].name
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "http://image.1000da.com.cn/PostImage/PostToOSS");
@@ -334,7 +333,6 @@
             this.addOptions.data.tm_se_Image=obj.data;
             this.updateOptions.data.tm_se_Image=obj.data;
             item.onSuccess('配时文件上传成功')
-            console.log(obj)
           }
         }
       },

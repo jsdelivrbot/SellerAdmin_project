@@ -46,7 +46,7 @@ const permission = {
         case 2:
           for(var i=0;i<constantRouterMap.length;i++){
             if(constantRouterMap[i].name=='Travel'){
-              console.log(constantRouterMap[i])
+
               constantRouterMap[i].hidden = false;
             }
           }

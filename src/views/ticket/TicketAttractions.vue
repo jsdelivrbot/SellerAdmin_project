@@ -625,7 +625,6 @@
     methods: {
       //添加地图导览
       AddMap(id){
-        console.log(id)
         this.$router.push({path: '/ticket/TicketMap',query:{id:id}})
        // this.$router.push({name:'TicketMap',query:{id:id}})
       },
@@ -660,7 +659,6 @@
                   })
                     .then(data => {
                       if (data) {
-                        console.log(data)
                         this.ImageURL.push(data.data);
                       } else {
                         this.$notify({
@@ -801,7 +799,6 @@
       //添加提交
       addSubmit() {
         this.addOptions.tm_ts_ShowImage = this.ImageURL.join(',');
-        console.log(this.addOptions.tm_ts_ShowImage)
         let insertTourSite = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",

@@ -378,7 +378,7 @@
             this.isShow = false
           }
         }, err => {
-          console.log(err)
+
           this.$notify({
             message: err,
             type: 'error'

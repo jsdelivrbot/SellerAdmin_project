@@ -57,7 +57,7 @@ router.beforeEach((to, from, next) => {
       NProgress.done()
       return
     }else{
-      console.log(to)
+    //  console.log(to)
       store.commit('GenerateRoutes',admin.sm_ui_RoleID)
       // let roles = ['admin','editor','develop']
       // store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
@@ -68,7 +68,7 @@ router.beforeEach((to, from, next) => {
     next((response)=>{
       NProgress.done();
     });
-    console.log(to)
+   // console.log(to)
   }
 })
 

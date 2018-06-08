@@ -161,7 +161,7 @@ export const constantRouterMap = [
     name: 'Hotel',
     redirect: '/hotel/hotelDetil',
     // alwaysShow: false,
-    meta: {title: 'hotel', icon: 'example'},
+    meta: {title: 'hotel', icon: 'chart'},
     children: [
       {
         path: 'hotelDetil',
@@ -408,7 +408,7 @@ export const constantRouterMap = [
     name: 'Car',
     redirect: '/car/CarCompanyCar',
     // alwaysShow: false,
-    meta: {title: 'car', icon: 'example'},
+    meta: {title: 'car', icon: 'shoppingCard'},
     children: [
       {
         path: 'carCompanyCar',
@@ -458,7 +458,7 @@ export const constantRouterMap = [
    *  404
    **/
   {path: '*', redirect: '/404', hidden: true}
-]
+];
 
 export default new Router({
   // mode: 'history', //后端支持可开

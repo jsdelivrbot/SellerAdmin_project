@@ -48,6 +48,18 @@ export default {
     HotelRoomRoomFacilities: 'HotelRoomRoomFacilities',
     HotelTheme: 'HotelTheme',
 
+    AdApply: 'AdApply',
+    Adverts: 'Adverts',
+
+    Movie: 'Movie',
+    VMovieCheckTable: 'VMovieCheckTable',
+    VMovieMiniMovie: 'VMovieMiniMovie',
+    VMovieSeries: 'VMovieSeries',
+    VMovieSeriesCategories: 'VMovieSeriesCategories',
+    VMovieSorting: 'VMovieSorting',
+    VMovieVideo: 'VMovieVideo',
+    VMovieVideoCategories: 'VMovieVideoCategories',
+    VMovieVideoSeries: 'VMovieVideoSeries',
 
     productLine:'Product Line',
     ProductLineManagement:'Product Line Management',

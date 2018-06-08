@@ -336,6 +336,68 @@ export const constantRouterMap = [
     ]
   },
   /**
+   *  微电影
+   **/
+  {
+    path: '/movie',
+    component: Layout,
+    name: 'Movie',
+    redirect: '/movie/vMovieCheckTable',
+    // alwaysShow: false,
+    meta: {title: 'movie', icon: 'example'},
+    children: [
+      {
+        path: 'vMovieCheckTable',
+        name: 'VMovieCheckTable',
+        component: () => import('@/views/movie/VMovieCheckTable'),
+        meta: {title: 'vMovieCheckTable '}
+      },
+      {
+        path: 'vMovieMiniMovie',
+        name: 'VMovieMiniMovie',
+        component: () => import('@/views/movie/VMovieMiniMovie'),
+        meta: {title: 'vMovieMiniMovie '}
+      },
+      {
+        path: 'vMovieSeries',
+        name: 'VMovieSeries',
+        component: () => import('@/views/movie/VMovieSeries'),
+        meta: {title: 'vMovieSeries '}
+      },
+      {
+        path: 'vMovieSeriesCategories',
+        name: 'VMovieSeriesCategories',
+        component: () => import('@/views/movie/VMovieSeriesCategories'),
+        meta: {title: 'vMovieSeriesCategories '}
+      },
+      {
+        path: 'vMovieSorting',
+        name: 'VMovieSorting',
+        component: () => import('@/views/movie/VMovieSorting'),
+        meta: {title: 'vMovieSorting '}
+      },
+      {
+        path: 'vMovieVideo',
+        name: 'VMovieVideo',
+        component: () => import('@/views/movie/VMovieVideo'),
+        meta: {title: 'vMovieVideo '}
+      },
+      {
+        path: 'vMovieVideoCategories',
+        name: 'VMovieVideoCategories',
+        component: () => import('@/views/movie/VMovieVideoCategories'),
+        meta: {title: 'vMovieVideoCategories '}
+      },
+      {
+        path: 'vMovieVideoSeries',
+        name: 'VMovieVideoSeries',
+        component: () => import('@/views/movie/VMovieVideoSeries'),
+        meta: {title: 'vMovieVideoSeries '}
+      },
+
+    ]
+  },
+  /**
    *  404
    **/
   {path: '*', redirect: '/404', hidden: true}

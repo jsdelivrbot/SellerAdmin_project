@@ -44,6 +44,19 @@ export default {
     foodStoppingPlace:"美食停车场",
     foodStoreConfirmOrder:'美食订单管理',
 
+    adApply:'广告申请管理',
+    adverts:'广告后台管理',
+
+    movie:'微电影后台管理',
+    vMovieCheckTable:'微电影审核表',
+    vMovieMiniMovie:'微电影',
+    vMovieSeries:'微电影系列',
+    vMovieSeriesCategories:'微电影系列分类',
+    vMovieSorting:'微电影分类',
+    vMovieVideo:'微电影视频',
+    vMovieVideoCategories:'微电影视频分类',
+    vMovieVideoSeries:'微电影视频系列',
+
     documentation: '文档',
     guide: '引导页',
     VendorInformation:'供应商信息',

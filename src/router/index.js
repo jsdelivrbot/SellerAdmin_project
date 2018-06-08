@@ -54,6 +54,7 @@ export const constantRouterMap = [
     path: '/travel',
     component: Layout,
     name: 'Travel',
+    hidden:true,
     // alwaysShow: false,
     meta: {title: 'travel', icon: 'example'},
     children: [

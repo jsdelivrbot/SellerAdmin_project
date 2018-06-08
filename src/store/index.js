@@ -6,6 +6,7 @@ import travelAgency from './TravelAgency'
 import ticket from './Ticket'
 import tagsView from './modules/tagsView'
 import hotel from './Hotel'
+import permission from './modules/permission'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -15,6 +16,7 @@ const store = new Vuex.Store({
     tagsView,
     travelAgency,
     ticket,
+    permission,
     app,
     user,
     hotel

@@ -76,6 +76,9 @@
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'));
       if(!this.userInfo){
         this.$router.push({ name:'Login' });
+        setTimeout(()=>{
+          location.reload()
+        },200)
         return
       }
     },

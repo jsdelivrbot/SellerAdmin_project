@@ -26,7 +26,9 @@ export const constantRouterMap = [
   { path: '/login',name:'Login', component: _import('login/index'), hidden: true },
   {path: '/404', component: () => import('@/views/404'), hidden: true},
   { path: '/', component: _import('login/index'), hidden: true },
-
+  /**
+   *  首页
+   **/
   {
     path: '',
     component: Layout,
@@ -38,6 +40,9 @@ export const constantRouterMap = [
       meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
     }]
   },
+  /**
+   *  旅行社
+   **/
   {
     path: '/travelAgency',
     component: Layout,
@@ -50,6 +55,9 @@ export const constantRouterMap = [
       }
     ]
   },
+  /**
+   *  旅游
+   **/
   {
     path: '/travel',
     component: Layout,
@@ -82,6 +90,9 @@ export const constantRouterMap = [
       }
     ]
   },
+  /**
+   *  门票
+   **/
   {
     path: '/ticket',
     component: Layout,
@@ -141,6 +152,9 @@ export const constantRouterMap = [
       }
     ]
   },
+  /**
+   *  酒店
+   **/
   {
     path: '/hotel',
     component: Layout,
@@ -241,6 +255,9 @@ export const constantRouterMap = [
       },
     ]
   },
+  /**
+   *  美食
+   **/
   {
     path: '/food',
     component: Layout,
@@ -318,6 +335,9 @@ export const constantRouterMap = [
 
     ]
   },
+  /**
+   *  404
+   **/
   {path: '*', redirect: '/404', hidden: true}
 ]
 

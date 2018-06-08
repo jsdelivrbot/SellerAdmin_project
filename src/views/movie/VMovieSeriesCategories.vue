@@ -445,7 +445,7 @@
         this.$store.commit('setTranstionFalse');
       },
       updateSubmit() {
-        console.log(this.VMovieSeriesCategoriesUpdateObj)
+     //   console.log(this.VMovieSeriesCategoriesUpdateObj)
         this.$store.dispatch("updateVMovieSeriesCategories", this.VMovieSeriesCategoriesUpdateObj)
           .then(
             (suc) => {

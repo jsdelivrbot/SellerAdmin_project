@@ -443,7 +443,7 @@
                           this.updateAdminLinePrepareObj.activityImage = data
                         })
                       },err=>{
-                        console.log(err)
+                       // console.log(err)
                       })
                     } else {
                       this.$notify({
@@ -477,7 +477,7 @@
             this.updateAdminLinePrepareObj.activityImage = data
           })
         },err=>{
-          console.log(err)
+          //console.log(err)
         })
       },
       //查询很多
@@ -521,7 +521,7 @@
               this.updateAdminLinePrepareObj.activityContentList = data
             })
           },err=>{
-            console.log(err)
+           // console.log(err)
           })
         }else{
           this.addOptions.activityContent.push({
@@ -551,7 +551,7 @@
           .then(()=>{
             this.updateActivityContentDialog = false;
           },err=>{
-            console.log(err)
+           // console.log(err)
           })
         }else{
           this.updateActivityContentDialog = false;
@@ -578,7 +578,7 @@
               this.updateAdminLinePrepareObj.activityContentList = data
             })
           },err=>{
-            console.log(err)
+            //console.log(err)
           })
         }else{
           this.addOptions.activityContent =  this.addOptions.activityContent.filter((item,v)=>{

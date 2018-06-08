@@ -592,7 +592,7 @@
           }
 
         };
-        console.log(updateOptions)
+       // console.log(updateOptions)
         updateOptions.data.sm_aa_Image = this.ImageURL1.join(',');
         this.$store.dispatch('UpdateAdApplyObj',updateOptions)
           .then((suc)=>{

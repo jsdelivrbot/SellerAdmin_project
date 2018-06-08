@@ -162,7 +162,7 @@
       'carCompaniesList'
     ]),
     created() {
-      this.agentID = JSON.parse(sessionStorage.getItem('admin')).sm_ai_AgentID
+      this.agentID = JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID
       this.addOptions.data.cr_h_AgentId = this.agentID;
       this.initData()
     },
@@ -246,6 +246,7 @@
             this.isShow = false
           }
         }, err => {
+          console.log(err)
           this.$notify({
             message: err,
             type: 'error'

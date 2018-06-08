@@ -1,7 +1,7 @@
 /**
  * Created by leibo on 18/4/25.
  */
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   //上传图片

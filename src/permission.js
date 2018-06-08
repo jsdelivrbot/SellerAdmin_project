@@ -58,7 +58,7 @@ router.beforeEach((to, from, next) => {
       return
     }else{
     //  console.log(to)
-      store.commit('GenerateRoutes',admin.sm_ui_RoleID)
+      store.commit('GenerateRoutes',admin.sm_ui_PartnerType)
       // let roles = ['admin','editor','develop']
       // store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
       //   // router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表

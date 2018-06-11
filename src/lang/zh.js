@@ -2,7 +2,7 @@ export default {
   route: {
     dashboard: '首页',
     introduction: '简述',
-    hotel:'酒店台管理',
+    hotel:'酒店后台管理',
     hotelDetail:'酒店基本信息',
     hotelConfirmOrder:'酒店确认订单',
     hotelFacilitiesServices:'酒店设施服务',

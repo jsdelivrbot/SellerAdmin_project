@@ -344,7 +344,7 @@
           "pcName": "",
           "tm_ts_Code": "",    //景点编码
           "tm_ts_Name": "",//景点名称
-          "tm_ts_TradeInfoID": this.loginId.sm_ai_ID,//供应商编码
+          "tm_ts_TradeInfoID": this.loginId.sm_ui_ID,//供应商编码
           "tm_ts_IsDelete": 0,//必须传
           "tm_ts_IsPass": "",//是否通过审核(0审核中1通过审核2未通过审核)
           "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
@@ -366,7 +366,7 @@
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "tm_ts_Code": id ? id : '',
-          "tm_tt_TradeInfoID": this.loginId.sm_ai_ID,
+          "tm_tt_TradeInfoID": this.loginId.sm_ui_ID,
           "tm_tt_IsDelete": 0,
           "page": num ? num : 1,
           "rows": 5
@@ -394,7 +394,7 @@
       },
       //添加提交
       addSubmit() {
-        this.addOptions.tm_tt_TradeInfoID = this.loginId.sm_ai_ID;
+        this.addOptions.tm_tt_TradeInfoID = this.loginId.sm_ui_ID;
         this.addOptions.tm_tt_Image = this.ImageURL.join(',');
         let insertTicketType = {
           "loginUserID": "huileyou",

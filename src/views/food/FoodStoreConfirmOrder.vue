@@ -215,7 +215,7 @@
           "fd_or_UserName": "",//用户名称
           "priceFrom": "",//订单价格范围
           "priceTo": "",//订单价格范围
-          "fd_or_TouristTraderID": this.userInfo.sm_ai_ID,//供应商编码
+          "fd_or_TouristTraderID": this.userInfo.sm_ui_ID,//供应商编码
           "fd_or_Password": "",//凭证码查订单
           "fd_or_OutStatus": outStatusId,//出票状态 0未出票 1已出票
           "fd_or_Phone": "",//手机号

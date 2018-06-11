@@ -364,7 +364,7 @@
           "priceFrom": "",//人均价格大于
           "priceTo": "",//人均价格小于
           "fd_sf_Phone": "",//联系电话
-          "fd_sf_TradeID": this.userInfo.sm_ai_ID,//供应商编码
+          "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
           "page": num ? num : 1,
           "rows": "5",
         };
@@ -388,7 +388,7 @@
       add() {
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        this.addOptions.fd_sf_TradeID = this.userInfo.sm_ai_ID;
+        this.addOptions.fd_sf_TradeID = this.userInfo.sm_ui_ID;
       },
 //      添加提交
       addSubmit() {

@@ -253,7 +253,7 @@
           "pcName": "",
           "tm_ts_Code": "",
           "tm_ts_Name": "",
-          "tm_ts_TradeInfoID": this.loginId.sm_ai_ID,
+          "tm_ts_TradeInfoID": this.loginId.sm_ui_ID,
           "tm_ts_IsDelete": 0,
           "tm_ts_IsPass": "",
           "tm_ts_ShowTop": "",
@@ -273,7 +273,7 @@
           "operateUserName": "",
           "pcName": "",
           "tm_ts_Code": id ? id : '',
-          "tm_tt_TradeInfoID": this.loginId.sm_ai_ID,
+          "tm_tt_TradeInfoID": this.loginId.sm_ui_ID,
           "tm_tt_IsDelete": 0,
           "page": 1,
           "rows": 1000

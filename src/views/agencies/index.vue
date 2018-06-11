@@ -14,7 +14,7 @@
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="供应商编号:">
-                <span>{{ props.row.sm_ai_ID }}</span>
+                <span>{{ props.row.sm_ui_ID }}</span>
               </el-form-item>
               <!--<el-form-item label="供应商商户号:">-->
               <!--<span>{{ props.row.agentInfo.sm_ai_AgentID }}</span>-->
@@ -105,7 +105,7 @@
         </el-table-column>
         <el-table-column
           label="供应商编号"
-          prop="sm_ai_ID">
+          prop="sm_ui_ID">
         </el-table-column>
         <!--<el-table-column-->
         <!--label="供应商名称"-->
@@ -134,7 +134,7 @@
             <el-button
               size="mini"
               type="primary"
-              @click="viewLook(scope.row.sm_ai_ID)">查看
+              @click="viewLook(scope.row.sm_ui_ID)">查看
             </el-button>
           </template>
         </el-table-column>
@@ -146,7 +146,7 @@
     <el-dialog title="修改供应商信息" :visible.sync="updateDialog">
       <el-form :model="obj">
         <el-form-item label="供应商编号:" :label-width="formLabelWidth">
-          <el-input v-model="obj.sm_ai_ID" :disabled="isDisabled"></el-input>
+          <el-input v-model="obj.sm_ui_ID" :disabled="isDisabled"></el-input>
         </el-form-item>
         <el-form-item label="供应商手机号码:" :label-width="formLabelWidth">
           <el-input v-model="obj.sm_ai_Telephone"></el-input>

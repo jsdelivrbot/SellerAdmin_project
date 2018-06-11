@@ -217,7 +217,7 @@
           "operateUserName": "",
           "pcName": "",
           "tm_or_UserID": "", //用户编码
-          "tm_or_TradeInfoID":this.userInfo.sm_ai_ID, //商户编码
+          "tm_or_TradeInfoID":this.userInfo.sm_ui_ID, //商户编码
           "tm_or_OrderID": "", //订单号
           "tm_or_PayState": "", //支付状态(0未支付1已支付)
           "tm_or_IsBalance": "", //是否结算(0未结算1已结算)

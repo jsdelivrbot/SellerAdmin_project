@@ -169,7 +169,7 @@
           "pcName": "",
           "tm_ts_Code": "",    //景点编码
           "tm_ts_Name": name ? name : '',//景点名称
-          "tm_ts_TradeInfoID": this.adminUserInfo.sm_ai_ID,//供应商编码
+          "tm_ts_TradeInfoID": this.adminUserInfo.sm_ui_ID,//供应商编码
           "tm_ts_IsDelete": 0,//必须传
           "tm_ts_IsPass": "",//是否通过审核(0审核中1通过审核2未通过审核)
           "tm_ts_ShowTop": "",//是否展示首页（0否，1是）

@@ -14,7 +14,6 @@
         </el-form-item>
       </el-form>
     </el-col>
-
     <el-table
       :data="hotelConfirmOrderList"
       v-loading="isLoading"
@@ -137,8 +136,6 @@
         </template>
       </el-table-column>
     </el-table>
-
-
     <!--分页-->
     <div class="block" style="float: right;">
       <el-pagination
@@ -206,7 +203,6 @@
             sums[index] = 'N/A';
           }
         });
-
         return sums;
       },
       //确认订单
@@ -271,5 +267,4 @@
   }
 </script>
 <style scoped>
-
 </style>

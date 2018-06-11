@@ -486,16 +486,40 @@
             })
         })
       },
+      uploadToOSS(file) {
+        return new Promise((relove,reject)=>{
+          var fd = new FormData();
+          fd.append("fileToUpload", file);
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.send(fd);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              if (xhr.responseText) {
+                var data = xhr.responseText
+                relove(JSON.parse(data))
+              }
+            }else{
+              console.log(xhr.responseText)
+//               if (xhr.responseText) {
+//                 var data = xhr.responseText;
+//                 reject(JSON.parse(data).resultcontent)
+//               }
+            }
+          }
+        })
+      },
       uploaNode() {
         setTimeout(() => {
           if (this.$refs.imgUpload) {
             this.$refs.imgUpload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.imgUpload.files.length; i++) {
-                this.uploadImg(this.$refs.imgUpload.files[i])
-                  .then(data => {
-                    this.$store.dispatch('UploadnImgs', {
-                      imageData: data
-                    })
+                // this.uploadImg(this.$refs.imgUpload.files[i])
+                //   .then(data => {
+                //     this.$store.dispatch('UploadnImgs', {
+                //       imageData: data
+                //     })
+                this.uploadToOSS(this.$refs.imgUpload.files[i])
                       .then(data => {
                         if (data) {
                           this.VMovieVideoUpdateObj.data.vf_ve_Content.vf_vo_ImageURL=data.data;
@@ -506,18 +530,19 @@
                           });
                         }
                       })
-                  })
+                 // })
               }
             })
           }
           if (this.$refs.bigImgUpload) {
             this.$refs.bigImgUpload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.bigImgUpload.files.length; i++) {
-                this.uploadImg(this.$refs.bigImgUpload.files[i])
-                  .then(data => {
-                    this.$store.dispatch('UploadnImgs', {
-                      imageData: data
-                    })
+                // this.uploadImg(this.$refs.bigImgUpload.files[i])
+                //   .then(data => {
+                //     this.$store.dispatch('UploadnImgs', {
+                //       imageData: data
+                //     })
+                this.uploadToOSS(this.$refs.bigImgUpload.files[i])
                       .then(data => {
                         if (data) {
                           this.VMovieVideoUpdateObj.data.vf_ve_Content.vf_vo_TomImageURL=data.data;
@@ -528,7 +553,7 @@
                           });
                         }
                       })
-                  })
+                 // })
               }
             })
           }

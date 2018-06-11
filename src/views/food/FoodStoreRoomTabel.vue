@@ -2,9 +2,7 @@
   <div>
     <div id="wrap" class="clearfix">
       <h1 class="userClass">房间餐桌</h1>
-
       <!--查询-->
-
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
@@ -36,33 +34,26 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
-
       <el-table
         :data="foodStoreRoomTabelList"
         v-loading="isLoading"
         style="width: 100%">
-
         <el-table-column
           prop="fd_sfr_RoomName"
           label="房间名称"
           align="center">
         </el-table-column>
-
         <el-table-column
           prop="fd_rt_TableID"
           label="餐桌编号"
           align="center">
         </el-table-column>
-
-
         <el-table-column
           prop="fd_rt_Remark"
           label="备注"
           align="center">
         </el-table-column>
-
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button
@@ -79,7 +70,6 @@
         </el-table-column>
 
       </el-table>
-
       <!--分页-->
       <div class="block" style="text-align: right">
         <el-pagination
@@ -91,9 +81,7 @@
         >
         </el-pagination>
       </div>
-
       <!--添加-->
-
       <el-dialog title="添加房间餐桌" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="店面房间名称:" :label-width="formLabelWidth">
@@ -118,9 +106,7 @@
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
       <!--修改-->
-
       <el-dialog title="修改房间餐桌" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="店面房间名称:" :label-width="formLabelWidth">
@@ -145,14 +131,11 @@
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
-
     </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -215,7 +198,6 @@
             });
           })
       },
-
       //初始化数据
       initData(id, num) {
         if (!id) {

@@ -33,9 +33,7 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
-
       <el-table
         :data="foodStoreConfirnOrderList"
         v-loading="isLoading"
@@ -150,9 +148,7 @@
           </template>
         </el-table-column>
       </el-table>
-
       <!--分页-->
-
       <div class="block" style="text-align: right">
         <el-pagination
           :page-size="5"
@@ -163,14 +159,11 @@
         >
         </el-pagination>
       </div>
-
-
     </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   export default {
     computed: mapGetters([
       'foodStoreConfirnOrderList'
@@ -211,7 +204,6 @@
       },
       //初始化订单数据
       initData(outStatusId, payStateId, num) {
-
         let selectOrderInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",

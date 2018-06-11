@@ -380,15 +380,39 @@
             })
         })
       },
+      uploadToOSS(file) {
+        return new Promise((relove,reject)=>{
+          var fd = new FormData();
+          fd.append("fileToUpload", file);
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.send(fd);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              if (xhr.responseText) {
+                var data = xhr.responseText
+                relove(JSON.parse(data))
+              }
+            }else{
+              console.log(xhr.responseText)
+//               if (xhr.responseText) {
+//                 var data = xhr.responseText;
+//                 reject(JSON.parse(data).resultcontent)
+//               }
+            }
+          }
+        })
+      },
       uploaNode() {
         setTimeout(() => {
           if (this.$refs.upload) {
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                  this.$store.dispatch('uploadAdminImgs', {
-                    imageData: data
-                  })
+                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
+                //   this.$store.dispatch('uploadAdminImgs', {
+                //     imageData: data
+                //   })
+                this.uploadToOSS(this.$refs.upload.files[i])
                     .then(data => {
                       if (data) {
                         this.ImageURL.push(data.data);
@@ -399,17 +423,18 @@
                         });
                       }
                     })
-                })
+                //})
               }
             })
           }
           if (this.$refs.upload1) {
             this.$refs.upload1.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload1.files.length; i++) {
-                this.uploadImg(this.$refs.upload1.files[i]).then(data => {
-                  this.$store.dispatch('uploadAdminImgs', {
-                    imageData: data
-                  })
+                // this.uploadImg(this.$refs.upload1.files[i]).then(data => {
+                //   this.$store.dispatch('uploadAdminImgs', {
+                //     imageData: data
+                //   })
+                this.uploadToOSS(this.$refs.upload1.files[i])
                     .then(data => {
                       if (data) {
                         this.ImageURL1.push(data.data);
@@ -420,7 +445,7 @@
                         });
                       }
                     })
-                })
+             //   })
               }
             })
           }

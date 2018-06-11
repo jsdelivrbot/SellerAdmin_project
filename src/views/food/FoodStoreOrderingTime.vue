@@ -2,9 +2,7 @@
   <div>
     <div id="wrap" class="clearfix">
       <h1 class="userClass">店面可订餐时间</h1>
-
       <!--查询-->
-
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
@@ -40,9 +38,7 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
-
       <el-table
         :data="foodStoreOrderingTimeList"
         style="width: 100%"
@@ -85,9 +81,7 @@
           label="餐桌状态">
         </el-table-column>
       </el-table>
-
       <!--分页-->
-
       <div class="block" style="text-align: right">
         <el-pagination
           :page-size="10"
@@ -98,9 +92,7 @@
         >
         </el-pagination>
       </div>
-
       <!--添加-->
-
       <el-dialog title="添加店面可订单时间" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="店面房间:" :label-width="formLabelWidth">
@@ -132,9 +124,7 @@
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
       <!--删除-->
-
       <el-dialog title="删除店面可订单时间" :visible.sync="deleteDialog">
         <el-form :model="addOptions">
           <el-form-item label="店面房间:" :label-width="formLabelWidth">
@@ -173,14 +163,11 @@
           <el-button type="primary" @click="deleteSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
-
     </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -292,7 +279,6 @@
         for (let i = 0; i < this.deleteData.length; i++) {
           this.deleteSubmit(this.deleteData[i].fd_rtt_ID);
         }
-
       },
       //删除提交
       deleteSubmit(id) {

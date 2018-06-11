@@ -24,9 +24,7 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
-
       <el-table
         :data="foodStoreProductList"
         v-loading="isLoading"
@@ -75,11 +73,8 @@
             </el-button>
           </template>
         </el-table-column>
-
       </el-table>
-
       <!--分页-->
-
       <div class="block" style="text-align: right">
         <el-pagination
           :page-size="5"
@@ -90,9 +85,7 @@
         >
         </el-pagination>
       </div>
-
       <!--添加-->
-
       <el-dialog title="添加店面菜肴" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
@@ -120,9 +113,7 @@
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
       <!--修改-->
-
       <el-dialog title="修改店面菜肴" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
@@ -150,14 +141,11 @@
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
-
     </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',

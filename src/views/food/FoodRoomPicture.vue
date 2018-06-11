@@ -34,26 +34,21 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
-
       <el-table
         :data="foodRoomPictureList"
         v-loading="isLoading"
         style="width: 100%">
-
         <el-table-column
           prop="fd_sfr_RoomName"
           label="房间名称"
           align="center">
         </el-table-column>
-
         <el-table-column
           prop="fd_ri_Remark"
           label="备注"
           align="center">
         </el-table-column>
-
         <el-table-column
           label="房间图片"
           align="center">
@@ -62,7 +57,6 @@
                  @click="displayBigPicture(scope.row.fd_ri_Image)">
           </template>
         </el-table-column>
-
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button
@@ -77,11 +71,8 @@
             </el-button>
           </template>
         </el-table-column>
-
       </el-table>
-
       <!--显示大图-->
-
       <el-dialog
         title="显示大图"
         :visible.sync="bigPictureDialog"
@@ -91,9 +82,7 @@
           <el-button @click="bigPictureDialog = false">取 消</el-button>
         </span>
       </el-dialog>
-
       <!--添加-->
-
       <el-dialog title="添加店面房间图片" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="店面房间:" :label-width="formLabelWidth">
@@ -121,9 +110,7 @@
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
       <!--修改-->
-
       <el-dialog title="修改店面房间图片" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="店面房间:" :label-width="formLabelWidth">
@@ -152,14 +139,11 @@
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
-
     </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -195,17 +179,40 @@
             })
         })
       },
-
+      uploadToOSS(file) {
+        return new Promise((relove,reject)=>{
+          var fd = new FormData();
+          fd.append("fileToUpload", file);
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.send(fd);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              if (xhr.responseText) {
+                var data = xhr.responseText
+                relove(JSON.parse(data))
+              }
+            }else{
+              console.log(xhr.responseText)
+//               if (xhr.responseText) {
+//                 var data = xhr.responseText;
+//                 reject(JSON.parse(data).resultcontent)
+//               }
+            }
+          }
+        })
+      },
       uploaNode() {
         this.addOptions.fd_ri_Image = '';
         setTimeout(() => {
           if (this.$refs.upload) {
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                  this.$store.dispatch('foodUploadAdminImgs', {
-                    imageData: data
-                  })
+                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
+                //   this.$store.dispatch('foodUploadAdminImgs', {
+                //     imageData: data
+                //   })
+                this.uploadToOSS(this.$refs.upload.files[i])
                     .then(data => {
                       if (data) {
                         this.addOptions.fd_ri_Image = data.data;
@@ -216,7 +223,7 @@
                         });
                       }
                     })
-                })
+               // })
               }
             })
           }
@@ -257,7 +264,6 @@
             });
           })
       },
-
       //初始化数据
       initData(id) {
         if (!id) {
@@ -374,7 +380,6 @@
           "data": {
             "fd_ri_ID": id ? id : '',//房间图片编码
           }
-
         };
         this.$store.dispatch('deleteFoodRoomPicture', deleteRoomImageInfo)
           .then(suc => {
@@ -390,8 +395,6 @@
             })
           })
       }
-
-
     },
   }
 </script>

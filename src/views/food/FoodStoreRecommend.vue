@@ -2,9 +2,7 @@
   <div>
     <div id="wrap" class="clearfix">
       <h1 class="userClass">店面推荐菜</h1>
-
       <!--查询-->
-
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
@@ -26,32 +24,26 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
-
       <el-table
         :data="foodStoreRecommendList"
         v-loading="isLoading"
         style="width: 100%">
-
         <el-table-column
           prop="fd_sf_ProductName"
           label="店面名称"
           align="center">
         </el-table-column>
-
         <el-table-column
           prop="fd_sfp_Name"
           label="菜名"
           align="center">
         </el-table-column>
-
         <el-table-column
           prop="fd_sfp_Price"
           label="价格(元)"
           align="center">
         </el-table-column>
-
         <el-table-column
           label="推荐菜图片"
           align="center">
@@ -60,13 +52,11 @@
                  @click="displayBigPicture(scope.row.fd_gi_GoodImage)">
           </template>
         </el-table-column>
-
         <el-table-column
           prop="fd_if_Describe"
           label="描述"
           align="center">
         </el-table-column>
-
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button
@@ -76,11 +66,8 @@
             </el-button>
           </template>
         </el-table-column>
-
       </el-table>
-
       <!--展示大图-->
-
       <el-dialog
         title="显示大图"
         :visible.sync="bigPictureDialog"
@@ -90,7 +77,6 @@
           <el-button @click="bigPictureDialog = false">取 消</el-button>
         </span>
       </el-dialog>
-
       <!--分页-->
       <div class="block" style="text-align: right">
         <el-pagination
@@ -102,9 +88,7 @@
         >
         </el-pagination>
       </div>
-
       <!--添加-->
-
       <el-dialog title="添加店面推荐菜" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
@@ -136,13 +120,11 @@
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
     </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -245,7 +227,6 @@
       search() {
         this.initData(this.storeId)
       },
-
       displayBigPicture(urlData) {
         this.$store.commit('setTranstionFalse');
         this.bigPictureDialog = true;

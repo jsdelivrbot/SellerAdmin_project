@@ -1,7 +1,6 @@
 <template>
   <div>
     <div id="wrap" class="clearfix">
-
       <h1 class="userClass">停车位管理</h1>
       <!--查询-->
       <el-col :span="24" class="formSearch">
@@ -26,7 +25,6 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
       <el-table
         v-loading="isLoading"
@@ -52,15 +50,11 @@
           label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="update(scope.row)">修改</el-button>
-
             <el-button size="mini" type="danger" @click="deleteSubmit(scope.row.fd_sc_ID)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
-
       <!--分页-->
-
-
       <div class="block" style="text-align: right">
         <el-pagination
           :page-size="5"
@@ -71,9 +65,7 @@
         >
         </el-pagination>
       </div>
-
       <!--添加-->
-
       <el-dialog title="添加停车场" :visible.sync="addDialog">
         <el-form>
           <el-form-item label="停车位名称:" :label-width="formLabelWidth">
@@ -90,17 +82,13 @@
               </el-option>
             </el-select>
           </el-form-item>
-
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addDialog = false">取 消</el-button>
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
       <!--修改-->
-
-
       <el-dialog title="修改停车位" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="停车位编码:" :label-width="formLabelWidth">
@@ -109,7 +97,6 @@
           <el-form-item label="停车位名称:" :label-width="formLabelWidth">
             <el-input v-model="updateObj.fd_sc_SeatNo"></el-input>
           </el-form-item>
-
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
             <el-select v-model="updateObj.fd_sc_ShopID" placeholder="请选择店面名称">
               <el-option
@@ -138,13 +125,11 @@
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
     </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   export default {
     computed: mapGetters([
       'foodStoppingPlaceList',
@@ -211,7 +196,6 @@
           "fd_sc_ShopID": name,//店面编号
           "fd_sc_SeatNo": "",//停车位名称
           "fd_sc_LockStatus": "",//锁定状态
-
         };
         this.isLoading = true;
         this.$store.dispatch('initFoodStoppingPlace', selectFoodStoppingPlace)
@@ -275,7 +259,6 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-
           "data": {
             "fd_sc_ID": this.updateObj.fd_sc_ID,//停车位编码
             "fd_sc_ShopID": this.updateObj.fd_sc_ShopID,//店面编号
@@ -309,7 +292,6 @@
           "data": {
             "fd_sc_ID": id,//停车位编码
           }
-
         }
         this.$store.dispatch('deleteFoodStoppingPlace', deleteOptions)
           .then((suc) => {
@@ -325,9 +307,7 @@
             })
           });
       }
-
     },
-
   }
 </script>
 <style scoped>

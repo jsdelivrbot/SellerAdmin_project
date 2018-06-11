@@ -17,7 +17,6 @@
           </el-form-item>
         </el-form>
       </el-col>
-
       <!--数据展示-->
       <el-table
         :data="foodStoreInformtionList"
@@ -97,13 +96,10 @@
             <el-button size="mini" type="primary" @click="update(scope.row)">修改</el-button>
             <el-button size="mini" type="danger" @click="Delete(scope.row.fd_sf_ID)">删除</el-button>
             <el-button size="mini" type="success" @click="recommendShop(scope.row.fd_sf_ID)">申请推荐店面</el-button>
-
           </template>
         </el-table-column>
       </el-table>
-
       <!--分页-->
-
       <div class="block" style="text-align: right">
         <el-pagination
           :page-size="5"
@@ -114,9 +110,7 @@
         >
         </el-pagination>
       </div>
-
       <!--添加-->
-
       <el-dialog title="添加店面信息" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth">
@@ -196,9 +190,7 @@
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
       <!--修改-->
-
       <el-dialog title="修改店面信息" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth">
@@ -278,13 +270,11 @@
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
     </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -427,7 +417,6 @@
       },
       //修改按钮
       update(rowData) {
-
         this.updateObj = rowData
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
@@ -525,7 +514,6 @@
             });
           })
       },
-
     },
     created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))

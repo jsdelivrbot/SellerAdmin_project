@@ -26,32 +26,26 @@
         </el-form>
       </el-col>
     </div>
-
     <!--数据展示-->
     <el-table
       :data="foodStoreRoomList"
       v-loading="isLoading"
       style="width: 100%">
-
       <el-table-column
         prop="fd_sf_ProductName"
         label="店面名称"
         align="center">
       </el-table-column>
-
       <el-table-column
         prop="fd_sfr_RoomName"
         label="房间名称"
         align="center">
       </el-table-column>
-
-
       <el-table-column
         prop="fd_sfr_BookMoney"
         label="预定金额(元)"
         align="center">
       </el-table-column>
-
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button
@@ -66,9 +60,7 @@
           </el-button>
         </template>
       </el-table-column>
-
     </el-table>
-
     <!--分页-->
     <div class="block" style="text-align: right">
       <el-pagination
@@ -80,11 +72,9 @@
       >
       </el-pagination>
     </div>
-
     <!--添加-->
     <el-dialog title="添加店面房间" :visible.sync="dialogFormVisible">
       <el-form :model="addOptions">
-
         <el-form-item label="店面名称" :label-width="formLabelWidth" style="width: 55%">
           <el-select v-model="addOptions.fd_sfr_StoreFrontID" placeholder="请选择">
             <el-option
@@ -95,11 +85,9 @@
             </el-option>
           </el-select>
         </el-form-item>
-
         <el-form-item label="房间名称" :label-width="formLabelWidth" style="width: 55%">
           <el-input v-model="addOptions.fd_sfr_RoomName" auto-complete="off"></el-input>
         </el-form-item>
-
         <el-form-item label="预定价格(元)" :label-width="formLabelWidth" style="width: 55%">
           <el-input v-model="addOptions.fd_sfr_BookMoney" auto-complete="off"></el-input>
         </el-form-item>
@@ -109,7 +97,6 @@
         <el-button type="primary" @click="addSubmit">确 定</el-button>
       </div>
     </el-dialog>
-
     <!--修改-->
     <el-dialog title="修改店面房间" :visible.sync="updateDialog">
       <el-form :model="updateObj">
@@ -137,10 +124,8 @@
     </el-dialog>
   </div>
 </template>
-
 <script>
   import {mapGetters} from 'vuex'
-
   export default {
     computed: mapGetters([
       'foodStoreRoomList',
@@ -200,7 +185,6 @@
             });
           })
       },
-
       //查询
       search() {
         this.initData(this.storeId)
@@ -299,6 +283,5 @@
     }
   }
 </script>
-
 <style scoped>
 </style>

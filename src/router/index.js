@@ -246,6 +246,7 @@ export const constantRouterMap = [
       {
         path: 'hotelRoomRoomFacilities',
         name: 'HotelRoomRoomFacilities',
+        hidden:true,
         component: () => import('@/views/hotel/HotelRoomRoomFacilities'),
         meta: {title: 'hotelRoomRoomFacilities'}
       },

@@ -333,13 +333,15 @@ export default {
   },
   //管理员上传图片
   uploadAdminImgs(store, data) {
+    console.log(data)
     return new Promise((relove, reject) => {
-      axios.post('http://image.1000da.com.cn/PostImage/PostToService', JSON.stringify(data), {
+      axios.post('http://webservice.1000da.com.cn/OSSFile/PostToOSS', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       })
         .then(data => {
+          console.log(data)
           relove(data.data)
         })
     })

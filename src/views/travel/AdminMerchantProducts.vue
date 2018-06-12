@@ -319,7 +319,7 @@
           <a href="javascript:;" class="file">展示图片上传
             <input type="file" name="" ref="upload" accept="image/*" multiple>
           </a>
-          <p v-for="item in ImageURL" v-show="ImageURL.length">{{item?item:""}}</p>
+          <img v-for="item in ImageURL" :src="item" alt="" style="width:80px;height:50px">
         </el-form-item>
         <el-form-item label="是否精选:" :label-width="formLabelWidth">
           <el-select v-model="addOptions.data.ts_tg_Special" placeholder="请选择是否精选">
@@ -1510,27 +1510,38 @@
           }, 10);
         })
       },
-      //图片转二进制
-      uploadImg(file){
-        return new Promise(function (relove, reject) {
-          lrz(file)
-          .then(data => {
-            relove(data.base64.split(',')[1])
-          })
+      //图片promise
+      uploadToOSS(file) {
+        return new Promise((relove,reject)=>{
+          var fd = new FormData();
+          fd.append("fileToUpload", file);
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.send(fd);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200){
+              if (xhr.responseText) {
+                var data = xhr.responseText;
+                relove(JSON.parse(data))
+              }
+            }else{
+              console.log(xhr.responseText);
+//               if (xhr.responseText) {
+//                 var data = xhr.responseText;
+//                 reject(JSON.parse(data).resultcontent)
+//               }
+            }
+          }
         })
       },
-      uploaNode(){
+      uploaNode() {
         setTimeout(() => {
           if (this.$refs.upload) {
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                  this.$store.dispatch('uploadAdminImgs', {
-                    imageData: data
-                  })
-                  .then(data => {
+                this.uploadToOSS(this.$refs.upload.files[i])
+                  .then(data=>{
                     if (data) {
-                      this.ImageURL = [];
                       this.ImageURL.push(data.data);
                     } else {
                       this.$notify({
@@ -1539,29 +1550,6 @@
                       });
                     }
                   })
-                })
-              }
-            })
-          }
-          if (this.$refs.upload1) {
-            this.$refs.upload1.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload1.files.length; i++) {
-                this.uploadImg(this.$refs.upload1.files[i]).then(data => {
-                  this.$store.dispatch('uploadAdminImgs', {
-                    imageData: data
-                  })
-                  .then(data => {
-                    if (data) {
-                      this.ImageURL = [];
-                      this.ImageURL.push(data.data);
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                })
               }
             })
           }
@@ -1618,6 +1606,7 @@
       },
       //添加
       addAdminMerchantProducts(){
+        this.ImageURL=[];
         this.$store.commit('setTranstionFalse');
         this.addAdminMerchantProductsDialog = true;
         this.uploaNode()

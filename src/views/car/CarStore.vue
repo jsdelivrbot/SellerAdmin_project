@@ -249,20 +249,20 @@
           "areaPid": -1
         }
         this.$store.dispatch('initCarGreat', getAreaProvice)
-        .then((data) => {
-          this.carCitys = data.map(v => {
-            return {
-              label: v.sm_af_AreaName,
-              value: v.sm_af_AreaID,
-              cities: []
-            }
+          .then((data) => {
+            this.carCitys = data.map(v => {
+              return {
+                label: v.sm_af_AreaName,
+                value: v.sm_af_AreaID,
+                cities: []
+              }
+            })
+          },err=>{
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           })
-        },err=>{
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
       },
       //选中洲获取国家
       changeGreat(v){
@@ -422,15 +422,15 @@
         };
         this.isLoading = true;
         this.$store.dispatch('initCarStore', options)
-        .then((total) => {
-          this.total = total;
-          this.isLoading = false
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then((total) => {
+            this.total = total;
+            this.isLoading = false
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //添加
       Add(){
@@ -503,18 +503,18 @@
           }
         };
         this.$store.dispatch('DeleteCarStore',options)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData()
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData()
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
       }
     },
   }

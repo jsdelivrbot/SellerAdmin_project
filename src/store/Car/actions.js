@@ -3,6 +3,7 @@
  */
 // import axios from 'axios'
 
+import {getNewStr} from '@/assets/js/public'
 export default {
   //上传图片
   CarUploadAdminImgs(store,data){
@@ -19,7 +20,7 @@ export default {
   },
   initCarCompanies({commit},data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/Hertz/Select',JSON.stringify(data),{
+      axios.post(getNewStr + '/Hertz/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -42,7 +43,7 @@ export default {
   //添加租车公司
   addCarHomeSubmit(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/Hertz/Insert',JSON.stringify(data),{
+      axios.post(getNewStr + '/Hertz/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -59,7 +60,7 @@ export default {
   //修改租车公司
   UpdateCarHomeSubmit(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/Hertz/Update',JSON.stringify(data),{
+      axios.post(getNewStr + '/Hertz/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -76,7 +77,7 @@ export default {
   //租车门店
   initCarStore({commit},data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CRStore/Select',JSON.stringify(data),{
+      axios.post(getNewStr + '/CRStore/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -94,7 +95,7 @@ export default {
   //洲
   initCarGreat({commit},data){
     return new Promise(function (relove, reject) {
-      axios.post('http://webservice.1000da.com.cn/AreaFull/SelectProvice', JSON.stringify(data), {
+      axios.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -112,7 +113,7 @@ export default {
   //添加门店
   AddCarStore(store,data){
     return new Promise(function (relove, reject) {
-      axios.post('http://webservice.1000da.com.cn/CRStore/Insert', JSON.stringify(data), {
+      axios.post(getNewStr + '/CRStore/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -130,7 +131,7 @@ export default {
   //修改门店
   UpdateCarStore(store,data){
     return new Promise(function (relove, reject) {
-      axios.post('http://webservice.1000da.com.cn/CRStore/Update', JSON.stringify(data), {
+      axios.post(getNewStr + '/CRStore/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -148,7 +149,7 @@ export default {
   //删除门店
   DeleteCarStore(store,data){
     return new Promise(function (relove, reject) {
-      axios.post('http://webservice.1000da.com.cn/CRStore/Delete', JSON.stringify(data), {
+      axios.post(getNewStr + '/CRStore/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -166,7 +167,7 @@ export default {
   //所有汽车
   initCarList(store,data){
     return new Promise(function (relove, reject) {
-      axios.post('http://webservice.1000da.com.cn/CRCar/Select', JSON.stringify(data), {
+      axios.post(getNewStr + '/CRCar/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -184,7 +185,7 @@ export default {
   //初始化汽车产品
   initCarProduct({commit},data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CarProducts/Select',JSON.stringify(data),{
+      axios.post(getNewStr + '/CarProducts/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -202,7 +203,7 @@ export default {
   //添加汽车产品
   AddCarProduct(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CarProducts/Insert',JSON.stringify(data),{
+      axios.post(getNewStr + '/CarProducts/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -219,7 +220,7 @@ export default {
   //修改汽车产品
   UpdateCarProduct(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CarProducts/Update',JSON.stringify(data),{
+      axios.post(getNewStr + '/CarProducts/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -236,7 +237,7 @@ export default {
   //删除汽车产品
   DeleteCarProduct(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CarProducts/Delete',JSON.stringify(data),{
+      axios.post(getNewStr + '/CarProducts/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -253,7 +254,7 @@ export default {
   //初始化公司汽车
   initCarCompanyCar({commit},data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CompanyCar/Select',JSON.stringify(data),{
+      axios.post(getNewStr + '/CompanyCar/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -271,7 +272,7 @@ export default {
   //公司汽车用到所有门店
   initCarCompanyCarStore({commit},data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CRStore/Select',JSON.stringify(data),{
+      axios.post(getNewStr + '/CRStore/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -289,7 +290,7 @@ export default {
   //添加公司汽车
   AddCarCompanyCar(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CompanyCar/Insert',JSON.stringify(data),{
+      axios.post(getNewStr + '/CompanyCar/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -306,7 +307,7 @@ export default {
   //修改公司汽车
   UpdateCarCompanyCar(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CompanyCar/Update',JSON.stringify(data),{
+      axios.post(getNewStr + '/CompanyCar/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -323,7 +324,7 @@ export default {
   //删除公司汽车
   DeleteCarCompanyCar(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CompanyCar/Delete',JSON.stringify(data),{
+      axios.post(getNewStr + '/CompanyCar/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -340,7 +341,7 @@ export default {
   //初始化优惠政策
   initCarPreferentialPolicies({commit},data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/Incentives/Select',JSON.stringify(data),{
+      axios.post(getNewStr + '/Incentives/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -358,7 +359,7 @@ export default {
   //添加优惠政策
   AddCarPreferentialPolicies(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/Incentives/Insert',JSON.stringify(data),{
+      axios.post(getNewStr + '/Incentives/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -375,7 +376,7 @@ export default {
   //修改优惠政策
   UpdateCarPreferentialPolicies(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/Incentives/Update',JSON.stringify(data),{
+      axios.post(getNewStr + '/Incentives/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -392,7 +393,7 @@ export default {
   //删除优惠政策
   DeleteCarPreferentialPolicies(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/Incentives/Delete',JSON.stringify(data),{
+      axios.post(getNewStr + '/Incentives/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -409,7 +410,7 @@ export default {
   //租车查询订单
   initCarOrderDetails({commit},data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CROrder/Select',JSON.stringify(data),{
+      axios.post(getNewStr + '/CROrder/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -427,7 +428,7 @@ export default {
   //租车确认订单
   CarConfirmOrder(store,data){
     return new Promise((relove, reject) => {
-      axios.post('http://webservice.1000da.com.cn/CROrder/OutOrder',JSON.stringify(data),{
+      axios.post(getNewStr + '/CROrder/OutOrder',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

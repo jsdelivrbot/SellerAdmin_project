@@ -144,6 +144,8 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import {getNewStr} from '@/assets/js/public'
+
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -152,7 +154,7 @@
     ]),
     data() {
       return {
-        isLoading:false,
+        isLoading: false,
         storeId: '',
         roomId: '',
         formLabelWidth: '120px',
@@ -180,11 +182,11 @@
         })
       },
       uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
+        return new Promise((relove, reject) => {
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -192,7 +194,7 @@
                 var data = xhr.responseText
                 relove(JSON.parse(data))
               }
-            }else{
+            } else {
               console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
@@ -213,17 +215,17 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
-                    .then(data => {
-                      if (data) {
-                        this.addOptions.fd_ri_Image = data.data;
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-               // })
+                  .then(data => {
+                    if (data) {
+                      this.addOptions.fd_ri_Image = data.data;
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                // })
               }
             })
           }
@@ -289,7 +291,7 @@
           .then(total => {
             this.isLoading = false;
             this.total = total;
-          },err=>{
+          }, err => {
 
           })
       },

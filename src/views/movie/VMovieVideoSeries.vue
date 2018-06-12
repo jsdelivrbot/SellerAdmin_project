@@ -147,6 +147,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import {getNewStr} from '@/assets/js/public'
 
   export default {
 
@@ -314,7 +315,7 @@
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {

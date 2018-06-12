@@ -127,6 +127,8 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import {getNewStr} from '@/assets/js/public'
+
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -134,7 +136,7 @@
     ]),
     data() {
       return {
-        isLoading:false,
+        isLoading: false,
         storeId: '',
         addDialog: false,
         formLabelWidth: '120px',
@@ -159,11 +161,11 @@
         })
       },
       uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
+        return new Promise((relove, reject) => {
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -171,7 +173,7 @@
                 var data = xhr.responseText
                 relove(JSON.parse(data))
               }
-            }else{
+            } else {
               console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
@@ -192,16 +194,16 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
-                    .then(data => {
-                      if (data) {
-                        this.addOptions.fd_pi_ImageUrl = data.data;
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
+                  .then(data => {
+                    if (data) {
+                      this.addOptions.fd_pi_ImageUrl = data.data;
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
                 //})
               }
             })
@@ -229,7 +231,7 @@
         };
         this.$store.dispatch('initFoodProductPicture', selectProductImageInfo)
           .then(() => {
-          this.isLoading = false;
+            this.isLoading = false;
           }, err => {
             this.$notify({
               message: err,
@@ -325,7 +327,7 @@
             "fd_pi_ID": id ? id : '',//图片编号
           }
         };
-        this.$store.dispatch('deleteFoodProductPicture',deleteProductImageInfo)
+        this.$store.dispatch('deleteFoodProductPicture', deleteProductImageInfo)
           .then(suc => {
             this.$notify({
               message: suc,

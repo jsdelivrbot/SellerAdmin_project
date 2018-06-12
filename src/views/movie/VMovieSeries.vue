@@ -8,18 +8,18 @@
           <el-form-item label="系列名称:">
             <el-input v-model="SeriesName" placeholder="系列名称"></el-input>
           </el-form-item>
-          <el-form-item label="连载状态:" >
+          <el-form-item label="连载状态:">
             <el-select v-model="WriteState" placeholder="连载状态">
               <el-option label="连载中" value="0"></el-option>
               <el-option label="已完结" value="1"></el-option>
             </el-select>
-          </el-form-item >
-          <el-form-item label="作者:" >
+          </el-form-item>
+          <el-form-item label="作者:">
             <el-input v-model="Author" placeholder="作者"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button  type="primary" @click="search">查询</el-button>
-            <el-button  type="primary" @click="Add">新增</el-button>
+            <el-button type="primary" @click="search">查询</el-button>
+            <el-button type="primary" @click="Add">新增</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -148,7 +148,8 @@
           </el-form-item>
           <el-form-item label="连载状态:" :label-width="formLabelWidth">
             <el-select v-model="VMovieSeriesUpdateObj.data.vf_ss_WriteState" placeholder="请选择连载状态">
-              <el-option v-for="item in SerialState" :key="item.value" :label="item.label" :value="item.value"></el-option>
+              <el-option v-for="item in SerialState" :key="item.value" :label="item.label"
+                         :value="item.value"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="更新时间:" :label-width="formLabelWidth">
@@ -159,7 +160,8 @@
               系列图片上传
               <input type="file" name="" ref="upload1" accept="image/*">
             </a>
-            <img v-lazy="VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL" v-show="VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL"
+            <img v-lazy="VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL"
+                 v-show="VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL"
                  style="width: 100px;height: 100px">
           </el-form-item>
         </el-form>
@@ -174,30 +176,31 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import {getNewStr} from '@/assets/js/public'
 
   export default {
 
     data() {
       return {
         //当前页
-        num:'',
+        num: '',
         //连载状态
-        SerialState:[
+        SerialState: [
           {
-            label:"连载中",
-            value:0
+            label: "连载中",
+            value: 0
           },
           {
-            label:"已完结",
-            value:1
+            label: "已完结",
+            value: 1
           }
         ],
         //作者
-        Author:'',
+        Author: '',
         //系列名称
-        SeriesName:'',
+        SeriesName: '',
         //连载状态
-        WriteState:'',
+        WriteState: '',
         //是否禁用
         isDisabled: true,
         //修改
@@ -255,10 +258,10 @@
     methods: {
       //分页
       handleCurrentChange(num) {
-        this.initData('','','',num)
+        this.initData('', '', '', num)
         this.num = num;
       },
-      initData(name,state,author,page) {
+      initData(name, state, author, page) {
         let options = {
           "loginUserID": "huileyou",  //惠乐游用户ID
           "loginUserPass": "123",  //惠乐游用户密码
@@ -266,10 +269,10 @@
           "operateUserName": "",//操作员名称
           "pcName": "",  //机器码
           "vf_ss_ID": "",//系列编号
-          "vf_ss_Name": name?name:"",//系列名称
-          "vf_ss_WriteState": state?state:"",//连载状态（0连载中1完结)
-          "vf_ss_AuthorID": author?author:"",//作者
-          "page": page?page:1,//页码
+          "vf_ss_Name": name ? name : "",//系列名称
+          "vf_ss_WriteState": state ? state : "",//连载状态（0连载中1完结)
+          "vf_ss_AuthorID": author ? author : "",//作者
+          "page": page ? page : 1,//页码
           "rows": 5//条数
         };
         this.$store.dispatch("initVMovieSeries", options)
@@ -283,26 +286,27 @@
           });
       },
       search() {
-        this.initData(this.SeriesName,this.WriteState,this.Author,1);
+        this.initData(this.SeriesName, this.WriteState, this.Author, 1);
       },
       Add() {
-        let content =this.addOptions.data;
-        for(let i in content){
-          content[i]="";
-        };
+        let content = this.addOptions.data;
+        for (let i in content) {
+          content[i] = "";
+        }
+        ;
         this.addDialog = true;
         this.$store.commit('setTranstionFalse');
         this.uploaNode();
       },
       addSubmit() {
-        this.addOptions.data.vf_ss_AuthorID=22;
+        this.addOptions.data.vf_ss_AuthorID = 22;
         this.$store.dispatch("addVMovieSeries", this.addOptions)
           .then((suc) => {
             this.$notify({
               message: suc,
               type: "success"
             })
-            this.initData(this.SeriesName,this.WriteState,this.Author,1);
+            this.initData(this.SeriesName, this.WriteState, this.Author, 1);
           }, (err) => {
             this.$notify({
               message: err,
@@ -320,11 +324,11 @@
         })
       },
       uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
+        return new Promise((relove, reject) => {
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -332,7 +336,7 @@
                 var data = xhr.responseText
                 relove(JSON.parse(data))
               }
-            }else{
+            } else {
               console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
@@ -354,40 +358,40 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
-                    .then(data => {
-                      this.addOptions.data.vf_ss_SeriesImageURL="";
-                      if (data) {
-                        this.addOptions.data.vf_ss_SeriesImageURL = data.data;
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-              //  })
+                  .then(data => {
+                    this.addOptions.data.vf_ss_SeriesImageURL = "";
+                    if (data) {
+                      this.addOptions.data.vf_ss_SeriesImageURL = data.data;
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                //  })
               }
             })
           }
           if (this.$refs.upload1) {
             this.$refs.upload1.addEventListener('change', data => {
-                  for (var i = 0; i < this.$refs.upload1.files.length; i++) {
+              for (var i = 0; i < this.$refs.upload1.files.length; i++) {
                 // this.uploadImg(this.$refs.upload1.files[i]).then(data => {
                 //   this.$store.dispatch('UploadnImgs', {
                 //     imageData: data
                 //   })
-                    this.uploadToOSS(this.$refs.upload1.files[i])
-                    .then(data => {
-                      if (data) {
-                        this.VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL = data.data;
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-              //  })
+                this.uploadToOSS(this.$refs.upload1.files[i])
+                  .then(data => {
+                    if (data) {
+                      this.VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL = data.data;
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                //  })
               }
             })
           }
@@ -411,7 +415,7 @@
                 message: suc,
                 type: "success"
               });
-              this.initData(this.SeriesName,this.WriteState,this.Author,1);
+              this.initData(this.SeriesName, this.WriteState, this.Author, 1);
             }
             , (err) => {
               this.$notify({
@@ -425,8 +429,8 @@
         this.uploaNode();
         this.updateDialog = true;
         this.$store.commit('setTranstionFalse');
-        this.VMovieSeriesUpdateObj.data=obj;
-        this.VMovieSeriesUpdateObj.data.vf_ss_AuthorID=22;
+        this.VMovieSeriesUpdateObj.data = obj;
+        this.VMovieSeriesUpdateObj.data.vf_ss_AuthorID = 22;
       },
       updateSubmit() {
         this.$store.dispatch("updateVMovieSeries", this.VMovieSeriesUpdateObj)
@@ -436,7 +440,7 @@
                 message: suc,
                 type: "success"
               });
-              this.initData(this.movieType,'','',this.num)
+              this.initData(this.movieType, '', '', this.num)
             }
             , (err) => {
               this.$notify({

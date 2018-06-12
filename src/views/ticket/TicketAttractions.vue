@@ -10,11 +10,11 @@
             <span>景点名称筛选:</span>
           </el-form-item>
           <el-form-item>
-            <el-input v-model="siteName"></el-input>
+            <el-input v-model="siteName" size="mini"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="search">查询</el-button>
-            <el-button type="primary" @click="Add">新增</el-button>
+            <el-button type="primary" @click="search" size="mini">查询</el-button>
+            <el-button type="primary" @click="Add" size="mini">新增</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -87,7 +87,7 @@
                 <span>{{ props.row.tm_ts_IsHot }}</span>
               </el-form-item>
               <!--<el-form-item label="是否精选景点:">-->
-                <!--<span>{{ props.row.tm_ts_IsChoice }}</span>-->
+              <!--<span>{{ props.row.tm_ts_IsChoice }}</span>-->
               <!--</el-form-item>-->
               <el-form-item label="是否境外景点:">
                 <span>{{ props.row.tm_ts_IsOversea }}</span>
@@ -276,7 +276,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="建议价格:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_ts_SuggestPrice"  placeholder="请输入数字"></el-input>
+            <el-input v-model="addOptions.tm_ts_SuggestPrice" placeholder="请输入数字"></el-input>
           </el-form-item>
           <el-form-item label="备注:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_ts_Remark" type="textarea"></el-input>
@@ -478,6 +478,8 @@
 <script>
   import {mapGetters} from 'vuex'
 
+  import {getNewStr} from '@/assets/js/public'
+
   export default {
     name: '',
     data() {
@@ -624,9 +626,9 @@
     },
     methods: {
       //添加地图导览
-      AddMap(id){
-        this.$router.push({path: '/ticket/TicketMap',query:{id:id}})
-       // this.$router.push({name:'TicketMap',query:{id:id}})
+      AddMap(id) {
+        this.$router.push({path: '/ticket/TicketMap', query: {id: id}})
+        // this.$router.push({name:'TicketMap',query:{id:id}})
       },
       clickGo(id) {
         if (this.value == 0) {
@@ -646,11 +648,11 @@
         })
       },
       uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
+        return new Promise((relove, reject) => {
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -658,7 +660,7 @@
                 var data = xhr.responseText
                 relove(JSON.parse(data))
               }
-            }else{
+            } else {
               console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
@@ -681,17 +683,17 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
-                    .then(data => {
-                      if (data) {
-                        this.ImageURL.push(data.data);
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-               // })
+                  .then(data => {
+                    if (data) {
+                      this.ImageURL.push(data.data);
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                // })
               }
             })
           }
@@ -704,17 +706,17 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.updateUpload.files[i])
-                    .then(data => {
-                      if (data) {
-                        this.updateImageURL.push(data.data);
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-               // })
+                  .then(data => {
+                    if (data) {
+                      this.updateImageURL.push(data.data);
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                // })
               }
             })
           }

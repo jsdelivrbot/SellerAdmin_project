@@ -73,6 +73,15 @@ const getters = {
   hotelRoomNumberList:state=>state.hotel.hotelRoomNumberList,
   hotelThemeList:state=>state.hotel.hotelThemeList,
   hotelThemeTypeList:state=>state.hotel.hotelThemeTypeList,
-  carCityPlaceList:state=>state.hotel.carCityPlaceList,
+
+  carCompaniesList: state => state.car.carCompaniesList,
+  carStoreList: state => state.car.carStoreList,
+  carCityPlaceList:state=>state.car.carCityPlaceList,
+  carGetCityLandmarkInfoList: state => state.car.carGetCityLandmarkInfoList,
+  carProductList: state => state.car.carProductList,
+  carCompanyCarList: state => state.car.carCompanyCarList,
+  carCompanyCarStoreList: state => state.car.carCompanyCarStoreList,
+  carPreferentialPoliciesList: state => state.car.carPreferentialPoliciesList,
+  carOrderDetailsList: state => state.car.carOrderDetailsList,
 }
 export default getters

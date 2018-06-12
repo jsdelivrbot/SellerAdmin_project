@@ -10,7 +10,7 @@
             <span>支付状态筛选:</span>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="searchId" placeholder="请选择">
+            <el-select v-model="searchId" placeholder="请选择"  size="mini">
               <el-option
                 v-for="item in searchArr"
                 :key="item.value"
@@ -20,7 +20,7 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="search">查询</el-button>
+            <el-button type="primary" @click="search" size="mini">查询</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -29,7 +29,9 @@
 
       <el-table
         :data="ticketQueryOrderList"
-        style="width: 100%; margin-top: 20px;">
+        style="width: 100%; margin-top: 20px;"
+        v-loading="isLoading"
+      >
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
@@ -194,22 +196,17 @@
           }
         ],
         userInfo: '',
+        isLoading: false,
       }
     },
     methods: {
       //分页
       handleCurrentChange(num) {
-        this.initData('',num)
+        this.initData(num)
       },
       //初始化数据
-      initData(id, num) {
-        if( id == '' ){
-          this.$notify({
-            message: '请先选择支付状态！',
-            type: 'error'
-          })
-          return
-        }
+      initData(num) {
+        this.isLoading = true;
         let getTradeOrderInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -217,24 +214,15 @@
           "operateUserName": "",
           "pcName": "",
           "tm_or_UserID": "", //用户编码
-          "tm_or_TradeInfoID":this.userInfo.sm_ui_ID, //商户编码
-          "tm_or_OrderID": "", //订单号
-          "tm_or_PayState": "", //支付状态(0未支付1已支付)
-          "tm_or_IsBalance": "", //是否结算(0未结算1已结算)
-          "tm_or_OutStatus": "", //出票状态(0出票中1出票成功2出票失败)
-          "tm_or_UseState": "", //使用状态(0未使用1已使用2已退票)
+          "tm_or_TradeInfoID": this.userInfo.sm_ai_ID, //商户编码
+          "tm_or_PayState": this.searchId, //支付状态(0未支付1已支付)
           "page": num ? num : 1,
           "rows": 10
         };
-        if (id == 0) {
-          getTradeOrderInfo.tm_or_PayState = 0;
-        }
-        if (id == 1) {
-          getTradeOrderInfo.tm_or_PayState = 1;
-        }
         this.$store.dispatch('initTicketQueryOrder', getTradeOrderInfo)
           .then(total => {
             this.total = total;
+            this.isLoading = false;
           }, err => {
             this.$notify({
               message: err,
@@ -243,7 +231,7 @@
           })
       },
       search() {
-        this.initData(this.searchId,1)
+        this.initData()
       },
       confirmOrder(id) {
         let reSureOrder = {
@@ -259,7 +247,7 @@
               message: suc,
               type: 'success'
             });
-            this.initData(this.searchId,1)
+            this.initData()
           }, err => {
             this.$notify({
               message: err,
@@ -270,7 +258,7 @@
     },
     created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      this.initData('',1);
+      this.initData();
     }
   }
 </script>

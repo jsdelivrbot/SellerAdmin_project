@@ -133,6 +133,8 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+
+  import {getNewStr} from '@/assets/js/public'
   export default{
     name: '',
     data(){
@@ -180,21 +182,12 @@
       this.initData()
     },
     methods: {
-      //图片转二进制
-      uploadImg(file) {
-        return new Promise(function (relove, reject) {
-          lrz(file)
-          .then(data => {
-            relove(data.base64.split(',')[1])
-          })
-        })
-      },
       uploadToOSS(file) {
         return new Promise((relove,reject)=>{
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -212,6 +205,7 @@
           }
         })
       },
+
       uploaNode() {
         this.ImageURL = [];
         this.ImageURL1 = [];
@@ -219,10 +213,11 @@
           if (this.$refs.upload) {
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                  this.$store.dispatch('hotelUploadAdminImgs', {
-                    imageData: data
-                  })
+                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
+                //   this.$store.dispatch('hotelUploadAdminImgs', {
+                //     imageData: data
+                //   })
+                this.uploadToOSS(this.$refs.upload.files[i])
                   .then(data => {
                     if (data) {
                       this.ImageURL.push(data.data);
@@ -233,7 +228,7 @@
                       });
                     }
                   })
-                })
+                // })
               }
             })
           }
@@ -244,7 +239,7 @@
                 //   this.$store.dispatch('hotelUploadAdminImgs', {
                 //     imageData: data
                 //   })
-                this.uploadToOSS(this.$refs.upload.files[i])
+                this.uploadToOSS(this.$refs.upload1.files[i])
                   .then(data => {
                     if (data) {
                       this.ImageURL1.push(data.data);
@@ -255,7 +250,7 @@
                       });
                     }
                   })
-                //})
+                // })
               }
             })
           }

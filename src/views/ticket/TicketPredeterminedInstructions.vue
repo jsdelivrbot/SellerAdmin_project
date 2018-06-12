@@ -5,7 +5,7 @@
 
       <!--添加-->
       <div class="search">
-        <el-select v-model="ticketAttractionsValue" placeholder="请选择查询的景点">
+        <el-select v-model="ticketAttractionsValue" placeholder="请选择查询的景点" size="mini">
           <el-option
             v-for="item in ticketAttractionsList"
             :key="item.tm_ts_Code"
@@ -14,8 +14,8 @@
           </el-option>
         </el-select>
 
-        <el-button type="primary" @click="search">查询</el-button>
-        <el-button type="primary" @click="Add">新增</el-button>
+        <el-button type="primary" @click="search" size="mini">查询</el-button>
+        <el-button type="primary" @click="Add" size="mini">新增</el-button>
 
       </div>
       <!--数据展示-->

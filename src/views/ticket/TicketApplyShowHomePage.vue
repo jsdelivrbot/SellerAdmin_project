@@ -9,10 +9,10 @@
             <span>景点名称筛选:</span>
           </el-form-item>
           <el-form-item>
-            <el-input v-model="siteName"></el-input>
+            <el-input v-model="siteName" size="mini"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="search">查询</el-button>
+            <el-button type="primary" @click="search" size="mini">查询</el-button>
           </el-form-item>
         </el-form>
       </el-col>

@@ -49,7 +49,6 @@
             action="string"
             :on-remove="handleRemove"
             :file-list="fileList"
-            :http-request="upload"
             list-type="picture">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
@@ -111,7 +110,6 @@
             action="string"
             :on-remove="handleRemove"
             :file-list="fileList"
-            :http-request="upload"
             list-type="picture">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
@@ -146,6 +144,7 @@
     <!--展示-->
     <el-table
       :data="ticketMapList"
+      v-loading="isLoading"
       style="width: 100%">
       <el-table-column type="expand">
         <template slot-scope="props">

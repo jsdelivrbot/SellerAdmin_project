@@ -368,3 +368,24 @@ export const getPayState = val=>{
       return '未知';
   }
 };
+//获取合作类型
+export const getPProperType = val=>{
+  switch (Number(val)) {
+    case 1:
+      return '美食';
+    case 2:
+      return '酒店';
+    case 3:
+      return '旅行社';
+    case 4:
+      return '门票';
+    case 5:
+      return '汽车租赁';
+    case 6:
+      return '广告';
+    case 7:
+      return '微电影';
+    default:
+      return '所有';
+  }
+};

@@ -448,7 +448,7 @@
     font-size: 0;
   }
   .demo-table-expand label {
-    width: 90px;
+    /*width: 90px;*/
     color: #99a9bf;
   }
   .demo-table-expand .el-form-item {

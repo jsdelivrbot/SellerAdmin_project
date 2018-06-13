@@ -76,7 +76,7 @@ const getters = {
 
   carCompaniesList: state => state.car.carCompaniesList,
   carStoreList: state => state.car.carStoreList,
-  carCityPlaceList:state=>state.car.carCityPlaceList,
+  carCityPlaceList:state=>state.travelAgency.carCityPlaceList,
   carGetCityLandmarkInfoList: state => state.car.carGetCityLandmarkInfoList,
   carProductList: state => state.car.carProductList,
   carCompanyCarList: state => state.car.carCompanyCarList,

@@ -125,7 +125,7 @@
           label="供应商手机号码"
           prop="sm_ai_Telephone">
         </el-table-column>
-        <el-table-column label="操作"  align="center">
+        <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -133,7 +133,6 @@
               v-show="scope.row.sm_ai_IsPass!=1"
               @click="updateAdminUserInfo(scope.row)">修改
             </el-button>
-            <!---->
             <el-button
               size="mini"
               type="primary"
@@ -288,8 +287,8 @@
             :src="item"
             v-show="ImageURL1.length"
           >
-          <div v-show="obj.sm_ai_CertImage.length" v-for="item,index in obj.sm_ai_CertImage">
-            <img :src="item">
+          <div v-show="obj.sm_ai_CertImage.length&&!ImageURL1.length" v-for="item,index in obj.sm_ai_CertImage">
+            <img :src="item" width="280" height="125">
           </div>
         </el-form-item>
         <el-form-item label="税务登记号:" :label-width="formLabelWidth">
@@ -307,8 +306,8 @@
             :src="item"
             v-show="ImageURL2.length"
           >
-          <div v-show="obj.sm_ai_FeeImage.length" v-for="item,index in obj.sm_ai_FeeImage">
-            <img :src="item">
+          <div v-show="obj.sm_ai_FeeImage.length&&!ImageURL2.length" v-for="item,index in obj.sm_ai_FeeImage">
+            <img :src="item" width="280" height="125">
           </div>
         </el-form-item>
       </el-form>
@@ -373,6 +372,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import {getNewStr} from '@/assets/js/public'
 
   export default {
     name: 'TravelAgency',
@@ -390,7 +390,7 @@
     ]),
     data() {
       return {
-        lookDialog:false,
+        lookDialog: false,
         menus: ['待审核', '已通过', '未通过'],
         activeIndex: '0',
         obj: {
@@ -457,7 +457,6 @@
         ],//是否三证合一
         ImageURL1: [],
         ImageURL2: [],
-        ImageURL3: [],
         isDisabled: true,
         ScopeOfOperationType: [],
         sm_cp_ID: '',
@@ -477,7 +476,7 @@
 
     methods: {
       //查看
-      viewLook(id){
+      viewLook(id) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -486,16 +485,16 @@
           "pcName": "",
           "userID": id,    //供应商商户号/用户编号
         };
-        this.$store.dispatch('initLookList',options)
-        .then(()=>{
-          this.$store.commit('setTranstionFalse');
-          this.lookDialog = true;
-        },err=>{
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+        this.$store.dispatch('initLookList', options)
+          .then(() => {
+            this.$store.commit('setTranstionFalse');
+            this.lookDialog = true;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       initData() {
         let userInfo = JSON.parse(sessionStorage.getItem('admin'))
@@ -511,31 +510,22 @@
         };
         this.isLoading = true;
         this.$store.dispatch('initAdminSupplier', options)
-        .then(userInfo => {
-          this.isLoading = false;
-        }, err => {
-          console.log(err)
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
-      },
-      //图片转二进制
-      uploadImg(file) {
-        return new Promise(function (relove, reject) {
-          lrz(file)
-          .then(data => {
-            relove(data.base64.split(',')[1])
+          .then(userInfo => {
+            this.isLoading = false;
+          }, err => {
+            console.log(err)
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           })
-        })
       },
       uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
+        return new Promise((relove, reject) => {
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -543,8 +533,7 @@
                 var data = xhr.responseText
                 relove(JSON.parse(data))
               }
-            }else{
-              console.log(xhr.responseText)
+            } else {
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
 //                 reject(JSON.parse(data).resultcontent)
@@ -566,8 +555,8 @@
                 this.uploadToOSS(this.$refs.upload.files[i])
                   .then(data => {
                     if (data) {
-                      this.ImageURL = []
-                      this.ImageURL.push(data.data);
+                      this.ImageURL1 = [];
+                      this.ImageURL1.push(data.data);
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -578,10 +567,10 @@
                 //   })
               }
             })
-          }
+          };
           if (this.$refs.upload2) {
             this.$refs.upload2.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload.files.length; i++) {
+              for (var i = 0; i < this.$refs.upload2.files.length; i++) {
                 // this.uploadImg(this.$refs.upload.files[i]).then(data => {
                 //   this.$store.dispatch('CarUploadAdminImgs', {
                 //     imageData: data
@@ -589,8 +578,8 @@
                 this.uploadToOSS(this.$refs.upload2.files[i])
                   .then(data => {
                     if (data) {
-                      this.ImageURL = []
-                      this.ImageURL.push(data.data);
+                      this.ImageURL2 = [];
+                      this.ImageURL2.push(data.data);
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -601,30 +590,7 @@
                 //   })
               }
             })
-          }
-          if (this.$refs.upload3) {
-            this.$refs.upload3.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('CarUploadAdminImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.upload3.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.ImageURL = []
-                      this.ImageURL.push(data.data);
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                //   })
-              }
-            })
-          }
+          };
         }, 30)
       },
 
@@ -713,7 +679,7 @@
       },
 //      修改提交
       updateAdminUserInfoSubmit() {
-        if( !this.obj.sm_ai_PPropertyID ){
+        if (!this.obj.sm_ai_PPropertyID) {
           this.$notify({
             message: '请选择合作类型!!',
             type: 'error'
@@ -729,18 +695,18 @@
           "data": this.obj
         }
         this.$store.dispatch('updateAdminUserInfoSubmit', updateAgentInfo)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
-          });
-          this.initData()
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData()
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
         this.updateDialog = false;
       }
     },

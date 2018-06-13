@@ -1,9 +1,9 @@
 <template>
   <div id="wrap" class="clearfix">
-    <el-breadcrumb separator-class="el-icon-arrow-right"style="margin: 20px 0px 0px 20px" >
-      <el-breadcrumb-item  :to="{path:'/home/hotelRoom/'}">房间</el-breadcrumb-item>
+    <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 20px 0px 0px 20px">
+      <el-breadcrumb-item :to="{path:'/home/hotelRoom/'}">房间</el-breadcrumb-item>
       <el-breadcrumb-item @click.native="goHotelRoomProduct">酒店房间产品</el-breadcrumb-item>
-      <el-breadcrumb-item >酒店房间实体</el-breadcrumb-item>
+      <el-breadcrumb-item>酒店房间实体</el-breadcrumb-item>
       <!--<el-breadcrumb-item>前往生成房间数</el-breadcrumb-item>-->
     </el-breadcrumb>
     <h1 class="userClass">酒店房间实体</h1>
@@ -36,10 +36,10 @@
       >
       </el-table-column>
       <!--<el-table-column-->
-        <!--width="140"-->
-        <!--prop="ht_rpp_ID"-->
-        <!--label="房间产品ID"-->
-        <!--align="center"-->
+      <!--width="140"-->
+      <!--prop="ht_rpp_ID"-->
+      <!--label="房间产品ID"-->
+      <!--align="center"-->
       <!--&gt;-->
       <!--</el-table-column>-->
       <el-table-column
@@ -96,7 +96,8 @@
           <a href="javascript:;" class="file">上传图片
             <input type="file" name="" ref="upload" accept="image/*" multiple>
           </a>
-          <img src="" alt="" v-lazy="item"  v-show="ImageURL.length" v-for="item in ImageURL" style="width: 100px;height: 100px">
+          <img src="" alt="" v-lazy="item" v-show="ImageURL.length" v-for="item in ImageURL"
+               style="width: 100px;height: 100px">
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -115,7 +116,8 @@
           <a href="javascript:;" class="file">上传图片
             <input type="file" name="" ref="upload1" accept="image/*" multiple>
           </a>
-          <img src="" alt="" v-lazy="item"  v-show="ImageURL1.length" v-for="item in ImageURL1" style="width: 100px;height: 100px">
+          <img src="" alt="" v-lazy="item" v-show="ImageURL1.length" v-for="item in ImageURL1"
+               style="width: 100px;height: 100px">
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -127,20 +129,22 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  export default{
+  import {getNewStr} from '@/assets/js/public'
+
+  export default {
     name: '',
-    data(){
+    data() {
       return {
-        houseName:'',
-        roomProductID:'',//房间产品编码
+        houseName: '',
+        roomProductID: '',//房间产品编码
         total: 0,
-        ImageURL:[],
-        ImageURL1:[],
+        ImageURL: [],
+        ImageURL1: [],
         isLoading: false,
         addDialog: false,
         updateDialog: false,
         formLabelWidth: '120px',
-        addOptions:{
+        addOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "操作员编码",
@@ -158,7 +162,7 @@
       'hotelRoomEntityList',
       'updateHotelRoomEntityObj'
     ]),
-    created(){
+    created() {
       let id = this.$route.params.id;
       if (!id) {
         this.$notify({
@@ -173,28 +177,28 @@
       this.initData('', 1)
     },
     methods: {
-      goHotelRoomProduct(){
-        this.$router.push({name:'HotelRoomProduct',params:{id:1378}})
+      goHotelRoomProduct() {
+        this.$router.push({name: 'HotelRoomProduct', params: {id: 1378}})
       },
       //前往生成房间数
-      toRoomNumber(RoomProductID){
-        this.$router.push({name:'HotelRoomNumber', params: {id: RoomProductID}})
+      toRoomNumber(RoomProductID) {
+        this.$router.push({name: 'HotelRoomNumber', params: {id: RoomProductID}})
       },
       //图片转二进制
       uploadImg(file) {
         return new Promise(function (relove, reject) {
           lrz(file)
-          .then(data => {
-            relove(data.base64.split(',')[1])
-          })
+            .then(data => {
+              relove(data.base64.split(',')[1])
+            })
         })
       },
       uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
+        return new Promise((relove, reject) => {
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -202,8 +206,7 @@
                 var data = xhr.responseText
                 relove(JSON.parse(data))
               }
-            }else{
-              console.log(xhr.responseText)
+            } else {
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
 //                 reject(JSON.parse(data).resultcontent)
@@ -256,32 +259,32 @@
                       });
                     }
                   })
-               // })
+                // })
               }
             })
           }
         }, 30)
       },
       //分页
-      handleCurrentChange(num){
-        this.initData(this.houseName,num)
+      handleCurrentChange(num) {
+        this.initData(this.houseName, num)
       },
-      initData(houseID,page){
+      initData(houseID, page) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "操作员编码",
           "operateUserName": "操作员名称",
           "pcName": "",
-          "page": page?page:1,//分页号
+          "page": page ? page : 1,//分页号
           "rows": "10",//单页显示数据量
           "ht_re_Id": "",//房间实体ID
           "ht_rpp_ID": this.roomProductID,//房间产品ID
-          "ht_re_HouseNumber": houseID?houseID:'',//房间门牌号
+          "ht_re_HouseNumber": houseID ? houseID : '',//房间门牌号
           "ht_re_ImagePath": "",//房间图片
         };
         this.isLoading = true;
-        this.$store.dispatch('initHotelRoomEntity',options)
+        this.$store.dispatch('initHotelRoomEntity', options)
           .then((total) => {
             this.total = total
             this.isLoading = false
@@ -292,19 +295,19 @@
             });
           })
       },
-      search(){
-        this.initData(this.houseName,1)
+      search() {
+        this.initData(this.houseName, 1)
       },
-      Add(){
+      Add() {
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
         this.uploaNode()
       },
       //添加提交
-      addSubmit(){
+      addSubmit() {
         this.addOptions.data.ht_re_ImagePath = this.ImageURL.join(',');
         this.addOptions.data.ht_rpp_ID = this.roomProductID;
-        this.$store.dispatch('AddHotelRoomEntity',this.addOptions)
+        this.$store.dispatch('AddHotelRoomEntity', this.addOptions)
           .then(suc => {
             this.$notify({
               message: suc,
@@ -319,14 +322,14 @@
           });
         this.addDialog = false;
       },
-      Update(id){
+      Update(id) {
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
         this.$store.commit('UpdateHotelRoomEntity', id)
         this.uploaNode()
       },
       //修改提交
-      updateSubmit(){
+      updateSubmit() {
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -336,23 +339,23 @@
           "data": this.updateHotelRoomEntityObj
         };
         updateOptions.data.ht_re_ImagePath = this.ImageURL1.join(',');
-        this.$store.dispatch('UpdateHotelRoomEntity',updateOptions)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
+        this.$store.dispatch('UpdateHotelRoomEntity', updateOptions)
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData(this.houseName, 1)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.houseName, 1)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.updateDialog = false;
       },
       //删除
-      Delete(id){
+      Delete(id) {
         let deleteOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -363,19 +366,19 @@
             "ht_re_Id": id//房间实体ID
           }
         };
-        this.$store.dispatch('DeleteHotelRoomEntity',deleteOptions)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
+        this.$store.dispatch('DeleteHotelRoomEntity', deleteOptions)
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData(this.houseName, 1)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.houseName, 1)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
       },
     },
   }

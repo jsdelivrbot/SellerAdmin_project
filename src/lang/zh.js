@@ -9,6 +9,7 @@ export default {
     hotelFacilitiesServicesFacilities:'酒店设施服务设施',
     hotelIcon:'酒店图标信息',
     hotelImage:'酒店图片信息',
+    ticketMap:'导览信息',
     hotelLotRoomNumber:'酒店批量生成房间',
     hotelOrderDetails:'酒店订单明细',
     hotelQueryRecommend:'酒店推荐信息',

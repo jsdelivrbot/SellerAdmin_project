@@ -31,6 +31,7 @@ export default {
     foodStoreConfirmOrder:'Food Store Confirm Order',
 
     hotel:'Hotel',
+    ticketMap:'Ticket Map',
     hotelDetail:'Hotel Detail',
     hotelConfirmOrder: 'HotelConfirmOrder',
     HotelFacilitiesServices: 'HotelFacilitiesServices',

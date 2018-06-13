@@ -14,6 +14,7 @@ export default {
     ticketTypeTicketPrice:"ticketTypeTicketPrice",
     ticketQueryOrder:"Ticket Query Order",
     ticketApplyShowHomePage:"Ticket Apply Show Home Page",
+    ticketMap: 'Ticket Map',
 
     food:"Food Management",
     foodStoreInformation:'Food Store Information',

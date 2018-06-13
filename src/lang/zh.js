@@ -29,6 +29,7 @@ export default {
     ticketTypeTicketPrice:"门票票种_票价",
     ticketQueryOrder:"门票查询订单",
     ticketApplyShowHomePage:"门票申请景点展示",
+    ticketMap: '地图导览',
 
     food:"美食后台管理",
     foodStoreInformation:'美食店面信息',

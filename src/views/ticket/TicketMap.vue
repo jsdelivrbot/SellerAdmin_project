@@ -51,7 +51,11 @@
 
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
           <a href="javascript:;" class="file">选择音频
+<<<<<<< Updated upstream
             <input type="file" name="" ref="audios" multiple>
+=======
+            <input type="file" name="" ref="audio" multiple>
+>>>>>>> Stashed changes
           </a>
           <span style="display: inline-block;height: 30px;margin-left:40px;font-size: 18px;">{{AudioNews}}</span>
           <el-form-item size="large">
@@ -207,7 +211,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import {getNewStr} from '@/assets/public'
+  import {getNewStr} from '@/assets/js/public'
   export default{
     name: '',
     data(){

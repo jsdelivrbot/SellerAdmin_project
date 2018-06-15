@@ -172,52 +172,6 @@ export const constantRouterMap = [
         meta: {title: 'hotelDetail'}
       },
       {
-        path: 'hotelRoom',
-        name: 'HotelRoom',
-        component: () => import('@/views/hotel/HotelRoom'),
-        meta: {title: 'hotelRoom'}
-      },
-      {
-        path: 'hotelImage',
-        name: 'HotelImage',
-        component: () => import('@/views/hotel/HotelImage'),
-        meta: {title: 'hotelImage'}
-      },
-      {
-        path: 'hotelRoomProduct',
-        name: 'HotelRoomProduct',
-        hidden:true,
-        alwaysShow: true,
-        component: () => import('@/views/hotel/HotelRoomProduct'),
-        meta: {title: 'hotelRoomProduct'}
-      },
-      {
-        path: 'hotelQueryRecommend',
-        name: 'HotelQueryRecommend',
-        component: () => import('@/views/hotel/HotelQueryRecommend'),
-        meta: {title: 'hotelQueryRecommend'}
-      },
-      {
-        path: 'hotelIcon',
-        name: 'HotelIcon',
-        component: () => import('@/views/hotel/HotelIcon'),
-        meta: {title: 'hotelIcon'}
-      },
-      {
-        path: 'hotelTheme',
-        name: 'HotelTheme',
-        component: () => import('@/views/hotel/HotelTheme'),
-        meta: {title: 'hotelTheme'}
-      },
-      {
-        path: 'hotelRoomNumber',
-        name: 'HotelRoomNumber',
-        hidden:true,
-        alwaysShow: true,
-        component: () => import('@/views/hotel/HotelRoomNumber'),
-        meta: {title: 'hotelRoomNumber'}
-      },
-      {
         path: 'hotelConfirmOrder',
         name: 'HotelConfirmOrder',
         component: () => import('@/views/hotel/HotelConfirmOrder'),
@@ -229,8 +183,18 @@ export const constantRouterMap = [
         component: () => import('@/views/hotel/HotelFacilitiesServices'),
         meta: {title: 'hotelFacilitiesServices'}
       },
-
-
+      {
+        path: 'hotelIcon',
+        name: 'HotelIcon',
+        component: () => import('@/views/hotel/HotelIcon'),
+        meta: {title: 'hotelIcon'}
+      },
+      {
+        path: 'hotelImage',
+        name: 'HotelImage',
+        component: () => import('@/views/hotel/HotelImage'),
+        meta: {title: 'hotelImage'}
+      },
       {
         path: 'hotelLotRoomNumber',
         name: 'HotelLotRoomNumber',
@@ -251,8 +215,18 @@ export const constantRouterMap = [
         component: () => import('@/views/hotel/HotelPolicy'),
         meta: {title: 'hotelPolicy'}
       },
-
-
+      {
+        path: 'hotelQueryRecommend',
+        name: 'HotelQueryRecommend',
+        component: () => import('@/views/hotel/HotelQueryRecommend'),
+        meta: {title: 'hotelQueryRecommend'}
+      },
+      {
+        path: 'hotelRoom',
+        name: 'HotelRoom',
+        component: () => import('@/views/hotel/HotelRoom'),
+        meta: {title: 'hotelRoom'}
+      },
       {
         path: 'hotelRoomEntity',
         name: 'HotelRoomEntity',
@@ -261,15 +235,34 @@ export const constantRouterMap = [
         component: () => import('@/views/hotel/HotelRoomEntity'),
         meta: {title: 'hotelRoomEntity'}
       },
-
-
+      {
+        path: 'hotelRoomNumber',
+        name: 'HotelRoomNumber',
+        hidden:true,
+        alwaysShow: true,
+        component: () => import('@/views/hotel/HotelRoomNumber'),
+        meta: {title: 'hotelRoomNumber'}
+      },
+      {
+        path: 'hotelRoomProduct',
+        name: 'HotelRoomProduct',
+        hidden:true,
+        alwaysShow: true,
+        component: () => import('@/views/hotel/HotelRoomProduct'),
+        meta: {title: 'hotelRoomProduct'}
+      },
       {
         path: 'hotelRoomRoomFacilities',
         name: 'HotelRoomRoomFacilities',
         component: () => import('@/views/hotel/HotelRoomRoomFacilities'),
         meta: {title: 'hotelRoomRoomFacilities'}
       },
-
+      {
+        path: 'hotelTheme',
+        name: 'HotelTheme',
+        component: () => import('@/views/hotel/HotelTheme'),
+        meta: {title: 'hotelTheme'}
+      },
 
 
     ]
@@ -374,10 +367,10 @@ export const constantRouterMap = [
         meta: {title: 'vMovieCheckTable'}
       },
       {
-        path: 'vMovieVideo',
-        name: 'VMovieVideo',
-        component: () => import('@/views/movie/VMovieVideo'),
-        meta: {title: 'vMovieVideo'}
+        path: 'vMovieMiniMovie',
+        name: 'VMovieMiniMovie',
+        component: () => import('@/views/movie/VMovieMiniMovie'),
+        meta: {title: 'vMovieMiniMovie'}
       },
       {
         path: 'vMovieSeries',
@@ -386,22 +379,22 @@ export const constantRouterMap = [
         meta: {title: 'vMovieSeries'}
       },
       {
-        path: 'vMovieVideoSeries',
-        name: 'VMovieVideoSeries',
-        component: () => import('@/views/movie/VMovieVideoSeries'),
-        meta: {title: 'vMovieVideoSeries'}
-      },
-/*      {
         path: 'vMovieSeriesCategories',
         name: 'VMovieSeriesCategories',
         component: () => import('@/views/movie/VMovieSeriesCategories'),
         meta: {title: 'vMovieSeriesCategories'}
-      },*/
+      },
       {
         path: 'vMovieSorting',
         name: 'VMovieSorting',
         component: () => import('@/views/movie/VMovieSorting'),
         meta: {title: 'vMovieSorting'}
+      },
+      {
+        path: 'vMovieVideo',
+        name: 'VMovieVideo',
+        component: () => import('@/views/movie/VMovieVideo'),
+        meta: {title: 'vMovieVideo'}
       },
       {
         path: 'vMovieVideoCategories',
@@ -410,11 +403,12 @@ export const constantRouterMap = [
         meta: {title: 'vMovieVideoCategories'}
       },
       {
-        path: 'vMovieMiniMovie',
-        name: 'VMovieMiniMovie',
-        component: () => import('@/views/movie/VMovieMiniMovie'),
-        meta: {title: 'vMovieMiniMovie'}
+        path: 'vMovieVideoSeries',
+        name: 'VMovieVideoSeries',
+        component: () => import('@/views/movie/VMovieVideoSeries'),
+        meta: {title: 'vMovieVideoSeries'}
       },
+
     ]
   },
   /**
@@ -435,43 +429,17 @@ export const constantRouterMap = [
         component: () => import('@/views/car/CarHome'),
         meta: {title: 'carHome'}
       },
-      {
-<<<<<<< HEAD
-        path: 'carOrderDetails',
-        name: 'CarOrderDetails',
-        component: () => import('@/views/car/CarOrderDetails'),
-        meta: {title: 'carOrderDetails'}
-      },
+
       {
         hidden:true,
         alwaysShow: true,
-=======
-        path: 'carStore',
-        name: 'CarStore',
-        component: () => import('@/views/car/CarStore'),
-        meta: {title: 'carStore'}
-      },
-      {
->>>>>>> d1c21b9f052fdc21d043756d8c313d719df12d7c
         path: 'carCompanyCar',
         name: 'CarCompanyCar',
         component: () => import('@/views/car/CarCompanyCar'),
         meta: {title: 'carCompanyCar'}
       },
+
       {
-        path: 'carProduct',
-        name: 'CarProduct',
-        component: () => import('@/views/car/CarProduct'),
-        meta: {title: 'carProduct'}
-      },
-      {
-        path: 'carConfirmOrder',
-        name: 'CarConfirmOrder',
-        component: () => import('@/views/car/CarConfirmOrder'),
-        meta: {title: 'carConfirmOrder'}
-      },
-      {
-<<<<<<< HEAD
         path: 'carStore',
         name: 'CarStore',
         component: () => import('@/views/car/CarStore'),
@@ -482,24 +450,25 @@ export const constantRouterMap = [
         name: 'CarProduct',
         component: () => import('@/views/car/CarProduct'),
         meta: {title: 'carProduct'}
-=======
-        path: 'carOrderDetails',
-        name: 'CarOrderDetails',
-        component: () => import('@/views/car/CarOrderDetails'),
-        meta: {title: 'carOrderDetails'}
->>>>>>> d1c21b9f052fdc21d043756d8c313d719df12d7c
       },
       {
         path: 'carPreferentialPolicies',
         name: 'CarPreferentialPolicies',
         component: () => import('@/views/car/CarPreferentialPolicies'),
         meta: {title: 'carPreferentialPolicies'}
+      },  {
+        path: 'carOrderDetails',
+        name: 'CarOrderDetails',
+        component: () => import('@/views/car/CarOrderDetails'),
+        meta: {title: 'carOrderDetails'}
+      },{
+        path: 'carConfirmOrder',
+        name: 'CarConfirmOrder',
+        component: () => import('@/views/car/CarConfirmOrder'),
+        meta: {title: 'carConfirmOrder'}
       },
 
-<<<<<<< HEAD
 
-=======
->>>>>>> d1c21b9f052fdc21d043756d8c313d719df12d7c
     ]
   },
   /**

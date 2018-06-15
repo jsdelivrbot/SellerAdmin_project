@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="wrap" class="clearfix">
-      <h1 class="userClass">系列分类</h1>
+      <h1 class="userClass">微电影系列分类</h1>
       <!--查询栏-->
       <el-col :span="24" class="formSearch">
         <el-form :inline="true" size="small">
@@ -175,8 +175,8 @@
 
     created() {
       this.initData(),
-      this.initSeriesName(0),
-      this.initTypeName()
+        this.initSeriesName(0),
+        this.initTypeName()
     },
     methods: {
       initSeriesName(name){
@@ -201,29 +201,29 @@
             });
           });
       },
-/*      intParentTypeData(parentId){
-        let options = {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",//操作员编码
-          "operateUserName": "",//操作员名称
-          "pcName": "",
-          "vf_te_ID":"",//分类编号
-          "vf_te_Name":"",//分类名称
-          "vf_te_ParentID": parentId?parentId:0,//分类编号父编号
-          "page": 1,//页码
-          "rows": 5//条数
-        };
-        this.$store.dispatch("initVMovieParentSorting", options)
-          .then((total) => {
-            this.total = total;
-          }, (err) => {
-            this.$notify({
-              message: err,
-              type: "error"
-            });
-          });
-      },*/
+      /*      intParentTypeData(parentId){
+              let options = {
+                "loginUserID": "huileyou",
+                "loginUserPass": "123",
+                "operateUserID": "",//操作员编码
+                "operateUserName": "",//操作员名称
+                "pcName": "",
+                "vf_te_ID":"",//分类编号
+                "vf_te_Name":"",//分类名称
+                "vf_te_ParentID": parentId?parentId:0,//分类编号父编号
+                "page": 1,//页码
+                "rows": 5//条数
+              };
+              this.$store.dispatch("initVMovieParentSorting", options)
+                .then((total) => {
+                  this.total = total;
+                }, (err) => {
+                  this.$notify({
+                    message: err,
+                    type: "error"
+                  });
+                });
+            },*/
       initTypeName(){
         let options = {
           "loginUserID": "huileyou",
@@ -276,53 +276,53 @@
       search() {
         this.initData(this.seriesName,this.parentTypeName,"");
       },
-/*      seriesName(){
-        let options = {
-          "loginUserID": "huileyou",  //惠乐游用户ID
-          "loginUserPass": "123",  //惠乐游用户密码
-          "operateUserID": "",//操作员编码
-          "operateUserName": "",//操作员名称
-          "pcName": "",  //机器码
-          "vf_ss_ID": "",//系列编号
-          "vf_ss_Name":"",//系列名称
-          "vf_ss_WriteState": "",//连载状态（0连载中1完结)
-          "vf_ss_AuthorID":"",//作者
-        };
-        this.$store.dispatch("initVMovieSeries", options)
-          .then((total) => {
-            this.total = total;
-          }, (err) => {
-            this.$notify({
-              message: err,
-              type: "error"
-            });
-          });
-      },*/
-/*      searchSeries(seriesCategoriesId,seriesId,typeId,page){
-          let options = {
-            "loginUserID": "huileyou",  //惠乐游用户ID
-            "loginUserPass": "123",  //惠乐游用户密码
-            "operateUserID": "",//操作员编码
-            "operateUserName": "",//操作员名称
-            "pcName": "",  //机器码
-            "vf_st_ID": seriesCategoriesId?seriesCategoriesId:"",//系列分类编号
-            "vf_st_SeriesID": seriesId?seriesId:"",//系列编号
-            "vf_st_SeriesTypeID": typeId?typeId:"",//分类编号
-            "page": page?page:1,//页码
-            "rows": 5//条数
-          };
-          this.$store.dispatch("initVMovieSeriesCategories", options)
-            .then((total) => {
-              this.total = total;
-            }, (err) => {
-              this.$notify({
-                message: err,
-                type: "error"
-              });
-            });
-        },*/
+      /*      seriesName(){
+              let options = {
+                "loginUserID": "huileyou",  //惠乐游用户ID
+                "loginUserPass": "123",  //惠乐游用户密码
+                "operateUserID": "",//操作员编码
+                "operateUserName": "",//操作员名称
+                "pcName": "",  //机器码
+                "vf_ss_ID": "",//系列编号
+                "vf_ss_Name":"",//系列名称
+                "vf_ss_WriteState": "",//连载状态（0连载中1完结)
+                "vf_ss_AuthorID":"",//作者
+              };
+              this.$store.dispatch("initVMovieSeries", options)
+                .then((total) => {
+                  this.total = total;
+                }, (err) => {
+                  this.$notify({
+                    message: err,
+                    type: "error"
+                  });
+                });
+            },*/
+      /*      searchSeries(seriesCategoriesId,seriesId,typeId,page){
+                let options = {
+                  "loginUserID": "huileyou",  //惠乐游用户ID
+                  "loginUserPass": "123",  //惠乐游用户密码
+                  "operateUserID": "",//操作员编码
+                  "operateUserName": "",//操作员名称
+                  "pcName": "",  //机器码
+                  "vf_st_ID": seriesCategoriesId?seriesCategoriesId:"",//系列分类编号
+                  "vf_st_SeriesID": seriesId?seriesId:"",//系列编号
+                  "vf_st_SeriesTypeID": typeId?typeId:"",//分类编号
+                  "page": page?page:1,//页码
+                  "rows": 5//条数
+                };
+                this.$store.dispatch("initVMovieSeriesCategories", options)
+                  .then((total) => {
+                    this.total = total;
+                  }, (err) => {
+                    this.$notify({
+                      message: err,
+                      type: "error"
+                    });
+                  });
+              },*/
       Add() {
-//        this.seriesName();
+        this.seriesName();
         this.addDialog = true;
         this.$store.commit('setTranstionFalse');
       },
@@ -395,19 +395,19 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
-                    .then(data => {
-                      this.addOptions.data.vf_ve_Content.vf_vo_ImageURL="";
-                      if (data) {
-                        this.addOptions.data.vf_ve_Content.vf_vo_ImageURL = data.data;
-                        // console.log(data.data)
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-              //  })
+                  .then(data => {
+                    this.addOptions.data.vf_ve_Content.vf_vo_ImageURL="";
+                    if (data) {
+                      this.addOptions.data.vf_ve_Content.vf_vo_ImageURL = data.data;
+                      // console.log(data.data)
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                // })
               }
             })
           }
@@ -419,17 +419,17 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.upload1.files[i])
-                    .then(data => {
-                      if (data) {
-                        this.ImageURL1.push(data.data);
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-                //})
+                  .then(data => {
+                    if (data) {
+                      this.ImageURL1.push(data.data);
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                // })
               }
             })
           }
@@ -463,11 +463,14 @@
             })
       },
       Update(obj) {
+        this.seriesName();
+        this.typeName();
         this.VMovieSeriesCategoriesUpdateObj.data=obj;
         this.updateDialog = true;
         this.$store.commit('setTranstionFalse');
       },
       updateSubmit() {
+        console.log(this.VMovieSeriesCategoriesUpdateObj)
         this.$store.dispatch("updateVMovieSeriesCategories", this.VMovieSeriesCategoriesUpdateObj)
           .then(
             (suc) => {

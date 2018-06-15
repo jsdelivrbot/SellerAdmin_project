@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="wrap" class="clearfix">
-      <h1 class="userClass">待审核</h1>
+      <h1 class="userClass">微电影审核表</h1>
       <!--查询栏-->
       <el-col :span="24" class="formSearch">
         <el-form :inline="true" size="mini">
@@ -23,7 +23,7 @@
         style="width: 100%">
         <el-table-column type="expand">
           <template slot-scope="props">
-            <el-form label-position="left" inline class="demo-table-expand">
+            <el-form label-position="left" inline class="demo-table-expand" label-width="100px">
               <el-form-item label="审核表编号:">
                 <span>{{props.row.vf_ve_ID}}</span>
               </el-form-item>
@@ -115,7 +115,7 @@
       <!--添加-->
       <el-dialog title="添加" :visible.sync="addDialog">
         <el-form :model="addOptions">
-          <el-form-item label="选择视频:" :label-width="formLabelWidth">
+          <el-form-item label="请选择视频:" :label-width="formLabelWidth">
             <a href="javascript:;" class="file">选择视频
               <input type="file" name="" ref="upload1" multiple>
             </a>
@@ -123,7 +123,9 @@
             <el-form-item size="large">
               <el-button type="primary" size="mini" @click="uploadFile">立即上传</el-button>
             </el-form-item>
-            <el-progress :text-inside="true" :stroke-width="18" :percentage="percentage" status="exception"></el-progress>
+<!--            <el-form-item size="large">
+              <el-progress :text-inside="true" :stroke-width="18" :percentage="percentage" status="exception"></el-progress>
+            </el-form-item>-->
             <el-form-item size="large">
               <video id="addVideo" :src="addVideoSrc"  width="320" height="240" controls="controls"></video>
             </el-form-item>
@@ -363,6 +365,7 @@
         this.VMovieCheckTableUpdateObj.data.vf_ve_Type=this.updateFilmType.join(",");//最新父分类视频编号
         this.childTypeData(this.updateFilmType.join(","));
       },
+      //当新增父分类改变时
       addParentChange() {
         this.childTypeData(this.parentTypeId.join(','));
         this.isVisible=true;
@@ -457,7 +460,7 @@
         this.initData('', num)
         this.num=num;
       },
-      //初始化类型
+      //初始化视频类型
       intTypeData(typeName,typeParentName){
         let options = {
           "loginUserID": "huileyou",

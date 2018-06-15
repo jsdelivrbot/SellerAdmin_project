@@ -367,10 +367,10 @@ export const constantRouterMap = [
         meta: {title: 'vMovieCheckTable'}
       },
       {
-        path: 'vMovieMiniMovie',
-        name: 'VMovieMiniMovie',
-        component: () => import('@/views/movie/VMovieMiniMovie'),
-        meta: {title: 'vMovieMiniMovie'}
+        path: 'vMovieVideo',
+        name: 'VMovieVideo',
+        component: () => import('@/views/movie/VMovieVideo'),
+        meta: {title: 'vMovieVideo'}
       },
       {
         path: 'vMovieSeries',
@@ -379,22 +379,22 @@ export const constantRouterMap = [
         meta: {title: 'vMovieSeries'}
       },
       {
+        path: 'vMovieVideoSeries',
+        name: 'VMovieVideoSeries',
+        component: () => import('@/views/movie/VMovieVideoSeries'),
+        meta: {title: 'vMovieVideoSeries'}
+      },
+/*      {
         path: 'vMovieSeriesCategories',
         name: 'VMovieSeriesCategories',
         component: () => import('@/views/movie/VMovieSeriesCategories'),
         meta: {title: 'vMovieSeriesCategories'}
-      },
+      },*/
       {
         path: 'vMovieSorting',
         name: 'VMovieSorting',
         component: () => import('@/views/movie/VMovieSorting'),
         meta: {title: 'vMovieSorting'}
-      },
-      {
-        path: 'vMovieVideo',
-        name: 'VMovieVideo',
-        component: () => import('@/views/movie/VMovieVideo'),
-        meta: {title: 'vMovieVideo'}
       },
       {
         path: 'vMovieVideoCategories',
@@ -403,12 +403,11 @@ export const constantRouterMap = [
         meta: {title: 'vMovieVideoCategories'}
       },
       {
-        path: 'vMovieVideoSeries',
-        name: 'VMovieVideoSeries',
-        component: () => import('@/views/movie/VMovieVideoSeries'),
-        meta: {title: 'vMovieVideoSeries'}
+        path: 'vMovieMiniMovie',
+        name: 'VMovieMiniMovie',
+        component: () => import('@/views/movie/VMovieMiniMovie'),
+        meta: {title: 'vMovieMiniMovie'}
       },
-
     ]
   },
   /**

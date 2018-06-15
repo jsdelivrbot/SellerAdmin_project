@@ -65,7 +65,6 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import {getNewStr} from '@/assets/js/public'
 
   export default {
 
@@ -164,19 +163,19 @@
       querySearchAsync(queryString, cb) {
         this.loadAll(queryString)
           .then(data => {
-          var data = data.data;
-          data = data.map(item => {
-            return {
-              id: item.vf_vo_ID,
-              value: item.vf_vo_Title
-            }
-          });
-          this.restaurants = data;
-          clearTimeout(this.timeout);
-          this.timeout = setTimeout(() => {
-            cb(this.restaurants);
-          }, 10);
-        })
+            var data = data.data;
+            data = data.map(item => {
+              return {
+                id: item.vf_vo_ID,
+                value: item.vf_vo_Title
+              }
+            });
+            this.restaurants = data;
+            clearTimeout(this.timeout);
+            this.timeout = setTimeout(() => {
+              cb(this.restaurants);
+            }, 10);
+          })
       },
       //创建过滤器
       createFilter(queryString) {
@@ -283,7 +282,7 @@
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+ "/OSSFile/PostToOSS");
+          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -314,18 +313,18 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
-                    .then(data => {
-                      this.addOptions.data.vf_ve_Content.vf_vo_ImageURL="";
-                      if (data) {
-                        this.addOptions.data.vf_ve_Content.vf_vo_ImageURL = data.data;
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-               // })
+                  .then(data => {
+                    this.addOptions.data.vf_ve_Content.vf_vo_ImageURL="";
+                    if (data) {
+                      this.addOptions.data.vf_ve_Content.vf_vo_ImageURL = data.data;
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                // })
               }
             })
           }
@@ -337,17 +336,17 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.upload1.files[i])
-                    .then(data => {
-                      if (data) {
-                        this.ImageURL1.push(data.data);
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-               // })
+                  .then(data => {
+                    if (data) {
+                      this.ImageURL1.push(data.data);
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                // })
               }
             })
           }

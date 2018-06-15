@@ -5,11 +5,14 @@
       <!--查询栏-->
       <el-col :span="24" class="formSearch">
         <el-form :inline="true" size="small">
-          <el-form-item label="电影类型筛选:">
-            <el-select v-model="movieType" placeholder="请选择电影类型">
-              <el-option label="微电影" value="0"></el-option>
-              <el-option label="广告视频" value="1"></el-option>
-              <el-option label="教育视频" value="2"></el-option>
+          <el-form-item label="视频系列筛选:">
+            <el-select v-model="videoSeries" placeholder="请选择电影类型">
+              <el-option
+                v-for="item in VMovieSeries"
+                :key="item.vf_ss_ID"
+                :label="item.vf_ss_Name"
+                :value="item.vf_ss_ID">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
@@ -121,8 +124,8 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="视频标题:" :label-width="formLabelWidth">
-            <el-select v-model="VMovieVideoSeriesUpdateObj.data.vf_fs_VedioID" placeholder="请选择视频标题">
+          <el-form-item label="视频名称:" :label-width="formLabelWidth">
+            <el-select v-model="videoTitle" placeholder="请选择视频名称">
               <el-option
                 v-for="item in VMovieVideoList"
                 :key="item.vf_vo_ID"
@@ -147,7 +150,6 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import {getNewStr} from '@/assets/js/public'
 
   export default {
 
@@ -160,6 +162,8 @@
         //修改
         updateDialog: false,
         ImageURL: '',
+        //视频系列
+        videoSeries: '',
         ImageURL1: [],
         //数据展示
         isLoading: false,
@@ -167,6 +171,8 @@
         total: 0,
         //查询
         movieType: '',
+        //视频名称或标题
+        videoTitle: '',
         //添加
         addDialog: false,
         addOptions: {
@@ -176,9 +182,9 @@
           "operateUserName": "",//操作员名称
           "pcName": "",
           "data": {
-            "vf_fs_SeriesID": "1",//系列编号
-            "vf_fs_VedioID": "1",//视频编号
-            "vf_fs_Level": "1",//第几集
+            "vf_fs_SeriesID": "",//系列编号
+            "vf_fs_VedioID": "",//视频编号
+            "vf_fs_Level": "",//第几集
           }
         },
         //表单宽度
@@ -191,9 +197,9 @@
           "pcName": "",  //机器码
           "data": {
             "vf_fs_ID": "10",//系列编码
-            "vf_fs_SeriesID": "1",//系列编号
-            "vf_fs_VedioID": "2",//视频编号
-            "vf_fs_Level": "8",//第几集
+            "vf_fs_SeriesID": "",//系列编号
+            "vf_fs_VedioID": "",//视频编号
+            "vf_fs_Level": "",//第几集
           }
         },
       }
@@ -205,30 +211,17 @@
     ]),
 
     created() {
-      this.initData('','', 1)
+      //初始化系列数据
+      this.searchSeries();
     },
     methods: {
-      film(){
-        let options = {
-          "loginUserID": "huileyou",  //惠乐游用户ID
-          "loginUserPass": "123",  //惠乐游用户密码
-          "operateUserID": "",//操作员编码
-          "operateUserName": "",//操作员名称
-          "pcName": "",  //机器码
-          "vf_vo_ID": "",//视频编号
-          "vf_vo_Extend":"",//文件扩展名
-          "vf_vo_AuthorID": "",//作者
-          "vf_vo_Type":"",//视频类型
-          "vf_vo_Title": "",//标题
-          "vf_vo_PasserID":"",//审核人编码
-        };
-        this.$store.dispatch("initVMovieVideo", options)
-      },
+
       //分页
       handleCurrentChange(num) {
-        this.initData('','', num)
+        this.initData(this.movieType,'', this.num);
         this.num = num;
       },
+      //初始化数据
       initData(series,vedio, page) {
         let options = {
           "loginUserID": "huileyou",
@@ -236,8 +229,8 @@
           "operateUserID": "",//操作员编码
           "operateUserName": "",//操作员名称
           "pcName": "",
-          "vf_fs_ID": "",//系列编码
-          "vf_fs_SeriesID": series ? series : "",//系列编号
+          "vf_fs_ID": "",//视频系列编码
+          "vf_fs_SeriesID": series ? series : "",//系列编号(必传)
           "vf_fs_VedioID": vedio ? vedio:"",//视频编号
           "page": page ? page : 1,//页码
           "rows": 5//条数
@@ -252,31 +245,51 @@
             });
           });
       },
+      //查询
       search() {
-        this.initData(this.movieType);
+        this.initData(this.videoSeries);
       },
+      //查询系列
       searchSeries(){
-          let options = {
-            "loginUserID": "huileyou",  //惠乐游用户ID
-            "loginUserPass": "123",  //惠乐游用户密码
-            "operateUserID": "",//操作员编码
-            "operateUserName": "",//操作员名称
-            "pcName": "",  //机器码
-            "vf_ss_ID": "",//系列编号
-            "vf_ss_Name":"",//系列名称
-            "vf_ss_WriteState":"",//连载状态（0连载中1完结)
-            "vf_ss_AuthorID":"",//作者
-          };
-          this.$store.dispatch("initVMovieSeries", options)
-            .then((total) => {
-              this.total = total;
-            }, (err) => {
-              this.$notify({
-                message: err,
-                type: "error"
-              });
+        let options = {
+          "loginUserID": "huileyou",  //惠乐游用户ID
+          "loginUserPass": "123",  //惠乐游用户密码
+          "operateUserID": "",//操作员编码
+          "operateUserName": "",//操作员名称
+          "pcName": "",  //机器码
+          "vf_ss_ID": "",//系列编号
+          "vf_ss_Name":"",//系列名称
+          "vf_ss_WriteState":"",//连载状态（0连载中1完结)
+          "vf_ss_AuthorID":JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID +'',//作者
+        };
+        this.$store.dispatch("initVMovieSeries", options)
+          .then((total) => {
+            this.total = total;
+          }, (err) => {
+            this.$notify({
+              message: err,
+              type: "error"
             });
-        },
+          });
+      },
+      //电影
+      film(){
+        let options = {
+          "loginUserID": "huileyou",  //惠乐游用户ID
+          "loginUserPass": "123",  //惠乐游用户密码
+          "operateUserID": "",//操作员编码
+          "operateUserName": "",//操作员名称
+          "pcName": "",  //机器码
+          "vf_vo_ID": "",//视频编号
+          "vf_vo_Extend":"",//文件扩展名
+          "vf_vo_AuthorID": JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID +'',//作者
+          "vf_vo_Type":"",//视频类型
+          "vf_vo_Title": "",//标题
+          "vf_vo_PasserID":"",//审核人编码
+        };
+        this.$store.dispatch("initVMovieVideo", options)
+      },
+      //添加
       Add() {
         this.film();
         this.searchSeries();
@@ -286,6 +299,7 @@
         this.addDialog = true;
         this.$store.commit('setTranstionFalse');
       },
+      //添加提交
       addSubmit() {
         this.$store.dispatch("addVMovieVideoSeries", this.addOptions)
           .then((suc) => {
@@ -293,7 +307,7 @@
               message: suc,
               type: "success"
             })
-            this.initData('','', 1)
+            this.initData(this.videoSeries);
           }, (err) => {
             this.$notify({
               message: err,
@@ -302,20 +316,13 @@
           });
         this.addDialog = false;
       },
-      uploadImg(file) {
-        return new Promise((relove, reject) => {
-          lrz(file)
-            .then(data => {
-              relove(data.base64.split(',')[1])
-            })
-        })
-      },
+      //图片上传oss
       uploadToOSS(file) {
         return new Promise((relove,reject)=>{
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
+          xhr.open("POST", "http://webservice.1000da.com.cn/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -333,6 +340,7 @@
           }
         })
       },
+      //图片上传
       uploaNode() {
         this.addOptions.data.vf_ve_Content.vf_vo_ImageURL = '';
         this.ImageURL1 = [];
@@ -345,18 +353,18 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
-                    .then(data => {
-                      this.addOptions.data.vf_ve_Content.vf_vo_ImageURL="";
-                      if (data) {
-                        this.addOptions.data.vf_ve_Content.vf_vo_ImageURL = data.data;
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-             //   })
+                  .then(data => {
+                    this.addOptions.data.vf_ve_Content.vf_vo_ImageURL="";
+                    if (data) {
+                      this.addOptions.data.vf_ve_Content.vf_vo_ImageURL = data.data;
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                // })
               }
             })
           }
@@ -368,22 +376,23 @@
                 //     imageData: data
                 //   })
                 this.uploadToOSS(this.$refs.upload1.files[i])
-                    .then(data => {
-                      if (data) {
-                        this.ImageURL1.push(data.data);
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-                //})
+                  .then(data => {
+                    if (data) {
+                      this.ImageURL1.push(data.data);
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                // })
               }
             })
           }
         }, 30)
       },
+      //删除
       Delete(id) {
         let deleteOption = {
           "loginUserID": "huileyou",
@@ -402,7 +411,7 @@
                 message: suc,
                 type: "success"
               });
-              this.initData(this.movieType);
+              this.initData(this.videoSeries);
             }
             , (err) => {
               this.$notify({
@@ -411,6 +420,7 @@
               })
             })
       },
+      //修改
       Update(obj) {
         this.searchSeries();
         this.film();
@@ -418,9 +428,11 @@
         this.$store.commit('setTranstionFalse');
         this.VMovieVideoSeriesUpdateObj.data.vf_fs_ID=obj.vf_fs_ID;
         this.VMovieVideoSeriesUpdateObj.data.vf_fs_SeriesID=obj.vf_fs_SeriesID;
-        this.VMovieVideoSeriesUpdateObj.data.vf_fs_VedioID=obj.vf_fs_VedioID;
+        this.videoTitle=obj.vf_fs_VedioID;
+        this.VMovieVideoSeriesUpdateObj.data.vf_fs_VedioID=this.videoTitle;
         this.VMovieVideoSeriesUpdateObj.data.vf_fs_Level=obj.vf_fs_Level;
       },
+      //修改提交
       updateSubmit() {
         this.$store.dispatch("updateVMovieVideoSeries", this.VMovieVideoSeriesUpdateObj)
           .then(
@@ -429,7 +441,7 @@
                 message: suc,
                 type: "success"
               });
-              initData(this.movieType,'', this.num);
+              this.initData(this.videoSeries,'', this.num);
             }
             , (err) => {
               this.$notify({

@@ -9,7 +9,7 @@
             <span>分类名称:</span>
             <el-input type="text" v-model="typeName" auto-complete="off" placeholder="分类名称"  style="width: 250px"></el-input>
           </el-form-item>
-                   <el-form-item>
+          <el-form-item>
             <el-button type="primary" @click="search">查询</el-button>
           </el-form-item>
         </el-form>

@@ -23,23 +23,23 @@
       <el-form :model="addOptions">
 
         <el-form-item label="小景点名称:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.tm_se_Name" auto-complete="off"></el-input>
+          <el-input v-model="addOptions.tm_se_Name" auto-complete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="手绘图的横坐标:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.tm_se_HandX" auto-complete="off"></el-input>
+          <el-input v-model="addOptions.tm_se_HandX" auto-complete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="手绘图的纵坐标:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.tm_se_HandY" auto-complete="off"></el-input>
+          <el-input v-model="addOptions.tm_se_HandY" auto-complete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="小景点介绍:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.tm_se_Intro" auto-complete="off"></el-input>
+          <el-input v-model="addOptions.tm_se_Intro" auto-complete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="小景点备注:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.tm_se_Remark" auto-complete="off"></el-input>
+          <el-input v-model="addOptions.tm_se_Remark" auto-complete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
@@ -50,18 +50,22 @@
         </el-form-item>
 
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="flie">
+          <a href="javascript:;" class="file">选择音频
+<<<<<<< Updated upstream
+            <input type="file" name="" ref="audios" multiple>
+=======
             <input type="file" name="" ref="audio" multiple>
+>>>>>>> Stashed changes
           </a>
           <span style="display: inline-block;height: 30px;margin-left:40px;font-size: 18px;">{{AudioNews}}</span>
           <el-form-item size="large">
-            <el-button type="primary" size="mini" @click="uploadaudio">立即上传</el-button>
+            <el-button type="primary" size="mini" @click="uploadAudio">立即上传</el-button>
           </el-form-item>
         </el-form-item>
 
         <el-form-item label="小景点视频:" :label-width="formLabelWidth">
           <a href="javascript:;" class="file">选择视频
-            <input type="file" name="" ref="UpLoad" multiple>
+            <input type="file" name="" ref="videos" multiple>
           </a>
           <span style="display: inline-block;height: 30px;margin-left:40px;font-size: 18px;">{{VideoNameObj}}</span>
           <el-form-item size="large">
@@ -107,18 +111,18 @@
         </el-form-item>
 
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="flie">
-            <input type="file" name="" ref="audio" multiple>
+          <a href="javascript:;" class="file">选择音频
+            <input type="file" name="" ref="audios1" multiple>
           </a>
           <span style="display: inline-block;height: 30px;margin-left:40px;font-size: 18px;">{{AudioNews}}</span>
           <el-form-item size="large">
-            <el-button type="primary" size="mini" @click="uploadaudio">立即上传</el-button>
+            <el-button type="primary" size="mini" @click="uploadAudio">立即上传</el-button>
           </el-form-item>
         </el-form-item>
 
         <el-form-item label="小景点视频:" :label-width="formLabelWidth">
           <a href="javascript:;" class="file">选择视频
-            <input type="file" name="" ref="UpLoad" multiple>
+            <input type="file" name="" ref="videos1" multiple>
           </a>
           <span style="display: inline-block;height: 30px;margin-left:40px;font-size: 18px;">{{VideoNameObj}}</span>
           <el-form-item size="small">
@@ -135,7 +139,6 @@
     <!--展示-->
     <el-table
       :data="ticketMapList"
-      v-loading="isLoading"
       style="width: 100%">
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -226,22 +229,15 @@
         AudioNews:"",
         //添加
         addOptions: {
-          "loginUserID": "huileyou",    //惠乐游用户ID
-          "loginUserPass": "123",    //惠乐游用户密码
-          "operateUserID": "",    //操作员编码
-          "operateUserName": "",    //操作员名称
-          "pcName": "",    //机器码
-          "data": {
-            "tm_se_Code": "002",  //景点编号
-            "tm_se_Name": "",  //小景点名称
-            "tm_se_HandX": "",  //位于手绘图X
-            "tm_se_HandY": "",  //位于手绘图Y
-            "tm_se_Vedio": "",  //VR视频
-            "tm_se_Sound": "",  //音频
-            "tm_se_Intro": "",  //小景点介绍
-            "tm_se_Image": "",  //小景点图片
-            "tm_se_Remark": "",  //备注
-          }
+          "tm_se_Code": "002",  //景点编号
+          "tm_se_Name": "",  //小景点名称
+          "tm_se_HandX": "",  //位于手绘图X
+          "tm_se_HandY": "",  //位于手绘图Y
+          "tm_se_Vedio": "",  //VR视频
+          "tm_se_Sound": "",  //音频
+          "tm_se_Intro": "",  //小景点介绍
+          "tm_se_Image": "",  //小景点图片
+          "tm_se_Remark": "",  //备注
         },
         //修改
         updateOptions:{
@@ -251,16 +247,16 @@
           "operateUserName": "",  //操作员名称
           "pcName": "",  //机器码
           "data":{
-            // "tm_se_ID": "",  //景区小景点编码
-            // "tm_se_Code": "002",  //景点编号
-            // "tm_se_Name": "",  //小景点名称
-            // "tm_se_HandX": "",  //位于手绘图X
-            // "tm_se_HandY": "",  //位于手绘图Y
-            // "tm_se_Vedio": "",  //VR视频
-            // "tm_se_Sound": "",  //音频
-            // "tm_se_Intro": "",  //小景点介绍
-            // "tm_se_Image": "",  //小景点图片
-            // "tm_se_Remark": ""  //备注
+            "tm_se_ID": "",  //景区小景点编码
+            "tm_se_Code": "002",  //景点编号
+            "tm_se_Name": "",  //小景点名称
+            "tm_se_HandX": "",  //位于手绘图X
+            "tm_se_HandY": "",  //位于手绘图Y
+            "tm_se_Vedio": "",  //VR视频
+            "tm_se_Sound": "",  //音频
+            "tm_se_Intro": "",  //小景点介绍
+            "tm_se_Image": "",  //小景点图片
+            "tm_se_Remark": ""  //备注
           }
         },
         "Imgs":"",
@@ -276,40 +272,37 @@
     methods: {
       //视频上传
       UpLoadvideo() {
-        var fd = new FormData();
-        fd.append("fileUploadOss", this.$refs.UpLoad.files[0])
-        let VideoName=this.$refs.UpLoad.files[0].name
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://image.1000da.com.cn/PostImage/PostToOSS");
-        xhr.send(fd);
-        xhr.onreadystatechange = ()=>{
-          if (xhr.readyState == 4 && xhr.status == 200){
-            //类型转换,获取视频地址
-            let VideoObj=JSON.parse(xhr.responseText);
-            this.addOptions.data.tm_se_Vedio=VideoObj.data;
-            this.updateOptions.data.tm_se_Vedio=VideoObj.data;
-            this.VideoNameObj=VideoName;
-          }
-        }
+        if(this.$refs.videos){
+          this.uploadToOSS(this.$refs.videos.files[0])
+            .then(data =>{
+              this.updateOptions.data.tm_se_Vedio = data.data;
+              console.log(211,this.updateOptions.data.tm_se_Vedio)
+            })
+        };
+        if(this.$refs.videos1){
+          this.uploadToOSS(this.$refs.videos1.files[0])
+            .then(data =>{
+              this.updateOptions.data.tm_se_Vedio = data.data;
+              console.log(211,this.updateOptions.data.tm_se_Vedio)
+            })
+        };
       },
       //音频上传
-      uploadaudio(){
-        var fd =new FormData();
-        fd.append('fileUpLoad',this.$refs.audio.files[0])
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST","http://image.1000da.com.cn/PostImage/PostFile");
-        xhr.send(fd);
-        xhr.onreadystatechange = ()=>{
-          if (xhr.readyState == 4 && xhr.status == 200){
-            //类型转换,获取视频地址
-            let AudioObj=JSON.parse(xhr.responseText);
-            this.addOptions.data.tm_se_Sound=AudioObj.data;
-            this.updateOptions.data.tm_se_Sound=AudioObj.data;
-            this.AudioNews="上传成功"
-          }
+      uploadAudio(){
+        if(this.$refs.audios){
+          this.uploadToOSS(this.$refs.audios.files[0])
+            .then(data =>{
+              this.addOptions.tm_se_Sound = data.data;
+            })
+        };
+        if(this.$refs.audios1){
+          this.uploadToOSS(this.$refs.audios1.files[0])
+            .then(data =>{
+              this.updateOptions.data.tm_se_Sound = data.data;
+            })
         }
       },
-      //图片上传
+      //上传
       uploadToOSS(file) {
         return new Promise((relove,reject)=>{
           var fd = new FormData();
@@ -324,7 +317,7 @@
                 relove(JSON.parse(data))
               }
             }else{
-              console.log(xhr.responseText)
+              // console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
 //                 reject(JSON.parse(data).resultcontent)
@@ -437,13 +430,22 @@
       },
       //新增提交
       AddSubmit(){
-        this.addOptions.data.tm_se_Image=this.ImageURL.join(",");
-        this.$store.dispatch('addTicketMap',this.addOptions)
+        this.addOptions.tm_se_Image=this.ImageURL.join(",");
+        let Options ={
+          "loginUserID": "huileyou",    //惠乐游用户ID
+          "loginUserPass": "123",    //惠乐游用户密码
+          "operateUserID": "",    //操作员编码
+          "operateUserName": "",    //操作员名称
+          "pcName": "",    //机器码
+          "data":this.addOptions
+        }
+        this.$store.dispatch('addTicketMap',Options)
           .then(suc=>{
             this.initData();
           })
         this.addDialog = false;
       },
+      //修改提交
       upDateSubmit(){
         this.updateOptions.data.tm_se_Image=this.ImageURL1.join(",");
         this.$store.dispatch('upDateTicketMap',this.updateOptions)
@@ -474,7 +476,7 @@
     font-size: 0;
   }
   .demo-table-expand label {
-    /*width: 90px;*/
+    width: 90px;
     color: #99a9bf;
   }
   .demo-table-expand .el-form-item {

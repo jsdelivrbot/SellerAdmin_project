@@ -6,11 +6,11 @@
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
 
-<!--        <el-form-item label="视频名称筛选:">
-        <el-select v-model="videoName" placeholder="请选择视频名称">
-        <el-option  :key="item.vf_vo_ID" :label="item.vf_vo_Title"  :value="item.vf_vo_ID" v-for="item in VMovieVideoList"></el-option>
-        </el-select>
-        </el-form-item>-->
+          <!--        <el-form-item label="视频名称筛选:">
+                  <el-select v-model="videoName" placeholder="请选择视频名称">
+                  <el-option  :key="item.vf_vo_ID" :label="item.vf_vo_Title"  :value="item.vf_vo_ID" v-for="item in VMovieVideoList"></el-option>
+                  </el-select>
+                  </el-form-item>-->
 
           <el-form-item>
             <span>视频名称筛选:</span>
@@ -25,22 +25,22 @@
             ></el-autocomplete>
           </el-form-item>
 
-        <el-form-item label="日期筛选:" >
-          <el-date-picker
-            style="width:400px"
-            v-model="date"
-            type="daterange"
-            range-separator="至"
-            value-format="yyyy-MM-dd">
-            start-placeholder="开始日期"
-            end-placeholder="结束日期">
-          </el-date-picker>
-        </el-form-item>
+          <el-form-item label="日期筛选:" >
+            <el-date-picker
+              style="width:400px"
+              v-model="date"
+              type="daterange"
+              range-separator="至"
+              value-format="yyyy-MM-dd">
+              start-placeholder="开始日期"
+              end-placeholder="结束日期">
+            </el-date-picker>
+          </el-form-item>
 
 
-        <el-form-item>
-        <el-button type="primary" @click="search">查询</el-button>
-        </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="search">查询</el-button>
+          </el-form-item>
         </el-form>
       </el-col>
 
@@ -276,7 +276,7 @@
       },
 
 
-       /*微电影搜索*/
+      /*微电影搜索*/
       search(){
         this.initData(this.filmID,this.date[0],this.date[1]);
       },

@@ -183,29 +183,33 @@
     data() {
       return {
         //当前页
-        num: '',
+        num:'',
         //连载状态
-        SerialState: [
+        SerialState:[
           {
-            label: "连载中",
-            value: 0
+            label:"连载中",
+            value:0
           },
           {
-            label: "已完结",
-            value: 1
+            label:"已完结",
+            value:1
           }
         ],
         //作者
-        Author: '',
+        Author:'',
+        //修改系列图片
+        updateSeriesImg:'',
         //系列名称
-        SeriesName: '',
+        SeriesName:'',
         //连载状态
-        WriteState: '',
+        WriteState:'',
         //是否禁用
         isDisabled: true,
         //修改
         updateDialog: false,
         ImageURL: '',
+        //添加系列图片上传
+        addSeriesImgUpload: '',
         ImageURL1: [],
         //数据展示
         isLoading: false,
@@ -222,11 +226,11 @@
           "operateUserName": "",//操作员名称
           "pcName": "",
           "data": {
-            "vf_ss_Name": "电影自习室",//系列名称
-            "vf_ss_WriteState": "0",//连载状态（0连载中1完结)
-            "vf_ss_SeriesImageURL": "1",//系列图片
-            "vf_ss_AuthorID": "23",//作者
-            "vf_ss_UpdateTime": "每周二、四更新",//更新时间
+            "vf_ss_Name": "",//系列名称
+            "vf_ss_WriteState": "",//连载状态（0连载中1完结)
+            "vf_ss_SeriesImageURL": "",//系列图片
+            "vf_ss_AuthorID": JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID +'',//作者
+            "vf_ss_UpdateTime": "",//更新时间
           }
         },
         //表单宽度
@@ -242,7 +246,7 @@
             "vf_ss_Name": "",//系列名称
             "vf_ss_WriteState": "",//连载状态
             "vf_ss_SeriesImageURL": "",//系列图片
-            "vf_ss_AuthorID": "",//作者
+            "vf_ss_AuthorID": JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID +'',//作者
             "vf_ss_UpdateTime": "",//更新时间
           }
         },
@@ -258,10 +262,11 @@
     methods: {
       //分页
       handleCurrentChange(num) {
-        this.initData('', '', '', num)
+        this.initData('','','',num)
         this.num = num;
       },
-      initData(name, state, author, page) {
+      //初始化数据
+      initData(name,state,author,page) {
         let options = {
           "loginUserID": "huileyou",  //惠乐游用户ID
           "loginUserPass": "123",  //惠乐游用户密码
@@ -269,10 +274,11 @@
           "operateUserName": "",//操作员名称
           "pcName": "",  //机器码
           "vf_ss_ID": "",//系列编号
-          "vf_ss_Name": name ? name : "",//系列名称
-          "vf_ss_WriteState": state ? state : "",//连载状态（0连载中1完结)
-          "vf_ss_AuthorID": author ? author : "",//作者
-          "page": page ? page : 1,//页码
+          "vf_ss_Name": name?name:"",//系列名称
+          "vf_ss_WriteState": state?state:"",//连载状态（0连载中1完结)
+//          "vf_ss_AuthorID":'',//作者
+          "vf_ss_AuthorID":JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID +'',//作者
+          "page": page?page:1,//页码
           "rows": 5//条数
         };
         this.$store.dispatch("initVMovieSeries", options)
@@ -285,28 +291,30 @@
             });
           });
       },
+      //查询
       search() {
-        this.initData(this.SeriesName, this.WriteState, this.Author, 1);
+        this.initData(this.SeriesName,this.WriteState,this.Author,1);
       },
+      //新增
       Add() {
-        let content = this.addOptions.data;
-        for (let i in content) {
-          content[i] = "";
-        }
-        ;
+        let content =this.addOptions.data;
+        for(let i in content){
+          content[i]="";
+        };
         this.addDialog = true;
         this.$store.commit('setTranstionFalse');
-        this.uploaNode();
+        this.uploadNode();
       },
+      //新增提交
       addSubmit() {
-        this.addOptions.data.vf_ss_AuthorID = 22;
+        this.addOptions.data.vf_ss_AuthorID=JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID +'';
         this.$store.dispatch("addVMovieSeries", this.addOptions)
           .then((suc) => {
             this.$notify({
               message: suc,
               type: "success"
             })
-            this.initData(this.SeriesName, this.WriteState, this.Author, 1);
+            this.initData(this.SeriesName,this.WriteState,JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID +'',this.num);
           }, (err) => {
             this.$notify({
               message: err,
@@ -315,29 +323,21 @@
           });
         this.addDialog = false;
       },
-      uploadImg(file) {
-        return new Promise((relove, reject) => {
-          lrz(file)
-            .then(data => {
-              relove(data.base64.split(',')[1])
-            })
-        })
-      },
+      //上传图片
       uploadToOSS(file) {
-        return new Promise((relove, reject) => {
+        return new Promise((relove,reject)=>{
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
               if (xhr.responseText) {
-                var data = xhr.responseText
+                var data = xhr.responseText;
                 relove(JSON.parse(data))
               }
-            } else {
-              console.log(xhr.responseText)
+            }else{
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
 //                 reject(JSON.parse(data).resultcontent)
@@ -346,22 +346,25 @@
           }
         })
       },
-      uploaNode() {
-        this.addOptions.data.vf_ss_SeriesImageURL = '';
-        this.ImageURL1 = [];
+      //图片上传
+      uploadNode() {
+        this.addSeriesImgUpload = '';
+        this.updateSeriesImg = '';
         setTimeout(() => {
-          if (this.$refs.upload) {
-            this.$refs.upload.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload.files.length; i++) {
+          //新增图片上传
+          if (this.$refs.addFilmImg) {
+            this.$refs.addFilmImg.addEventListener('change', data => {
+              for (var i = 0; i < this.$refs.addFilmImg.files.length; i++) {
                 // this.uploadImg(this.$refs.upload.files[i]).then(data => {
                 //   this.$store.dispatch('UploadnImgs', {
                 //     imageData: data
                 //   })
-                this.uploadToOSS(this.$refs.upload.files[i])
+                this.uploadToOSS(this.$refs.addFilmImg.files[i])
                   .then(data => {
-                    this.addOptions.data.vf_ss_SeriesImageURL = "";
+                    this.addSeriesImgUpload = '';
                     if (data) {
-                      this.addOptions.data.vf_ss_SeriesImageURL = data.data;
+                      this.addSeriesImgUpload= data.data;
+                      this.addOptions.data.vf_ss_SeriesImageURL=this.addSeriesImgUpload;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -369,21 +372,19 @@
                       });
                     }
                   })
-                //  })
+                // })
               }
             })
-          }
-          if (this.$refs.upload1) {
-            this.$refs.upload1.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload1.files.length; i++) {
-                // this.uploadImg(this.$refs.upload1.files[i]).then(data => {
-                //   this.$store.dispatch('UploadnImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.upload1.files[i])
+          };
+          //修改图片上传
+          if (this.$refs.updateImg) {
+            this.$refs.updateImg.addEventListener('change', data => {
+              for (var i = 0; i < this.$refs.updateImg.files.length; i++) {
+                this.uploadToOSS(this.$refs.updateImg.files[i])
                   .then(data => {
                     if (data) {
-                      this.VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL = data.data;
+                      this.updateSeriesImg=data.data;
+                      this.VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL=this.updateSeriesImg;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -391,12 +392,13 @@
                       });
                     }
                   })
-                //  })
+                // })
               }
             })
           }
         }, 30)
       },
+      //删除
       Delete(id) {
         let deleteOption = {
           "loginUserID": "huileyou",
@@ -415,7 +417,7 @@
                 message: suc,
                 type: "success"
               });
-              this.initData(this.SeriesName, this.WriteState, this.Author, 1);
+              this.initData(this.SeriesName,this.WriteState,this.Author,1);
             }
             , (err) => {
               this.$notify({
@@ -424,14 +426,16 @@
               })
             })
       },
+      //修改
       Update(obj) {
         this.ImageURL1 = [];
-        this.uploaNode();
+        this.uploadNode();
         this.updateDialog = true;
         this.$store.commit('setTranstionFalse');
-        this.VMovieSeriesUpdateObj.data = obj;
-        this.VMovieSeriesUpdateObj.data.vf_ss_AuthorID = 22;
+        this.VMovieSeriesUpdateObj.data=obj;
+        this.updateSeriesImg=obj.vf_ss_SeriesImageURL;
       },
+      //修改提交
       updateSubmit() {
         this.$store.dispatch("updateVMovieSeries", this.VMovieSeriesUpdateObj)
           .then(
@@ -440,7 +444,7 @@
                 message: suc,
                 type: "success"
               });
-              this.initData(this.movieType, '', '', this.num)
+              this.initData(this.movieType,'','',this.num)
             }
             , (err) => {
               this.$notify({

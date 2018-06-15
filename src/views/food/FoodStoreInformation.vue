@@ -151,6 +151,9 @@
           <el-form-item label="纬度:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.fd_sf_Lat"></el-input>
           </el-form-item>
+          <el-form-item label="点击获取经纬度再填写:" label-width="200px">
+            <el-button type="primary" @click="getLatitude" size="small">获取经纬度</el-button>
+          </el-form-item>
           <el-form-item label="省:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.fd_sf_Provice" placeholder="请选择" @change="changeCity">
               <el-option
@@ -232,6 +235,9 @@
           </el-form-item>
           <el-form-item label="纬度:" :label-width="formLabelWidth">
             <el-input v-model="updateObj.fd_sf_Lat"></el-input>
+          </el-form-item>
+          <el-form-item label="点击获取经纬度再填写:" label-width="200px">
+            <el-button type="primary" @click="getLatitude" size="small">获取经纬度</el-button>
           </el-form-item>
           <el-form-item label="省:" :label-width="formLabelWidth">
             <el-select v-model="updateObj.fd_sf_Provice" placeholder="请选择" @change="changeCity">
@@ -333,6 +339,10 @@
       }
     },
     methods: {
+      //获取经纬度
+      getLatitude(){
+        window.open('http://api.map.baidu.com/lbsapi/getpoint/index.html')
+      },
 //      分页
       handleCurrentChange(num) {
         this.initData('', num)

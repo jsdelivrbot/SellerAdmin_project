@@ -17,6 +17,7 @@
           </el-form-item>
         </el-form>
       </el-col>
+
       <!--数据展示-->
       <el-table
         :data="foodStoreInformtionList"
@@ -96,10 +97,13 @@
             <el-button size="mini" type="primary" @click="update(scope.row)">修改</el-button>
             <el-button size="mini" type="danger" @click="Delete(scope.row.fd_sf_ID)">删除</el-button>
             <el-button size="mini" type="success" @click="recommendShop(scope.row.fd_sf_ID)">申请推荐店面</el-button>
+
           </template>
         </el-table-column>
       </el-table>
+
       <!--分页-->
+
       <div class="block" style="text-align: right">
         <el-pagination
           :page-size="5"
@@ -110,7 +114,9 @@
         >
         </el-pagination>
       </div>
+
       <!--添加-->
+
       <el-dialog title="添加店面信息" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth">
@@ -190,7 +196,9 @@
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
+
       <!--修改-->
+
       <el-dialog title="修改店面信息" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth">
@@ -270,11 +278,13 @@
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>
+
     </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
+
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -314,11 +324,12 @@
             value: 1,
             label: '有'
           }
+
         ],
         proviceId: '',
         roomName: '',
         updateObj: {},
-        isLoading:false
+        isLoading: false
       }
     },
     methods: {
@@ -334,15 +345,9 @@
         this.$store.dispatch('initFoodProcince', getAreaProvice)
       },
       //市
-      changeCity(name) {
-        this.proviceId = this.foodProcinceList.filter(item => {
-          if (item.sm_af_AreaName == name) {
-            return true;
-          }
-          return false;
-        })[0].sm_af_AreaID
+      changeCity(id) {
         let getAreaProvice = {
-          "areaPid": this.proviceId
+          "areaPid": id
         };
         this.$store.dispatch('initFoodCity', getAreaProvice)
       },
@@ -354,18 +359,9 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "fd_sf_ID": "",//店面编号
-          "fd_sf_TypeID": "",//分类编号
-          "fd_sf_MansID": "",//用餐人数编号
-          "fd_sf_ProductName": name ? name : '',//产品名称 like
-          "fd_sf_Provice": "",//省
-          "fd_sf_City": "",//市
-          "priceFrom": "",//人均价格大于
-          "priceTo": "",//人均价格小于
-          "fd_sf_Phone": "",//联系电话
           "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
-          "page": num ? num : 1,
-          "rows": "5",
+          "page": 1,
+          "rows": 5,
         };
         this.isLoading = true;
         this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontInfo)
@@ -499,7 +495,7 @@
             "fd_is_ShopID": id ? id : '',//店面编号
           }
         };
-        this.$store.dispatch('recommendShopSubmit',insertIntroduceShopInfo)
+        this.$store.dispatch('recommendShopSubmit', insertIntroduceShopInfo)
           .then(suc => {
             this.$notify({
               message: suc,
@@ -513,11 +509,12 @@
             });
           })
       },
+
     },
     created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
+      this.initProvince();
       this.initData();
-      this.initProvince()
     }
   }
 </script>

@@ -222,18 +222,7 @@ export default {
         "operateUserID": "",
         "operateUserName": "",
         "pcName": "",
-        "fd_sf_ID": "",//店面编号
-        "fd_sf_TypeID": "",//分类编号
-        "fd_sf_MansID": "",//用餐人数编号
-        "fd_sf_ProductName": "",//产品名称 like
-        "fd_sf_Provice": "",//省
-        "fd_sf_City": "",//市
-        "priceFrom": "",//人均价格大于
-        "priceTo": "",//人均价格小于
-        "fd_sf_Phone": "",//联系电话
         "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
-        "page": 1,
-        "rows": 10000,
       };
       await this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontInfo)
     },

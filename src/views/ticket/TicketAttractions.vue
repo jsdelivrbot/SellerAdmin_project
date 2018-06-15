@@ -245,6 +245,9 @@
           <el-form-item label="纬度:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_ts_Latitude" placeholder="请输入数字"></el-input>
           </el-form-item>
+          <el-form-item label="点击获取经纬度再填写:" label-width="200px">
+            <el-button type="primary" @click="getLatitude" size="small">获取经纬度</el-button>
+          </el-form-item>
           <el-form-item label="是否热门景点:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.tm_ts_IsHot" placeholder="请选择" @change="changeContry">
               <el-option
@@ -396,6 +399,9 @@
           </el-form-item>
           <el-form-item label="纬度:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Latitude" placeholder="请输入数字"></el-input>
+          </el-form-item>
+          <el-form-item label="点击获取经纬度再填写:" label-width="200px">
+            <el-button type="primary" @click="getLatitude" size="small">获取经纬度</el-button>
           </el-form-item>
           <el-form-item label="是否热门景点:" :label-width="formLabelWidth">
             <el-select v-model="updateTicketAttractionsObj.tm_ts_IsHot" placeholder="请选择" @change="changeContry">
@@ -625,6 +631,10 @@
       }, {enableHighAccuracy: true})
     },
     methods: {
+      //获取经纬度
+      getLatitude(){
+        window.open('http://api.map.baidu.com/lbsapi/getpoint/index.html')
+      },
       //添加地图导览
       AddMap(id) {
         this.$router.push({path: '/ticket/TicketMap', query: {id: id}})

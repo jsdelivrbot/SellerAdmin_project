@@ -171,6 +171,10 @@
             <el-input v-model="addHotelDetilsObj.ht_ht_Latitude"></el-input>
           </el-form-item>
 
+          <el-form-item label="点击获取经纬度再填写:" label-width="200px">
+            <el-button type="primary" @click="getLatitude" size="small">获取经纬度</el-button>
+          </el-form-item>
+
           <el-form-item label="电话号码:" :label-width="formLabelWidth">
             <el-input v-model="addHotelDetilsObj.ht_ht_Phone"></el-input>
           </el-form-item>
@@ -273,6 +277,10 @@
             <el-input v-model="updateHotelDetilsObj.ht_ht_Latitude"></el-input>
           </el-form-item>
 
+          <el-form-item label="点击获取经纬度再填写:" label-width="200px">
+            <el-button type="primary" @click="getLatitude" size="small">获取经纬度</el-button>
+          </el-form-item>
+
           <el-form-item label="电话号码:" :label-width="formLabelWidth">
             <el-input v-model="updateHotelDetilsObj.ht_ht_Phone"></el-input>
           </el-form-item>
@@ -357,6 +365,10 @@
       }
     },
     methods: {
+      //获取经纬度
+      getLatitude(){
+        window.open('http://api.map.baidu.com/lbsapi/getpoint/index.html')
+      },
       //初始化数据
       initData() {
         let sm_ui_ID = JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID;

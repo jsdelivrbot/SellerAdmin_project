@@ -9,11 +9,9 @@
     </div>
   </div>
 </template>
-
 <script>
 import { Navbar, Sidebar, AppMain ,TagsView} from './components'
 import ResizeMixin from './mixin/ResizeHandler'
-
 export default {
   name: 'layout',
   components: {
@@ -105,7 +103,6 @@ export default {
         "ht_hi_Name": '',//图片类型名称
       };
       await this.$store.dispatch('initHotelImageType', imgOptions)
-
       //惠乐游主题类型
       let themeOptions = {
         "loginUserID": "huileyou",
@@ -118,7 +115,6 @@ export default {
         "ht_tt_IsHot": "",//是否热门
       };
       await this.$store.dispatch('initHotelThemeType', themeOptions)
-
       //酒店图标库
       let iconOptions = {
         "loginUserID": "huileyou",
@@ -132,7 +128,6 @@ export default {
         "ht_id_Remark": "",//备注
       }
       await this.$store.dispatch('initHotelIconGallery', iconOptions)
-
       //租车城市级联城市
       let carOptions = {
         "loginUserID": "huileyou",
@@ -142,7 +137,6 @@ export default {
         "pcName": "",
       };
       await this.$store.dispatch('initCarCityPlace', carOptions)
-
       // //退出
       // Quit() {
       //   this.$router.push({name: 'adminLogin'})
@@ -152,7 +146,6 @@ export default {
       //   this.$router.push({name: 'AdminMerchantProducts'})
       // },
       //查询景点主题分类信息
-
       let getThemeTypeList = {
         "loginUserID": "huileyou",
         "loginUserPass": "123",
@@ -163,7 +156,6 @@ export default {
         "rows": 100
       };
       await this.$store.dispatch('initThemeType', getThemeTypeList)
-
       //惠乐游设施
       let hotelFacilitiesServicesoptions = {
         "loginUserID": "huileyou",
@@ -177,7 +169,6 @@ export default {
         "ht_hd_IsHot": "",//是否热门
       }
       await this.$store.dispatch('initHotelFacilities', hotelFacilitiesServicesoptions)
-
       //惠乐游设施类型
       let hotelFacilitiesTypeOptions = {
         "loginUserID": "huileyou",
@@ -189,7 +180,6 @@ export default {
         "ht_ht_Name": '',//设施类型名称
       }
       await this.$store.dispatch('initHotelFacilitiesType', hotelFacilitiesTypeOptions)
-
       //惠乐游房间设施类型
       let roomTypeOptions = {
         "loginUserID": "huileyou",
@@ -201,7 +191,7 @@ export default {
         "ht_rht_Name": "",//类型名称
       }
       await this.$store.dispatch('initHotelRoomFacilitiesType', roomTypeOptions)
-//用餐人数类型
+     //用餐人数类型
       let selectPropertyInfo = {
         "loginUserID": "huileyou",
         "loginUserPass": "123",
@@ -213,8 +203,7 @@ export default {
         "rows": "10000",
       }
       await this.$store.dispatch('initNumberOfMeals', selectPropertyInfo)
-
-//店面类型
+   //店面类型
       let selectPropertyInfoType = {
         "loginUserID": "huileyou",
         "loginUserPass": "123",
@@ -226,7 +215,6 @@ export default {
         "rows": "10000",
       }
       await this.$store.dispatch('initStorefrontType', selectPropertyInfoType)
-
       //店面列表
       let selectStoreFrontInfo = {
         "loginUserID": "huileyou",
@@ -248,8 +236,6 @@ export default {
         "rows": 10000,
       };
       await this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontInfo)
-
-
     },
     handleClickOutside() {
       this.$store.dispatch('CloseSideBar', { withoutAnimation: false })
@@ -257,7 +243,6 @@ export default {
   }
 }
 </script>
-
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "src/styles/mixin.scss";
   .app-wrapper {

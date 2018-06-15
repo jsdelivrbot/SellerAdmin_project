@@ -205,16 +205,16 @@
         <!--<el-form-item label="产品编号:" :label-width="formLabelWidth">-->
           <!--<el-input v-model="addOptions.data.ta_tg_ID" placeholder="请输入产品编号"></el-input>-->
         <!--</el-form-item>-->
-        <el-form-item label="跟团游栏目:" :label-width="formLabelWidth">
-          <el-select v-model="addOptions.data.ta_tg_ItemInfoID" placeholder="请选择跟团游栏目">
-            <el-option
-              v-for="item in homeAdminGroupTourList"
-              :key="item.ii_ID"
-              :label="item.ii_ItemName"
-              :value="item.ii_ID">
-            </el-option>
-          </el-select>
-        </el-form-item>
+        <!--<el-form-item label="跟团游栏目:" :label-width="formLabelWidth">-->
+          <!--<el-select v-model="addOptions.data.ta_tg_ItemInfoID" placeholder="请选择跟团游栏目">-->
+            <!--<el-option-->
+              <!--v-for="item in homeAdminGroupTourList"-->
+              <!--:key="item.ii_ID"-->
+              <!--:label="item.ii_ItemName"-->
+              <!--:value="item.ii_ID">-->
+            <!--</el-option>-->
+          <!--</el-select>-->
+        <!--</el-form-item>-->
         <!--<el-form-item label="商家名称" :label-width="formLabelWidth">-->
         <!--<el-autocomplete-->
         <!--v-model="userName"-->
@@ -225,11 +225,16 @@
         <!--<span style="color: #f60;">(模糊搜索)</span>-->
         <!--</el-form-item>-->
         <el-form-item label="产品标题:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.ta_tg_Title" placeholder="请输入产品标题"></el-input>
+          <el-input v-model="addOptions.data.ta_tg_Title" placeholder="请输入产品标题" class="tg_Title"></el-input>
+          <span style="color: red">*</span>
         </el-form-item>
-        <el-form-item label="所属国家:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.ts_tg_Country" placeholder="请输入国家"></el-input>
+
+        <el-form-item label="产品描述:" :label-width="formLabelWidth">
+          <el-input v-model="addOptions.data.ta_tg_Describe" placeholder="请输入产品描述" class="tg_Title"></el-input>
         </el-form-item>
+        <!--<el-form-item label="所属国家:" :label-width="formLabelWidth">-->
+          <!--<el-input v-model="addOptions.data.ts_tg_Country" placeholder="请输入国家"></el-input>-->
+        <!--</el-form-item>-->
         <el-form-item label="所属省:" :label-width="formLabelWidth">
           <el-select v-model="value" placeholder="请选择省份" @change="changeProvice">
             <el-option
@@ -250,9 +255,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="产品描述:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.ta_tg_Describe" placeholder="请输入产品描述"></el-input>
-        </el-form-item>
+
 
         <el-form-item label="产品推荐理由:" :label-width="formLabelWidth">
           <el-button type="primary" size="small" @click="RecommendedReason">添加推荐理由</el-button>
@@ -310,10 +313,27 @@
 
 
         <el-form-item label="成团地点:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.ts_tg_GroupSite" placeholder="请输入成团地点"></el-input>
+          <!--<el-input v-model="addOptions.data.ts_tg_GroupSite" placeholder="请输入成团地点"></el-input>-->
+          <el-select v-model="addOptions.data.ts_tg_GroupSite" placeholder="请选择省份" @change="changeProvice">
+            <el-option
+              v-for="item in proviceList"
+              :key="item.sm_af_AreaName"
+              :label="item.sm_af_AreaName"
+              :value="item.sm_af_AreaID">
+            </el-option>
+          </el-select>
+          <!--<el-select v-model="addOptions.data.ts_tg_City" placeholder="请选择市">-->
+            <!--<el-option-->
+              <!--v-for="item in cityList"-->
+              <!--:key="item.sm_af_AreaID"-->
+              <!--:label="item.sm_af_AreaName"-->
+              <!--:value="item.sm_af_AreaName">-->
+            <!--</el-option>-->
+          <!--</el-select>-->
+
         </el-form-item>
         <el-form-item label="推荐价格:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.ts_tg_lowestPrice" placeholder="请输入推荐价格"></el-input>
+          <el-input v-model="addOptions.data.ts_tg_lowestPrice" placeholder="请输入推荐价格" class="tg_Title"></el-input>
         </el-form-item>
         <el-form-item label="展示图片:" :label-width="formLabelWidth">
           <a href="javascript:;" class="file">展示图片上传
@@ -321,29 +341,39 @@
           </a>
           <img v-for="item in ImageURL" :src="item" alt="" style="width:80px;height:50px">
         </el-form-item>
-        <el-form-item label="是否精选:" :label-width="formLabelWidth">
+        <el-form-item label="是否展示首页:" :label-width="formLabelWidth">
           <el-select v-model="addOptions.data.ts_tg_Special" placeholder="请选择是否精选">
             <el-option
-              label="精选"
+              label="展示"
               value="1">
             </el-option>
             <el-option
-              label="非精选"
+              label="不展示"
               value="0">
             </el-option>
           </el-select>
+          <span style="color: red">*</span>
         </el-form-item>
         <el-form-item label="境外线路:" :label-width="formLabelWidth">
           <el-select v-model="addOptions.data.ts_tg_LongOut" placeholder="请选择境外线路">
             <el-option
-              label="长线"
+              label="国内跟团 "
+              value="0">
+            </el-option>
+            <el-option
+              label="周边跟团"
               value="1">
             </el-option>
             <el-option
-              label="短线"
-              value="0">
+              label="出境长线"
+              value="2">
             </el-option>
+            <el-option
+            label="出境短线"
+            value="3">
+          </el-option>
           </el-select>
+          <span style="color: red">*</span>
         </el-form-item>
         <el-form-item label="备注:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ta_tg_Remark" placeholder="请输入内容" type="textarea"
@@ -360,16 +390,16 @@
     <!--修改产品-->
     <el-dialog title="修改产品" :visible.sync="updateAdminMerchantProductsDialog" width="60%">
       <el-form :model="updateAdminMerchantProductsObj">
-        <el-form-item label="跟团游栏目:" :label-width="formLabelWidth">
-          <el-select v-model="updateAdminMerchantProductsObj.ta_tg_ItemInfoID" placeholder="请选择跟团游栏目">
-            <el-option
-              v-for="item in homeAdminGroupTourList"
-              :key="item.ii_ID"
-              :label="item.ii_ItemName"
-              :value="item.ii_ID">
-            </el-option>
-          </el-select>
-        </el-form-item>
+        <!--<el-form-item label="跟团游栏目:" :label-width="formLabelWidth">-->
+          <!--<el-select v-model="updateAdminMerchantProductsObj.ta_tg_ItemInfoID" placeholder="请选择跟团游栏目">-->
+            <!--<el-option-->
+              <!--v-for="item in homeAdminGroupTourList"-->
+              <!--:key="item.ii_ID"-->
+              <!--:label="item.ii_ItemName"-->
+              <!--:value="item.ii_ID">-->
+            <!--</el-option>-->
+          <!--</el-select>-->
+        <!--</el-form-item>-->
         <el-form-item label="产品推荐理由:" :label-width="formLabelWidth">
           <el-button type="primary" size="small" @click="RecommendedReason">添加推荐理由</el-button>
           <div v-show="updateAdminMerchantProductsObj.buyReason.length" v-for="item,index in updateAdminMerchantProductsObj.buyReason">
@@ -480,11 +510,11 @@
         <el-form-item label="是否精选:" :label-width="formLabelWidth">
           <el-select v-model="updateAdminMerchantProductsObj.ts_tg_Special" placeholder="请选择是否精选">
             <el-option
-              label="精选"
+              label="展示"
               value="1">
             </el-option>
             <el-option
-              label="非精选"
+              label="不展示"
               value="0">
             </el-option>
           </el-select>
@@ -492,12 +522,20 @@
         <el-form-item label="境外线路:" :label-width="formLabelWidth">
           <el-select v-model="updateAdminMerchantProductsObj.ts_tg_LongOut" placeholder="请选择境外线路">
             <el-option
-              label="长线"
+              label="国内跟团 "
+              value="0">
+            </el-option>
+            <el-option
+              label="周边跟团"
               value="1">
             </el-option>
             <el-option
-              label="短线"
-              value="0">
+              label="出境长线"
+              value="2">
+            </el-option>
+            <el-option
+              label="出境短线"
+              value="3">
             </el-option>
           </el-select>
         </el-form-item>
@@ -1731,5 +1769,5 @@
   }
 </script>
 <style scoped>
-
+.tg_Title{width: 800px}
 </style>

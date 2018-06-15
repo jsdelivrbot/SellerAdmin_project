@@ -424,18 +424,6 @@ export const constantRouterMap = [
     meta: {title: 'car', icon: 'shoppingCard'},
     children: [
       {
-        path: 'carCompanyCar',
-        name: 'CarCompanyCar',
-        component: () => import('@/views/car/CarCompanyCar'),
-        meta: {title: 'carCompanyCar'}
-      },
-      {
-        path: 'carConfirmOrder',
-        name: 'CarConfirmOrder',
-        component: () => import('@/views/car/CarConfirmOrder'),
-        meta: {title: 'carConfirmOrder'}
-      },
-      {
         path: 'carHome',
         name: 'CarHome',
         component: () => import('@/views/car/CarHome'),
@@ -448,10 +436,18 @@ export const constantRouterMap = [
         meta: {title: 'carOrderDetails'}
       },
       {
-        path: 'carPreferentialPolicies',
-        name: 'CarPreferentialPolicies',
-        component: () => import('@/views/car/CarPreferentialPolicies'),
-        meta: {title: 'carPreferentialPolicies'}
+        hidden:true,
+        alwaysShow: true,
+        path: 'carCompanyCar',
+        name: 'CarCompanyCar',
+        component: () => import('@/views/car/CarCompanyCar'),
+        meta: {title: 'carCompanyCar'}
+      },
+      {
+        path: 'carConfirmOrder',
+        name: 'CarConfirmOrder',
+        component: () => import('@/views/car/CarConfirmOrder'),
+        meta: {title: 'carConfirmOrder'}
       },
       {
         path: 'carStore',
@@ -459,12 +455,20 @@ export const constantRouterMap = [
         component: () => import('@/views/car/CarStore'),
         meta: {title: 'carStore'}
       },
-       {
-          path: 'carProduct',
-          name: 'CarProduct',
-          component: () => import('@/views/car/CarProduct'),
-          meta: {title: 'carProduct'}
-        },
+      {
+        path: 'carProduct',
+        name: 'CarProduct',
+        component: () => import('@/views/car/CarProduct'),
+        meta: {title: 'carProduct'}
+      },
+      {
+        path: 'carPreferentialPolicies',
+        name: 'CarPreferentialPolicies',
+        component: () => import('@/views/car/CarPreferentialPolicies'),
+        meta: {title: 'carPreferentialPolicies'}
+      },
+
+
     ]
   },
   /**

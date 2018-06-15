@@ -289,9 +289,9 @@ export const getAdApplyPass = val=>{
 export const getCarUseStatus = val=>{
   switch (Number(val)) {
     case 0:
-      return '未使用';
-    case 1:
       return '使用中';
+    case 1:
+      return '未使用';
     default:
       return '未知';
   }

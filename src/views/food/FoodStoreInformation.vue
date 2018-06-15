@@ -314,7 +314,6 @@
             value: 1,
             label: '有'
           }
-
         ],
         proviceId: '',
         roomName: '',

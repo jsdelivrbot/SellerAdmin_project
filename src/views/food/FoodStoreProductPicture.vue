@@ -80,8 +80,8 @@
       <!--添加-->
       <el-dialog title="添加店面菜肴图片" :visible.sync="addDialog">
         <el-form :model="addOptions">
-          <el-form-item label="店面房间:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.fd_gi_GoodID" placeholder="请选择房间">
+          <el-form-item label="店面产品:" :label-width="formLabelWidth">
+            <el-select v-model="addOptions.fd_gi_GoodID" placeholder="请选择产品">
               <el-option
                 v-for="item in foodStoreProductList"
                 :key="item.fd_sfp_ID"
@@ -90,7 +90,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="房间图片:" :label-width="formLabelWidth">
+          <el-form-item label="产品图片:" :label-width="formLabelWidth">
             <a href="javascript:;" class="file">上传图片
               <input type="file" name="" ref="upload" accept="image/*">
             </a>
@@ -105,7 +105,7 @@
       <!--修改-->
       <el-dialog title="修改店面菜肴图片" :visible.sync="updateDialog">
         <el-form :model="updateObj">
-          <el-form-item label="店面房间:" :label-width="formLabelWidth">
+          <el-form-item label="店面产品:" :label-width="formLabelWidth">
             <el-select v-model="updateObj.fd_gi_GoodID" placeholder="请选择房间">
               <el-option
                 v-for="item in foodStoreProductList"
@@ -115,7 +115,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="房间图片:" :label-width="formLabelWidth">
+          <el-form-item label="产品图片:" :label-width="formLabelWidth">
             <a href="javascript:;" class="file">上传图片
               <input type="file" name="" ref="upload" accept="image/*">
             </a>

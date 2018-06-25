@@ -162,10 +162,12 @@
         }, {
           value: 1,
           label: '锁定'
-        }, {
-          value: 2,
-          label: '已售'
-        }],
+        },
+        //   {
+        //   value: 2,
+        //   label: '已售'
+        // }
+        ],
         total: 0,
 
       }

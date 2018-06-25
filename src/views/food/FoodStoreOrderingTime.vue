@@ -95,8 +95,8 @@
       <!--添加-->
       <el-dialog title="添加店面可订单时间" :visible.sync="addDialog">
         <el-form :model="addOptions">
-          <el-form-item label="店面房间:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.storeID" placeholder="请选择房间">
+          <el-form-item label="店面名称:" :label-width="formLabelWidth">
+            <el-select v-model="addOptions.storeID" placeholder="请选择店面">
               <el-option
                 v-for="item in foodStoreInformtionList"
                 :key="item.fd_sf_ID"
@@ -106,6 +106,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="生成可订时间:" :label-width="formLabelWidth">
+            <!--原版-->
             <div class="block">
               <el-date-picker
                 v-model="addTime"

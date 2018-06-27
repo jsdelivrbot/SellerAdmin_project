@@ -9,7 +9,7 @@
             <span>店面筛选:</span>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="storeId" placeholder="请选择店面">
+            <el-select v-model="storeId" placeholder="请选择店面"  size="small">
               <el-option
                 v-for="item in foodStoreInformtionList"
                 :key="item.fd_sf_ID"
@@ -22,6 +22,7 @@
             <div class="block">
               <el-date-picker
                 v-model="searchTime"
+                size="small"
                 :picker-options="pickerOptions"
                 type="daterange"
                 range-separator="至"
@@ -32,9 +33,9 @@
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="search">查询</el-button>
-            <el-button type="primary" @click="add">添加</el-button>
-            <el-button type="danger" @click="Delete">删除</el-button>
+            <el-button type="primary" @click="search"  size="small">查询</el-button>
+            <el-button type="primary" @click="add" size="small">添加</el-button>
+            <el-button type="danger" @click="Delete" size="small">删除</el-button>
           </el-form-item>
         </el-form>
       </el-col>

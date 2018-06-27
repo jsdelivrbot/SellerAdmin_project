@@ -96,6 +96,13 @@ export default {
         }
       })
     }
+  },
+  mounted(){
+    document.addEventListener('keydown',(e)=>{
+      if(e.keyCode==13){
+        this.handleLogin()
+      }
+    });
   }
 }
 </script>

@@ -9,7 +9,7 @@
             <span>选择筛选:</span>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="outStatusId" placeholder="请选择出票状态">
+            <el-select v-model="outStatusId" placeholder="请选择出票状态"  size="small">
               <el-option
                 v-for="item in outStatus"
                 :key="item.value"
@@ -19,7 +19,7 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="payStateId" placeholder="请选择支付状态">
+            <el-select v-model="payStateId" placeholder="请选择支付状态"  size="small">
               <el-option
                 v-for="item in payState"
                 :key="item.value"
@@ -29,7 +29,7 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="search">查询</el-button>
+            <el-button type="primary" @click="search"  size="small">查询</el-button>
           </el-form-item>
         </el-form>
       </el-col>

@@ -388,7 +388,7 @@
                   });
               }
           };
-          xhr.open("POST", "http://image.1000da.com.cn/PostImage/PostToOSS", true);
+          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
           xhr.send(fd);
         } else {
           alert("请选择上传视频")
@@ -774,7 +774,6 @@
          * 修改之后的值
          * */
 
-        console.log(2,this.VMovieVideoUpdateObj);
         this.$store.dispatch("updateVMovieVideo", this.VMovieVideoUpdateObj)
           .then(
             (suc) => {

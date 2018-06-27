@@ -9,7 +9,7 @@
             <span>店面名称筛选:</span>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="storeId" placeholder="请选择店面" @change="changeProduct">
+            <el-select v-model="storeId" placeholder="请选择店面" @change="changeProduct" size="small">
               <el-option
                 v-for="item in foodStoreInformtionList"
                 :key="item.fd_sf_ID"
@@ -19,7 +19,7 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="productId" placeholder="请选择菜肴名称">
+            <el-select v-model="productId" placeholder="请选择菜肴名称" size="small">
               <el-option
                 v-for="item in foodStoreProductList"
                 :key="item.fd_sfp_ID"
@@ -29,8 +29,8 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="search">查询</el-button>
-            <el-button type="primary" @click="add" v-show="!foodStoreProductPictureList.length">添加</el-button>
+            <el-button type="primary" @click="search" size="small">查询</el-button>
+            <el-button type="primary" @click="add" v-show="!foodStoreProductPictureList.length" size="small">添加</el-button>
           </el-form-item>
         </el-form>
       </el-col>

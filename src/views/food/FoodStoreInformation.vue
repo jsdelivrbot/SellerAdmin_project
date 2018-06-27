@@ -9,11 +9,11 @@
             <span>店面名称筛选:</span>
           </el-form-item>
           <el-form-item>
-            <el-input v-model="roomName"></el-input>
+            <el-input v-model="roomName" size="small"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="search">查询</el-button>
-            <el-button type="primary" @click="add">添加</el-button>
+            <el-button type="primary" @click="search" size="small">查询</el-button>
+            <el-button type="primary" @click="add" size="small">添加</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -60,7 +60,7 @@
                 <span>{{ props.row.fd_sf_AvgPrice }}元</span>
               </el-form-item>
               <el-form-item label="营业时间">
-                <span>{{ props.row.fd_sf_OpenTime }}</span>
+                <span>{{ props.row.fd_sf_OpenTime+'~'+ props.row.fd_sf_CloseTime}}</span>
               </el-form-item>
               <el-form-item label="联系电话">
                 <span>{{ props.row.fd_sf_Phone }}</span>
@@ -119,7 +119,7 @@
 
       <el-dialog title="添加店面信息" :visible.sync="addDialog">
         <el-form :model="addOptions">
-          <el-form-item label="店面用餐类型:" :label-width="formLabelWidth">
+          <el-form-item label="店面用餐类型:" :label-width="formLabelWidth" required>
             <el-select v-model="addOptions.fd_sf_TypeID" placeholder="请选择">
               <el-option
                 v-for="item in storefrontTypeList"
@@ -129,7 +129,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="用餐人数:" :label-width="formLabelWidth">
+          <el-form-item label="用餐人数:" :label-width="formLabelWidth" required>
             <el-select v-model="addOptions.fd_sf_MansID" placeholder="请选择">
               <el-option
                 v-for="item in numberOfMealsList"
@@ -139,22 +139,22 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="店面名称:" :label-width="formLabelWidth">
+          <el-form-item label="店面名称:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.fd_sf_ProductName"></el-input>
           </el-form-item>
           <el-form-item label="地址描述:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.fd_sf_Address"></el-input>
           </el-form-item>
-          <el-form-item label="经度:" :label-width="formLabelWidth">
+          <el-form-item label="经度:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.fd_sf_Lng"></el-input>
           </el-form-item>
-          <el-form-item label="纬度:" :label-width="formLabelWidth">
+          <el-form-item label="纬度:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.fd_sf_Lat"></el-input>
           </el-form-item>
           <el-form-item label="点击获取经纬度再填写:" label-width="200px">
             <el-button type="primary" @click="getLatitude" size="small">获取经纬度</el-button>
           </el-form-item>
-          <el-form-item label="省:" :label-width="formLabelWidth">
+          <el-form-item label="省:" :label-width="formLabelWidth" required>
             <el-select v-model="addOptions.fd_sf_Provice" placeholder="请选择" @change="changeCity">
               <el-option
                 v-for="item in foodProcinceList"
@@ -164,7 +164,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="市:" :label-width="formLabelWidth">
+          <el-form-item label="市:" :label-width="formLabelWidth" required>
             <el-select v-model="addOptions.fd_sf_City" placeholder="请选择">
               <el-option
                 v-for="item in foodCityList"
@@ -177,10 +177,20 @@
           <el-form-item label="人均价格:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.fd_sf_AvgPrice"></el-input>
           </el-form-item>
-          <el-form-item label="营业时间:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.fd_sf_OpenTime"></el-input>
+          <el-form-item label="营业时间:" :label-width="formLabelWidth" required>
+            <el-time-picker
+              is-range
+              arrow-control
+              v-model="times"
+              range-separator="至"
+              start-placeholder="开始时间"
+              value-format="HH:mm:ss"
+              end-placeholder="结束时间"
+              placeholder="选择时间范围">
+            </el-time-picker>
+            <!--<el-input v-model="addOptions.fd_sf_OpenTime"></el-input>-->
           </el-form-item>
-          <el-form-item label="联系电话:" :label-width="formLabelWidth">
+          <el-form-item label="联系电话:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.fd_sf_Phone"></el-input>
           </el-form-item>
           <el-form-item label="是否有WAFI:" :label-width="formLabelWidth">
@@ -204,7 +214,7 @@
 
       <el-dialog title="修改店面信息" :visible.sync="updateDialog">
         <el-form :model="updateObj">
-          <el-form-item label="店面用餐类型:" :label-width="formLabelWidth">
+          <el-form-item label="店面用餐类型:" :label-width="formLabelWidth" required>
             <el-select v-model="updateObj.fd_sf_TypeID" placeholder="请选择">
               <el-option
                 v-for="item in storefrontTypeList"
@@ -214,7 +224,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="用餐人数:" :label-width="formLabelWidth">
+          <el-form-item label="用餐人数:" :label-width="formLabelWidth" required>
             <el-select v-model="updateObj.fd_sf_MansID" placeholder="请选择">
               <el-option
                 v-for="item in numberOfMealsList"
@@ -224,48 +234,59 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="产品名称:" :label-width="formLabelWidth">
+          <el-form-item label="产品名称:" :label-width="formLabelWidth" required>
             <el-input v-model="updateObj.fd_sf_ProductName"></el-input>
           </el-form-item>
           <el-form-item label="地址描述:" :label-width="formLabelWidth">
             <el-input v-model="updateObj.fd_sf_Address"></el-input>
           </el-form-item>
-          <el-form-item label="经度:" :label-width="formLabelWidth">
+          <el-form-item label="经度:" :label-width="formLabelWidth" required>
             <el-input v-model="updateObj.fd_sf_Lng"></el-input>
           </el-form-item>
-          <el-form-item label="纬度:" :label-width="formLabelWidth">
+          <el-form-item label="纬度:" :label-width="formLabelWidth" required>
             <el-input v-model="updateObj.fd_sf_Lat"></el-input>
           </el-form-item>
           <el-form-item label="点击获取经纬度再填写:" label-width="200px">
             <el-button type="primary" @click="getLatitude" size="small">获取经纬度</el-button>
           </el-form-item>
-          <el-form-item label="省:" :label-width="formLabelWidth">
+          <el-form-item label="省:" :label-width="formLabelWidth" required>
             <el-select v-model="updateObj.fd_sf_Provice" placeholder="请选择" @change="changeCity">
               <el-option
                 v-for="item in foodProcinceList"
                 :key="item.sm_af_AreaID"
                 :label="item.sm_af_AreaName"
-                :value="item.sm_af_AreaName">
+                :value="item.sm_af_AreaID">
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="市:" :label-width="formLabelWidth">
+          <el-form-item label="市:" :label-width="formLabelWidth" required>
             <el-select v-model="updateObj.fd_sf_City" placeholder="请选择">
               <el-option
                 v-for="item in foodCityList"
                 :key="item.sm_af_AreaID"
                 :label="item.sm_af_AreaName"
-                :value="item.sm_af_AreaName">
+                :value="item.sm_af_AreaID">
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="人均价格:" :label-width="formLabelWidth">
+          <el-form-item label="人均价格:" :label-width="formLabelWidth" required>
             <el-input v-model="updateObj.fd_sf_AvgPrice"></el-input>
           </el-form-item>
-          <el-form-item label="营业时间:" :label-width="formLabelWidth">
-            <el-input v-model="updateObj.fd_sf_OpenTime"></el-input>
+          <el-form-item label="营业时间:" :label-width="formLabelWidth" required>
+            <el-time-picker
+              is-range
+              arrow-control
+              v-model="times"
+              range-separator="至"
+              start-placeholder="开始时间"
+              value-format="HH:mm:ss"
+              end-placeholder="结束时间"
+              placeholder="选择时间范围">
+            </el-time-picker>
+
+            <!--<el-input v-model="updateObj.fd_sf_OpenTime"></el-input>-->
           </el-form-item>
-          <el-form-item label="联系电话:" :label-width="formLabelWidth">
+          <el-form-item label="联系电话:" :label-width="formLabelWidth" required>
             <el-input v-model="updateObj.fd_sf_Phone"></el-input>
           </el-form-item>
           <el-form-item label="是否有WAFI:" :label-width="formLabelWidth">
@@ -290,6 +311,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import {isNumber} from '@/assets/js/public'
 
   export default {
     computed: mapGetters([
@@ -315,12 +337,14 @@
           "fd_sf_City": "",
           "fd_sf_AvgPrice": "",
           "fd_sf_OpenTime": "",
+          fd_sf_CloseTime:'',
           "fd_sf_Phone": "",
           "fd_sf_HasWafi": "",
           "fd_sf_TradeID": "",
         },
         formLabelWidth: '120px',
         updateDialog: false,
+        times: [new Date(2018, 9, 10, 8, 40), new Date(2018, 9, 10, 9, 40)],
         isWifi: [
           {
             value: 0,
@@ -397,6 +421,8 @@
       },
 //      添加提交
       addSubmit() {
+        this.addOptions.fd_sf_OpenTime = this.times[0]
+        this.addOptions.fd_sf_CloseTime = this.times[1]
         let insertStoreFrontInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -405,6 +431,13 @@
           "pcName": "",
           "data": this.addOptions
         };
+        if(isNaN(this.addOptions.fd_sf_Lng)||isNaN(this.addOptions.fd_sf_Lat)){
+          this.$notify({
+            message: '经纬度必须为数字!',
+            type: 'error'
+          });
+          return
+        }
         this.$store.dispatch('addFoodStoreInformation', insertStoreFrontInfo)
           .then(suc => {
             this.$notify({
@@ -429,6 +462,13 @@
       },
       //修改提交
       updateSubmit() {
+        if(isNaN(this.updateObj.fd_sf_Lng)||isNaN(this.updateObj.fd_sf_Lat)){
+          this.$notify({
+            message: '经纬度必须为数字!',
+            type: 'error'
+          });
+          return
+        }
         let updateStoreFrontInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -446,7 +486,8 @@
             "fd_sf_Provice": this.updateObj.fd_sf_Provice,
             "fd_sf_City": this.updateObj.fd_sf_City,
             "fd_sf_AvgPrice": this.updateObj.fd_sf_AvgPrice,
-            "fd_sf_OpenTime": this.updateObj.fd_sf_OpenTime,
+            "fd_sf_OpenTime": this.times[0]?this.times[0]:'',
+            "fd_sf_CloseTime":this.times[1]?this.times[1]:'',
             "fd_sf_Phone": this.updateObj.fd_sf_Phone,
             "fd_sf_HasWafi": this.updateObj.fd_sf_HasWafi,
             "fd_sf_TradeID": this.updateObj.fd_sf_TradeID,

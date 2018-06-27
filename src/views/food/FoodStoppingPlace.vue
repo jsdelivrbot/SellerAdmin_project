@@ -9,7 +9,7 @@
             <span>店面停车位查询:</span>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="foodStoreName" placeholder="请选择店面名称">
+            <el-select v-model="foodStoreName" placeholder="请选择店面名称"  size="small">
               <el-option
                 v-for="item in foodStoreInformtionList"
                 :key="item.fd_sf_ID"
@@ -20,8 +20,8 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="search">查询</el-button>
-            <el-button type="primary" @click="add">添加</el-button>
+            <el-button type="primary" @click="search"  size="small">查询</el-button>
+            <el-button type="primary" @click="add"  size="small">添加</el-button>
           </el-form-item>
         </el-form>
       </el-col>

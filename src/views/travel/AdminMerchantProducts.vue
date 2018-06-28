@@ -224,18 +224,17 @@
         <!--&gt;</el-autocomplete>-->
         <!--<span style="color: #f60;">(模糊搜索)</span>-->
         <!--</el-form-item>-->
-        <el-form-item label="产品标题:" :label-width="formLabelWidth">
+        <el-form-item label="产品标题:" :label-width="formLabelWidth" required>
           <el-input v-model="addOptions.data.ta_tg_Title" placeholder="请输入产品标题" class="tg_Title"></el-input>
-          <span style="color: red">*</span>
         </el-form-item>
 
-        <el-form-item label="产品描述:" :label-width="formLabelWidth">
+        <el-form-item label="产品描述:" :label-width="formLabelWidth" required>
           <el-input v-model="addOptions.data.ta_tg_Describe" placeholder="请输入产品描述" class="tg_Title"></el-input>
         </el-form-item>
         <!--<el-form-item label="所属国家:" :label-width="formLabelWidth">-->
           <!--<el-input v-model="addOptions.data.ts_tg_Country" placeholder="请输入国家"></el-input>-->
         <!--</el-form-item>-->
-        <el-form-item label="所属省:" :label-width="formLabelWidth">
+        <el-form-item label="所属省:" :label-width="formLabelWidth" required>
           <el-select v-model="value" placeholder="请选择省份" @change="changeProvice">
             <el-option
               v-for="item in proviceList"
@@ -245,7 +244,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="所属市:" :label-width="formLabelWidth">
+        <el-form-item label="所属市:" :label-width="formLabelWidth" required>
           <el-select v-model="addOptions.data.ts_tg_City" placeholder="请选择市">
             <el-option
               v-for="item in cityList"
@@ -257,7 +256,7 @@
         </el-form-item>
 
 
-        <el-form-item label="产品推荐理由:" :label-width="formLabelWidth">
+        <el-form-item label="产品推荐理由:" :label-width="formLabelWidth" required>
           <el-button type="primary" size="small" @click="RecommendedReason">添加推荐理由</el-button>
           <div v-show="buyReason.length" v-for="item,index in buyReason">
             <span style="margin: 10px 20px 10px 0">推荐理由{{index+1}} : {{item.ts_gi_Name}}</span>
@@ -266,7 +265,7 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="产品介绍:" :label-width="formLabelWidth">
+        <el-form-item label="产品介绍:" :label-width="formLabelWidth" required>
           <el-button type="primary" size="small" @click="addGoodIntroduce">添加产品介绍</el-button>
           <div v-show="goodIntroduce.length" v-for="item,index in goodIntroduce">
             <span style="margin: 10px 20px 10px 0">产品介绍{{index+1}} : {{item.ts_gi_Name}}</span>
@@ -275,7 +274,7 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="产品费用包含:" :label-width="formLabelWidth">
+        <el-form-item label="产品费用包含:" :label-width="formLabelWidth" required>
           <el-button type="primary" size="small" @click="addFeeInfoList">添加费用包含</el-button>
           <div v-show="feeInfoList.length" v-for="item,index in feeInfoList">
             <span style="margin: 10px 20px 10px 0">费用包含{{index+1}} : {{item.ts_gi_Name}}</span>
@@ -284,7 +283,7 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="产品费用不包含:" :label-width="formLabelWidth">
+        <el-form-item label="产品费用不包含:" label-width="140px" required>
           <el-button type="primary" size="small" @click="addFeeNotInList">添加费用不包含</el-button>
           <div v-show="feeNotInList.length" v-for="item,index in feeNotInList">
             <span style="margin: 10px 20px 10px 0">费用不包含{{index+1}} : {{item.ts_gi_Name}}</span>
@@ -293,7 +292,7 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="产品预订须知:" :label-width="formLabelWidth">
+        <el-form-item label="产品预订须知:" :label-width="formLabelWidth" required>
           <el-button type="primary" size="small" @click="addBookList">添加预订须知</el-button>
           <div v-show="bookList.length" v-for="item,index in bookList">
             <span style="margin: 10px 20px 10px 0">预订须知{{index+1}} : {{item.ts_gi_Name}}</span>
@@ -302,7 +301,7 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="产品退改政策:" :label-width="formLabelWidth">
+        <el-form-item label="产品退改政策:" :label-width="formLabelWidth" required>
           <el-button type="primary" size="small" @click="addBackRuleList">添加退改政策</el-button>
           <div v-show="backRuleList.length" v-for="item,index in backRuleList">
             <span style="margin: 10px 20px 10px 0">退改政策{{index+1}} : {{item.ts_gi_Name}}</span>
@@ -312,7 +311,7 @@
         </el-form-item>
 
 
-        <el-form-item label="成团地点:" :label-width="formLabelWidth">
+        <el-form-item label="成团地点:" :label-width="formLabelWidth" required>
           <!--<el-input v-model="addOptions.data.ts_tg_GroupSite" placeholder="请输入成团地点"></el-input>-->
           <el-select v-model="addOptions.data.ts_tg_GroupSite" placeholder="请选择省份" @change="changeProvice">
             <el-option
@@ -335,7 +334,7 @@
         <el-form-item label="推荐价格:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ts_tg_lowestPrice" placeholder="请输入推荐价格" class="tg_Title"></el-input>
         </el-form-item>
-        <el-form-item label="展示图片:" :label-width="formLabelWidth">
+        <el-form-item label="展示图片:" :label-width="formLabelWidth" required>
           <a href="javascript:;" class="file">展示图片上传
             <input type="file" name="" ref="upload" accept="image/*" multiple>
           </a>
@@ -352,7 +351,6 @@
               value="0">
             </el-option>
           </el-select>
-          <span style="color: red">*</span>
         </el-form-item>
         <el-form-item label="境外线路:" :label-width="formLabelWidth">
           <el-select v-model="addOptions.data.ts_tg_LongOut" placeholder="请选择境外线路">
@@ -373,7 +371,6 @@
             value="3">
           </el-option>
           </el-select>
-          <span style="color: red">*</span>
         </el-form-item>
         <el-form-item label="备注:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ta_tg_Remark" placeholder="请输入内容" type="textarea"
@@ -1769,5 +1766,5 @@
   }
 </script>
 <style scoped>
-.tg_Title{width: 800px}
+/*.tg_Title{width: 800px}*/
 </style>

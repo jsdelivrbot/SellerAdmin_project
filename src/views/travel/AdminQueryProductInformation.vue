@@ -20,6 +20,7 @@
           <el-form-item>
             <el-autocomplete
               style="width: 250px"
+              size="small"
               v-model="userName"
               :fetch-suggestions="querySearchAsync"
               placeholder="请选择产品"
@@ -38,7 +39,7 @@
           <!--</el-form-item>-->
           <el-form-item>
             <!--<el-button type="primary" @click="search">查询</el-button>-->
-            <el-button type="primary" @click="addAdminQueryProductInformation">新增</el-button>
+            <el-button type="primary" @click="addAdminQueryProductInformation" size="small">新增</el-button>
           </el-form-item>
         </el-form>
       </el-col>

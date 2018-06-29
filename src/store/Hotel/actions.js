@@ -23,7 +23,7 @@ export default {
   //查询惠乐游酒店推荐类型
   initHotelIntroduceType({commit},data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/IntroduceType/Select', JSON.stringify(data), {
+      axios.post(getNewStr + '/IntroduceType/GetAll', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

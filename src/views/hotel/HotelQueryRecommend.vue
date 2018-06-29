@@ -65,37 +65,44 @@
       <!--添加-->
       <el-dialog title="添加酒店推荐类型" :visible.sync="addRecommendDialog">
         <el-form :model="addOptions">
-
-          <el-form-item label="父推荐类型:" :label-width="formLabelWidth">
-            <el-select placeholder="请选择类型" @change="changeParent" v-model="ParentID">
-              <el-option
-                v-for="item in hotelIntroduceTypeList"
-                :key="item.ht_it_ID"
-                :label="item.ht_it_Name"
-                :value="item.ht_it_ID">
-              </el-option>
-            </el-select>
+          <el-form-item label="推荐类型:" :label-width="formLabelWidth">
+            <el-cascader
+              :options="hotelIntroduceTypeList"
+              :props="props"
+              v-model="introduceTypeList"
+              :show-all-levels="false"
+            ></el-cascader>
           </el-form-item>
-          <el-form-item label="推荐类型:" :label-width="formLabelWidth" v-show="showChild"  >
-            <el-select v-model="TypeID" placeholder="请选择类型" @change="changeShowChild">
-              <el-option
-                v-for="item in parentHotelQueryRecommendList"
-                :key="item.ht_it_ID"
-                :label="item.ht_it_Name"
-                :value="item.ht_it_ID">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="子类型:" :label-width="formLabelWidth" v-show="showChildChild">
-            <el-select v-model="addOptions.data.ht_hi_IntroduceType" placeholder="请选择类型">
-              <el-option
-                v-for="item in showChildHotelQueryRecommendList"
-                :key="item.ht_it_ID"
-                :label="item.ht_it_Name"
-                :value="item.ht_it_ID">
-              </el-option>
-            </el-select>
-          </el-form-item>
+          <!--<el-form-item label="父推荐类型:" :label-width="formLabelWidth">-->
+            <!--<el-select placeholder="请选择类型" @change="changeParent" v-model="ParentID">-->
+              <!--<el-option-->
+                <!--v-for="item in hotelIntroduceTypeList"-->
+                <!--:key="item.ht_it_ID"-->
+                <!--:label="item.ht_it_Name"-->
+                <!--:value="item.ht_it_ID">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
+          <!--<el-form-item label="推荐类型:" :label-width="formLabelWidth" v-show="showChild"  >-->
+            <!--<el-select v-model="TypeID" placeholder="请选择类型" @change="changeShowChild">-->
+              <!--<el-option-->
+                <!--v-for="item in parentHotelQueryRecommendList"-->
+                <!--:key="item.ht_it_ID"-->
+                <!--:label="item.ht_it_Name"-->
+                <!--:value="item.ht_it_ID">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
+          <!--<el-form-item label="子类型:" :label-width="formLabelWidth" v-show="showChildChild">-->
+            <!--<el-select v-model="addOptions.data.ht_hi_IntroduceType" placeholder="请选择类型">-->
+              <!--<el-option-->
+                <!--v-for="item in showChildHotelQueryRecommendList"-->
+                <!--:key="item.ht_it_ID"-->
+                <!--:label="item.ht_it_Name"-->
+                <!--:value="item.ht_it_ID">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addRecommendDialog = false">取 消</el-button>
@@ -119,6 +126,12 @@
     ]),
     data() {
       return {
+        introduceTypeList:[],
+        props:{
+          label:'ht_it_Name',
+          value: 'ht_it_ID',
+          children: 'SubList'
+        },
         showChildChild:false,
         TypeID:'',
         showChild:false,
@@ -245,6 +258,7 @@
       //添加提交
       addRecommendSubmit() {
         this.addOptions.data.ht_ht_hotelID = this.hotelID;
+        this.addOptions.data.ht_hi_IntroduceType = this.introduceTypeList[this.introduceTypeList.length-1];
         this.$store.dispatch('AddHotelQueryRecommend', this.addOptions)
           .then(suc => {
             this.$notify({

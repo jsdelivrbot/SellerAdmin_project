@@ -701,6 +701,7 @@
   </section>
 </template>
 <script>
+  import elDragDialog from '@/directive/el-dragDialog' // base on element-ui
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
   export default{

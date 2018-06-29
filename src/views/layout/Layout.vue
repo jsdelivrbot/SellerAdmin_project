@@ -91,7 +91,14 @@ export default {
           "ht_it_ParentID": "",//推荐类型父ID
         }
       }
-      await this.$store.dispatch('initHotelIntroduceType', options)
+      let hotelOptions = {
+        "loginUserID": "huileyou",
+        "loginUserPass": "123",
+        "operateUserID": "",
+        "operateUserName": "",
+        "pcName": "",
+      }
+      await this.$store.dispatch('initHotelIntroduceType', hotelOptions)
       //惠乐游图片类型
       let imgOptions = {
         "loginUserID": "huileyou",

@@ -455,7 +455,7 @@
       },
       //修改按钮
       update(id) {
-        this.ImageURL = [];
+        this.ImageURL1 = [];
         this.$store.commit('setTranstionFalse');
         this.$store.commit('updateTicketType', id);
         this.updateDialog = true;

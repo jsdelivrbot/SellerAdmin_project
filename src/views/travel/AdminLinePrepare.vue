@@ -141,7 +141,7 @@
       </el-table>
 
       <!--添加线路日程-->
-      <el-dialog title="添加线路日程" :visible.sync="addAdminLinePrepareDialog">
+      <el-dialog title="添加线路日程" :visible.sync="addAdminLinePrepareDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="addOptions">
           <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.data.ts_pt_Product_LineID" placeholder="请选择产品线路">
@@ -199,7 +199,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addAdminLinePrepareDialog = false">取 消</el-button>
+          <el-button @click="cacheForm">取 消</el-button>
           <el-button type="primary" @click="addAdminLinePrepareSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -342,6 +342,16 @@
       'adminLineScheduleManagementId'
     ]),
     methods: {
+      closeDialog(){
+        this.ImageURL = [],
+        this.ImageURL2 = [],
+        this.addDialog = false
+      },
+      cacheForm(){
+        this.ImageURL = [],
+        this.ImageURL2 = [],
+        this.addDialog = false
+      },
       //图片转二进制
       uploadImg(file){
         return new Promise(function (relove, reject) {

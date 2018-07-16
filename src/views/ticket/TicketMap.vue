@@ -19,7 +19,7 @@
 
 
     <!--添加-->
-    <el-dialog title="添加地图坐标信息" :visible.sync="addDialog">
+    <el-dialog title="添加地图坐标信息" :visible.sync="addDialog" :close-on-click-modal="false" @close="closeDialog" >
       <el-form :model="addOptions">
 
         <el-form-item label="小景点名称:" :label-width="formLabelWidth">
@@ -70,7 +70,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addDialog = false">取 消</el-button>
+        <el-button @click="cacheForm">取 消</el-button>
         <el-button type="primary" @click="AddSubmit">确 定</el-button>
       </div>
     </el-dialog>
@@ -212,6 +212,7 @@
     name: '',
     data(){
       return {
+        isUploaNode:true,
         tableData:[],
         ImageURL:[],
         ImageURL1:[],
@@ -266,6 +267,16 @@
       this.initData()
     },
     methods: {
+      closeDialog(){
+        this.ImageURL = [];
+        this.ImageURL1 = [];
+        this.addDialog = false
+      },
+      cacheForm(){
+        this.ImageURL = [];
+        this.ImageURL1 = [];
+        this.addDialog = false
+      },
       //视频上传
       UpLoadvideo() {
         if(this.$refs.videos){
@@ -334,7 +345,8 @@
                     if (data) {
                       this.ImageURL = [];
                       this.ImageURL.push(data.data);
-                      console.log(111,data.data)
+                      this.$refs.upload.value = '';
+                      this.isUploaNode= false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -353,6 +365,8 @@
                     if (data) {
                       this.ImageURL1 = [];
                       this.ImageURL1.push(data.data);
+                      this.$refs.upload.value = '';
+                      this.isUploaNode= false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -420,7 +434,9 @@
       Add(){
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        this.uploaNode();
+        if(this.isUploaNode){
+          this.uploaNode()
+        };
         this.ImageURL = [];
         this.ImageURL1 = [];
       },
@@ -451,7 +467,9 @@
         this.updateDialog=false;
       },
       Update(obj){
-        this.uploaNode();
+        if(this.isUploaNode){
+          this.uploaNode()
+        };
         this.ImageURL = [];
         this.ImageURL1 = [];
         this.updateOptions.data=obj;

@@ -140,7 +140,7 @@
 
       <!--添加景点-->
 
-      <el-dialog title="添加景点信息" :visible.sync="addDialog">
+      <el-dialog title="添加景点信息" :visible.sync="addDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="addOptions">
           <el-form-item label="景点编码:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_ts_Code"></el-input>
@@ -213,9 +213,8 @@
               <input type="file" name="" ref="upload" accept="image/*" multiple>
             </a>
             <img
-              style="display: block"
               v-for="item in ImageURL"
-              :src="item"
+              v-lazy="item"
               width="280"
               height="125"
               v-show="ImageURL.length"
@@ -286,7 +285,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addDialog = false">取 消</el-button>
+          <el-button @click="cacheForm">取 消</el-button>
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -488,6 +487,7 @@
     name: '',
     data() {
       return {
+        isUploaNode:true,
         formLabelWidth: '120px',
         isMap: false,
         siteName: '',//景点名称搜索
@@ -625,6 +625,14 @@
       }, {enableHighAccuracy: true})
     },
     methods: {
+      closeDialog(){
+        this.ImageURL = []
+        this.addDialog = false
+      },
+      cacheForm(){
+        this.ImageURL = []
+        this.addDialog = false
+      },
       //获取经纬度
       getLatitude(){
         window.open('http://api.map.baidu.com/lbsapi/getpoint/index.html')
@@ -676,10 +684,10 @@
       },
       //添加图片
       uploaNode() {
-        this.ImageURL = [];
-        this.updateImageURL = [];
+
         setTimeout(() => {
           if (this.$refs.upload) {
+            this.ImageURL = [];
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
                 // this.uploadImg(this.$refs.upload.files[i]).then(data => {
@@ -690,6 +698,8 @@
                   .then(data => {
                     if (data) {
                       this.ImageURL.push(data.data);
+                      this.$refs.upload.value = '';
+                      this.isUploaNode= false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -701,8 +711,8 @@
               }
             })
           }
-          ;
           if (this.$refs.updateUpload) {
+            this.updateImageURL = [];
             this.$refs.updateUpload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.updateUpload.files.length; i++) {
                 // this.uploadImg(this.$refs.updateUpload.files[i]).then(data => {
@@ -713,6 +723,8 @@
                   .then(data => {
                     if (data) {
                       this.updateImageURL.push(data.data);
+                      this.$refs.updateUpload.value = '';
+                      this.isUploaNode= false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -821,7 +833,9 @@
         this.addOptions.tm_ts_ContryID = '';
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        this.uploaNode();
+       if(this.isUploaNode){
+          this.uploaNode()
+       };
         this.addOptions.tm_ts_TradeInfoID = this.adminUserInfo.sm_ui_ID;
       },
       //添加提交

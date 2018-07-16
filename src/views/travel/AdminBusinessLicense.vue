@@ -131,7 +131,7 @@
       </el-pagination>
     </div>
     <!--添加商家营业执照-->
-    <el-dialog title="添加商家营业执照" :visible.sync="addAdminBusinessLicenseDialog">
+    <el-dialog title="添加商家营业执照" :visible.sync="addAdminBusinessLicenseDialog" :close-on-click-modal="false" @close="closeDialog">
       <el-form :model="insertTradeLicence">
         <el-form-item label="统一社会信用代码(ID):" :label-width="formLabelWidth">
           <el-input v-model="insertTradeLicence.data.ts_bl_Code"></el-input>
@@ -193,7 +193,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addAdminBusinessLicenseDialog = false">取 消</el-button>
+        <el-button @click="cacheForm">取 消</el-button>
         <el-button type="primary" @click="addAdminBusinessLicenseSubmit">确 定</el-button>
       </div>
     </el-dialog>
@@ -333,6 +333,16 @@
       }
     },
     methods: {
+      closeDialog(){
+        this.ImageURL = [],
+          this.ImageURL2 = [],
+          this.addDialog = false
+      },
+      cacheForm(){
+        this.ImageURL = [],
+          this.ImageURL2 = [],
+          this.addDialog = false
+      },
       //分页
       handleCurrentChange(num) {
         this.initData(this.productsID.trim(), num);

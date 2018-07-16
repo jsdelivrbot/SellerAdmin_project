@@ -19,7 +19,8 @@ import * as filters from './filters'
 import i18n from './lang'
 Vue.use(VueLazyLoad,{
   error:'../static/img/error.jpg',
-  loading:'../static/img/loading.gif'
+  dispatchEvent:true,
+  loading:'../static/img/loading.gif',
 });
 // 遍历所有导出的过滤器并添加到全局过滤器
 Object.keys(filters).forEach((key) => {

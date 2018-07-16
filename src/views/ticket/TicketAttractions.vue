@@ -835,7 +835,7 @@
         this.addDialog = true;
        if(this.isUploaNode){
           this.uploaNode()
-       };
+        };
         this.addOptions.tm_ts_TradeInfoID = this.adminUserInfo.sm_ui_ID;
       },
       //添加提交

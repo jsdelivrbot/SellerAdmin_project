@@ -483,9 +483,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   import {getNewStr} from '@/assets/js/public'
-
   export default {
     name: '',
     data() {
@@ -607,17 +605,13 @@
           map.centerAndZoom(r.point, 12); //定义地图等级，就是放大倍数
           map.enableScrollWheelZoom(true); //启用地图滚轮放大缩小
           var marker = new BMap.Marker(r.point);// 创建标注
-
           map.addOverlay(marker);  // 将标注添加到地图中
           map.panTo(r.point);
           // alert('您的位置：' + r.point.lng + ',' + r.point.lat);
-
           marker.enableDragging(); //标注可拖拽
           //marker.disableDragging();           // 不可拖拽
-
           // 开启事件监听
           marker.addEventListener("dragend", function (e) {
-
             var x = e.point.lng; //经度
             var y = e.point.lat; //纬度
 //            alert("拖到的地点的经纬度：" + x + "，" + y);
@@ -771,7 +765,6 @@
       search() {
         this.initData(this.siteName, 1)
       },
-
       initGreat() {
         let getAreaProvice = {
           "areaPid": -1
@@ -784,7 +777,6 @@
       changeGreat() {
         this.changeCountrie();
       },
-
       //选择国家
       changeCountrie() {
         let getAreaProvice = {
@@ -832,7 +824,6 @@
         this.uploaNode();
         this.addOptions.tm_ts_TradeInfoID = this.adminUserInfo.sm_ui_ID;
       },
-
       //添加提交
       addSubmit() {
         this.addOptions.tm_ts_ShowImage = this.ImageURL.join(',');
@@ -856,7 +847,6 @@
           })
         this.addDialog = false;
       },
-
 //      修改
       update(id) {
         this.addOptions.tm_ts_GreatID = '';
@@ -873,7 +863,6 @@
         this.updateTicketAttractionsObj.tm_ts_IsSeasonChoice = '';
         this.updateTicketAttractionsObj.tm_ts_ThemeTypeID = '';
       },
-
       //修改提交
       updateSubmit() {
         if (this.updateImageURL != '') {
@@ -901,7 +890,6 @@
           })
         this.updateDialog = false;
       },
-
       //删除
       deleteTicketAttractions(id) {
         let deleteTourSite = {
@@ -925,15 +913,11 @@
             });
           })
       },
-
       //前往预定须知组件
-
       goPredeterminedInstructions(id) {
         this.$router.push({name: 'PredeterminedInstructions', params: {id: id}})
       },
-
       //前往交通信息
-
       goTrafficInformation(id) {
         this.$router.push({name: 'TrafficInformation', params: {id: id}})
       }

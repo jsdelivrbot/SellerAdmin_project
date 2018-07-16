@@ -55,7 +55,7 @@
                   <p v-for="item,index in props.row.activityContentList" style="padding: 20px;width: 500px">({{index+1}}):{{item.ts_gi_Name}}</p>
                 </el-popover>
                 <el-button v-popover:popover1 size="small">移入查看</el-button>
-                  <!--<p v-for="item in props.row.activityContentList">{{item.ts_gi_Name}}</p>-->
+                <!--<p v-for="item in props.row.activityContentList">{{item.ts_gi_Name}}</p>-->
               </el-form-item>
               <el-form-item label="活动图片:">
                 <img alt="" v-for="item in props.row.activityImage" style="width: 100px;height: 100px;margin-right: 10px"  v-lazy="item.ts_gi_Name">
@@ -133,8 +133,8 @@
               @click="deleteAdminLinePrepare(scope.row.ts_pt_ID)">删除
             </el-button>
             <!--<el-button-->
-              <!--size="mini"-->
-              <!--@click="scheduleTimeManagement(scope.row.ts_pt_ID)">日程时间管理-->
+            <!--size="mini"-->
+            <!--@click="scheduleTimeManagement(scope.row.ts_pt_ID)">日程时间管理-->
             <!--</el-button>-->
           </template>
         </el-table-column>
@@ -293,7 +293,6 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-
   export default{
     name: '',
     data(){
@@ -347,9 +346,9 @@
       uploadImg(file){
         return new Promise(function (relove, reject) {
           lrz(file)
-          .then(data => {
-            relove(data.base64.split(',')[1])
-          })
+            .then(data => {
+              relove(data.base64.split(',')[1])
+            })
         })
       },
       uploadToOSS(file) {
@@ -400,7 +399,7 @@
                       });
                     }
                   })
-               // })
+                // })
               }
             })
           }
@@ -426,7 +425,7 @@
                       });
                     }
                   })
-               // })
+                // })
               }
             })
           }
@@ -454,7 +453,7 @@
                       });
                     }
                   })
-               // })
+                // })
               }
             })
           }
@@ -481,16 +480,16 @@
                         }
                       };
                       this.$store.dispatch('AddRecommendedReason',options)
-                      .then(()=>{
-                        this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,8)
-                        .then(data=>{
-                          this.$refs.upload3.value = '';
-                          this.isUploaNode= false;
-                          this.updateAdminLinePrepareObj.activityImage = data
+                        .then(()=>{
+                          this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,8)
+                            .then(data=>{
+                              this.$refs.upload3.value = '';
+                              this.isUploaNode= false;
+                              this.updateAdminLinePrepareObj.activityImage = data
+                            })
+                        },err=>{
+                          // console.log(err)
                         })
-                      },err=>{
-                       // console.log(err)
-                      })
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -517,14 +516,14 @@
           }
         }
         this.$store.dispatch('DeleteRecommendedReason',options)
-        .then(()=>{
-          this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,8)
-          .then(data=>{
-            this.updateAdminLinePrepareObj.activityImage = data
+          .then(()=>{
+            this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,8)
+              .then(data=>{
+                this.updateAdminLinePrepareObj.activityImage = data
+              })
+          },err=>{
+            //console.log(err)
           })
-        },err=>{
-          //console.log(err)
-        })
       },
       //查询很多
       selectInitData(id,ParentID){
@@ -561,14 +560,14 @@
             }
           };
           this.$store.dispatch('AddRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,7)
-            .then(data=>{
-              this.updateAdminLinePrepareObj.activityContentList = data
+            .then(()=>{
+              this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,7)
+                .then(data=>{
+                  this.updateAdminLinePrepareObj.activityContentList = data
+                })
+            },err=>{
+              // console.log(err)
             })
-          },err=>{
-           // console.log(err)
-          })
         }else{
           this.addOptions.activityContent.push({
             ts_gi_Name:this.activityContent
@@ -594,15 +593,14 @@
             "data": item
           };
           this.$store.dispatch('UpdateRecommendedReason',options)
-          .then(()=>{
-            this.updateActivityContentDialog = false;
-          },err=>{
-           // console.log(err)
-          })
+            .then(()=>{
+              this.updateActivityContentDialog = false;
+            },err=>{
+              // console.log(err)
+            })
         }else{
           this.updateActivityContentDialog = false;
         }
-
       },
       //删除活动内容
       deleteActivityContent(item,index){
@@ -618,14 +616,14 @@
             }
           }
           this.$store.dispatch('DeleteRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,7)
-            .then(data=>{
-              this.updateAdminLinePrepareObj.activityContentList = data
+            .then(()=>{
+              this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,7)
+                .then(data=>{
+                  this.updateAdminLinePrepareObj.activityContentList = data
+                })
+            },err=>{
+              //console.log(err)
             })
-          },err=>{
-            //console.log(err)
-          })
         }else{
           this.addOptions.activityContent =  this.addOptions.activityContent.filter((item,v)=>{
             if(index==v){
@@ -666,14 +664,14 @@
             "rows": 40
           };
           this.$store.dispatch('initAdminTradeGoodList', options)
-          .then((data) => {
-            relove(data)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+            .then((data) => {
+              relove(data)
+            }, err => {
+              this.$notify({
+                message: err,
+                type: 'error'
+              });
+            })
         })
       },
       querySearchAsync(queryString, cb) {
@@ -703,14 +701,14 @@
         };
         this.isLoading = true;
         this.$store.dispatch('initAdminLinePrepare',options)
-        .then(()=>{
-          this.isLoading = false;
-        },err=>{
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(()=>{
+            this.isLoading = false;
+          },err=>{
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //查询
       search(){
@@ -739,7 +737,6 @@
         for(var attr in obj){
           obj[attr] = ''
         }
-
         this.$store.commit('setTranstionFalse');
         this.addAdminLinePrepareDialog = true;
         if(this.isUploaNode){
@@ -777,7 +774,6 @@
       },
       //修改提交
       updateAdminLinePrepareSubmit(){
-
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -857,5 +853,4 @@
   }
 </script>
 <style scoped>
-
 </style>

@@ -65,7 +65,8 @@
       <!--添加-->
       <el-dialog title="添加酒店推荐类型" :visible.sync="addRecommendDialog">
         <el-form :model="addOptions">
-          <el-form-item label="推荐类型:" :label-width="formLabelWidth">
+          <el-form-item label="推荐类型:" :label-width="formLabelWidth"   >
+
             <el-cascader
               :options="hotelIntroduceTypeList"
               :props="props"
@@ -109,13 +110,11 @@
           <el-button type="primary" @click="addRecommendSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
     </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   export default {
     computed: mapGetters([
       'hotelQueryRecommendList',
@@ -169,6 +168,7 @@
       this.initData();
     },
     methods: {
+
       //选中父类型
       changeParent(){
           let options = {
@@ -242,6 +242,7 @@
             });
           })
       },
+
       //添加按钮
       addButton() {
         this.TypeID = '';

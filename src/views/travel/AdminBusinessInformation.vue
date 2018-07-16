@@ -309,6 +309,7 @@
         isLoading: false,
         ImageURL: [],
         ImageURL1: [],
+        isUploaNode:true,
         addAdminBusinessInformationDialog: false,//添加弹窗
         updateAdminBusinessInformationDialog: false,//修改弹窗
         addOptions: {
@@ -406,6 +407,7 @@
       },
       uploaNode() {
         setTimeout(() => {
+          this.ImageURL = []
           if (this.$refs.upload) {
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
@@ -417,6 +419,8 @@
                     .then(data => {
                       if (data) {
                         this.ImageURL.push(data.data);
+                        this.$refs.upload.value = '';
+                        this.isUploaNode= false;
                       } else {
                         this.$notify({
                           message: '图片地址不存在!',
@@ -429,6 +433,7 @@
             })
           }
           if (this.$refs.upload1) {
+            this.ImageURL = []
             this.$refs.upload1.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload1.files.length; i++) {
                 // this.uploadImg(this.$refs.upload1.files[i]).then(data => {
@@ -439,6 +444,8 @@
                     .then(data => {
                       if (data) {
                         this.ImageURL1.push(data.data);
+                        this.$refs.upload.value = '';
+                        this.isUploaNode= false;
                       } else {
                         this.$notify({
                           message: '图片地址不存在!',
@@ -517,7 +524,9 @@
         this.$store.commit('setTranstionFalse');
         this.updateAdminBusinessInformationDialog = true;
         this.$store.commit('initUpdateAdminBusinessInformationObj', id)
-        this.uploaNode()
+        if(this.isUploaNode){
+          this.uploaNode()
+        }
       },
       //修改提交
       updateAdminBusinessInformationSubmit() {

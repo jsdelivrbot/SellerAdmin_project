@@ -303,6 +303,7 @@
             "ts_tg_LongOut": '',
           }
         },
+        isUploaNode:true,
         isLoading: false,
         total: 0,
         addAdminBusinessLicenseDialog: false,
@@ -447,6 +448,7 @@
 //添加图片
       uploaNode() {
         setTimeout(() => {
+          this.ImageURL = []
           if (this.$refs.upload) {
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
@@ -458,6 +460,8 @@
                     .then(data => {
                       if (data) {
                         this.ImageURL.push(data.data);
+                        this.$refs.upload.value = '';
+                        this.isUploaNode= false;
                       } else {
                         this.$notify({
                           message: '图片地址不存在!',
@@ -470,6 +474,7 @@
             })
           }
           if (this.$refs.upload1) {
+            this.ImageURL = []
             this.$refs.upload1.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload1.files.length; i++) {
                 // this.uploadImg(this.$refs.upload1.files[i]).then(data => {
@@ -480,6 +485,8 @@
                     .then(data => {
                       if (data) {
                         this.ImageURL.push(data.data);
+                        this.$refs.upload.value = '';
+                        this.isUploaNode= false;
                       } else {
                         this.$notify({
                           message: '图片地址不存在!',
@@ -497,7 +504,9 @@
       addAdminBusinessLicense() {
         this.$store.commit('setTranstionFalse');
         this.addAdminBusinessLicenseDialog = true;
-        this.uploaNode()
+        if(this.isUploaNode){
+          this.uploaNode()
+        }
       },
       //添加提交
       addAdminBusinessLicenseSubmit() {
@@ -521,7 +530,9 @@
       updateAdminBusinessLicense(id) {
         this.$store.commit('setTranstionFalse');
         this.$store.commit('updateAdminBusinessLicense', id)
-        this.uploaNode()
+        if(this.isUploaNode){
+          this.uploaNode()
+        }
         this.updateAdminBusinessLicenseDialog = true;
       },
       //修改提交

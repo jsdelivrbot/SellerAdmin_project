@@ -338,7 +338,8 @@
           <a href="javascript:;" class="file">展示图片上传
             <input type="file" name="" ref="upload" accept="image/*" multiple>
           </a>
-          <img v-for="item in ImageURL" :src="item" alt="" style="width:80px;height:50px">
+          <img alt="" v-lazy="item" v-for="item in ImageURL" v-show="ImageURL.length" width="100" height="100">
+          <!--<img v-for="item in ImageURL" :src="item" alt="" style="width:80px;height:50px">-->
         </el-form-item>
         <el-form-item label="是否展示首页:" :label-width="formLabelWidth">
           <el-select v-model="addOptions.data.ts_tg_Special" placeholder="请选择是否精选">
@@ -486,11 +487,14 @@
         </el-form-item>
         <el-form-item label="展示图片:" :label-width="formLabelWidth">
           <a href="javascript:;" class="file">展示图片上传
-            <input type="file" name="" ref="upload1" accept="image/*" multiple>
+            <input type="file" name="" ref="upload" accept="image/*" multiple>
           </a>
+          <!--<img alt="" v-lazy="item" v-for="item in ImageURL" v-show="ImageURL.length" width="100" height="100">-->
+
           <p v-if="ImageURL.length" v-for="item in ImageURL">{{item}}</p>
           <p v-for="item in updateAdminMerchantProductsObj.ta_tg_ShowImages"
              v-show="updateAdminMerchantProductsObj.ta_tg_ShowImages.length" v-else>{{item?item:""}}</p>
+
         </el-form-item>
         <!--<el-form-item label="是否展示首页:" :label-width="formLabelWidth">-->
         <!--<el-select v-model="updateAdminMerchantProductsObj.ts_tg_ShowTop" placeholder="请选择是否展示首页">-->
@@ -708,6 +712,7 @@
     name: '',
     data(){
       return {
+        isUploaNode:true,
         listQuery: {
           page: 1,
           limit: 10,
@@ -1569,12 +1574,17 @@
       uploaNode() {
         setTimeout(() => {
           if (this.$refs.upload) {
+            this.ImageURL = []
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
                 this.uploadToOSS(this.$refs.upload.files[i])
                   .then(data=>{
                     if (data) {
-                      this.ImageURL.push(data.data);
+
+                    this.ImageURL.push(data.data);
+                    this.$refs.upload.value = '';
+                    this.isUploaNode= false;
+
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -1641,7 +1651,9 @@
         this.ImageURL=[];
         this.$store.commit('setTranstionFalse');
         this.addAdminMerchantProductsDialog = true;
-        this.uploaNode()
+        if(this.isUploaNode){
+          this.uploaNode()
+        }
       },
       //添加提交
       addAdminMerchantProductsSubmit(){
@@ -1674,7 +1686,9 @@
         this.updateAdminMerchantProductsObj = obj;
         this.$store.commit('setTranstionFalse');
         this.updateAdminMerchantProductsDialog = true;
-        this.uploaNode();
+        if(this.isUploaNode){
+          this.uploaNode()
+        }
 //        this.$store.commit('initUpdateAdminMerchantProductsObj', id)
       },
       //修改提交

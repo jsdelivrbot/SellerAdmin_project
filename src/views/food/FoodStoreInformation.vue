@@ -344,7 +344,7 @@
         },
         formLabelWidth: '120px',
         updateDialog: false,
-        times: [new Date(2018, 9, 10, 8, 40), new Date(2018, 9, 10, 9, 40)],
+        times: ['08:40:00', '9:40:00'],
         isWifi: [
           {
             value: 0,

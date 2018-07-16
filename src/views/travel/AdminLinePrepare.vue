@@ -58,7 +58,7 @@
                   <!--<p v-for="item in props.row.activityContentList">{{item.ts_gi_Name}}</p>-->
               </el-form-item>
               <el-form-item label="活动图片:">
-                <img :src="item.ts_gi_Name" alt="" v-for="item in props.row.activityImage" style="width: 100px;height: 100px;margin-right: 10px">
+                <img alt="" v-for="item in props.row.activityImage" style="width: 100px;height: 100px;margin-right: 10px"  v-lazy="item.ts_gi_Name">
               </el-form-item>
               <el-form-item label="线路编号:">
                 <span>{{ props.row.ts_pt_Product_LineID }}</span>
@@ -76,7 +76,7 @@
                 <el-button v-popover:popover2 size="small">移入查看</el-button>
               </el-form-item>
               <el-form-item label="展示图片地址:">
-                <img :src="item" alt="" v-for="item in props.row.ts_pt_ShowImage" style="width: 100px;height: 100px;margin-right: 10px">
+                <img alt="" v-for="item in props.row.ts_pt_ShowImage" style="width: 100px;height: 100px;margin-right: 10px" v-lazy="item">
                 <!--<p v-for="item in props.row.ta_tg_ShowImages">{{ item }}</p>-->
               </el-form-item>
               <el-form-item label="第几天日程:">
@@ -160,7 +160,8 @@
             <a href="javascript:;" class="file">展示图片上传
               <input type="file" name="" ref="upload" accept="image/*" multiple>
             </a>
-            <p v-for="item in ImageURL" v-show="ImageURL.length">{{item?item:""}}</p>
+            <img alt="" v-lazy="item" v-for="item in ImageURL" v-show="ImageURL.length" width="100" height="100">
+            <!--<p v-for="item in ImageURL" v-show="ImageURL.length">{{item?item:""}}</p>-->
           </el-form-item>
           <el-form-item label="活动图片:" :label-width="formLabelWidth">
             <a href="javascript:;" class="file">活动图片上传
@@ -297,6 +298,7 @@
     name: '',
     data(){
       return {
+        isUploaNode:true,
         options:[],
         updateActivityContentObj:{},
         addActivityContentDialog:false,
@@ -376,8 +378,10 @@
       uploaNode(){
         setTimeout(() => {
           if (this.$refs.upload) {
+            this.ImageURL = []
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
+//                console.log(1)
                 // this.uploadImg(this.$refs.upload.files[i]).then(data => {
                 //   this.$store.dispatch('uploadAdminImgs', {
                 //     imageData: data
@@ -385,7 +389,10 @@
                 this.uploadToOSS(this.$refs.upload.files[i])
                   .then(data => {
                     if (data) {
+//                      this.ImageURL = []
                       this.ImageURL.push(data.data);
+                      this.$refs.upload.value = '';
+                      this.isUploaNode= false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -398,6 +405,7 @@
             })
           }
           if (this.$refs.upload1) {
+            this.ImageURL = []
             this.$refs.upload1.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload1.files.length; i++) {
                 // this.uploadImg(this.$refs.upload1.files[i]).then(data => {
@@ -407,7 +415,10 @@
                 this.uploadToOSS(this.$refs.upload1.files[i])
                   .then(data => {
                     if (data) {
+                      this.ImageURL = []
                       this.ImageURL.push(data.data);
+                      this.$refs.upload1.value = '';
+                      this.isUploaNode= false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -420,6 +431,7 @@
             })
           }
           if (this.$refs.upload2) {
+            this.ImageURL2 = []
             this.$refs.upload2.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload2.files.length; i++) {
                 // this.uploadImg(this.$refs.upload2.files[i]).then(data => {
@@ -429,9 +441,12 @@
                 this.uploadToOSS(this.$refs.upload2.files[i])
                   .then(data => {
                     if (data) {
+                      this.ImageURL2 = []
                       this.ImageURL2.push({
                         ts_gi_Name:data.data
                       });
+                      this.$refs.upload2.value = '';
+                      this.isUploaNode= false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -469,6 +484,8 @@
                       .then(()=>{
                         this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,8)
                         .then(data=>{
+                          this.$refs.upload3.value = '';
+                          this.isUploaNode= false;
                           this.updateAdminLinePrepareObj.activityImage = data
                         })
                       },err=>{
@@ -725,7 +742,9 @@
 
         this.$store.commit('setTranstionFalse');
         this.addAdminLinePrepareDialog = true;
-        this.uploaNode()
+        if(this.isUploaNode){
+          this.uploaNode()
+        }
       },
       //添加提交
       addAdminLinePrepareSubmit(){
@@ -751,7 +770,9 @@
         this.updateAdminLinePrepareObj = obj
         this.$store.commit('setTranstionFalse');
         this.updateAdminLinePrepareDialog = true;
-        this.uploaNode();
+        if(this.isUploaNode){
+          this.uploaNode()
+        }
 //        this.$store.commit('initUpdateAdminLinePrepareObj',id)
       },
       //修改提交

@@ -21,7 +21,7 @@ export default {
     hotelRoomRoomFacilities:'酒店房间房间设施',
     hotelTheme:'酒店主题信息',
 
-    travel:'旅行社',
+    travel:'旅行社后台管理',
     ticket:'门票后台管理',
     ticketAttractions:'门票景点信息管理',
     ticketPredeterminedInstructions:'门票预订须知',

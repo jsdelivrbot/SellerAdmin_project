@@ -102,7 +102,7 @@
 
       <!--添加票种-->
 
-      <el-dialog title="添加票种信息" :visible.sync="addDialog">
+      <el-dialog title="添加票种信息" :visible.sync="addDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="addOptions">
           <el-form-item label="票种名称:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tt_Name"></el-input>
@@ -153,7 +153,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addDialog = false">取 消</el-button>
+          <el-button @click="cacheForm">取 消</el-button>
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -180,24 +180,31 @@
           </el-form-item>
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
             <a href="javascript:;" class="file">上传文件
-              <input type="file" name="" ref="upload" accept="image/*" multiple>
+              <input type="file" name="" ref="upload1" accept="image/*" multiple>
             </a>
             <img
-              v-if="updateTicketTypeObj.tm_tt_Image.length&&!ImageURL.length"
-              style="display: block"
-              v-for="item,index in updateTicketTypeObj.tm_tt_Image"
-              :src="item"
+              v-for="item in ImageURL1"
+              v-lazy="item"
               width="280"
               height="125"
+              v-show="ImageURL1.length"
             >
-            <img
-              style="display: block"
-              v-for="item,index in ImageURL"
-              :src="item"
-              width="280"
-              height="125"
-              v-show="ImageURL.length"
-            >
+            <!--<img-->
+              <!--v-if="updateTicketTypeObj.tm_tt_Image.length&&!ImageURL.length"-->
+              <!--style="display: block"-->
+              <!--v-for="item,index in updateTicketTypeObj.tm_tt_Image"-->
+              <!--:src="item"-->
+              <!--width="280"-->
+              <!--height="125"-->
+            <!--&gt;-->
+            <!--<img-->
+              <!--style="display: block"-->
+              <!--v-for="item,index in ImageURL"-->
+              <!--:src="item"-->
+              <!--width="280"-->
+              <!--height="125"-->
+              <!--v-show="ImageURL.length"-->
+            <!--&gt;-->
           </el-form-item>
           <el-form-item label="描述:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketTypeObj.tm_tt_Description" type="textarea"></el-input>
@@ -251,9 +258,11 @@
     ]),
     data() {
       return {
+        ImageURL1:[],
         loginId: '',
         siteId: '',
         total: 0,
+        isUploaNode:true,
         addDialog: false,
         formLabelWidth: '120px',
         addOptions: {
@@ -274,6 +283,14 @@
       }
     },
     methods: {
+      closeDialog(){
+        this.ImageURL = []
+        this.addDialog = false
+      },
+      cacheForm(){
+        this.ImageURL = []
+        this.addDialog = false
+      },
       uploadToOSS(file) {
         return new Promise((relove,reject)=>{
           var fd = new FormData();
@@ -298,8 +315,10 @@
       },
       //添加图片
       uploaNode() {
+
         setTimeout(() => {
           if (this.$refs.upload) {
+            this.ImageURL = [];
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
                 // this.uploadImg(this.$refs.upload.files[i]).then(data => {
@@ -310,6 +329,8 @@
                     .then(data => {
                       if (data) {
                         this.ImageURL.push(data.data);
+                        this.$refs.upload.value = '';
+                        this.isUploaNode= false;
                       } else {
                         this.$notify({
                           message: '图片地址不存在!',
@@ -321,7 +342,31 @@
               }
             })
           }
-
+          if (this.$refs.upload1) {
+            this.ImageURL1 = [];
+            this.$refs.upload1.addEventListener('change', data => {
+              for (var i = 0; i < this.$refs.upload1.files.length; i++) {
+                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
+                //   this.$store.dispatch('uploadAdminImgs', {
+                //     imageData: data
+                //   })
+                this.uploadToOSS(this.$refs.upload1.files[i])
+                  .then(data => {
+                    if (data) {
+                      this.ImageURL1.push(data.data);
+                      this.$refs.upload1.value = '';
+                      this.isUploaNode= false;
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                //})
+              }
+            })
+          }
         }, 30)
       },
       //初始化景点信息
@@ -380,7 +425,9 @@
         this.ImageURL = [];
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        this.uploaNode();
+        if(this.isUploaNode){
+          this.uploaNode()
+        };
       },
       //添加提交
       addSubmit() {
@@ -412,16 +459,14 @@
         this.$store.commit('setTranstionFalse');
         this.$store.commit('updateTicketType', id);
         this.updateDialog = true;
-        this.uploaNode();
+        if(this.isUploaNode){
+          this.uploaNode()
+        };
       },
 
       //修改提交
       updateSubmit() {
-        if (this.ImageURL.length) {
-          this.updateTicketTypeObj.tm_tt_Image = this.ImageURL.join(',');
-        } else {
-          this.updateTicketTypeObj.tm_tt_Image = this.updateTicketTypeObj.tm_tt_Image.join(',');
-        }
+        this.updateTicketTypeObj.tm_tt_Image = this.ImageURL1.join(',');
         let updateTicketType = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",

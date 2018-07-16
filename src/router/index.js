@@ -293,21 +293,24 @@ export const constantRouterMap = [
         meta: {title: 'foodStorePicture'}
       },
       {
-        path: 'foodStoreRecommend',
-        name: 'FoodStoreRecommend',
-        component: () => import('@/views/food/FoodStoreRecommend'),
-        meta: {title: 'foodStoreRecommend'}
-      }, {
         path: 'foodStoreProduct',
         name: 'FoodStoreProduct',
         component: () => import('@/views/food/FoodStoreProduct'),
         meta: {title: 'foodStoreProduct'}
-      }, {
+      },{
         path: 'foodStoreProductPicture',
         name: 'FoodStoreProductPicture',
         component: () => import('@/views/food/FoodStoreProductPicture'),
         meta: {title: 'foodStoreProductPicture'}
-      }, {
+      },
+      {
+        path: 'foodStoreRecommend',
+        name: 'FoodStoreRecommend',
+        component: () => import('@/views/food/FoodStoreRecommend'),
+        meta: {title: 'foodStoreRecommend'}
+      },
+
+      {
         path: 'foodStoreRoom',
         name: 'FoodStoreRoom',
         component: () => import('@/views/food/FoodStoreRoom'),
@@ -322,7 +325,9 @@ export const constantRouterMap = [
         name: 'FoodStoreRoomTabel',
         component: () => import('@/views/food/FoodStoreRoomTabel'),
         meta: {title: 'foodStoreRoomTabel'}
-      }, {
+      },
+
+      {
         path: 'foodStoreTableTime',
         name: 'FoodStoreTableTime',
         component: () => import('@/views/food/FoodStoreTableTime'),

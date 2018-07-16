@@ -198,7 +198,7 @@
       </div>
     </el-dialog>
     <!--修改商家营业执照-->
-    <el-dialog title="修改商家营业执照" :visible.sync="updateAdminBusinessLicenseDialog">
+    <el-dialog title="修改商家营业执照" :visible.sync="updateAdminBusinessLicenseDialog" :close-on-click-modal="false" @close="closeDialog">
       <el-form :model="updateAdminBusinessLicenseObj">
         <el-form-item label="统一社会信用代码(ID):" :label-width="formLabelWidth">
           <el-input v-model="updateAdminBusinessLicenseObj.ts_bl_Code"></el-input>
@@ -211,7 +211,7 @@
         </el-form-item>
         <el-form-item label="商家营业执照图片:" :label-width="formLabelWidth">
           <a href="javascript:;" class="file">展示图片上传
-            <input type="file" name="" ref="upload" accept="image/*" multiple>
+            <input type="file" name="" ref="upload1" accept="image/*" multiple>
           </a>
           <p v-for="item in ImageURL" v-show="ImageURL.length">{{item ? item : ""}}</p>
         </el-form-item>
@@ -259,7 +259,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="updateAdminBusinessLicenseDialog = false">取 消</el-button>
+        <el-button @click="cacheForm">取 消</el-button>
+        <!--<el-button @click="updateAdminBusinessLicenseDialog = false">取 消</el-button>-->
         <el-button type="primary" @click="updateAdminBusinessLicenseSubmit">确 定</el-button>
       </div>
     </el-dialog>
@@ -334,14 +335,16 @@
     },
     methods: {
       closeDialog(){
-        this.ImageURL = [],
+          this.ImageURL = [],
           this.ImageURL2 = [],
           this.addDialog = false
+          this.updateAdminBusinessLicenseDialog = false
       },
       cacheForm(){
-        this.ImageURL = [],
+          this.ImageURL = [],
           this.ImageURL2 = [],
           this.addDialog = false
+          this.updateAdminBusinessLicenseDialog = false
       },
       //分页
       handleCurrentChange(num) {

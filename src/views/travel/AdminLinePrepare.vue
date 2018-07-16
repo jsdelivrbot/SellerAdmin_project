@@ -205,7 +205,7 @@
       </el-dialog>
 
       <!--修改线路日程-->
-      <el-dialog title="修改线路日程" :visible.sync="updateAdminLinePrepareDialog">
+      <el-dialog title="修改线路日程" :visible.sync="updateAdminLinePrepareDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="updateAdminLinePrepareObj">
           <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
             <el-select v-model="updateAdminLinePrepareObj.ts_pt_Product_LineID" placeholder="请选择产品线路">
@@ -258,7 +258,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="updateAdminLinePrepareDialog = false">取 消</el-button>
+          <el-button @click="cacheForm">取 消</el-button>
+          <!--<el-button @click="updateAdminLinePrepareDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="updateAdminLinePrepareSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -346,11 +347,13 @@
         this.ImageURL = [],
         this.ImageURL2 = [],
         this.addDialog = false
+        this.updateAdminLinePrepareDialog = false
       },
       cacheForm(){
         this.ImageURL = [],
         this.ImageURL2 = [],
-        this.addDialog = false
+        this.addDialog = false,
+        this.updateAdminLinePrepareDialog = false
       },
       //图片转二进制
       uploadImg(file){

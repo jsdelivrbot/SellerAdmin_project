@@ -167,7 +167,9 @@
         </el-pagination>
       </div>
     </section>
-    <el-dialog title="修改商户" :visible.sync="updateAdminBusinessInformationDialog">
+
+    <!--修改-->
+    <el-dialog title="修改商户" :visible.sync="updateAdminBusinessInformationDialog" :close-on-click-modal="false" @close="closeDialog">
       <el-form :model="updateAdminBusinessInformationObj">
         <el-form-item label="商户编号:" :label-width="formLabelWidth">
           <el-input v-model="updateAdminBusinessInformationObj.ts_tb_UserID" placeholder="请输入商户编号"></el-input>
@@ -260,7 +262,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="updateAdminBusinessInformationDialog = false">取 消</el-button>
+        <el-button @click="cacheForm">取 消</el-button>
+        <!--<el-button @click="updateAdminBusinessInformationDialog = false">取 消</el-button>-->
         <el-button type="primary" @click="updateAdminBusinessInformationSubmit">确 定</el-button>
       </div>
     </el-dialog>
@@ -334,6 +337,18 @@
       'updateAdminBusinessInformationObj'
     ]),
     methods: {
+      closeDialog(){
+        this.ImageURL = [],
+          this.ImageURL1 = [];
+
+        this.updateAdminBusinessInformationDialog = false
+      },
+      cacheForm(){
+        this.ImageURL = [],
+          this.ImageURL1 = [];
+
+          this.updateAdminBusinessInformationDialog = false
+      },
       nextSearch(id) {
         let options = {
           "loginUserID": "huileyou",
@@ -433,7 +448,7 @@
             })
           }
           if (this.$refs.upload1) {
-            this.ImageURL = []
+            this.ImageURL1 = []
             this.$refs.upload1.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload1.files.length; i++) {
                 // this.uploadImg(this.$refs.upload1.files[i]).then(data => {

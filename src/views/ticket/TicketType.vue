@@ -160,7 +160,7 @@
 
       <!--修改票种-->
 
-      <el-dialog title="修改票种信息" :visible.sync="updateDialog">
+      <el-dialog title="修改票种信息" :visible.sync="updateDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="updateTicketTypeObj">
           <el-form-item label="票种名称:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketTypeObj.tm_tt_Name"></el-input>
@@ -226,7 +226,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="updateDialog = false">取 消</el-button>
+          <el-button @click="cacheForm">取 消</el-button>
+          <!--<el-button @click="updateDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -284,12 +285,16 @@
     },
     methods: {
       closeDialog(){
-        this.ImageURL = []
-        this.addDialog = false
+        this.ImageURL = [],
+        this.ImageURL1 = [];
+        this.addDialog = false,
+        this.updateDialog = false
       },
       cacheForm(){
-        this.ImageURL = []
-        this.addDialog = false
+        this.ImageURL = [],
+        this.ImageURL1 = [];
+        this.addDialog = false,
+        this.updateDialog = false
       },
       uploadToOSS(file) {
         return new Promise((relove,reject)=>{

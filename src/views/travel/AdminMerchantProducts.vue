@@ -200,7 +200,7 @@
       </el-pagination>
     </div>
     <!--添加产品-->
-    <el-dialog title="添加产品" :visible.sync="addAdminMerchantProductsDialog" width="60%">
+    <el-dialog title="添加产品" :visible.sync="addAdminMerchantProductsDialog" width="60%" :close-on-click-modal="false" @close="closeDialog">
       <el-form :model="addOptions">
         <!--<el-form-item label="产品编号:" :label-width="formLabelWidth">-->
           <!--<el-input v-model="addOptions.data.ta_tg_ID" placeholder="请输入产品编号"></el-input>-->
@@ -379,14 +379,15 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addAdminMerchantProductsDialog = false">取 消</el-button>
+        <el-button @click="cacheForm">取 消</el-button>
+        <!--<el-button @click="addAdminMerchantProductsDialog = false">取 消</el-button>-->
         <el-button type="primary" @click="addAdminMerchantProductsSubmit">确 定</el-button>
       </div>
     </el-dialog>
 
 
     <!--修改产品-->
-    <el-dialog title="修改产品" :visible.sync="updateAdminMerchantProductsDialog" width="60%">
+    <el-dialog title="修改产品" :visible.sync="updateAdminMerchantProductsDialog" width="60%" :close-on-click-modal="false" @close="closeDialog">
       <el-form :model="updateAdminMerchantProductsObj">
         <!--<el-form-item label="跟团游栏目:" :label-width="formLabelWidth">-->
           <!--<el-select v-model="updateAdminMerchantProductsObj.ta_tg_ItemInfoID" placeholder="请选择跟团游栏目">-->
@@ -546,7 +547,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="updateAdminMerchantProductsDialog = false">取 消</el-button>
+        <el-button @click="cacheForm">取 消</el-button>
+        <!--<el-button @click="updateAdminMerchantProductsDialog = false">取 消</el-button>-->
         <el-button type="primary" @click="updateAdminMerchantProductsSubmit">确 定</el-button>
       </div>
     </el-dialog>
@@ -878,6 +880,16 @@
       this.productsID = obj.sm_ui_ID
     },
     methods: {
+      closeDialog(){
+        this.ImageURL = []
+        this.addAdminMerchantProductsDialog= false,
+        this.updateAdminMerchantProductsDialog = false
+      },
+      cacheForm(){
+          this.ImageURL = [],
+          this.addAdminMerchantProductsDialog= false,
+          this.updateAdminMerchantProductsDialog = false
+      },
       //查询很多
       selectInitData(id,ParentID){
         let options = {

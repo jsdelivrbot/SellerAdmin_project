@@ -292,7 +292,7 @@
 
       <!--修改景点-->
 
-      <el-dialog title="修改景点信息" :visible.sync="updateDialog">
+      <el-dialog title="修改景点信息" :visible.sync="updateDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="updateTicketAttractionsObj">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Name"></el-input>
@@ -441,7 +441,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="updateDialog = false">取 消</el-button>
+          <el-button @click="cacheForm">取 消</el-button>
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -627,11 +627,15 @@
     methods: {
       closeDialog(){
         this.ImageURL = []
-        this.addDialog = false
+        this.updateImageURL = [];
+        this.addDialog = false,
+        this.updateDialog = false
       },
       cacheForm(){
-        this.ImageURL = []
-        this.addDialog = false
+        this.ImageURL = [],
+        this.updateImageURL = [],
+        this.addDialog = false,
+        this.updateDialog = false
       },
       //获取经纬度
       getLatitude(){
@@ -715,10 +719,6 @@
             this.updateImageURL = [];
             this.$refs.updateUpload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.updateUpload.files.length; i++) {
-                // this.uploadImg(this.$refs.updateUpload.files[i]).then(data => {
-                //   this.$store.dispatch('uploadAdminImgs', {
-                //     imageData: data
-                //   })
                 this.uploadToOSS(this.$refs.updateUpload.files[i])
                   .then(data => {
                     if (data) {
@@ -870,7 +870,9 @@
         this.addOptions.tm_ts_ContryID = '';
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
-        this.uploaNode();
+        if(this.isUploaNode){
+          this.uploaNode()
+        };
         this.$store.commit('updateTicketAttractions', id);
         this.updateTicketAttractionsObj.tm_ts_IsHot = '';
         this.updateTicketAttractionsObj.tm_ts_IsOversea = '';

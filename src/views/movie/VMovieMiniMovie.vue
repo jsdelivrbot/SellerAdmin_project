@@ -127,7 +127,7 @@
             <el-button
               size="mini"
               type="danger"
-              @click="Delete(scope.row.vf_fm_ID)">删除
+              @click="Delete(scope.row.vf_vo_ID)">删除
             </el-button>
           </template>
         </el-table-column>
@@ -331,6 +331,7 @@
           });
       },
       Delete(id) {
+        console.log(id)
         let deleteOption = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",

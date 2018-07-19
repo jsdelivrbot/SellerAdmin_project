@@ -9,3 +9,8 @@ export default {
   name: 'App'
 }
 </script>
+<style>
+  p {
+    padding: 0;
+  }
+</style>

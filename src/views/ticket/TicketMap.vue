@@ -46,7 +46,8 @@
           <a href="javascript:;" class="file">上传图片
             <input type="file" name="" ref="upload" accept="image/*" multiple>
           </a>
-          <img src="" alt="" v-lazy="item"  v-show="ImageURL.length" v-for="item in ImageURL" style="width: 100px;height: 100px">
+          <img src="" alt="" v-lazy="item" v-show="ImageURL.length" v-for="item in ImageURL"
+               style="width: 100px;height: 100px">
         </el-form-item>
 
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
@@ -103,7 +104,8 @@
           <a href="javascript:;" class="file">上传图片
             <input type="file" name="" ref="upload1" accept="image/*" multiple>
           </a>
-          <img src="" alt="" v-lazy="item"  v-show="ImageURL1.length" v-for="item in ImageURL1" style="width: 100px;height: 100px">
+          <img src="" alt="" v-lazy="item" v-show="ImageURL1.length" v-for="item in ImageURL1"
+               style="width: 100px;height: 100px">
         </el-form-item>
 
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
@@ -155,10 +157,19 @@
               <span>{{ props.row.tm_se_Sound }}</span>
             </el-form-item>
             <el-form-item label="景点图片">
-              <span>{{ props.row.tm_se_Image }}</span>
+              <span><img v-lazy="props.row.tm_se_Image" alt="" width="120" height="80"></span>
             </el-form-item>
             <el-form-item label="景点介绍">
-              <span>{{ props.row.tm_se_Intro }}</span>
+              <span>
+                <el-popover
+                  placement="top-start"
+                  width="500"
+                  title="景点介绍"
+                  trigger="hover"
+                  :content="props.row.tm_se_Intro">
+                  <el-button slot="reference">移入查看</el-button>
+                </el-popover>
+              </span>
             </el-form-item>
           </el-form>
         </template>
@@ -173,8 +184,16 @@
         prop="tm_se_Name">
       </el-table-column>
       <el-table-column
-        label="备注"
-        prop="tm_se_Remark">
+        label="备注">
+        <template slot-scope="scope">
+          <el-popover
+            placement="top-start"
+            width="500"
+            trigger="hover"
+            :content="scope.row.tm_se_Remark">
+            <el-button slot="reference">移入查看</el-button>
+          </el-popover>
+        </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
@@ -208,22 +227,24 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-  export default{
+
+  export default {
     name: '',
-    data(){
+    data() {
       return {
         isUploaNode:true,
         tableData:[],
         ImageURL:[],
         ImageURL1:[],
         formLabelWidth:'120px',
+
         total: 0,
         siteName: '',
         isLoading: false,
         addDialog: false,//添加弹窗
         updateDialog: false,//修改弹窗
-        VideoNameObj:"",
-        AudioNews:"",
+        VideoNameObj: "",
+        AudioNews: "",
         //添加
         addOptions: {
           "tm_se_Code": "002",  //景点编号
@@ -237,13 +258,13 @@
           "tm_se_Remark": "",  //备注
         },
         //修改
-        updateOptions:{
+        updateOptions: {
           "loginUserID": "huileyou",  //惠乐游用户ID
           "loginUserPass": "123",  //惠乐游用户密码
           "operateUserID": "",  //操作员编码
           "operateUserName": "",  //操作员名称
           "pcName": "",  //机器码
-          "data":{
+          "data": {
             "tm_se_ID": "",  //景区小景点编码
             "tm_se_Code": "002",  //景点编号
             "tm_se_Name": "",  //小景点名称
@@ -256,13 +277,13 @@
             "tm_se_Remark": ""  //备注
           }
         },
-        "Imgs":"",
+        "Imgs": "",
       }
     },
     computed: mapGetters([
       'ticketMapList',
     ]),
-    created(){
+    created() {
       this.id = this.$route.query.id;
       this.initData()
     },
@@ -279,40 +300,43 @@
       },
       //视频上传
       UpLoadvideo() {
-        if(this.$refs.videos){
+        if (this.$refs.videos) {
           this.uploadToOSS(this.$refs.videos.files[0])
-            .then(data =>{
+            .then(data => {
               this.updateOptions.data.tm_se_Vedio = data.data;
               this.$notify({
                 message: '视频上传成功!',
                 type: 'success'
               });
             })
-        };
-        if(this.$refs.videos1){
+        }
+        ;
+        if (this.$refs.videos1) {
           this.uploadToOSS(this.$refs.videos1.files[0])
-            .then(data =>{
+            .then(data => {
               this.updateOptions.data.tm_se_Vedio = data.data;
               this.$notify({
                 message: '视频上传成功!',
                 type: 'success'
               });
             })
-        };
+        }
+        ;
       },
       //音频上传
-      uploadAudio(){
-        if(this.$refs.audios){
+      uploadAudio() {
+        if (this.$refs.audios) {
           this.uploadToOSS(this.$refs.audios.files[0])
-            .then(data =>{
+            .then(data => {
               this.addOptions.tm_se_Sound = data.data;
               this.$notify({
                 message: '音频上传成功!',
                 type: 'success'
               });
             })
-        };
-        if(this.$refs.audios1){
+        }
+        ;
+        if (this.$refs.audios1) {
           this.uploadToOSS(this.$refs.audios1.files[0])
             .then(data =>{
               this.$notify({
@@ -325,11 +349,11 @@
       },
       //上传
       uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
+        return new Promise((relove, reject) => {
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -337,7 +361,7 @@
                 var data = xhr.responseText
                 relove(JSON.parse(data))
               }
-            }else{
+            } else {
               // console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
@@ -370,7 +394,8 @@
                   })
               }
             })
-          };
+          }
+          ;
           if (this.$refs.upload1) {
             this.$refs.upload1.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload1.files.length; i++) {
@@ -394,11 +419,11 @@
         }, 30)
       },
       //分页
-      handleCurrentChange(num){
-        this.initData(this.siteName,num)
+      handleCurrentChange(num) {
+        this.initData(this.siteName, num)
       },
       //查询this.id
-      initData(name,page){
+      initData(name, page) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -407,12 +432,12 @@
           "pcName": "",
           "tm_se_ID": "",//景区小景点编码
           "tm_se_Code": "002",//景点编号
-          "tm_se_Name": name?name:'',//小景点名称
-          "page": page?page:1,//页码
+          "tm_se_Name": name ? name : '',//小景点名称
+          "page": page ? page : 1,//页码
           "rows": "5"//条数
         };
         this.isLoading = true;
-        this.$store.dispatch('initTicketMap',options)
+        this.$store.dispatch('initTicketMap', options)
           .then(total => {
             this.isLoading = false;
             this.total = total;
@@ -424,8 +449,8 @@
           })
       },
       //删除
-      deleteMap(id){
-        let deleteOption={
+      deleteMap(id) {
+        let deleteOption = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
@@ -435,17 +460,17 @@
             "tm_se_ID": id,//景区小景点编码
           },
         };
-        this.$store.dispatch('deleteTicketMap',deleteOption)
-          .then(suc=>{
+        this.$store.dispatch('deleteTicketMap', deleteOption)
+          .then(suc => {
             this.initData();
           })
       },
       //查询
-      search(){
+      search() {
         this.initData(this.siteName)
       },
       //添加
-      Add(){
+      Add() {
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
         if(this.isUploaNode){
@@ -455,30 +480,30 @@
         this.ImageURL1 = [];
       },
       //新增提交
-      AddSubmit(){
-        this.addOptions.tm_se_Image=this.ImageURL.join(",");
-        let Options ={
+      AddSubmit() {
+        this.addOptions.tm_se_Image = this.ImageURL.join(",");
+        let Options = {
           "loginUserID": "huileyou",    //惠乐游用户ID
           "loginUserPass": "123",    //惠乐游用户密码
           "operateUserID": "",    //操作员编码
           "operateUserName": "",    //操作员名称
           "pcName": "",    //机器码
-          "data":this.addOptions
+          "data": this.addOptions
         }
-        this.$store.dispatch('addTicketMap',Options)
-          .then(suc=>{
+        this.$store.dispatch('addTicketMap', Options)
+          .then(suc => {
             this.initData();
           })
         this.addDialog = false;
       },
       //修改提交
-      upDateSubmit(){
-        this.updateOptions.data.tm_se_Image=this.ImageURL1.join(",");
-        this.$store.dispatch('upDateTicketMap',this.updateOptions)
-          .then(suc=>{
+      upDateSubmit() {
+        this.updateOptions.data.tm_se_Image = this.ImageURL1.join(",");
+        this.$store.dispatch('upDateTicketMap', this.updateOptions)
+          .then(suc => {
             this.initData();
           })
-        this.updateDialog=false;
+        this.updateDialog = false;
       },
       Update(obj){
         if(this.isUploaNode){
@@ -486,27 +511,30 @@
         };
         this.ImageURL = [];
         this.ImageURL1 = [];
-        this.updateOptions.data=obj;
-        this.updateDialog=true;
+        this.updateOptions.data = obj;
+        this.updateDialog = true;
         this.$store.commit('setTranstionFalse');
       },
-      Delete(id){
+      Delete(id) {
         this.deleteMap(id);
       },
     },
   }
 </script>
 <style>
-  .el-upload__input{
+  .el-upload__input {
     display: none !important;
   }
+
   .demo-table-expand {
     font-size: 0;
   }
+
   .demo-table-expand label {
-    width: 90px;
+    width: 100px;
     color: #99a9bf;
   }
+
   .demo-table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;

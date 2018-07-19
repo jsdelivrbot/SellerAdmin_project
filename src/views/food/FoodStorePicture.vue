@@ -89,6 +89,7 @@
             <a href="javascript:;" class="file">上传图片
               <input type="file" name="" ref="upload" accept="image/*">
             </a>
+            <div v-show="isShow">正在上传图片文件...</div>
             <img v-lazy="addOptions.fd_pi_ImageUrl" v-show="addOptions.fd_pi_ImageUrl" width="128" height="80">
           </el-form-item>
         </el-form>
@@ -148,18 +149,10 @@
         bigPictureDialog: false,
         updateDialog: false,
         updateObj: {},
+        isShow: false
       }
     },
     methods: {
-      //图片转二进制
-      uploadImg(file) {
-        return new Promise(function (relove, reject) {
-          lrz(file)
-            .then(data => {
-              relove(data.base64.split(',')[1])
-            })
-        })
-      },
       uploadToOSS(file) {
         return new Promise((relove, reject) => {
           var fd = new FormData();
@@ -174,7 +167,6 @@
                 relove(JSON.parse(data))
               }
             } else {
-              console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
 //                 reject(JSON.parse(data).resultcontent)
@@ -188,14 +180,12 @@
         setTimeout(() => {
           if (this.$refs.upload) {
             this.$refs.upload.addEventListener('change', data => {
+              this.isShow = true;
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('foodUploadAdminImgs', {
-                //     imageData: data
-                //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
                   .then(data => {
                     if (data) {
+                      this.isShow = false;
                       this.addOptions.fd_pi_ImageUrl = data.data;
                     } else {
                       this.$notify({

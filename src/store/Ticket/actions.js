@@ -570,6 +570,7 @@ export default {
       })
       .then(data=>{
         var data = data.data;
+        console.log(data)
         if (Number(data.resultcode) == 200) {
           commit('initTicketMap',data.data)
           relove(Number(data.totalrows))

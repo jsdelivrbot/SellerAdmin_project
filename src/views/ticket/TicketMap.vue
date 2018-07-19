@@ -118,6 +118,7 @@
             <input type="file" name="" ref="updateUpload" accept="image/*" multiple>
           </a>
 
+
           <p>如果不修改图片默认为原来的图片</p>
           <div v-show="isShow">正在上传图片文件...</div>
           <div class="imgWap">
@@ -131,6 +132,8 @@
               >
             </p>
           </div>
+
+
         </el-form-item>
 
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
@@ -155,7 +158,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="updateDialog = false">取 消</el-button>
-        <el-button type="primary" @click="upDateSubmit">确 定</el-button>
+        <el-button type="primary" @click="updateSubmit">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -182,10 +185,23 @@
               <span>{{ props.row.tm_se_Sound }}</span>
             </el-form-item>
             <el-form-item label="景点图片">
-              <span>{{ props.row.tm_se_Image }}</span>
+              <span >
+                 <img v-for="item,index in props.row.tm_se_Image" :src="item" alt="" :key="index" width="300"
+                      height="150">
+              
+              </span>
             </el-form-item>
             <el-form-item label="景点介绍">
-              <span>{{ props.row.tm_se_Intro }}</span>
+              <span>
+                <el-popover
+                  placement="top-start"
+                  width="500"
+                  title="景点介绍"
+                  trigger="hover"
+                  :content="props.row.tm_se_Intro">
+                  <el-button slot="reference">移入查看</el-button>
+                </el-popover>
+              </span>
             </el-form-item>
           </el-form>
         </template>
@@ -200,8 +216,16 @@
         prop="tm_se_Name">
       </el-table-column>
       <el-table-column
-        label="备注"
-        prop="tm_se_Remark">
+        label="备注">
+        <template slot-scope="scope">
+          <el-popover
+            placement="top-start"
+            width="500"
+            trigger="hover"
+            :content="scope.row.tm_se_Remark">
+            <el-button slot="reference">移入查看</el-button>
+          </el-popover>
+        </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
@@ -235,9 +259,10 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-  export default{
+
+  export default {
     name: '',
-    data(){
+    data() {
       return {
         isShow:false,
         isUploaNode:true,
@@ -246,13 +271,14 @@
         ImageURL:[],
         updateImageURL: [],
         formLabelWidth:'120px',
+
         total: 0,
         siteName: '',
         isLoading: false,
         addDialog: false,//添加弹窗
         updateDialog: false,//修改弹窗
-        VideoNameObj:"",
-        AudioNews:"",
+        VideoNameObj: "",
+        AudioNews: "",
         //添加
         addOptions: {
           "tm_se_Code": "002",  //景点编号
@@ -266,13 +292,13 @@
           "tm_se_Remark": "",  //备注
         },
         //修改
-        updateOptions:{
+        updateOptions: {
           "loginUserID": "huileyou",  //惠乐游用户ID
           "loginUserPass": "123",  //惠乐游用户密码
           "operateUserID": "",  //操作员编码
           "operateUserName": "",  //操作员名称
           "pcName": "",  //机器码
-          "data":{
+          "data": {
             "tm_se_ID": "",  //景区小景点编码
             "tm_se_Code": "002",  //景点编号
             "tm_se_Name": "",  //小景点名称
@@ -285,13 +311,13 @@
             "tm_se_Remark": ""  //备注
           }
         },
-        "Imgs":"",
+        "Imgs": "",
       }
     },
     computed: mapGetters([
       'ticketMapList',
     ]),
-    created(){
+    created() {
       this.id = this.$route.query.id;
       this.initData()
     },
@@ -330,40 +356,43 @@
       },
       //视频上传
       UpLoadvideo() {
-        if(this.$refs.videos){
+        if (this.$refs.videos) {
           this.uploadToOSS(this.$refs.videos.files[0])
-            .then(data =>{
+            .then(data => {
               this.updateOptions.data.tm_se_Vedio = data.data;
               this.$notify({
                 message: '视频上传成功!',
                 type: 'success'
               });
             })
-        };
-        if(this.$refs.videos1){
+        }
+        ;
+        if (this.$refs.videos1) {
           this.uploadToOSS(this.$refs.videos1.files[0])
-            .then(data =>{
+            .then(data => {
               this.updateOptions.data.tm_se_Vedio = data.data;
               this.$notify({
                 message: '视频上传成功!',
                 type: 'success'
               });
             })
-        };
+        }
+        ;
       },
       //音频上传
-      uploadAudio(){
-        if(this.$refs.audios){
+      uploadAudio() {
+        if (this.$refs.audios) {
           this.uploadToOSS(this.$refs.audios.files[0])
-            .then(data =>{
+            .then(data => {
               this.addOptions.tm_se_Sound = data.data;
               this.$notify({
                 message: '音频上传成功!',
                 type: 'success'
               });
             })
-        };
-        if(this.$refs.audios1){
+        }
+        ;
+        if (this.$refs.audios1) {
           this.uploadToOSS(this.$refs.audios1.files[0])
             .then(data =>{
               this.$notify({
@@ -389,30 +418,29 @@
                 relove(JSON.parse(data))
               }
             }else{
-
             }
           }
         })
       },
       uploadNode(arr) {
         setTimeout(() => {
-          if (this.$refs.upload&&this.isUploaNode) {
-            if(arr){
-              if(!arr.length){
+          if (this.$refs.upload && this.isUploaNode) {
+            if (arr) {
+              if (!arr.length) {
                 this.ImageURL = [];
               }
             }
 
             this.$refs.upload.addEventListener('change', data => {
-              this.isShow=true
+              this.isShow = true
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
                 this.uploadToOSS(this.$refs.upload.files[i])
                   .then(data => {
                     if (data) {
-                      this.isShow=false,
-                      this.ImageURL.push(data.data);
+                      this.isShow = false,
+                        this.ImageURL.push(data.data);
                       this.$refs.upload.value = '';
-                      this.isUploaNode= false;
+                      this.isUploaNode = false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -422,7 +450,8 @@
                   })
               }
             })
-          };
+
+          }
           if (this.$refs.updateUpload && this.isNewUploaNode) {
             if(arr){
               if(!arr.length){
@@ -430,61 +459,122 @@
               }
             }
             this.$refs.updateUpload.addEventListener('change', data => {
-              this.isShow=true
+              this.isShow = true
               for (var i = 0; i < this.$refs.updateUpload.files.length; i++) {
                 this.uploadToOSS(this.$refs.updateUpload.files[i])
                   .then(data => {
                     if (data) {
-                      this.isShow=false,
-
+                      this.isShow = false,
                       this.updateImageURL.push(data.data);
                       this.$refs.updateUpload.value = '';
                       this.isNewUploaNode= false;
                     } else {
-                      // this.$notify({
-                      //   message: '图片地址不存在!',
-                      //   type: 'error'
-                     // });
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
                     }
                   })
+                //})
               }
             })
           }
         }, 30)
       },
-      //分页
-      handleCurrentChange(num){
-        this.initData(this.siteName,num)
+          //分页
+          handleCurrentChange(num){
+            this.initData(this.siteName, num)
+          },
+
+          //查询this.id
+          initData(name, page){
+            let options = {
+              "loginUserID": "huileyou",
+              "loginUserPass": "123",
+              "operateUserID": "",
+              "operateUserName": "",
+              "pcName": "",
+              "tm_se_ID": "",//景区小景点编码
+              "tm_se_Code": "002",//景点编号
+              "tm_se_Name": name ? name : '',//小景点名称
+              "page": page ? page : 1,//页码
+              "rows": "5"//条数
+            };
+            this.isLoading = true;
+            this.$store.dispatch('initTicketMap', options)
+              .then(total => {
+                this.isLoading = false;
+                this.total = total;
+              }, err => {
+                this.$notify({
+                  message: err,
+                  type: 'error'
+                });
+              })
+          },
+
+
+
+          //查询
+          search(){
+            this.initData(this.siteName)
+          },
+
+          //添加
+          Add(){
+            this.$store.commit('setTranstionFalse');
+            this.addDialog = true;
+            if (this.isUploaNode) {
+              this.uploadNode()
+            }
+          },
+
+          //新增提交
+          AddSubmit(){
+            this.addOptions.tm_se_Image = this.ImageURL.join(",");
+            let Options = {
+              "loginUserID": "huileyou",    //惠乐游用户ID
+              "loginUserPass": "123",    //惠乐游用户密码
+              "operateUserID": "",    //操作员编码
+              "operateUserName": "",    //操作员名称
+              "pcName": "",    //机器码
+              "data": this.addOptions
+            }
+            this.$store.dispatch('addTicketMap', Options)
+              .then(suc => {
+                this.initData();
+              })
+            this.addDialog = false;
+          },
+
+         Update(obj){
+        console.log(this.obj)
+        this.updateOptions.data = obj;
+         setTimeout(() => {
+          this.updateImageURL = obj.tm_se_Image
+          this.updateDialog = true;
+          if (this.isNewUploaNode) {
+            this.uploadNode(this.updateImageURL)
+          }
+        }, 30)
       },
-      //查询this.id
-      initData(name,page){
-        let options = {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",
-          "operateUserName": "",
-          "pcName": "",
-          "tm_se_ID": "",//景区小景点编码
-          "tm_se_Code": "002",//景点编号
-          "tm_se_Name": name?name:'',//小景点名称
-          "page": page?page:1,//页码
-          "rows": "5"//条数
-        };
-        this.isLoading = true;
-        this.$store.dispatch('initTicketMap',options)
-          .then(total => {
-            this.isLoading = false;
-            this.total = total;
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
-      },
+
+          updateSubmit(){
+            this.updateOptions.data.tm_se_Image = this.updateImageURL.join(",");
+            this.$store.dispatch('upDateTicketMap', this.updateOptions)
+              .then(suc => {
+                this.initData();
+              })
+            this.updateDialog = false;
+          },
+
+
+
+
+
       //删除
-      deleteMap(id){
-        let deleteOption={
+      Delete(id){
+        let deleteOption = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
@@ -494,76 +584,28 @@
             "tm_se_ID": id,//景区小景点编码
           },
         };
-        this.$store.dispatch('deleteTicketMap',deleteOption)
-          .then(suc=>{
+        this.$store.dispatch('deleteTicketMap', deleteOption)
+          .then(suc => {
             this.initData();
           })
-      },
-      //查询
-      search(){
-        this.initData(this.siteName)
-      },
-      //添加
-      Add(){
-        this.$store.commit('setTranstionFalse');
-        this.addDialog = true;
-        if(this.isUploaNode){
-          this.uploadNode()
+      }
         }
-      },
-      //新增提交
-      AddSubmit(){
-        this.addOptions.tm_se_Image=this.ImageURL.join(",");
-        let Options ={
-          "loginUserID": "huileyou",    //惠乐游用户ID
-          "loginUserPass": "123",    //惠乐游用户密码
-          "operateUserID": "",    //操作员编码
-          "operateUserName": "",    //操作员名称
-          "pcName": "",    //机器码
-          "data":this.addOptions
-        }
-        this.$store.dispatch('addTicketMap',Options)
-          .then(suc=>{
-            this.initData();
-          })
-        this.addDialog = false;
-      },
-      //修改提交
-      upDateSubmit(){
-        this.updateOptions.data.tm_se_Image=this.updateImageURL.join(",");
-        this.$store.dispatch('upDateTicketMap',this.updateOptions)
-          .then(suc=>{
-            this.initData();
-          })
-        this.updateDialog=false;
-      },
-      Update(obj){
-        this.updateOptions.data=obj;
-         setTimeout(()=>{
-          this.updateImageURL =obj.tm_se_Image
-          this.updateDialog = true;
-          if(this.isNewUploaNode){
-            this.uploadNode( this.updateImageURL)
-          };
-        },30)
-      },
-      Delete(id){
-        this.deleteMap(id);
-      },
-    },
-  }
+      }
 </script>
 <style>
-  .el-upload__input{
+  .el-upload__input {
     display: none !important;
   }
+
   .demo-table-expand {
     font-size: 0;
   }
+
   .demo-table-expand label {
-    width: 90px;
+    width: 100px;
     color: #99a9bf;
   }
+
   .demo-table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;

@@ -216,7 +216,7 @@
               <input type="file" name="" ref="upload" accept="image/*" multiple>
             </a>
             <div class="imgWap">
-              <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative">
+              <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px;">
                 <span style="color: #f60" @click="deleteImageURL(item)">X</span>
                 <img
                   :src="item"
@@ -373,7 +373,7 @@
             </a>
             <p>如果不修改图片默认为原来的图片</p>
             <div class="imgWap">
-              <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative">
+              <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right: 30px;">
                 <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
                 <img
                   :src="item"

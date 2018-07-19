@@ -37,32 +37,32 @@ export default {
         .then(data => {
           var data = data.data;
           if (Number(data.resultcode) == 200) {
-            for (let i = 0; i < data.data.length; i++) {
-              if (data.data[i].tm_ts_IsHot == 0) {
-                data.data[i].tm_ts_IsHot = '普通'
-              }
-              if (data.data[i].tm_ts_IsHot == 1) {
-                data.data[i].tm_ts_IsHot = '热门'
-              }
-              if (data.data[i].tm_ts_IsOversea == 0) {
-                data.data[i].tm_ts_IsOversea = '境内'
-              }
-              if (data.data[i].tm_ts_IsOversea == 1) {
-                data.data[i].tm_ts_IsOversea = '境外'
-              }
-              if (data.data[i].tm_ts_IsSeasonChoice == 0) {
-                data.data[i].tm_ts_IsSeasonChoice = '否'
-              }
-              if (data.data[i].tm_ts_IsSeasonChoice == 1) {
-                data.data[i].tm_ts_IsSeasonChoice = '是'
-              }
-              if (data.data[i].tm_ts_ShowTop == 0) {
-                data.data[i].showTopLabel = '申请展示在首页'
-              }
-              if (data.data[i].tm_ts_ShowTop == 1) {
-                data.data[i].showTopLabel = '取消展示在首页'
-              }
-            }
+            // for (let i = 0; i < data.data.length; i++) {
+            //   if (data.data[i].tm_ts_IsHot == 0) {
+            //     data.data[i].tm_ts_IsHot = '普通'
+            //   }
+            //   if (data.data[i].tm_ts_IsHot == 1) {
+            //     data.data[i].tm_ts_IsHot = '热门'
+            //   }
+            //   if (data.data[i].tm_ts_IsOversea == 0) {
+            //     data.data[i].tm_ts_IsOversea = '境内'
+            //   }
+            //   if (data.data[i].tm_ts_IsOversea == 1) {
+            //     data.data[i].tm_ts_IsOversea = '境外'
+            //   }
+            //   if (data.data[i].tm_ts_IsSeasonChoice == 0) {
+            //     data.data[i].tm_ts_IsSeasonChoice = '否'
+            //   }
+            //   if (data.data[i].tm_ts_IsSeasonChoice == 1) {
+            //     data.data[i].tm_ts_IsSeasonChoice = '是'
+            //   }
+            //   if (data.data[i].tm_ts_ShowTop == 0) {
+            //     data.data[i].showTopLabel = '申请展示在首页'
+            //   }
+            //   if (data.data[i].tm_ts_ShowTop == 1) {
+            //     data.data[i].showTopLabel = '取消展示在首页'
+            //   }
+            // }
             commit('initTicketAttractions', data.data);
             relove(Number(data.totalrows));
           } else {

@@ -90,7 +90,7 @@
 
       <!--添加交通信息-->
 
-      <el-dialog title="添加预定须知" :visible.sync="addDialog">
+      <el-dialog title="添加交通信息" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="自驾线路:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tm_Drive" type="textarea"></el-input>
@@ -110,7 +110,7 @@
 
       <!--修改交通信息-->
 
-      <el-dialog title="修改预定须知" :visible.sync="updateDialog">
+      <el-dialog title="修改交通信息" :visible.sync="updateDialog">
         <el-form :model="updateTrafficInformationObj">
           <el-form-item label="自驾线路:" :label-width="formLabelWidth">
             <el-input v-model="updateTrafficInformationObj.tm_tm_Drive" type="textarea"></el-input>

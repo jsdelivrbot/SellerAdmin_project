@@ -333,7 +333,7 @@
               message: suc,
               type: 'success'
             });
-            this.initData(this.ticketTypeNumber);
+            this.initData(this.addOptions.tm_tt_ID);
           }, err => {
             this.$notify({
               message: err,

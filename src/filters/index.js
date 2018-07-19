@@ -389,3 +389,55 @@ export const getPProperType = val=>{
       return '所有';
   }
 };
+//产品类型
+export const getTrandeType = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '跟团游';
+    case 1:
+      return '自由行';
+    default:
+      return '其他';
+  }
+}
+//是否境外景点
+export const getIsOversea=val=>{
+  switch (Number(val)) {
+    case 0:
+      return '境内';
+    case 1:
+      return '境外';
+    default:
+      return '其他';
+  }
+}
+export const getIsHot=val=>{
+  switch (Number(val)) {
+    case 0:
+      return '普通';
+    case 1:
+      return '热门';
+    default:
+      return '其他';
+  }
+}
+export const getIsSeasonChoice=val=>{
+  switch (Number(val)) {
+    case 0:
+      return '否';
+    case 1:
+      return '是';
+    default:
+      return '其他';
+  }
+}
+export const getIsShowTop=val=>{
+  switch (Number(val)) {
+    case 0:
+      return '否';
+    case 1:
+      return '是';
+    default:
+      return '其他';
+  }
+}

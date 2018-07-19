@@ -55,8 +55,8 @@
                 <span>{{ props.row.tm_ts_ContryName }}</span>
               </el-form-item>
               <el-form-item label="展示图片:">
-                <img v-for="item,index in props.row.tm_ts_ShowImage" :src="item" width="300" height="150"
-                     style="margin-top: 10px;">
+                <img v-for="item,index in props.row.tm_ts_ShowImage" width="300" height="150"
+                     style="margin-top: 10px;" v-lazy="item">
               </el-form-item>
               <el-form-item label="介绍:">
                 <span>{{ props.row.tm_ts_Introduce }}</span>

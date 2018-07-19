@@ -50,11 +50,14 @@
             <el-form-item label="推荐价格:">
               <span>¥ {{ props.row.ts_tg_lowestPrice}}</span>
             </el-form-item>
-            <el-form-item label="所属国家:">
-              <span>{{ props.row.ts_tg_Country }}</span>
-            </el-form-item>
+            <!--<el-form-item label="所属国家:">-->
+              <!--<span>{{ props.row.ts_tg_Country }}</span>-->
+            <!--</el-form-item>-->
             <el-form-item label="所属省市:">
               <span>{{ props.row.ts_tg_Provice+props.row.ts_tg_City}}</span>
+            </el-form-item>
+            <el-form-item label="产品类型:">
+              <span>{{ props.row.ts_tg_Type | getTrandeType}}</span>
             </el-form-item>
             <el-form-item label="产品描述:">
               <el-popover
@@ -147,7 +150,7 @@
             <el-form-item label="是否精选:">
               <span>{{ props.row.ts_tg_Special==0?"非精选":"精选" }}</span>
             </el-form-item>
-            <el-form-item label="境外线路:">
+            <el-form-item label="跟团类型:">
               <span>{{ props.row.ts_tg_LongOut | getLongOut }}</span>
             </el-form-item>
           </el-form>
@@ -318,7 +321,7 @@
               v-for="item in proviceList"
               :key="item.sm_af_AreaName"
               :label="item.sm_af_AreaName"
-              :value="item.sm_af_AreaID">
+              :value="item.sm_af_AreaName">
             </el-option>
           </el-select>
           <!--<el-select v-model="addOptions.data.ts_tg_City" placeholder="请选择市">-->
@@ -353,8 +356,8 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="境外线路:" :label-width="formLabelWidth">
-          <el-select v-model="addOptions.data.ts_tg_LongOut" placeholder="请选择境外线路">
+        <el-form-item label="跟团类型:" :label-width="formLabelWidth">
+          <el-select v-model="addOptions.data.ts_tg_LongOut" placeholder="请选择跟团类型">
             <el-option
               label="国内跟团 "
               value="0">
@@ -371,6 +374,18 @@
             label="出境短线"
             value="3">
           </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="产品类型:" :label-width="formLabelWidth">
+          <el-select v-model="addOptions.data.ts_tg_Type" placeholder="请选择产品类型">
+            <el-option
+              label="跟团游 "
+              value="0">
+            </el-option>
+            <el-option
+              label="自由行"
+              value="1">
+            </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="备注:" :label-width="formLabelWidth">
@@ -484,7 +499,15 @@
           <el-input v-model="updateAdminMerchantProductsObj.ts_tg_lowestPrice" placeholder="请输入推荐价格"></el-input>
         </el-form-item>
         <el-form-item label="成团地点:" :label-width="formLabelWidth">
-          <el-input v-model="updateAdminMerchantProductsObj.ts_tg_GroupSite" placeholder="请输入成团地点"></el-input>
+          <el-select v-model="updateAdminMerchantProductsObj.ts_tg_GroupSite" placeholder="请选择省份">
+            <el-option
+              v-for="item in proviceList"
+              :key="item.sm_af_AreaName"
+              :label="item.sm_af_AreaName"
+              :value="item.sm_af_AreaName">
+            </el-option>
+          </el-select>
+          <!--<el-input v-model="updateAdminMerchantProductsObj.ts_tg_GroupSite" placeholder="请输入成团地点"></el-input>-->
         </el-form-item>
         <el-form-item label="展示图片:" :label-width="formLabelWidth">
           <a href="javascript:;" class="file">展示图片上传
@@ -521,8 +544,8 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="境外线路:" :label-width="formLabelWidth">
-          <el-select v-model="updateAdminMerchantProductsObj.ts_tg_LongOut" placeholder="请选择境外线路">
+        <el-form-item label="跟团类型:" :label-width="formLabelWidth">
+          <el-select v-model="updateAdminMerchantProductsObj.ts_tg_LongOut" placeholder="请选择跟团类型">
             <el-option
               label="国内跟团 "
               value="0">
@@ -538,6 +561,18 @@
             <el-option
               label="出境短线"
               value="3">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="产品类型:" :label-width="formLabelWidth">
+          <el-select v-model="updateAdminMerchantProductsObj.ts_tg_Type" placeholder="请选择产品类型">
+            <el-option
+              label="跟团游 "
+              value="0">
+            </el-option>
+            <el-option
+              label="自由行"
+              value="1">
             </el-option>
           </el-select>
         </el-form-item>
@@ -842,6 +877,7 @@
             "ts_tg_ShowTop": '',
             "ts_tg_Special": '',
             "ts_tg_LongOut": '',
+            ts_tg_Type:''
           }
         },
         updateFeeInfoListContentObj:{},
@@ -1728,7 +1764,8 @@
             "ta_tg_Remark": this.updateAdminMerchantProductsObj.ta_tg_Remark,
             "ts_tg_ShowTop": this.updateAdminMerchantProductsObj.ts_tg_ShowTop,
             "ts_tg_Special": this.updateAdminMerchantProductsObj.ts_tg_Special,
-            "ts_tg_LongOut": this.updateAdminMerchantProductsObj.ts_tg_LongOut
+            "ts_tg_LongOut": this.updateAdminMerchantProductsObj.ts_tg_LongOut,
+            "ts_tg_Type": this.updateAdminMerchantProductsObj.ts_tg_Type
           }
         };
         if(this.ImageURL.length){

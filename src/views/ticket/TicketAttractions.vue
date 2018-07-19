@@ -28,18 +28,18 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="景点编码(主键):">
-                <span>{{ props.row.tm_ts_Code }}</span>
-              </el-form-item>
+              <!--<el-form-item label="景点编码(主键):">-->
+                <!--<span>{{ props.row.tm_ts_Code }}</span>-->
+              <!--</el-form-item>-->
               <el-form-item label="景点名称:">
                 <span>{{ props.row.tm_ts_Name }}</span>
               </el-form-item>
               <el-form-item label="主题名称:">
                 <span>{{ props.row.tm_tt_Name }}</span>
               </el-form-item>
-              <el-form-item label="票种编号:">
-                <span>{{ props.row.tm_tm_ID }}</span>
-              </el-form-item>
+              <!--<el-form-item label="票种编号:">-->
+                <!--<span>{{ props.row.tm_tm_ID }}</span>-->
+              <!--</el-form-item>-->
               <el-form-item label="洲:">
                 <span>{{ props.row.tm_ts_GreatName }}</span>
               </el-form-item>
@@ -56,8 +56,8 @@
                 <span>{{ props.row.tm_ts_ContryName }}</span>
               </el-form-item>
               <el-form-item label="展示图片:">
-                <img v-for="item,index in props.row.tm_ts_ShowImage" :src="item" width="300" height="150"
-                     style="margin-top: 10px;">
+                <img v-for="item,index in props.row.tm_ts_ShowImage"  width="300" height="150"
+                     style="margin-top: 10px;" v-lazy="item">
               </el-form-item>
               <el-form-item label="介绍:">
                 <span>{{ props.row.tm_ts_Introduce }}</span>
@@ -84,16 +84,19 @@
                 <span>{{ props.row.tm_ts_Latitude }}</span>
               </el-form-item>
               <el-form-item label="是否热门景点:">
-                <span>{{ props.row.tm_ts_IsHot }}</span>
+                <span>{{ props.row.tm_ts_IsHot | getIsHot}}</span>
               </el-form-item>
               <!--<el-form-item label="是否精选景点:">-->
               <!--<span>{{ props.row.tm_ts_IsChoice }}</span>-->
               <!--</el-form-item>-->
               <el-form-item label="是否境外景点:">
-                <span>{{ props.row.tm_ts_IsOversea }}</span>
+                <span>{{ props.row.tm_ts_IsOversea | getIsOversea}}</span>
               </el-form-item>
               <el-form-item label="是否当季精选:">
-                <span>{{ props.row.tm_ts_IsSeasonChoice }}</span>
+                <span>{{ props.row.tm_ts_IsSeasonChoice | getIsSeasonChoice}}</span>
+              </el-form-item>
+              <el-form-item label="是否展示在首页:">
+                <span>{{ props.row.tm_ts_ShowTop | getIsShowTop}}</span>
               </el-form-item>
               <el-form-item label="建议价格:">
                 <span>{{ props.row.tm_ts_SuggestPrice }}元</span>
@@ -107,10 +110,10 @@
             </el-form>
           </template>
         </el-table-column>
-        <el-table-column
-          label="景点编码"
-          prop="tm_ts_Code">
-        </el-table-column>
+        <!--<el-table-column-->
+          <!--label="景点编码"-->
+          <!--prop="tm_ts_Code">-->
+        <!--</el-table-column>-->
         <el-table-column
           label="景点名称"
           prop="tm_ts_Name">
@@ -123,7 +126,7 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
-              @click="update(scope.row.tm_ts_Code)">修改
+              @click="update(scope.row)">修改
             </el-button>
             <el-button
               size="mini"
@@ -142,14 +145,14 @@
 
       <el-dialog title="添加景点信息" :visible.sync="addDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="addOptions">
-          <el-form-item label="景点编码:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_ts_Code"></el-input>
-          </el-form-item>
-          <el-form-item label="景点名称:" :label-width="formLabelWidth">
+          <!--<el-form-item label="景点编码:" :label-width="formLabelWidth">-->
+            <!--<el-input v-model="addOptions.tm_ts_Code"></el-input>-->
+          <!--</el-form-item>-->
+          <el-form-item label="景点名称:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Name"></el-input>
           </el-form-item>
-          <el-form-item label="选择主题类型:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_ThemeTypeID" placeholder="请选择主题类型" @change="changeGreat">
+          <el-form-item label="选择主题类型:" :label-width="formLabelWidth" required>
+            <el-select v-model="addOptions.tm_ts_ThemeTypeID" placeholder="请选择主题类型">
               <el-option
                 v-for="item in themeTypeList"
                 :key="item.tm_tt_ID"
@@ -158,7 +161,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="洲:" :label-width="formLabelWidth">
+          <el-form-item label="洲:" :label-width="formLabelWidth" required>
             <el-select v-model="addOptions.tm_ts_GreatID" placeholder="请选择洲" @change="changeGreat">
               <el-option
                 v-for="item in ticketGreatList"
@@ -168,7 +171,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="国:" :label-width="formLabelWidth">
+          <el-form-item label="国:" :label-width="formLabelWidth" required>
             <el-select v-model="addOptions.tm_ts_CountrieID" placeholder="请选择国家" @change="changeCountrie">
               <el-option
                 v-for="item in ticketCountrieList"
@@ -178,7 +181,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="省:" :label-width="formLabelWidth">
+          <el-form-item label="省:" :label-width="formLabelWidth" required>
             <el-select v-model="addOptions.tm_ts_ProviceID" placeholder="请选择省" @change="changeProvice">
               <el-option
                 v-for="item in ticketProviceList"
@@ -188,7 +191,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="市:" :label-width="formLabelWidth">
+          <el-form-item label="市:" :label-width="formLabelWidth" required>
             <el-select v-model="addOptions.tm_ts_CityID" placeholder="请选择市" @change="changeCity">
               <el-option
                 v-for="item in ticketCityList"
@@ -198,8 +201,8 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="县:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_ContryID" placeholder="请选择县" @change="changeContry">
+          <el-form-item label="县:" :label-width="formLabelWidth" required>
+            <el-select v-model="addOptions.tm_ts_ContryID" placeholder="请选择县">
               <el-option
                 v-for="item in ticketContryList"
                 :key="item.sm_af_AreaID"
@@ -212,13 +215,17 @@
             <a href="javascript:;" class="file">上传文件
               <input type="file" name="" ref="upload" accept="image/*" multiple>
             </a>
-            <img
-              v-for="item in ImageURL"
-              v-lazy="item"
-              width="280"
-              height="125"
-              v-show="ImageURL.length"
-            >
+            <div class="imgWap">
+              <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative">
+                <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="ImageURL.length"
+                >
+              </p>
+            </div>
           </el-form-item>
           <el-form-item label="介绍:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_ts_Introduce"></el-input>
@@ -226,29 +233,29 @@
           <el-form-item label="详细介绍:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_ts_Detailedintroduction" type="textarea"></el-input>
           </el-form-item>
-          <el-form-item label="详细地址:" :label-width="formLabelWidth">
+          <el-form-item label="详细地址:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Address"></el-input>
           </el-form-item>
-          <el-form-item label="开放时间:" :label-width="formLabelWidth">
+          <el-form-item label="开放时间:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Opentime"></el-input>
           </el-form-item>
-          <el-form-item label="建议游玩时间:" :label-width="formLabelWidth">
+          <el-form-item label="建议游玩时间:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Time" placeholder="以小时为单位且为数字"></el-input>
           </el-form-item>
-          <el-form-item label="联系电话号码:" :label-width="formLabelWidth">
+          <el-form-item label="联系电话号码:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Phone"></el-input>
-          </el-form-item>
-          <el-form-item label="经度:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_ts_Longitude" placeholder="请输入数字"></el-input>
-          </el-form-item>
-          <el-form-item label="纬度:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_ts_Latitude" placeholder="请输入数字"></el-input>
           </el-form-item>
           <el-form-item label="点击获取经纬度再填写:" label-width="200px">
             <el-button type="primary" @click="getLatitude" size="small">获取经纬度</el-button>
           </el-form-item>
+          <el-form-item label="经度:" :label-width="formLabelWidth" required>
+            <el-input v-model="addOptions.tm_ts_Longitude" placeholder="请输入数字"></el-input>
+          </el-form-item>
+          <el-form-item label="纬度:" :label-width="formLabelWidth" required>
+            <el-input v-model="addOptions.tm_ts_Latitude" placeholder="请输入数字"></el-input>
+          </el-form-item>
           <el-form-item label="是否热门景点:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_IsHot" placeholder="请选择" @change="changeContry">
+            <el-select v-model="addOptions.tm_ts_IsHot" placeholder="请选择">
               <el-option
                 v-for="item in selectedScenicSpot"
                 :key="item.value"
@@ -258,7 +265,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="是否境外景点:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_IsOversea" placeholder="请选择" @change="changeContry">
+            <el-select v-model="addOptions.tm_ts_IsOversea" placeholder="请选择">
               <el-option
                 v-for="item in overseasScenicSpots"
                 :key="item.value"
@@ -268,7 +275,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="是否当季精选:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_IsSeasonChoice" placeholder="请选择" @change="changeContry">
+            <el-select v-model="addOptions.tm_ts_IsSeasonChoice" placeholder="请选择">
               <el-option
                 v-for="item in seasonSelection"
                 :key="item.value"
@@ -277,7 +284,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="建议价格:" :label-width="formLabelWidth">
+          <el-form-item label="建议价格:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_SuggestPrice" placeholder="请输入数字"></el-input>
           </el-form-item>
           <el-form-item label="备注:" :label-width="formLabelWidth">
@@ -294,15 +301,14 @@
 
       <el-dialog title="修改景点信息" :visible.sync="updateDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="updateTicketAttractionsObj">
-          <el-form-item label="景点名称:" :label-width="formLabelWidth">
+          <!--<el-form-item label="景点名称:" :label-width="formLabelWidth">-->
+            <!--<el-input v-model="updateTicketAttractionsObj.tm_ts_Name"></el-input>-->
+          <!--</el-form-item>-->
+          <el-form-item label="景点名称:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Name"></el-input>
           </el-form-item>
-          <el-form-item label="景点名称:" :label-width="formLabelWidth">
-            <el-input v-model="updateTicketAttractionsObj.tm_ts_Name"></el-input>
-          </el-form-item>
-          <el-form-item label="选择主题类型:" :label-width="formLabelWidth">
-            <el-select v-model="updateTicketAttractionsObj.tm_ts_ThemeTypeID" placeholder="请选择主题类型"
-                       @change="changeGreat">
+          <el-form-item label="选择主题类型:" :label-width="formLabelWidth" required>
+            <el-select v-model="updateTicketAttractionsObj.tm_tt_Name" placeholder="请选择主题类型">
               <el-option
                 v-for="item in themeTypeList"
                 :key="item.tm_tt_ID"
@@ -311,8 +317,8 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="洲:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_GreatID" placeholder="请选择洲" @change="changeGreat">
+          <el-form-item label="洲:" :label-width="formLabelWidth" required>
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_GreatName" placeholder="请选择洲" @change="changeUpdateGreat">
               <el-option
                 v-for="item in ticketGreatList"
                 :key="item.sm_af_AreaID"
@@ -321,8 +327,8 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="国:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_CountrieID" placeholder="请选择国家" @change="changeCountrie">
+          <el-form-item label="国:" :label-width="formLabelWidth" required>
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_CountrieName" placeholder="请选择国家" @change="changeUpdateCountrie">
               <el-option
                 v-for="item in ticketCountrieList"
                 :key="item.sm_af_AreaID"
@@ -331,8 +337,8 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="省:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_ProviceID" placeholder="请选择省" @change="changeProvice">
+          <el-form-item label="省:" :label-width="formLabelWidth" required>
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_ProviceName" placeholder="请选择省" @change="changeUpdateProvice">
               <el-option
                 v-for="item in ticketProviceList"
                 :key="item.sm_af_AreaID"
@@ -341,8 +347,8 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="市:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_CityID" placeholder="请选择市" @change="changeCity">
+          <el-form-item label="市:" :label-width="formLabelWidth" required>
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_CityName" placeholder="请选择市" @change="changeUpdateCity">
               <el-option
                 v-for="item in ticketCityList"
                 :key="item.sm_af_AreaID"
@@ -351,8 +357,8 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="县:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_ts_ContryID" placeholder="请选择县" @change="changeContry">
+          <el-form-item label="县:" :label-width="formLabelWidth" required>
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_ContryName" placeholder="请选择县">
               <el-option
                 v-for="item in ticketContryList"
                 :key="item.sm_af_AreaID"
@@ -366,14 +372,25 @@
               <input type="file" name="" ref="updateUpload" accept="image/*" multiple>
             </a>
             <p>如果不修改图片默认为原来的图片</p>
-            <img
-              style="display: block"
-              v-for="item in updateImageURL"
-              :src="item"
-              width="280"
-              height="125"
-              v-show="updateImageURL.length"
-            >
+            <div class="imgWap">
+              <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative">
+                <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="updateImageURL.length"
+                >
+              </p>
+            </div>
+            <!--<img-->
+              <!--style="display: block"-->
+              <!--v-for="item in updateImageURL"-->
+              <!--:src="item"-->
+              <!--width="280"-->
+              <!--height="125"-->
+              <!--v-show="updateImageURL.length"-->
+            <!--&gt;-->
           </el-form-item>
           <el-form-item label="介绍:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Introduce"></el-input>
@@ -381,29 +398,29 @@
           <el-form-item label="详细介绍:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Detailedintroduction" type="textarea"></el-input>
           </el-form-item>
-          <el-form-item label="详细地址:" :label-width="formLabelWidth">
+          <el-form-item label="详细地址:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Address"></el-input>
           </el-form-item>
-          <el-form-item label="开放时间:" :label-width="formLabelWidth">
+          <el-form-item label="开放时间:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Opentime"></el-input>
           </el-form-item>
-          <el-form-item label="建议游玩时间:" :label-width="formLabelWidth">
+          <el-form-item label="建议游玩时间:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Time" placeholder="以小时为单位且为数字"></el-input>
           </el-form-item>
-          <el-form-item label="联系电话号码:" :label-width="formLabelWidth">
+          <el-form-item label="联系电话号码:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Phone"></el-input>
-          </el-form-item>
-          <el-form-item label="经度:" :label-width="formLabelWidth">
-            <el-input v-model="updateTicketAttractionsObj.tm_ts_Longitude" placeholder="请输入数字"></el-input>
-          </el-form-item>
-          <el-form-item label="纬度:" :label-width="formLabelWidth">
-            <el-input v-model="updateTicketAttractionsObj.tm_ts_Latitude" placeholder="请输入数字"></el-input>
           </el-form-item>
           <el-form-item label="点击获取经纬度再填写:" label-width="200px">
             <el-button type="primary" @click="getLatitude" size="small">获取经纬度</el-button>
           </el-form-item>
+          <el-form-item label="经度:" :label-width="formLabelWidth" required>
+            <el-input v-model="updateTicketAttractionsObj.tm_ts_Longitude" placeholder="请输入数字"></el-input>
+          </el-form-item>
+          <el-form-item label="纬度:" :label-width="formLabelWidth" required>
+            <el-input v-model="updateTicketAttractionsObj.tm_ts_Latitude" placeholder="请输入数字"></el-input>
+          </el-form-item>
           <el-form-item label="是否热门景点:" :label-width="formLabelWidth">
-            <el-select v-model="updateTicketAttractionsObj.tm_ts_IsHot" placeholder="请选择" @change="changeContry">
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_IsHot" placeholder="请选择">
               <el-option
                 v-for="item in selectedScenicSpot"
                 :key="item.value"
@@ -413,7 +430,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="是否境外景点:" :label-width="formLabelWidth">
-            <el-select v-model="updateTicketAttractionsObj.tm_ts_IsOversea" placeholder="请选择" @change="changeContry">
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_IsOversea" placeholder="请选择">
               <el-option
                 v-for="item in overseasScenicSpots"
                 :key="item.value"
@@ -423,8 +440,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="是否当季精选:" :label-width="formLabelWidth">
-            <el-select v-model="updateTicketAttractionsObj.tm_ts_IsSeasonChoice" placeholder="请选择"
-                       @change="changeContry">
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_IsSeasonChoice" placeholder="请选择">
               <el-option
                 v-for="item in seasonSelection"
                 :key="item.value"
@@ -433,7 +449,7 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="建议价格:" :label-width="formLabelWidth">
+          <el-form-item label="建议价格:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_SuggestPrice" placeholder="请输入数字"></el-input>
           </el-form-item>
           <el-form-item label="备注:" :label-width="formLabelWidth">
@@ -482,12 +498,13 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import {getNewStr} from '@/assets/js/public'
+  import {getNewStr,isNewPhone} from '@/assets/js/public'
   export default {
     name: '',
     data() {
       return {
         isUploaNode:true,
+        isNewUploaNode:true,
         formLabelWidth: '120px',
         isMap: false,
         siteName: '',//景点名称搜索
@@ -570,6 +587,7 @@
             label: '删除'
           }
         ],
+        updateTicketAttractionsObj:{},
         ImageURL: [],
         showImageList: [],
         updateDialog: false,
@@ -586,7 +604,7 @@
       'ticketProviceList',
       'ticketCityList',
       'ticketContryList',
-      'updateTicketAttractionsObj'
+//      'updateTicketAttractionsObj'
     ]),
     created() {
       this.adminUserInfo = JSON.parse(sessionStorage.getItem('admin'));
@@ -594,37 +612,57 @@
       this.initGreat();
     },
     mounted() {
-      var _this = this;
-      var geolocation = new BMap.Geolocation();
-      geolocation.getCurrentPosition(function (r) {
-        _this.form.x = r.point.lng;
-        _this.form.y = r.point.lat;
-        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-          var map = new BMap.Map("allmap");
-          // var point = new BMap.Point(116.400244, 39.92556);
-          map.centerAndZoom(r.point, 12); //定义地图等级，就是放大倍数
-          map.enableScrollWheelZoom(true); //启用地图滚轮放大缩小
-          var marker = new BMap.Marker(r.point);// 创建标注
-          map.addOverlay(marker);  // 将标注添加到地图中
-          map.panTo(r.point);
-          // alert('您的位置：' + r.point.lng + ',' + r.point.lat);
-          marker.enableDragging(); //标注可拖拽
-          //marker.disableDragging();           // 不可拖拽
-          // 开启事件监听
-          marker.addEventListener("dragend", function (e) {
-            var x = e.point.lng; //经度
-            var y = e.point.lat; //纬度
-//            alert("拖到的地点的经纬度：" + x + "，" + y);
-            _this.form.x = x;
-            _this.form.y = y;
-          });
-        }
-        else {
-          alert('failed' + this.getStatus());
-        }
-      }, {enableHighAccuracy: true})
+//      var _this = this;
+//      var geolocation = new BMap.Geolocation();
+//      geolocation.getCurrentPosition(function (r) {
+//        _this.form.x = r.point.lng;
+//        _this.form.y = r.point.lat;
+//        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+//          var map = new BMap.Map("allmap");
+//          // var point = new BMap.Point(116.400244, 39.92556);
+//          map.centerAndZoom(r.point, 12); //定义地图等级，就是放大倍数
+//          map.enableScrollWheelZoom(true); //启用地图滚轮放大缩小
+//          var marker = new BMap.Marker(r.point);// 创建标注
+//          map.addOverlay(marker);  // 将标注添加到地图中
+//          map.panTo(r.point);
+//          // alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+//          marker.enableDragging(); //标注可拖拽
+//          //marker.disableDragging();           // 不可拖拽
+//          // 开启事件监听
+//          marker.addEventListener("dragend", function (e) {
+//            var x = e.point.lng; //经度
+//            var y = e.point.lat; //纬度
+////            alert("拖到的地点的经纬度：" + x + "，" + y);
+//            _this.form.x = x;
+//            _this.form.y = y;
+//          });
+//        }
+//        else {
+//          alert('failed' + this.getStatus());
+//        }
+//      }, {enableHighAccuracy: true})
     },
     methods: {
+      //删除修改对应图片
+      deleteUpdateImageURL(val){
+        this.isNewUploaNode= false
+        this.updateImageURL = this.updateImageURL.filter(v=>{
+          if(v==val){
+            return false
+          }
+          return true
+        })
+      },
+      //删除对应图片
+      deleteImageURL(val){
+        this.isUploaNode = false;
+        this.ImageURL = this.ImageURL.filter(v=>{
+          if(v==val){
+            return false
+          }
+          return true
+        })
+      },
       closeDialog(){
         this.ImageURL = []
         this.updateImageURL = [];
@@ -677,7 +715,7 @@
                 relove(JSON.parse(data))
               }
             } else {
-              console.log(xhr.responseText)
+//              console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
 //                 reject(JSON.parse(data).resultcontent)
@@ -687,11 +725,13 @@
         })
       },
       //添加图片
-      uploaNode() {
-
+      uploaNode(arr) {
         setTimeout(() => {
-          if (this.$refs.upload) {
-            this.ImageURL = [];
+          if (this.$refs.upload&&this.isUploaNode) {
+            if(!arr.length){
+              this.ImageURL = [];
+            }
+
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
                 // this.uploadImg(this.$refs.upload.files[i]).then(data => {
@@ -715,8 +755,11 @@
               }
             })
           }
-          if (this.$refs.updateUpload) {
-            this.updateImageURL = [];
+          if (this.$refs.updateUpload&&this.isNewUploaNode) {
+            if(!arr.length){
+              this.updateImageURL = [];
+            }
+//            this.updateImageURL = [];
             this.$refs.updateUpload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.updateUpload.files.length; i++) {
                 this.uploadToOSS(this.$refs.updateUpload.files[i])
@@ -724,7 +767,7 @@
                     if (data) {
                       this.updateImageURL.push(data.data);
                       this.$refs.updateUpload.value = '';
-                      this.isUploaNode= false;
+                      this.isNewUploaNode= false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -736,8 +779,7 @@
               }
             })
           }
-          ;
-        }, 30)
+        }, 50)
       },
       //分页
       handleCurrentChange(num) {
@@ -787,42 +829,80 @@
       },
       //选择洲
       changeGreat() {
-        this.changeCountrie();
+
+        let getAreaProvice = {
+          "areaPid": this.addOptions.tm_ts_GreatID
+        };
+        this.$store.dispatch('initTicketCountrie', getAreaProvice)
+        .then()
+      },
+      //修改洲
+      changeUpdateGreat(){
+        if(this.updateTicketAttractionsObj.tm_ts_GreatName==''){
+          this.updateTicketAttractionsObj.tm_ts_GreatName = this.updateTicketAttractionsObj.tm_ts_GreatID
+        }
+        let getAreaProvice = {
+          "areaPid": this.updateTicketAttractionsObj.tm_ts_GreatName
+        }
+        this.$store.dispatch('initTicketCountrie', getAreaProvice)
+        .then()
       },
       //选择国家
       changeCountrie() {
         let getAreaProvice = {
-          "areaPid": this.addOptions.tm_ts_GreatID
+          "areaPid": this.addOptions.tm_ts_CountrieID
         }
-        this.$store.dispatch('initTicketCountrie', getAreaProvice)
-          .then()
-        this.changeProvice();
+        this.$store.dispatch('initTicketProvice', getAreaProvice)
+        .then()
+      },
+      //选择国家
+      changeUpdateCountrie() {
+        if(this.updateTicketAttractionsObj.tm_ts_CountrieName==''){
+          this.updateTicketAttractionsObj.tm_ts_CountrieName = this.updateTicketAttractionsObj.tm_ts_CountrieID
+        }
+        let getAreaProvice = {
+          "areaPid": this.updateTicketAttractionsObj.tm_ts_CountrieName
+        }
+        this.$store.dispatch('initTicketProvice', getAreaProvice)
+        .then()
       },
       //选择省
       changeProvice() {
         let getAreaProvice = {
-          "areaPid": this.addOptions.tm_ts_CountrieID
+          "areaPid": this.addOptions.tm_ts_ProviceID
         }
-        this.$store.dispatch('initTicketProvice', getAreaProvice)
-          .then()
-        this.changeCity();
+        this.$store.dispatch('initTicketCity', getAreaProvice)
+        .then()
+      },
+      //修改选中省
+      changeUpdateProvice() {
+        if(this.updateTicketAttractionsObj.tm_ts_ProviceName==''){
+          this.updateTicketAttractionsObj.tm_ts_ProviceName = this.updateTicketAttractionsObj.tm_ts_ProviceID
+        }
+        let getAreaProvice = {
+          "areaPid":this.updateTicketAttractionsObj.tm_ts_ProviceName
+        }
+        this.$store.dispatch('initTicketCity', getAreaProvice)
+        .then()
       },
 //      选择市
       changeCity() {
         let getAreaProvice = {
-          "areaPid": this.addOptions.tm_ts_ProviceID
-        }
-        this.$store.dispatch('initTicketCity', getAreaProvice)
-          .then()
-        this.changeContry();
-      },
-//      选择县
-      changeContry() {
-        let getAreaProvice = {
           "areaPid": this.addOptions.tm_ts_CityID
         }
         this.$store.dispatch('initTicketContry', getAreaProvice)
-          .then()
+        .then()
+      },
+      //修改市
+      changeUpdateCity() {
+        if(this.updateTicketAttractionsObj.tm_ts_CityName==''){
+          this.updateTicketAttractionsObj.tm_ts_CityName = this.updateTicketAttractionsObj.tm_ts_CityID
+        }
+        let getAreaProvice = {
+          "areaPid":this.updateTicketAttractionsObj.tm_ts_CityName
+        }
+        this.$store.dispatch('initTicketContry', getAreaProvice)
+        .then()
       },
       //添加
       Add() {
@@ -840,6 +920,33 @@
       },
       //添加提交
       addSubmit() {
+        this.addOptions.tm_ts_ShowImage = this.ImageURL.join(',')
+        if(isNaN(this.addOptions.tm_ts_Time)){
+          this.$notify({
+            message: '建议游玩时间，请输入数字',
+            type: 'error'
+          });
+          return
+        }
+
+        if(isNaN(this.addOptions.tm_ts_SuggestPrice)){
+          this.$notify({
+            message: '建议价格，请输入数字',
+            type: 'error'
+          });
+          return
+        }
+        if(this.addOptions.tm_ts_Longitude.trim()==''||this.addOptions.tm_ts_Latitude.trim()==''){
+          this.$notify({
+            message: '经纬度必须输入!',
+            type: 'error'
+          });
+          return
+        }
+//        if(isNewPhone(this.addOptions.tm_ts_Phone)){
+//          alert('输入有误')
+//          return
+//        }
         this.addOptions.tm_ts_ShowImage = this.ImageURL.join(',');
         let insertTourSite = {
           "loginUserID": "huileyou",
@@ -862,30 +969,63 @@
         this.addDialog = false;
       },
 //      修改
-      update(id) {
-        this.addOptions.tm_ts_GreatID = '';
-        this.addOptions.tm_ts_CountrieID = '';
-        this.addOptions.tm_ts_ProviceID = '';
-        this.addOptions.tm_ts_CityID = '';
-        this.addOptions.tm_ts_ContryID = '';
-        this.$store.commit('setTranstionFalse');
-        this.updateDialog = true;
-        if(this.isUploaNode){
-          this.uploaNode()
-        };
-        this.$store.commit('updateTicketAttractions', id);
-        this.updateTicketAttractionsObj.tm_ts_IsHot = '';
-        this.updateTicketAttractionsObj.tm_ts_IsOversea = '';
-        this.updateTicketAttractionsObj.tm_ts_IsSeasonChoice = '';
-        this.updateTicketAttractionsObj.tm_ts_ThemeTypeID = '';
+      update(obj) {
+        this.updateTicketAttractionsObj = obj
+
+        setTimeout(()=>{
+          this.updateImageURL = obj.tm_ts_ShowImage
+          this.updateDialog = true;
+          if(this.isNewUploaNode){
+            this.uploaNode( this.updateImageURL)
+          };
+
+
+          console.log( this.updateImageURL)
+        },30)
+
+//        this.$store.commit('updateTicketAttractions', id);
       },
       //修改提交
       updateSubmit() {
-        if (this.updateImageURL != '') {
+        if (this.updateImageURL.length) {
           this.updateTicketAttractionsObj.tm_ts_ShowImage = this.updateImageURL.join(',');
-        } else {
-          this.updateTicketAttractionsObj.tm_ts_ShowImage = this.updateTicketAttractionsObj.tm_ts_ShowImage.join(',');
+        }else{
+          if(this.updateTicketAttractionsObj.tm_ts_ShowImage){
+            this.updateTicketAttractionsObj.tm_ts_ShowImage = this.updateTicketAttractionsObj.tm_ts_ShowImage.join(',');
+          }
+
         }
+        if(!this.updateImageURL.length){
+          this.updateTicketAttractionsObj.tm_ts_ShowImage = ''
+        }
+//        console.log(this.updateImageURL,this.updateTicketAttractionsObj.tm_ts_ShowImage)
+//        return
+//        if(this.updateTicketAttractionsObj.tm_tt_Name==''){
+//          this.updateTicketAttractionsObj.tm_tt_Name =  this.updateTicketAttractionsObj.tm_ts_ThemeTypeID
+//        }
+//        console.log(this.updateTicketAttractionsObj)
+//        return
+//        this.updateTicketAttractionsObj.tm_ts_GreatID =  this.addOptions.tm_ts_GreatID
+//        this.updateTicketAttractionsObj.tm_ts_CountrieID =  this.addOptions.tm_ts_CountrieID
+//        this.updateTicketAttractionsObj.tm_ts_ProviceID =  this.addOptions.tm_ts_ProviceID
+//        this.updateTicketAttractionsObj.tm_ts_CityID =  this.addOptions.tm_ts_CityID
+//        this.updateTicketAttractionsObj.tm_ts_ContryID =  this.addOptions.tm_ts_ContryID
+//        delete this.updateTicketAttractionsObj.tm_tt_Name;
+        delete this.updateTicketAttractionsObj.tm_ts_GreatName;
+        delete this.updateTicketAttractionsObj.tm_ts_CountrieName;
+        delete this.updateTicketAttractionsObj.tm_ts_ProviceName;
+        delete this.updateTicketAttractionsObj.tm_ts_CityName;
+        delete this.updateTicketAttractionsObj.tm_ts_ContryName;
+//        for(var attr in this.updateTicketAttractionsObj){
+//          this.updateTicketAttractionsObj[attr] = this.updateTicketAttractionsObj[attr].trim()
+//        }
+        this.updateTicketAttractionsObj.tm_ts_Phone =  this.updateTicketAttractionsObj.tm_ts_Phone.trim();
+        if(!isNaN(this.updateTicketAttractionsObj.tm_tt_Name)){
+          this.updateTicketAttractionsObj.tm_ts_ThemeTypeID =this.updateTicketAttractionsObj.tm_tt_Name
+        }
+
+//        console.log( this.updateTicketAttractionsObj)
+//        return
         let updateTourSite = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -944,5 +1084,13 @@
   #l-map {
     height: 500px;
     width: 100%;
+  }
+  .imgWap{
+
+  }
+  .imgWap span{
+    position: absolute;
+    right: -15px;
+    top: -6px;
   }
 </style>

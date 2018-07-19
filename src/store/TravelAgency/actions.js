@@ -1516,7 +1516,24 @@ export default {
           }
         })
     })
-
+  },
+  //删除产品价格
+  DeleteAdminLinePrice(store,data){
+    return new Promise((relove, reject) => {
+      axios.post(getNewStr + '/ProductPrice/Delete', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(data => {
+        var data = data.data;
+        if (Number(data.resultcode) == 200) {
+          relove(data.resultcontent)
+        } else {
+          reject(data.resultcontent)
+        }
+      })
+    })
   },
   //初始化省
   initProvice({commit}, data) {

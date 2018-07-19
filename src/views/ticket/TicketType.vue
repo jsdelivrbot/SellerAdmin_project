@@ -41,9 +41,9 @@
               <el-form-item label="商户编码">
                 <span>{{ props.row.tm_tt_TradeInfoID }}</span>
               </el-form-item>
-              <el-form-item label="票种助记码">
-                <span>{{ props.row.tm_tt_HelpCode }}</span>
-              </el-form-item>
+              <!--<el-form-item label="票种助记码">-->
+                <!--<span>{{ props.row.tm_tt_HelpCode }}</span>-->
+              <!--</el-form-item>-->
               <el-form-item label="票种图片">
                 <img v-for="item,index in props.row.tm_tt_Image" :src="item" alt="" :key="index" width="300"
                      height="150">
@@ -117,9 +117,9 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="票种助记码:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_tt_HelpCode"></el-input>
-          </el-form-item>
+          <!--<el-form-item label="票种助记码:" :label-width="formLabelWidth">-->
+            <!--<el-input v-model="addOptions.tm_tt_HelpCode"></el-input>-->
+          <!--</el-form-item>-->
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
             <a href="javascript:;" class="file">上传文件
               <input type="file" name="" ref="upload" accept="image/*" multiple>
@@ -165,7 +165,7 @@
           <el-form-item label="票种名称:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketTypeObj.tm_tt_Name"></el-input>
           </el-form-item>
-          <el-form-item label="景点编码:" :label-width="formLabelWidth">
+          <el-form-item label="票种名称:" :label-width="formLabelWidth">
             <el-select v-model="updateTicketTypeObj.tm_ts_Code" placeholder="请选择">
               <el-option
                 v-for="item in ticketAttractionsList"
@@ -175,9 +175,9 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="票种助记码:" :label-width="formLabelWidth">
-            <el-input v-model="updateTicketTypeObj.tm_tt_HelpCode"></el-input>
-          </el-form-item>
+          <!--<el-form-item label="票种助记码:" :label-width="formLabelWidth">-->
+            <!--<el-input v-model="updateTicketTypeObj.tm_tt_HelpCode"></el-input>-->
+          <!--</el-form-item>-->
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
             <a href="javascript:;" class="file">上传文件
               <input type="file" name="" ref="upload1" accept="image/*" multiple>
@@ -320,7 +320,6 @@
       },
       //添加图片
       uploaNode() {
-
         setTimeout(() => {
           if (this.$refs.upload) {
             this.ImageURL = [];
@@ -471,7 +470,9 @@
 
       //修改提交
       updateSubmit() {
-        this.updateTicketTypeObj.tm_tt_Image = this.ImageURL1.join(',');
+        if(this.ImageURL1.length){
+          this.updateTicketTypeObj.tm_tt_Image = this.ImageURL1.join(',');
+        }
         let updateTicketType = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",

@@ -283,14 +283,20 @@
           this.uploadToOSS(this.$refs.videos.files[0])
             .then(data =>{
               this.updateOptions.data.tm_se_Vedio = data.data;
-              console.log(211,this.updateOptions.data.tm_se_Vedio)
+              this.$notify({
+                message: '视频上传成功!',
+                type: 'success'
+              });
             })
         };
         if(this.$refs.videos1){
           this.uploadToOSS(this.$refs.videos1.files[0])
             .then(data =>{
               this.updateOptions.data.tm_se_Vedio = data.data;
-              console.log(211,this.updateOptions.data.tm_se_Vedio)
+              this.$notify({
+                message: '视频上传成功!',
+                type: 'success'
+              });
             })
         };
       },
@@ -300,11 +306,19 @@
           this.uploadToOSS(this.$refs.audios.files[0])
             .then(data =>{
               this.addOptions.tm_se_Sound = data.data;
+              this.$notify({
+                message: '音频上传成功!',
+                type: 'success'
+              });
             })
         };
         if(this.$refs.audios1){
           this.uploadToOSS(this.$refs.audios1.files[0])
             .then(data =>{
+              this.$notify({
+                message: '音频上传成功!',
+                type: 'success'
+              });
               this.updateOptions.data.tm_se_Sound = data.data;
             })
         }

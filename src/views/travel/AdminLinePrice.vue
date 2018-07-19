@@ -116,20 +116,20 @@
           align="center"
           prop="ts_pp_FromPlace">
         </el-table-column>
-        <el-table-column
-          align="center"
-          label="备注">
-          <template slot-scope="props">
-            <el-popover
-              ref="popover1"
-              placement="top-start"
-              trigger="hover"
-              :content="props.row.ts_pp_Remark">
-            </el-popover>
-            <el-button v-popover:popover1>移入查看</el-button>
-          </template>
+        <!--<el-table-column-->
+          <!--align="center"-->
+          <!--label="备注">-->
+          <!--<template slot-scope="props">-->
+            <!--<el-popover-->
+              <!--ref="popover1"-->
+              <!--placement="top-start"-->
+              <!--trigger="hover"-->
+              <!--:content="props.row.ts_pp_Remark">-->
+            <!--</el-popover>-->
+            <!--<el-button v-popover:popover1>移入查看</el-button>-->
+          <!--</template>-->
 
-        </el-table-column>
+        <!--</el-table-column>-->
         <el-table-column label="操作" width="300" align="center">
           <template slot-scope="scope">
             <el-button
@@ -327,6 +327,21 @@
       }
     },
     methods: {
+      //删除
+      deleteAdminLinePrice(id){
+        let options = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "ppID": id
+        }
+        this.$store.dispatch('DeleteAdminLinePrice',options)
+        .then(()=>{
+          this.initData(this.adminLineScheduleManagementId)
+        })
+      },
       //选中产品
       handleSelect(item) {
 //        this.addOptions.ts_pt_Product_LineID = item.id;
@@ -461,7 +476,11 @@
           "lineID":lineID?lineID:this.userSearchID,
           "city":this.departureCityID?this.departureCityID:''
         }
+        this.isLoading = true
         this.$store.dispatch('initAdminLinePrice',searchOptions)
+        .then(()=>{
+          this.isLoading = false
+        })
       },
       //查询
       search(){

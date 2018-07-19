@@ -170,6 +170,16 @@ export const valiDateTel = v=>{
   }
   return true;
 };
+export const isNewPhone = v=>{
+  var isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
+  var isMob=/^((\+?86)|(\(\+86\)))?(13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/;
+  if(isMob.test(v)||isPhone.test(v)){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
 /**
  * 获取指定日期之前或之后的第几天
  *
@@ -257,4 +267,4 @@ export const wxPath = val=>{
   return /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/.test(val);
 };
 //http://hly.1000da.com.cn
-export const getNewStr =  'http://192.168.3.50' //'http://192.168.3.4' //'http://192.168.3.50'
+export const getNewStr =  '/api' //'http://192.168.3.4' //'http://192.168.3.50'

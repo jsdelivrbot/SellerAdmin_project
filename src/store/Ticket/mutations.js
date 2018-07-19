@@ -8,7 +8,11 @@ export default {
   initTicketAttractions(state, data) {
     for (let i = 0; i < data.length; i++) {
       //处理图片
-      data[i].tm_ts_ShowImage = data[i].tm_ts_ShowImage.split(',');
+      if(data[i].tm_ts_ShowImage){
+        data[i].tm_ts_ShowImage = data[i].tm_ts_ShowImage.split(',');
+      }else{
+        data[i].tm_ts_ShowImage = ''
+      }
     }
     state.ticketAttractionsList = data;
   },

@@ -344,16 +344,17 @@
     ]),
     methods: {
       closeDialog(){
-        this.ImageURL = [],
-        this.ImageURL2 = [],
-        this.addDialog = false
+        this.ImageURL = []
+        this.ImageURL2 = []
+        this.addAdminLinePrepareDialog = false
         this.updateAdminLinePrepareDialog = false
       },
       cacheForm(){
-        this.ImageURL = [],
-        this.ImageURL2 = [],
-        this.addDialog = false,
+        this.addAdminLinePrepareDialog = false
         this.updateAdminLinePrepareDialog = false
+        this.ImageURL = []
+        this.ImageURL2 = []
+
       },
       //图片转二进制
       uploadImg(file){

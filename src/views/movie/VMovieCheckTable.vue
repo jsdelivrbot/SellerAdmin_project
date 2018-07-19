@@ -10,12 +10,13 @@
           <!--<el-option :key="item.vf_te_ID" :label="item.vf_te_Name" :value="item.vf_te_ID" v-for="item in VMovieTypeList"></el-option>-->
           <!--</el-select>-->
           <!--</el-form-item>-->
-          <el-form-item>
+          <el-form-item :label-width="formLabelWidth">
             <!--<el-button type="primary" @click="search">查询</el-button>-->
             <el-button type="primary" @click="Add">新增</el-button>
           </el-form-item>
         </el-form>
       </el-col>
+
       <!--数据展示-->
       <el-table
         :data="VMovieCheckTableList"
@@ -119,13 +120,9 @@
             <a href="javascript:;" class="file">选择视频
               <input type="file" name="" ref="upload1" multiple>
             </a>
-            <!--<div id="myDiv" style="padding: 10px">选择视频上传:</div>-->
             <el-form-item size="large">
               <el-button type="primary" size="mini" @click="uploadFile">立即上传</el-button>
             </el-form-item>
-<!--            <el-form-item size="large">
-              <el-progress :text-inside="true" :stroke-width="18" :percentage="percentage" status="exception"></el-progress>
-            </el-form-item>-->
             <el-form-item size="large">
               <video id="addVideo" :src="addVideoSrc"  width="320" height="240" controls="controls"></video>
             </el-form-item>
@@ -182,6 +179,7 @@
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
+
       <!--修改-->
       <el-dialog title="修改" :visible.sync="updateDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="VMovieCheckTableUpdateObj">

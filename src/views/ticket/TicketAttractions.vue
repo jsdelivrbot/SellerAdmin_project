@@ -715,11 +715,7 @@
                 relove(JSON.parse(data))
               }
             } else {
-//              console.log(xhr.responseText)
-//               if (xhr.responseText) {
-//                 var data = xhr.responseText;
-//                 reject(JSON.parse(data).resultcontent)
-//               }
+
             }
           }
         })
@@ -728,16 +724,14 @@
       uploaNode(arr) {
         setTimeout(() => {
           if (this.$refs.upload&&this.isUploaNode) {
-            if(!arr.length){
-              this.ImageURL = [];
+            if(arr){
+              if(!arr.length){
+                this.ImageURL = [];
+              }
             }
 
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('uploadAdminImgs', {
-                //     imageData: data
-                //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
                   .then(data => {
                     if (data) {
@@ -751,13 +745,14 @@
                       });
                     }
                   })
-                // })
               }
             })
           }
-          if (this.$refs.updateUpload&&this.isNewUploaNode) {
-            if(!arr.length){
-              this.updateImageURL = [];
+          if (this.$refs.updateUpload && this.isNewUploaNode) {
+            if(arr){
+              if(!arr.length){
+                this.updateImageURL = [];
+              }
             }
 //            this.updateImageURL = [];
             this.$refs.updateUpload.addEventListener('change', data => {
@@ -970,17 +965,14 @@
       },
 //      修改
       update(obj) {
-        this.updateTicketAttractionsObj = obj
 
+        this.updateTicketAttractionsObj = obj
         setTimeout(()=>{
           this.updateImageURL = obj.tm_ts_ShowImage
           this.updateDialog = true;
           if(this.isNewUploaNode){
             this.uploaNode( this.updateImageURL)
           };
-
-
-          console.log( this.updateImageURL)
         },30)
 
 //        this.$store.commit('updateTicketAttractions', id);

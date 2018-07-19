@@ -41,9 +41,6 @@
               <el-form-item label="商户编码">
                 <span>{{ props.row.tm_tt_TradeInfoID }}</span>
               </el-form-item>
-              <!--<el-form-item label="票种助记码">-->
-                <!--<span>{{ props.row.tm_tt_HelpCode }}</span>-->
-              <!--</el-form-item>-->
               <el-form-item label="票种图片">
                 <img v-for="item,index in props.row.tm_tt_Image" :src="item" alt="" :key="index" width="300"
                      height="150">
@@ -117,21 +114,23 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <!--<el-form-item label="票种助记码:" :label-width="formLabelWidth">-->
-            <!--<el-input v-model="addOptions.tm_tt_HelpCode"></el-input>-->
-          <!--</el-form-item>-->
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">上传文件
+            <a href="javascript:;" class="file">上传图片
               <input type="file" name="" ref="upload" accept="image/*" multiple>
             </a>
-            <img
-              style="display: block"
-              v-for="item in ImageURL"
-              :src="item"
-              width="280"
-              height="125"
-              v-show="ImageURL.length"
-            >
+            <div v-show="isShow">正在上传图片文件...</div>
+            <div class="imgWap">
+
+              <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative">
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="ImageURL.length"
+                >
+                <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+              </p>
+            </div>
           </el-form-item>
           <el-form-item label="描述:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tt_Description" type="textarea"></el-input>
@@ -175,36 +174,25 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <!--<el-form-item label="票种助记码:" :label-width="formLabelWidth">-->
-            <!--<el-input v-model="updateTicketTypeObj.tm_tt_HelpCode"></el-input>-->
-          <!--</el-form-item>-->
+
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
             <a href="javascript:;" class="file">上传文件
-              <input type="file" name="" ref="upload1" accept="image/*" multiple>
+              <input type="file" name="" ref="updateUpload" accept="image/*" multiple>
             </a>
-            <img
-              v-for="item in ImageURL1"
-              v-lazy="item"
-              width="280"
-              height="125"
-              v-show="ImageURL1.length"
-            >
-            <!--<img-->
-              <!--v-if="updateTicketTypeObj.tm_tt_Image.length&&!ImageURL.length"-->
-              <!--style="display: block"-->
-              <!--v-for="item,index in updateTicketTypeObj.tm_tt_Image"-->
-              <!--:src="item"-->
-              <!--width="280"-->
-              <!--height="125"-->
-            <!--&gt;-->
-            <!--<img-->
-              <!--style="display: block"-->
-              <!--v-for="item,index in ImageURL"-->
-              <!--:src="item"-->
-              <!--width="280"-->
-              <!--height="125"-->
-              <!--v-show="ImageURL.length"-->
-            <!--&gt;-->
+
+            <p>如果不修改图片默认为原来的图片</p>
+            <div v-show="isShow">正在上传图片文件...</div>
+            <div class="imgWap">
+              <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative">
+                <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="updateImageURL.length"
+                >
+              </p>
+            </div>
           </el-form-item>
           <el-form-item label="描述:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketTypeObj.tm_tt_Description" type="textarea"></el-input>
@@ -250,7 +238,6 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-
   export default {
     computed: mapGetters([
       'ticketTypeList',
@@ -259,12 +246,16 @@
     ]),
     data() {
       return {
-        ImageURL1:[],
+        isShow:false,
+        updateImageURL: [],
+        ImageURL: [],
+        updateDialog: false,
         loginId: '',
         siteId: '',
         total: 0,
         isUploaNode:true,
         addDialog: false,
+        isNewUploaNode:true,
         formLabelWidth: '120px',
         addOptions: {
           "tm_ts_Code": "",//景点编号
@@ -279,22 +270,41 @@
           "tm_tt_TicketPrice": "",//票价
           "tm_tt_RealPrice": "",//实际价格
         },
-        ImageURL: [],
-        updateDialog: false,
+
       }
     },
     methods: {
+      //删除修改对应图片
+      deleteUpdateImageURL(val){
+        this.isNewUploaNode= false
+        this.updateImageURL = this.updateImageURL.filter(v=>{
+          if(v==val){
+            return false
+          }
+          return true
+        })
+      },
+      //删除对应图片
+      deleteImageURL(val){
+        this.isUploaNode = false;
+        this.ImageURL = this.ImageURL.filter(v=>{
+          if(v==val){
+            return false
+          }
+          return true
+        })
+      },
       closeDialog(){
-        this.ImageURL = [],
-        this.ImageURL1 = [];
+        this.ImageURL = []
+        this.updateImageURL = [];
         this.addDialog = false,
-        this.updateDialog = false
+          this.updateDialog = false
       },
       cacheForm(){
-        this.ImageURL = [],
-        this.ImageURL1 = [];
-        this.addDialog = false,
-        this.updateDialog = false
+         this.ImageURL = [],
+          this.updateImageURL = [],
+          this.addDialog = false,
+          this.updateDialog = false
       },
       uploadToOSS(file) {
         return new Promise((relove,reject)=>{
@@ -310,56 +320,53 @@
                 relove(JSON.parse(data))
               }
             }else{
-//               if (xhr.responseText) {
-//                 var data = xhr.responseText;
-//                 reject(JSON.parse(data).resultcontent)
-//               }
             }
           }
         })
       },
       //添加图片
-      uploaNode() {
+      uploadNode(arr) {
         setTimeout(() => {
-          if (this.$refs.upload) {
-            this.ImageURL = [];
+          if (this.$refs.upload&&this.isUploaNode) {
+            if(arr){
+              if(!arr.length){
+                this.ImageURL = [];
+              }
+            }
             this.$refs.upload.addEventListener('change', data => {
+              this.isShow=true
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('uploadAdminImgs', {
-                //     imageData: data
-                //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
-                    .then(data => {
-                      if (data) {
-                        this.ImageURL.push(data.data);
-                        this.$refs.upload.value = '';
-                        this.isUploaNode= false;
-                      } else {
-                        this.$notify({
-                          message: '图片地址不存在!',
-                          type: 'error'
-                        });
-                      }
-                    })
-                //})
+                  .then(data => {
+                    if (data) {
+                      this.isShow=false,
+                      this.ImageURL.push(data.data);
+                      this.$refs.upload.value = '';
+                      this.isUploaNode= false;
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
               }
             })
           }
-          if (this.$refs.upload1) {
-            this.ImageURL1 = [];
-            this.$refs.upload1.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload1.files.length; i++) {
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('uploadAdminImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.upload1.files[i])
+          if (this.$refs.updateUpload && this.isNewUploaNode) {
+            if(arr){
+              if(!arr.length){
+                this.updateImageURL = [];
+              }
+            }
+            this.$refs.updateUpload.addEventListener('change', data => {
+              for (var i = 0; i < this.$refs.updateUpload.files.length; i++) {
+                this.uploadToOSS(this.$refs.updateUpload.files[i])
                   .then(data => {
                     if (data) {
-                      this.ImageURL1.push(data.data);
-                      this.$refs.upload1.value = '';
-                      this.isUploaNode= false;
+                      this.updateImageURL.push(data.data);
+                      this.$refs.updateUpload.value = '';
+                      this.isNewUploaNode= false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -393,7 +400,6 @@
           "rows": 5
         };
         this.$store.dispatch('initTicketAttractions', options)
-
       },
       //分页
       handleCurrentChange(num) {
@@ -430,7 +436,7 @@
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
         if(this.isUploaNode){
-          this.uploaNode()
+          this.uploadNode()
         };
       },
       //添加提交
@@ -459,19 +465,22 @@
       },
       //修改按钮
       update(id) {
-        this.ImageURL1 = [];
         this.$store.commit('setTranstionFalse');
         this.$store.commit('updateTicketType', id);
-        this.updateDialog = true;
-        if(this.isUploaNode){
-          this.uploaNode()
-        };
-      },
+        setTimeout(()=>{
+          this.updateImageURL =this.updateTicketTypeObj.tm_tt_Image
+          this.updateDialog = true;
+          if(this.isNewUploaNode){
+            this.uploadNode( this.updateImageURL)
+          };
+        },30)
 
+
+      },
       //修改提交
       updateSubmit() {
-        if(this.ImageURL1.length){
-          this.updateTicketTypeObj.tm_tt_Image = this.ImageURL1.join(',');
+        if(this.updateImageURL.length){
+          this.updateTicketTypeObj.tm_tt_Image = this.updateImageURL.join(',');
         }
         let updateTicketType = {
           "loginUserID": "huileyou",
@@ -492,9 +501,7 @@
             });
           })
         this.updateDialog = false;
-
       },
-
       //删除按钮
       deleteTicketType(id) {
         let deleteTicketType = {
@@ -503,7 +510,6 @@
           "data": {
             "tm_tt_ID": id,
           }
-
         };
         this.$store.dispatch('deleteTicketType', deleteTicketType)
           .then(suc => {
@@ -520,7 +526,6 @@
           })
       }
     },
-
     created() {
       this.loginId = JSON.parse(sessionStorage.getItem('admin'));
       this.initTicketAttraction();
@@ -529,4 +534,12 @@
   }
 </script>
 <style scoped>
+  .imgWap{
+
+  }
+  .imgWap span{
+    position: absolute;
+    right: -15px;
+    top: -6px;
+  }
 </style>

@@ -69,6 +69,9 @@ export default {
   },
   updateTicketType(state, id) {
     state.updateTicketTypeObj = state.ticketTypeList.filter(item => {
+
+
+
       if (item.tm_tt_ID == id) {
         return true;
       }
@@ -83,6 +86,15 @@ export default {
     state.ticketQueryOrderList = data;
   },
   initTicketMap(state,data){
+
+    for (let i = 0; i < data.length; i++) {
+      //处理图片
+      if(data[i].tm_se_Image){
+        data[i].tm_se_Image = data[i].tm_se_Image.split(',');
+      }else{
+        data[i].tm_se_Image = ''
+      }
+    }
     state.ticketMapList = data;
   }
 }

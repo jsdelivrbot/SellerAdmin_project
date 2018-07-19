@@ -46,7 +46,21 @@
           <a href="javascript:;" class="file">上传图片
             <input type="file" name="" ref="upload" accept="image/*" multiple>
           </a>
-          <img src="" alt="" v-lazy="item"  v-show="ImageURL.length" v-for="item in ImageURL" style="width: 100px;height: 100px">
+          <div v-show="isShow">正在上传图片文件...</div>
+          <div class="imgWap">
+
+            <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative">
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="ImageURL.length"
+              >
+
+              <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+            </p>
+          </div>
+
         </el-form-item>
 
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
@@ -100,10 +114,23 @@
         </el-form-item>
 
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">上传图片
-            <input type="file" name="" ref="upload1" accept="image/*" multiple>
+          <a href="javascript:;" class="file">上传文件
+            <input type="file" name="" ref="updateUpload" accept="image/*" multiple>
           </a>
-          <img src="" alt="" v-lazy="item"  v-show="ImageURL1.length" v-for="item in ImageURL1" style="width: 100px;height: 100px">
+
+          <p>如果不修改图片默认为原来的图片</p>
+          <div v-show="isShow">正在上传图片文件...</div>
+          <div class="imgWap">
+            <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative">
+              <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="updateImageURL.length"
+              >
+            </p>
+          </div>
         </el-form-item>
 
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
@@ -212,10 +239,12 @@
     name: '',
     data(){
       return {
+        isShow:false,
         isUploaNode:true,
+        isNewUploaNode:true,
         tableData:[],
         ImageURL:[],
-        ImageURL1:[],
+        updateImageURL: [],
         formLabelWidth:'120px',
         total: 0,
         siteName: '',
@@ -267,15 +296,37 @@
       this.initData()
     },
     methods: {
+      //删除修改对应图片
+      deleteUpdateImageURL(val){
+        this.isNewUploaNode= false
+        this.updateImageURL = this.updateImageURL.filter(v=>{
+          if(v==val){
+            return false
+          }
+          return true
+        })
+      },
+      //删除对应图片
+      deleteImageURL(val){
+        this.isUploaNode = false;
+        this.ImageURL = this.ImageURL.filter(v=>{
+          if(v==val){
+            return false
+          }
+          return true
+        })
+      },
       closeDialog(){
-        this.ImageURL = [];
-        this.ImageURL1 = [];
-        this.addDialog = false
+        this.ImageURL = []
+        this.updateImageURL = [];
+        this.addDialog = false,
+          this.updateDialog = false
       },
       cacheForm(){
-        this.ImageURL = [];
-        this.ImageURL1 = [];
-        this.addDialog = false
+        this.ImageURL = [],
+          this.updateImageURL = [],
+          this.addDialog = false,
+          this.updateDialog = false
       },
       //视频上传
       UpLoadvideo() {
@@ -338,26 +389,27 @@
                 relove(JSON.parse(data))
               }
             }else{
-              // console.log(xhr.responseText)
-//               if (xhr.responseText) {
-//                 var data = xhr.responseText;
-//                 reject(JSON.parse(data).resultcontent)
-//               }
+
             }
           }
         })
       },
-      uploaNode() {
-        this.ImageURL = [];
-        this.ImageURL1 = [];
+      uploadNode(arr) {
         setTimeout(() => {
-          if (this.$refs.upload) {
+          if (this.$refs.upload&&this.isUploaNode) {
+            if(arr){
+              if(!arr.length){
+                this.ImageURL = [];
+              }
+            }
+
             this.$refs.upload.addEventListener('change', data => {
+              this.isShow=true
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
                 this.uploadToOSS(this.$refs.upload.files[i])
                   .then(data => {
                     if (data) {
-                      this.ImageURL = [];
+                      this.isShow=false,
                       this.ImageURL.push(data.data);
                       this.$refs.upload.value = '';
                       this.isUploaNode= false;
@@ -371,21 +423,28 @@
               }
             })
           };
-          if (this.$refs.upload1) {
-            this.$refs.upload1.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload1.files.length; i++) {
-                this.uploadToOSS(this.$refs.upload1.files[i])
+          if (this.$refs.updateUpload && this.isNewUploaNode) {
+            if(arr){
+              if(!arr.length){
+                this.updateImageURL = [];
+              }
+            }
+            this.$refs.updateUpload.addEventListener('change', data => {
+              this.isShow=true
+              for (var i = 0; i < this.$refs.updateUpload.files.length; i++) {
+                this.uploadToOSS(this.$refs.updateUpload.files[i])
                   .then(data => {
                     if (data) {
-                      this.ImageURL1 = [];
-                      this.ImageURL1.push(data.data);
-                      this.$refs.upload.value = '';
-                      this.isUploaNode= false;
+                      this.isShow=false,
+
+                      this.updateImageURL.push(data.data);
+                      this.$refs.updateUpload.value = '';
+                      this.isNewUploaNode= false;
                     } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
+                      // this.$notify({
+                      //   message: '图片地址不存在!',
+                      //   type: 'error'
+                     // });
                     }
                   })
               }
@@ -449,10 +508,8 @@
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
         if(this.isUploaNode){
-          this.uploaNode()
-        };
-        this.ImageURL = [];
-        this.ImageURL1 = [];
+          this.uploadNode()
+        }
       },
       //新增提交
       AddSubmit(){
@@ -473,7 +530,7 @@
       },
       //修改提交
       upDateSubmit(){
-        this.updateOptions.data.tm_se_Image=this.ImageURL1.join(",");
+        this.updateOptions.data.tm_se_Image=this.updateImageURL.join(",");
         this.$store.dispatch('upDateTicketMap',this.updateOptions)
           .then(suc=>{
             this.initData();
@@ -481,14 +538,14 @@
         this.updateDialog=false;
       },
       Update(obj){
-        if(this.isUploaNode){
-          this.uploaNode()
-        };
-        this.ImageURL = [];
-        this.ImageURL1 = [];
         this.updateOptions.data=obj;
-        this.updateDialog=true;
-        this.$store.commit('setTranstionFalse');
+         setTimeout(()=>{
+          this.updateImageURL =obj.tm_se_Image
+          this.updateDialog = true;
+          if(this.isNewUploaNode){
+            this.uploadNode( this.updateImageURL)
+          };
+        },30)
       },
       Delete(id){
         this.deleteMap(id);
@@ -511,5 +568,13 @@
     margin-right: 0;
     margin-bottom: 0;
     width: 50%;
+  }
+  .imgWap{
+
+  }
+  .imgWap span{
+    position: absolute;
+    right: -15px;
+    top: -6px;
   }
 </style>

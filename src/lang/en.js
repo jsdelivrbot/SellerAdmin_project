@@ -29,6 +29,7 @@ export default {
     foodStoreOrderingTime:'Food Store Ordering Time',
     foodStoppingPlace:"Food Stopping Place",
     foodStoreConfirmOrder:'Food Store Confirm Order',
+    hotelFacilitiesServicesFacilities:'Hotel Facilities Services Facilities',
 
     hotel:'Hotel',
     ticketMap:'Ticket Map',

@@ -20,6 +20,7 @@ export default {
     hotelRoomProduct:'酒店房间产品',
     hotelRoomRoomFacilities:'酒店房间房间设施',
     hotelTheme:'酒店主题信息',
+    hotelFacilitiesServicesFacilities:'酒店设施服务设施',
 
     travel:'旅行社后台管理',
     ticket:'门票后台管理',

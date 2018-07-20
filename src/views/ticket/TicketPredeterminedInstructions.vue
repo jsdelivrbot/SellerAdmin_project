@@ -142,6 +142,16 @@
 
       <el-dialog title="添加预定须知" :visible.sync="addDialog">
         <el-form :model="addOptions">
+          <el-form-item label="景点名称:" :label-width="formLabelWidth">
+            <el-select v-model="addOptions.tm_bk_TourSiteID" placeholder="请选择景点">
+              <el-option
+                v-for="item in ticketAttractionsList"
+                :key="item.tm_ts_Code"
+                :label="item.tm_ts_Name"
+                :value="item.tm_ts_Code">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>
           </el-form-item>
@@ -174,6 +184,16 @@
 
       <el-dialog title="修改预定须知" :visible.sync="updateDialog">
         <el-form :model="updatePredeterminedInstructionsObj">
+          <el-form-item label="景点名称:" :label-width="formLabelWidth">
+            <el-select v-model="updatePredeterminedInstructionsObj.tm_bk_TourSiteID" placeholder="请选择景点">
+              <el-option
+                v-for="item in ticketAttractionsList"
+                :key="item.tm_ts_Code"
+                :label="item.tm_ts_Name"
+                :value="item.tm_ts_Code">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth">
             <el-input v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" type="textarea"></el-input>
           </el-form-item>
@@ -289,7 +309,7 @@
       Add() {
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        this.addOptions.tm_bk_TourSiteID = this.ticketAttractionsValue;
+//        this.addOptions.tm_bk_TourSiteID = this.ticketAttractionsValue;
       },
 
       addSubmit() {
@@ -304,7 +324,7 @@
               message: suc,
               type: 'success'
             });
-            this.initData(this.ticketAttractionsValue)
+            this.initData(this.addOptions.tm_bk_TourSiteID)
           }, err => {
             this.$notify({
               message: err,
@@ -332,7 +352,7 @@
               message: suc,
               type: 'success'
             });
-            this.initData(this.ticketAttractionsValue);
+            this.initData(this.updatePredeterminedInstructionsObj.tm_bk_TourSiteID);
           }, err => {
             this.$notify({
               message: err,

@@ -27,9 +27,10 @@
         style="width: 100%">
         <el-table-column
           prop="tm_tm_ID"
+          align="center"
           label="交通信息编号">
         </el-table-column>
-        <el-table-column label="自驾线路">
+        <el-table-column label="自驾线路"  align="center">
           <template slot-scope="scope">
             <el-popover
               ref="popover1"
@@ -44,7 +45,7 @@
           </template>
         </el-table-column>
         <el-table-column
-          label="公交线路">
+          label="公交线路" align="center">
           <template slot-scope="scope">
             <el-popover
               ref="popover2"
@@ -59,7 +60,7 @@
           </template>
         </el-table-column>
         <el-table-column
-          label="景点地址">
+          label="景点地址" align="center">
           <template slot-scope="scope">
             <el-popover
               ref="popover3"
@@ -73,7 +74,7 @@
             <el-button v-popover:popover3 size="mini">移入查看</el-button>
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -92,6 +93,16 @@
 
       <el-dialog title="添加交通信息" :visible.sync="addDialog">
         <el-form :model="addOptions">
+          <el-form-item label="景点名称:" :label-width="formLabelWidth">
+            <el-select v-model="addOptions.tm_tm_TourSiteID" placeholder="请选择景点">
+              <el-option
+                v-for="item in ticketAttractionsList"
+                :key="item.tm_ts_Code"
+                :label="item.tm_ts_Name"
+                :value="item.tm_ts_Code">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="自驾线路:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tm_Drive" type="textarea"></el-input>
           </el-form-item>
@@ -112,6 +123,16 @@
 
       <el-dialog title="修改交通信息" :visible.sync="updateDialog">
         <el-form :model="updateTrafficInformationObj">
+          <el-form-item label="景点名称:" :label-width="formLabelWidth">
+            <el-select v-model="updateTrafficInformationObj.tm_tm_TourSiteID" placeholder="请选择景点">
+              <el-option
+                v-for="item in ticketAttractionsList"
+                :key="item.tm_ts_Code"
+                :label="item.tm_ts_Name"
+                :value="item.tm_ts_Code">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="自驾线路:" :label-width="formLabelWidth">
             <el-input v-model="updateTrafficInformationObj.tm_tm_Drive" type="textarea"></el-input>
           </el-form-item>
@@ -222,7 +243,7 @@
               message: suc,
               type: 'success'
             });
-            this.initData(this.ticketAttractionsValue)
+            this.initData(this.addOptions.tm_tm_TourSiteID)
           }, err => {
             this.$notify({
               message: err,
@@ -249,7 +270,7 @@
               message: suc,
               type: 'success'
             });
-            this.initData(this.ticketAttractionsValue);
+            this.initData(this.updateTrafficInformationObj.tm_tm_TourSiteID);
           }, err => {
             this.$notify({
               message: err,

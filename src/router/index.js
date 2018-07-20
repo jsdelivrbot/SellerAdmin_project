@@ -108,7 +108,7 @@ export const constantRouterMap = [
         meta: {title: 'ticketAttractions'}
       },
       {
-        path: 'ticketMap',
+        path: 'ticketMap/:id',
         name: 'TicketMap',
         hidden:true,
         alwaysShow: true,
@@ -234,6 +234,13 @@ export const constantRouterMap = [
         alwaysShow: true,
         component: () => import('@/views/hotel/HotelRoomEntity'),
         meta: {title: 'hotelRoomEntity'}
+      },
+      //酒店设施服务设施
+      {
+        path: 'hotelFacilitiesServicesFacilities',
+        component: () => import('@/views/hotel/HotelFacilitiesServicesFacilities'),
+        name: 'HotelFacilitiesServicesFacilities',
+        meta: {title: 'hotelFacilitiesServicesFacilities'}
       },
       {
         path: 'hotelRoomNumber',

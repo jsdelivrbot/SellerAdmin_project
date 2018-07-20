@@ -216,7 +216,7 @@
               <input type="file" name="" ref="upload" accept="image/*" multiple>
             </a>
             <div class="imgWap">
-              <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px;">
+              <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px">
                 <span style="color: #f60" @click="deleteImageURL(item)">X</span>
                 <img
                   :src="item"
@@ -373,7 +373,7 @@
             </a>
             <p>如果不修改图片默认为原来的图片</p>
             <div class="imgWap">
-              <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right: 30px;">
+              <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right: 30px">
                 <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
                 <img
                   :src="item"
@@ -681,7 +681,7 @@
       },
       //添加地图导览
       AddMap(id) {
-        this.$router.push({path: '/ticket/TicketMap', query: {id: id}})
+        this.$router.push({name:'TicketMap', params: {id: id}})
         // this.$router.push({name:'TicketMap',query:{id:id}})
       },
       clickGo(id) {
@@ -728,10 +728,11 @@
       uploaNode(arr) {
         setTimeout(() => {
           if (this.$refs.upload&&this.isUploaNode) {
-            if(!arr.length){
-              this.ImageURL = [];
+            if(arr){
+              if(!arr.length){
+                this.ImageURL = [];
+              }
             }
-
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
                 // this.uploadImg(this.$refs.upload.files[i]).then(data => {
@@ -756,8 +757,10 @@
             })
           }
           if (this.$refs.updateUpload&&this.isNewUploaNode) {
-            if(!arr.length){
-              this.updateImageURL = [];
+            if(arr){
+              if(!arr.length){
+                this.updateImageURL = [];
+              }
             }
 //            this.updateImageURL = [];
             this.$refs.updateUpload.addEventListener('change', data => {
@@ -990,7 +993,6 @@
           if(this.updateTicketAttractionsObj.tm_ts_ShowImage){
             this.updateTicketAttractionsObj.tm_ts_ShowImage = this.updateTicketAttractionsObj.tm_ts_ShowImage.join(',');
           }
-
         }
         if(!this.updateImageURL.length){
           this.updateTicketAttractionsObj.tm_ts_ShowImage = ''

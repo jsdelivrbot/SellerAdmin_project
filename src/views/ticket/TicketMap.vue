@@ -247,7 +247,7 @@
         AudioNews: "",
         //添加
         addOptions: {
-          "tm_se_Code": "002",  //景点编号
+          "tm_se_Code": "",  //景点编号
           "tm_se_Name": "",  //小景点名称
           "tm_se_HandX": "",  //位于手绘图X
           "tm_se_HandY": "",  //位于手绘图Y
@@ -284,7 +284,7 @@
       'ticketMapList',
     ]),
     created() {
-      this.id = this.$route.query.id;
+      this.id = this.$route.params.id;
       this.initData()
     },
     methods: {
@@ -431,9 +431,9 @@
           "operateUserName": "",
           "pcName": "",
           "tm_se_ID": "",//景区小景点编码
-          "tm_se_Code": "002",//景点编号
-          "tm_se_Name": name ? name : '',//小景点名称
-          "page": page ? page : 1,//页码
+          "tm_se_Code": this.$route.params.id,//景点编号
+          "tm_se_Name": name?name:'',//小景点名称
+          "page": page?page:1,//页码
           "rows": "5"//条数
         };
         this.isLoading = true;
@@ -462,6 +462,10 @@
         };
         this.$store.dispatch('deleteTicketMap', deleteOption)
           .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
             this.initData();
           })
       },
@@ -482,6 +486,7 @@
       //新增提交
       AddSubmit() {
         this.addOptions.tm_se_Image = this.ImageURL.join(",");
+        this.addOptions.tm_se_Code = this.$route.params.id
         let Options = {
           "loginUserID": "huileyou",    //惠乐游用户ID
           "loginUserPass": "123",    //惠乐游用户密码
@@ -492,6 +497,10 @@
         }
         this.$store.dispatch('addTicketMap', Options)
           .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
             this.initData();
           })
         this.addDialog = false;
@@ -501,6 +510,10 @@
         this.updateOptions.data.tm_se_Image = this.ImageURL1.join(",");
         this.$store.dispatch('upDateTicketMap', this.updateOptions)
           .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
             this.initData();
           })
         this.updateDialog = false;
@@ -521,8 +534,8 @@
     },
   }
 </script>
-<style>
-  .el-upload__input {
+<style scoped>
+  .el-upload__input{
     display: none !important;
   }
 
@@ -531,10 +544,14 @@
   }
 
   .demo-table-expand label {
-    width: 100px;
+    /*width: 100px;*/
     color: #99a9bf;
   }
 
+  /*.demo-table-expand label {*/
+    /*width: 90px;*/
+    /*color: #99a9bf;*/
+  /*}*/
   .demo-table-expand .el-form-item {
     margin-right: 0;
     margin-bottom: 0;

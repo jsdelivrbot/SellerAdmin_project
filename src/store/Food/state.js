@@ -2,6 +2,8 @@ export default {
 
   foodStoreInformtionList: [], //房间信息
 
+  foodStoreInformtionList1: [], //房间信息
+
   numberOfMealsList: [],//用餐人数类型
 
   storefrontTypeList: [],//店面类型

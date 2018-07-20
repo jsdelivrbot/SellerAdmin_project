@@ -407,8 +407,6 @@
           "operateUserName": "",
           "pcName": "",
           "fd_py_ParentID": "1",//父编码
-          "page": "1",
-          "rows": "10000",
         }
         this.$store.dispatch('initStorefrontType', selectPropertyInfoType)
       },
@@ -421,8 +419,6 @@
           "operateUserName": "",
           "pcName": "",
           "fd_py_ParentID": "28",//父编码
-          "page": "1",
-          "rows": "10000",
         }
         this.$store.dispatch('initNumberOfMeals', selectPropertyInfo)
       },

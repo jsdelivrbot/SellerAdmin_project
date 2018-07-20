@@ -42,8 +42,14 @@
                 <span>{{ props.row.tm_tt_TradeInfoID }}</span>
               </el-form-item>
               <el-form-item label="票种图片">
-                <img v-for="item,index in props.row.tm_tt_Image" :src="item" alt="" :key="index" width="300"
-                     height="150">
+                <img
+                  v-for="item,index in props.row.tm_tt_Image"
+                  :src="item" alt=""
+                  :key="index"
+                  width="200"
+                  height="100"
+                  style="margin: 10px 15px;"
+                >
               </el-form-item>
               <el-form-item label="描述">
                 <span>{{ props.row.tm_tt_Description }}</span>
@@ -115,22 +121,9 @@
             </el-select>
           </el-form-item>
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">上传图片
-              <input type="file" name="" ref="upload" accept="image/*" multiple>
-            </a>
-            <div v-show="isShow">正在上传图片文件...</div>
-            <div class="imgWap">
 
-              <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative">
-                <img
-                  :src="item"
-                  width="280"
-                  height="125"
-                  v-show="ImageURL.length"
-                >
-                <span style="color: #f60" @click="deleteImageURL(item)">X</span>
-              </p>
-            </div>
+            <Upload @getData="getData" :attrs="imageObj"></Upload>
+
           </el-form-item>
           <el-form-item label="描述:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tt_Description" type="textarea"></el-input>
@@ -176,14 +169,11 @@
           </el-form-item>
 
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">上传文件
-              <input type="file" name="" ref="updateUpload" accept="image/*" multiple>
-            </a>
 
-            <p>如果不修改图片默认为原来的图片</p>
-            <div v-show="isShow">正在上传图片文件...</div>
+            <Upload @getData="updateImage" :attrs="imageObj"></Upload>
+
             <div class="imgWap">
-              <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative">
+              <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right: 30px;">
                 <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
                 <img
                   :src="item"
@@ -238,7 +228,11 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
+  import Upload from '@/components/Upload'
   export default {
+    components: {
+      Upload
+    },
     computed: mapGetters([
       'ticketTypeList',
       'ticketAttractionsList',
@@ -246,6 +240,7 @@
     ]),
     data() {
       return {
+        imageObj: {accept: 'image/*'},
         isShow:false,
         updateImageURL: [],
         ImageURL: [],
@@ -276,6 +271,14 @@
       }
     },
     methods: {
+      //添加图片
+      getData(data){
+        this.ImageURL.push(data.data)
+      },
+      //修改图片
+      updateImage(data){
+        this.updateImageURL.push(data.data)
+      },
       //删除修改对应图片
       deleteUpdateImageURL(val){
         this.isNewUploaNode= false
@@ -307,80 +310,6 @@
           this.updateImageURL = [],
           this.addDialog = false,
           this.updateDialog = false
-      },
-      uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
-          var fd = new FormData();
-          fd.append("fileToUpload", file);
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
-          xhr.send(fd);
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-              if (xhr.responseText) {
-                var data = xhr.responseText
-                relove(JSON.parse(data))
-              }
-            }else{
-            }
-          }
-        })
-      },
-      //添加图片
-      uploadNode(arr) {
-        setTimeout(() => {
-          if (this.$refs.upload&&this.isUploaNode) {
-            if(arr){
-              if(!arr.length){
-                this.ImageURL = [];
-              }
-            }
-            this.$refs.upload.addEventListener('change', data => {
-              this.isShow=true
-              for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                this.uploadToOSS(this.$refs.upload.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.isShow=false,
-                      this.ImageURL.push(data.data);
-                      this.$refs.upload.value = '';
-                      this.isUploaNode= false;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-              }
-            })
-          }
-          if (this.$refs.updateUpload && this.isNewUploaNode) {
-            if(arr){
-              if(!arr.length){
-                this.updateImageURL = [];
-              }
-            }
-            this.$refs.updateUpload.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.updateUpload.files.length; i++) {
-                this.uploadToOSS(this.$refs.updateUpload.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.updateImageURL.push(data.data);
-                      this.$refs.updateUpload.value = '';
-                      this.isNewUploaNode= false;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                //})
-              }
-            })
-          }
-        }, 30)
       },
       //初始化景点信息
       initTicketAttraction() {
@@ -437,17 +366,12 @@
         this.ImageURL = [];
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        if(this.isUploaNode){
-          this.uploadNode()
-        };
       },
       //添加提交
       addSubmit() {
         this.addOptions.tm_tt_TradeInfoID = this.loginId.sm_ui_ID;
         this.addOptions.tm_tt_Image = this.ImageURL.join(',');
         this.addOptions.tm_tt_BeforeTime = this.addBeforeTime*60;
-        console.log(this.addOptions)
-        return
         let insertTicketType = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -473,11 +397,10 @@
         this.$store.commit('setTranstionFalse');
         this.$store.commit('updateTicketType', id);
         setTimeout(()=>{
-          this.updateImageURL =this.updateTicketTypeObj.tm_tt_Image
+          if(this.updateTicketTypeObj.tm_tt_Image.length){
+            this.updateImageURL = this.updateTicketTypeObj.tm_tt_Image
+          }
           this.updateDialog = true;
-          if(this.isNewUploaNode){
-            this.uploadNode( this.updateImageURL)
-          };
         },30)
 
 

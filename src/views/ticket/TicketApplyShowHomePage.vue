@@ -114,7 +114,7 @@
         <el-table-column label="操作" align="center" style="width: 1000px">
           <template slot-scope="scope">
             <el-button type="success" size="mini" @click="apply(scope.row)">
-              <template>{{scope.row.showTopLabel}}</template>
+              <template>{{scope.row.tm_ts_ShowTop == 0 ? '申请景点展示首页' : '取消申请景点展示首页'}}</template>
             </el-button>
           </template>
         </el-table-column>

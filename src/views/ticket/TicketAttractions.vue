@@ -57,7 +57,7 @@
               </el-form-item>
               <el-form-item label="展示图片:">
                 <img v-for="item,index in props.row.tm_ts_ShowImage" width="300" height="150"
-                     style="margin-top: 10px;" v-lazy="item">
+                     style="margin: 10px 15px 0;" v-lazy="item">
               </el-form-item>
               <el-form-item label="介绍:">
                 <span>{{ props.row.tm_ts_Introduce }}</span>
@@ -212,24 +212,27 @@
             </el-select>
           </el-form-item>
           <el-form-item label="展示图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">上传文件
-              <input type="file" name="" ref="upload" accept="image/*" multiple>
-            </a>
-            <div class="imgWap">
-<<<<<<< HEAD
-              <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px">
-=======
-              <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px;">
->>>>>>> 503578aa586e95734eec8f859bbf3cd5e873d698
-                <span style="color: #f60" @click="deleteImageURL(item)">X</span>
-                <img
-                  :src="item"
-                  width="280"
-                  height="125"
-                  v-show="ImageURL.length"
-                >
-              </p>
-            </div>
+
+
+
+
+            <Upload @getData="getData" :attrs="imageObj"></Upload>
+
+
+
+            <!--<div class="imgWap">-->
+            <!--<p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px">-->
+              <!--<span style="color: #f60" @click="deleteImageURL(item)">X</span>-->
+              <!--<img-->
+                <!--:src="item"-->
+                <!--width="280"-->
+                <!--height="125"-->
+                <!--v-show="ImageURL.length"-->
+              <!--&gt;-->
+            <!--</p>-->
+            <!--</div>-->
+
+
           </el-form-item>
           <el-form-item label="介绍:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_ts_Introduce"></el-input>
@@ -373,17 +376,12 @@
             </el-select>
           </el-form-item>
           <el-form-item label="展示图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">上传文件
-              <input type="file" name="" ref="updateUpload" accept="image/*" multiple>
-            </a>
-            <p>如果不修改图片默认为原来的图片</p>
+
+            <Upload @getData="updateImage" :attrs="imageObj"></Upload>
+
             <div class="imgWap">
-<<<<<<< HEAD
-              <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right: 30px">
-=======
               <p v-for="item,index in updateImageURL"
-                 style="display: inline-block;position: relative;margin-right: 30px;">
->>>>>>> 503578aa586e95734eec8f859bbf3cd5e873d698
+                 style="display: inline-block;position: relative;margin-right: 30px">
                 <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
                 <img
                   :src="item"
@@ -393,6 +391,8 @@
                 >
               </p>
             </div>
+
+
           </el-form-item>
           <el-form-item label="介绍:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Introduce"></el-input>
@@ -501,9 +501,13 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr, isNewPhone} from '@/assets/js/public'
+  import Upload from '@/components/Upload'
 
   export default {
     name: '',
+    components: {
+      Upload
+    },
     data() {
       return {
         isUploaNode: true,
@@ -597,6 +601,7 @@
         isLoading: false,
         updateImageURL: [],
         value: '',
+        imageObj: {accept: 'image/*'},
       }
     },
     computed: mapGetters([
@@ -647,6 +652,14 @@
 //      }, {enableHighAccuracy: true})
     },
     methods: {
+      //修改图片
+      updateImage(data){
+        this.updateImageURL.push(data.data);
+      },
+      //图片上传
+      getData(data){
+        this.ImageURL.push(data.data);
+      },
       //查询景点主题分类信息
       initTheme() {
         let getThemeTypeList = {
@@ -655,8 +668,6 @@
           "ttID": "",
           "ttName": "",
           "isDelete": 0,
-          "page": 1,
-          "rows": 100
         };
         this.$store.dispatch('initThemeType', getThemeTypeList)
       },
@@ -698,7 +709,7 @@
       },
       //添加地图导览
       AddMap(id) {
-        this.$router.push({name:'TicketMap', params: {id: id}})
+        this.$router.push({name: 'TicketMap', params: {id: id}})
         // this.$router.push({name:'TicketMap',query:{id:id}})
       },
       clickGo(id) {
@@ -708,80 +719,6 @@
         if (this.value == 1) {
           this.goTrafficInformation(id);
         }
-      },
-      uploadToOSS(file) {
-        return new Promise((relove, reject) => {
-          var fd = new FormData();
-          fd.append("fileToUpload", file);
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
-          xhr.send(fd);
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-              if (xhr.responseText) {
-                var data = xhr.responseText
-                relove(JSON.parse(data))
-              }
-            } else {
-
-            }
-          }
-        })
-      },
-      //添加图片
-      uploaNode(arr) {
-        setTimeout(() => {
-          if (this.$refs.upload&&this.isUploaNode) {
-            if(arr){
-              if(!arr.length){
-                this.ImageURL = [];
-              }
-            }
-            this.$refs.upload.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                this.uploadToOSS(this.$refs.upload.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.ImageURL.push(data.data);
-                      this.$refs.upload.value = '';
-                      this.isUploaNode = false;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-              }
-            })
-          }
-          if (this.$refs.updateUpload && this.isNewUploaNode) {
-            if(arr){
-              if(!arr.length){
-                this.updateImageURL = [];
-              }
-            }
-//            this.updateImageURL = [];
-            this.$refs.updateUpload.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.updateUpload.files.length; i++) {
-                this.uploadToOSS(this.$refs.updateUpload.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.updateImageURL.push(data.data);
-                      this.$refs.updateUpload.value = '';
-                      this.isNewUploaNode = false;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                // })
-              }
-            })
-          }
-        }, 50)
       },
       //分页
       handleCurrentChange(num) {
@@ -915,10 +852,6 @@
         this.addOptions.tm_ts_ContryID = '';
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        if (this.isUploaNode) {
-          this.uploaNode()
-        }
-        ;
         this.addOptions.tm_ts_TradeInfoID = this.adminUserInfo.sm_ui_ID;
       },
       //添加提交
@@ -974,13 +907,9 @@
 //      修改
       update(obj) {
         this.updateTicketAttractionsObj = obj
-        setTimeout(()=>{
+        setTimeout(() => {
           this.updateImageURL = obj.tm_ts_ShowImage
           this.updateDialog = true;
-          if (this.isNewUploaNode) {
-            this.uploaNode(this.updateImageURL)
-          }
-          ;
         }, 30)
 
 //        this.$store.commit('updateTicketAttractions', id);
@@ -997,34 +926,15 @@
         if (!this.updateImageURL.length) {
           this.updateTicketAttractionsObj.tm_ts_ShowImage = ''
         }
-//        console.log(this.updateImageURL,this.updateTicketAttractionsObj.tm_ts_ShowImage)
-//        return
-//        if(this.updateTicketAttractionsObj.tm_tt_Name==''){
-//          this.updateTicketAttractionsObj.tm_tt_Name =  this.updateTicketAttractionsObj.tm_ts_ThemeTypeID
-//        }
-//        console.log(this.updateTicketAttractionsObj)
-//        return
-//        this.updateTicketAttractionsObj.tm_ts_GreatID =  this.addOptions.tm_ts_GreatID
-//        this.updateTicketAttractionsObj.tm_ts_CountrieID =  this.addOptions.tm_ts_CountrieID
-//        this.updateTicketAttractionsObj.tm_ts_ProviceID =  this.addOptions.tm_ts_ProviceID
-//        this.updateTicketAttractionsObj.tm_ts_CityID =  this.addOptions.tm_ts_CityID
-//        this.updateTicketAttractionsObj.tm_ts_ContryID =  this.addOptions.tm_ts_ContryID
-//        delete this.updateTicketAttractionsObj.tm_tt_Name;
         delete this.updateTicketAttractionsObj.tm_ts_GreatName;
         delete this.updateTicketAttractionsObj.tm_ts_CountrieName;
         delete this.updateTicketAttractionsObj.tm_ts_ProviceName;
         delete this.updateTicketAttractionsObj.tm_ts_CityName;
         delete this.updateTicketAttractionsObj.tm_ts_ContryName;
-//        for(var attr in this.updateTicketAttractionsObj){
-//          this.updateTicketAttractionsObj[attr] = this.updateTicketAttractionsObj[attr].trim()
-//        }
         this.updateTicketAttractionsObj.tm_ts_Phone = this.updateTicketAttractionsObj.tm_ts_Phone.trim();
         if (!isNaN(this.updateTicketAttractionsObj.tm_tt_Name)) {
           this.updateTicketAttractionsObj.tm_ts_ThemeTypeID = this.updateTicketAttractionsObj.tm_tt_Name
         }
-
-//        console.log( this.updateTicketAttractionsObj)
-//        return
         let updateTourSite = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",

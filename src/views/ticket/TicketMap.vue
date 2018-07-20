@@ -44,44 +44,34 @@
 
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
 
+
           <Upload @getData="getData" :attrs="imageObj"></Upload>
 
-          <a href="javascript:;" class="file">上传图片
-            <input type="file" name="" ref="upload" accept="image/*" multiple>
-          </a>
-          <div v-show="isShow">正在上传图片文件...</div>
-          <div class="imgWap">
-            <p v-for="item,index in ImageURL" style="display: inline-block;position: relative">
-              <img
-                :src="item"
-                width="280"
-                height="125"
-                v-show="ImageURL.length"
-              >
-              <span style="color: #f60" @click="deleteImageURL(item)">X</span>
-            </p>
-          </div>
+
+          <!--<div class="imgWap">-->
+          <!--<p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px;">-->
+          <!--<img-->
+          <!--:src="item"-->
+          <!--width="280"-->
+          <!--height="125"-->
+          <!--v-show="ImageURL.length"-->
+          <!--&gt;-->
+          <!--<span style="color: #f60" @click="deleteImageURL(item)">X</span>-->
+          <!--</p>-->
+          <!--</div>-->
 
         </el-form-item>
 
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">选择音频
-            <input type="file" name="" ref="audios" multiple>
-          </a>
-          <span style="display: inline-block;height: 30px;margin-left:40px;font-size: 18px;">{{AudioNews}}</span>
-          <el-form-item size="large">
-            <el-button type="primary" size="mini" @click="uploadAudio">立即上传</el-button>
-          </el-form-item>
+
+          <Upload @getData="passAudio" :attrs="audioObj"></Upload>
+
         </el-form-item>
 
         <el-form-item label="小景点视频:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">选择视频
-            <input type="file" name="" ref="videos" multiple>
-          </a>
-          <span style="display: inline-block;height: 30px;margin-left:40px;font-size: 18px;">{{VideoNameObj}}</span>
-          <el-form-item size="large">
-            <el-button type="primary" size="mini" @click="UpLoadvideo">立即上传</el-button>
-          </el-form-item>
+
+          <Upload @getData="passVideo" :attrs="videoObj"></Upload>
+
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -115,15 +105,12 @@
         </el-form-item>
 
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">上传文件
-            <input type="file" name="" ref="updateUpload" accept="image/*" multiple>
-          </a>
 
 
-          <p>如果不修改图片默认为原来的图片</p>
-          <div v-show="isShow">正在上传图片文件...</div>
+          <Upload @getData="updateImage" :attrs="imageObj"></Upload>
+
           <div class="imgWap">
-            <p v-for="item,index in updateImageURL" style="display: inline-block;position: relative">
+            <p v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right: 30px">
               <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
               <img
                 :src="item"
@@ -138,23 +125,21 @@
         </el-form-item>
 
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">选择音频
-            <input type="file" name="" ref="audios1" multiple>
-          </a>
-          <span style="display: inline-block;height: 30px;margin-left:40px;font-size: 18px;">{{AudioNews}}</span>
-          <el-form-item size="large">
-            <el-button type="primary" size="mini" @click="uploadAudio">立即上传</el-button>
-          </el-form-item>
+
+          <audio :src="updateOptions.data.tm_se_Sound" v-show="updateOptions.data.tm_se_Sound" controls></audio>
+
+          <Upload @getData="updateAudio" :attrs="audioObj"></Upload>
+
+
         </el-form-item>
 
         <el-form-item label="小景点视频:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">选择视频
-            <input type="file" name="" ref="videos1" multiple>
-          </a>
-          <span style="display: inline-block;height: 30px;margin-left:40px;font-size: 18px;">{{VideoNameObj}}</span>
-          <el-form-item size="small">
-            <el-button type="primary" size="mini" @click="UpLoadvideo">立即上传</el-button>
-          </el-form-item>
+
+          <video :src="updateOptions.data.tm_se_Vedio" v-show="updateOptions.data.tm_se_Vedio" controls width="100"></video>
+
+          <Upload @getData="updateVideo" :attrs="videoObj"></Upload>
+
+
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -180,15 +165,21 @@
               <span>{{ props.row.tm_se_HandY }}</span>
             </el-form-item>
             <el-form-item label="景点视频">
-              <span>{{ props.row.tm_se_Vedio }}</span>
+              <video :src="props.row.tm_se_Vedio" v-show="props.row.tm_se_Vedio" controls width="100"></video>
             </el-form-item>
             <el-form-item label="景点音乐">
-              <span>{{ props.row.tm_se_Sound }}</span>
+              <audio :src="props.row.tm_se_Sound" v-show="props.row.tm_se_Sound" controls></audio>
             </el-form-item>
             <el-form-item label="景点图片">
               <span>
-                 <img v-for="item,index in props.row.tm_se_Image" :src="item" alt="" :key="index" width="300"
-                      height="150">
+                 <img
+                   v-for="item,index in props.row.tm_se_Image"
+                   :src="item" alt=""
+                   :key="index"
+                   width="200"
+                   height="100"
+                   style="margin: 10px 15px 0;"
+                 >
 
               </span>
             </el-form-item>
@@ -262,6 +253,7 @@
   import {getNewStr} from '@/assets/js/public'
   //  import
   import Upload from '@/components/Upload'
+
   export default {
     name: '',
     components: {
@@ -269,11 +261,16 @@
     },
     data() {
       return {
-        categoryMap: {
-          image: ['gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp'],
-        },
-        imageObj:{
+        imageObj: {
           accept: 'image/*'
+        },
+
+        audioObj: {
+          accept: 'audio/*'
+        },
+
+        videoObj:{
+          accept: 'video/*'
         },
         isShow: false,
         isUploaNode: true,
@@ -282,7 +279,6 @@
         ImageURL: [],
         updateImageURL: [],
         formLabelWidth: '120px',
-
         total: 0,
         siteName: '',
         isLoading: false,
@@ -333,12 +329,29 @@
       this.initData()
     },
     methods: {
-      getData(data){
-        console.log(data)
+      getData(data) {
+        this.ImageURL.push(data.data);
+      },
+      updateImage(data) {
+        this.updateImageURL.push(data.data);
+      },
+      passAudio(data) {
+        this.addOptions.tm_se_Sound = data.data;
+      },
+      updateAudio(data) {
+        this.updateOptions.data.tm_se_Sound = data.data;
+      },
+
+      passVideo(data) {
+        this.addOptions.tm_se_Vedio = data.data;
+      },
+
+      updateVideo(data) {
+        this.updateOptions.data.tm_se_Vedio = data.data;
       },
 
       //删除修改对应图片
-      deleteUpdateImageURL(val){
+      deleteUpdateImageURL(val) {
         this.isNewUploaNode = false
         this.updateImageURL = this.updateImageURL.filter(v => {
           if (v == val) {
@@ -348,7 +361,7 @@
         })
       },
       //删除对应图片
-      deleteImageURL(val){
+      deleteImageURL(val) {
         this.isUploaNode = false;
         this.ImageURL = this.ImageURL.filter(v => {
           if (v == val) {
@@ -357,168 +370,25 @@
           return true
         })
       },
-      closeDialog(){
+      closeDialog() {
         this.ImageURL = []
         this.updateImageURL = [];
         this.addDialog = false,
           this.updateDialog = false
       },
-      cacheForm(){
+      cacheForm() {
         this.ImageURL = [],
           this.updateImageURL = [],
           this.addDialog = false,
           this.updateDialog = false
       },
-      //视频上传
-      UpLoadvideo() {
-        if (this.$refs.videos) {
-          this.uploadToOSS(this.$refs.videos.files[0])
-          .then(data => {
-            this.updateOptions.data.tm_se_Vedio = data.data;
-            this.$notify({
-              message: '视频上传成功!',
-              type: 'success'
-            });
-          })
-        }
-        ;
-        if (this.$refs.videos1) {
-          this.uploadToOSS(this.$refs.videos1.files[0])
-          .then(data => {
-            this.updateOptions.data.tm_se_Vedio = data.data;
-            this.$notify({
-              message: '视频上传成功!',
-              type: 'success'
-            });
-          })
-        }
-        ;
-      },
-      //音频上传
-      uploadAudio() {
-        let arr = 'mp3,wma,rm,wav,midi,ape,flac'.split(',')
-        if (this.$refs.audios) {
-          let str = this.$refs.audios.files[0].type.split('/')[1];
-          if (!arr.includes(str)) {
-            this.$notify({
-              message: '音频格式不对!',
-              type: 'error'
-            });
-            return
-          }
-          this.uploadToOSS(this.$refs.audios.files[0])
-          .then(data => {
-            this.addOptions.tm_se_Sound = data.data;
-            this.$notify({
-              message: '音频上传成功!',
-              type: 'success'
-            });
-          })
-        }
-        if (this.$refs.audios1) {
-          let str1 = this.$refs.audios1.files[0].type.split('/')[1];
-          if (!arr.includes(str1)) {
-            this.$notify({
-              message: '音频格式不对!',
-              type: 'error'
-            });
-            return
-          }
-          this.uploadToOSS(this.$refs.audios1.files[0])
-          .then(data => {
-            this.$notify({
-              message: '音频上传成功!',
-              type: 'success'
-            });
-            this.updateOptions.data.tm_se_Sound = data.data;
-          })
-        }
-      },
-      //上传
-      uploadToOSS(file) {
-        return new Promise((relove, reject) => {
-          var fd = new FormData();
-          fd.append("fileToUpload", file);
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
-          xhr.send(fd);
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-              if (xhr.responseText) {
-                var data = xhr.responseText
-                relove(JSON.parse(data))
-              }
-            } else {
-            }
-          }
-        })
-      },
-      uploadNode(arr) {
-        setTimeout(() => {
-          if (this.$refs.upload && this.isUploaNode) {
-            if (arr) {
-              if (!arr.length) {
-                this.ImageURL = [];
-              }
-            }
-
-            this.$refs.upload.addEventListener('change', data => {
-              this.isShow = true
-              for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                this.uploadToOSS(this.$refs.upload.files[i])
-                .then(data => {
-                  if (data) {
-                    this.isShow = false,
-                      this.ImageURL.push(data.data);
-                    this.$refs.upload.value = '';
-                    this.isUploaNode = false;
-                  } else {
-                    this.$notify({
-                      message: '图片地址不存在!',
-                      type: 'error'
-                    });
-                  }
-                })
-              }
-            })
-
-          }
-          if (this.$refs.updateUpload && this.isNewUploaNode) {
-            if (arr) {
-              if (!arr.length) {
-                this.updateImageURL = [];
-              }
-            }
-            this.$refs.updateUpload.addEventListener('change', data => {
-              this.isShow = true
-              for (var i = 0; i < this.$refs.updateUpload.files.length; i++) {
-                this.uploadToOSS(this.$refs.updateUpload.files[i])
-                .then(data => {
-                  if (data) {
-                    this.isShow = false,
-                      this.updateImageURL.push(data.data);
-                    this.$refs.updateUpload.value = '';
-                    this.isNewUploaNode = false;
-                  } else {
-                    this.$notify({
-                      message: '图片地址不存在!',
-                      type: 'error'
-                    });
-                  }
-                })
-                //})
-              }
-            })
-          }
-        }, 30)
-      },
       //分页
-      handleCurrentChange(num){
+      handleCurrentChange(num) {
         this.initData(this.siteName, num)
       },
 
       //查询this.id
-      initData(name, page){
+      initData(name, page) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -533,35 +403,33 @@
         };
         this.isLoading = true;
         this.$store.dispatch('initTicketMap', options)
-        .then(total => {
-          this.isLoading = false;
-          this.total = total;
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(total => {
+            this.isLoading = false;
+            this.total = total;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
 
 
       //查询
-      search(){
+      search() {
         this.initData(this.siteName)
       },
 
       //添加
-      Add(){
+      Add() {
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        if (this.isUploaNode) {
-          this.uploadNode()
-        }
       },
 
       //新增提交
-      AddSubmit(){
+      AddSubmit() {
         this.addOptions.tm_se_Image = this.ImageURL.join(",");
+        this.addOptions.tm_se_Code = this.id;
         let Options = {
           "loginUserID": "huileyou",    //惠乐游用户ID
           "loginUserPass": "123",    //惠乐游用户密码
@@ -571,33 +439,51 @@
           "data": this.addOptions
         }
         this.$store.dispatch('addTicketMap', Options)
-        .then(suc => {
-          this.initData();
-        })
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            })
+            this.initData();
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
+          })
         this.addDialog = false;
       },
-
-      Update(obj){
+      Update(obj) {
         this.updateOptions.data = obj;
         setTimeout(() => {
-          this.updateImageURL = obj.tm_se_Image
-          this.updateDialog = true;
-          if (this.isNewUploaNode) {
-            this.uploadNode(this.updateImageURL)
+          if(obj.tm_se_Image){
+            this.updateImageURL = obj.tm_se_Image
           }
+          this.updateDialog = true;
         }, 30)
       },
 
-      updateSubmit(){
-        this.updateOptions.data.tm_se_Image = this.updateImageURL.join(",");
+      updateSubmit() {
+        if(this.updateImageURL.length){
+          this.updateOptions.data.tm_se_Image = this.updateImageURL.join(",");
+        }
         this.$store.dispatch('upDateTicketMap', this.updateOptions)
-        .then(suc => {
-          this.initData();
-        })
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            })
+            this.initData();
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
+          })
         this.updateDialog = false;
       },
       //删除
-      Delete(id){
+      Delete(id) {
         let deleteOption = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -609,9 +495,18 @@
           },
         };
         this.$store.dispatch('deleteTicketMap', deleteOption)
-        .then(suc => {
-          this.initData();
-        })
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            })
+            this.initData();
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
+          })
       }
     }
   }

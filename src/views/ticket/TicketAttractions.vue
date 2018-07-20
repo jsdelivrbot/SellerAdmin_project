@@ -715,11 +715,7 @@
                 relove(JSON.parse(data))
               }
             } else {
-//              console.log(xhr.responseText)
-//               if (xhr.responseText) {
-//                 var data = xhr.responseText;
-//                 reject(JSON.parse(data).resultcontent)
-//               }
+
             }
           }
         })
@@ -735,10 +731,6 @@
             }
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('uploadAdminImgs', {
-                //     imageData: data
-                //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
                   .then(data => {
                     if (data) {
@@ -752,11 +744,10 @@
                       });
                     }
                   })
-                // })
               }
             })
           }
-          if (this.$refs.updateUpload&&this.isNewUploaNode) {
+          if (this.$refs.updateUpload && this.isNewUploaNode) {
             if(arr){
               if(!arr.length){
                 this.updateImageURL = [];
@@ -973,8 +964,8 @@
       },
 //      修改
       update(obj) {
-        this.updateTicketAttractionsObj = obj
 
+        this.updateTicketAttractionsObj = obj
         setTimeout(()=>{
           this.updateImageURL = obj.tm_ts_ShowImage
           this.updateDialog = true;

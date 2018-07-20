@@ -316,6 +316,7 @@ export default {
       })
         .then(data => {
           var data = data.data;
+
           if (Number(data.resultcode) == 200) {
             var resulte = data.data;
             let value = resulte.data;
@@ -332,7 +333,7 @@ export default {
   },
   //管理员上传图片
   uploadAdminImgs(store, data) {
-    console.log(data)
+
     return new Promise((relove, reject) => {
       axios.post('http://webservice.1000da.com.cn/OSSFile/PostToOSS', JSON.stringify(data), {
         headers: {
@@ -340,7 +341,7 @@ export default {
         }
       })
         .then(data => {
-          console.log(data)
+
           relove(data.data)
         })
     })
@@ -763,6 +764,7 @@ export default {
       })
         .then(data => {
           var data = data.data;
+
           if (Number(data.resultcode) == 200) {
             relove();
           } else {
@@ -2171,6 +2173,7 @@ export default {
       })
       .then(data => {
         var data = data.data;
+
         if (Number(data.resultcode) == 200) {
           relove(data.data)
         }else{

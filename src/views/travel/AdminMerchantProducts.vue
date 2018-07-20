@@ -1,9 +1,5 @@
 <template>
   <section id="wrap">
-    <!--<div>-->
-      <!--<p style="font-weight: bold;font-size: 20px;margin-bottom: 20px">添加流程:</p>-->
-      <!--<el-tree :data="data" :props="defaultProps" :default-expand-all="isOff"></el-tree>-->
-    <!--</div>-->
 
     <h1 class="userClass">商家产品信息</h1>
     <el-col :span="24" class="formSearch">
@@ -11,14 +7,6 @@
         <el-form-item label="产品标题:">
           <el-input v-model="title" size="small"></el-input>
         </el-form-item>
-        <!--<el-form-item>-->
-        <!--<el-autocomplete-->
-        <!--v-model="userName"-->
-        <!--:fetch-suggestions="querySearchAsync"-->
-        <!--placeholder="请输入商家名称"-->
-        <!--@select="handleSelect"-->
-        <!--&gt;</el-autocomplete>-->
-        <!--</el-form-item>-->
         <el-form-item >
           <el-button type="primary" @click="search" size="small">查询</el-button>
           <el-button type="primary" @click="addAdminMerchantProducts" size="small">新增</el-button>
@@ -128,9 +116,11 @@
               </el-popover>
               <el-button v-popover:popover1 size="small">移入查看</el-button>
             </el-form-item>
+
             <el-form-item label="展示图片地址:">
-              <img  alt="" v-for="item in props.row.ta_tg_ShowImages"
-                   style="width: 100px;height: 100px;margin-right: 10px" v-lazy="item">
+              <img v-for="item,index in props.row.ta_tg_ShowImages" :src="item" alt="" :key="index" width="300"
+                   height="150">
+
             </el-form-item>
             <el-form-item label="产品创建时间:">
               <span>{{ props.row.ta_tg_CreateDateTime }}</span>
@@ -203,30 +193,9 @@
       </el-pagination>
     </div>
     <!--添加产品-->
-    <el-dialog title="添加产品" :visible.sync="addAdminMerchantProductsDialog" width="60%" :close-on-click-modal="false" @close="closeDialog">
+    <el-dialog title="添加产品" :visible.sync="addDialog" width="60%" :close-on-click-modal="false" @close="closeDialog">
       <el-form :model="addOptions">
-        <!--<el-form-item label="产品编号:" :label-width="formLabelWidth">-->
-          <!--<el-input v-model="addOptions.data.ta_tg_ID" placeholder="请输入产品编号"></el-input>-->
-        <!--</el-form-item>-->
-        <!--<el-form-item label="跟团游栏目:" :label-width="formLabelWidth">-->
-          <!--<el-select v-model="addOptions.data.ta_tg_ItemInfoID" placeholder="请选择跟团游栏目">-->
-            <!--<el-option-->
-              <!--v-for="item in homeAdminGroupTourList"-->
-              <!--:key="item.ii_ID"-->
-              <!--:label="item.ii_ItemName"-->
-              <!--:value="item.ii_ID">-->
-            <!--</el-option>-->
-          <!--</el-select>-->
-        <!--</el-form-item>-->
-        <!--<el-form-item label="商家名称" :label-width="formLabelWidth">-->
-        <!--<el-autocomplete-->
-        <!--v-model="userName"-->
-        <!--:fetch-suggestions="querySearchAsync"-->
-        <!--placeholder="请输入商家"-->
-        <!--@select="handleSelect"-->
-        <!--&gt;</el-autocomplete>-->
-        <!--<span style="color: #f60;">(模糊搜索)</span>-->
-        <!--</el-form-item>-->
+
         <el-form-item label="产品标题:" :label-width="formLabelWidth" required>
           <el-input v-model="addOptions.data.ta_tg_Title" placeholder="请输入产品标题" class="tg_Title"></el-input>
         </el-form-item>
@@ -234,9 +203,7 @@
         <el-form-item label="产品描述:" :label-width="formLabelWidth" required>
           <el-input v-model="addOptions.data.ta_tg_Describe" placeholder="请输入产品描述" class="tg_Title"></el-input>
         </el-form-item>
-        <!--<el-form-item label="所属国家:" :label-width="formLabelWidth">-->
-          <!--<el-input v-model="addOptions.data.ts_tg_Country" placeholder="请输入国家"></el-input>-->
-        <!--</el-form-item>-->
+
         <el-form-item label="所属省:" :label-width="formLabelWidth" required>
           <el-select v-model="value" placeholder="请选择省份" @change="changeProvice">
             <el-option
@@ -315,34 +282,36 @@
 
 
         <el-form-item label="成团地点:" :label-width="formLabelWidth" required>
-          <!--<el-input v-model="addOptions.data.ts_tg_GroupSite" placeholder="请输入成团地点"></el-input>-->
           <el-select v-model="addOptions.data.ts_tg_GroupSite" placeholder="请选择省份" @change="changeProvice">
             <el-option
               v-for="item in proviceList"
               :key="item.sm_af_AreaName"
               :label="item.sm_af_AreaName"
-              :value="item.sm_af_AreaName">
+              :value="item.sm_af_AreaID">
             </el-option>
           </el-select>
-          <!--<el-select v-model="addOptions.data.ts_tg_City" placeholder="请选择市">-->
-            <!--<el-option-->
-              <!--v-for="item in cityList"-->
-              <!--:key="item.sm_af_AreaID"-->
-              <!--:label="item.sm_af_AreaName"-->
-              <!--:value="item.sm_af_AreaName">-->
-            <!--</el-option>-->
-          <!--</el-select>-->
-
         </el-form-item>
+
+
         <el-form-item label="推荐价格:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ts_tg_lowestPrice" placeholder="请输入推荐价格" class="tg_Title"></el-input>
         </el-form-item>
         <el-form-item label="展示图片:" :label-width="formLabelWidth" required>
-          <a href="javascript:;" class="file">展示图片上传
+          <a href="javascript:;" class="file">上传图片
             <input type="file" name="" ref="upload" accept="image/*" multiple>
           </a>
-          <img alt="" v-lazy="item" v-for="item in ImageURL" v-show="ImageURL.length" width="100" height="100">
-          <!--<img v-for="item in ImageURL" :src="item" alt="" style="width:80px;height:50px">-->
+          <div v-show="isShow">正在上传图片文件...</div>
+          <div class="imgWap">
+            <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative">
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="ImageURL.length"
+              >
+              <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+            </p>
+          </div>
         </el-form-item>
         <el-form-item label="是否展示首页:" :label-width="formLabelWidth">
           <el-select v-model="addOptions.data.ts_tg_Special" placeholder="请选择是否精选">
@@ -396,24 +365,15 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="cacheForm">取 消</el-button>
         <!--<el-button @click="addAdminMerchantProductsDialog = false">取 消</el-button>-->
-        <el-button type="primary" @click="addAdminMerchantProductsSubmit">确 定</el-button>
+        <el-button type="primary" @click="addSubmit">确 定</el-button>
       </div>
     </el-dialog>
 
 
     <!--修改产品-->
-    <el-dialog title="修改产品" :visible.sync="updateAdminMerchantProductsDialog" width="60%" :close-on-click-modal="false" @close="closeDialog">
+    <el-dialog title="修改产品" :visible.sync="updateDialog" width="60%" :close-on-click-modal="false" @close="closeDialog">
       <el-form :model="updateAdminMerchantProductsObj">
-        <!--<el-form-item label="跟团游栏目:" :label-width="formLabelWidth">-->
-          <!--<el-select v-model="updateAdminMerchantProductsObj.ta_tg_ItemInfoID" placeholder="请选择跟团游栏目">-->
-            <!--<el-option-->
-              <!--v-for="item in homeAdminGroupTourList"-->
-              <!--:key="item.ii_ID"-->
-              <!--:label="item.ii_ItemName"-->
-              <!--:value="item.ii_ID">-->
-            <!--</el-option>-->
-          <!--</el-select>-->
-        <!--</el-form-item>-->
+
         <el-form-item label="产品推荐理由:" :label-width="formLabelWidth">
           <el-button type="primary" size="small" @click="RecommendedReason">添加推荐理由</el-button>
           <div v-show="updateAdminMerchantProductsObj.buyReason.length" v-for="item,index in updateAdminMerchantProductsObj.buyReason">
@@ -509,29 +469,27 @@
           </el-select>
           <!--<el-input v-model="updateAdminMerchantProductsObj.ts_tg_GroupSite" placeholder="请输入成团地点"></el-input>-->
         </el-form-item>
+
         <el-form-item label="展示图片:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">展示图片上传
-            <input type="file" name="" ref="upload" accept="image/*" multiple>
+
+          <a href="javascript:;" class="file">上传文件
+            <input type="file" name="" ref="updateUpload" accept="image/*" multiple>
           </a>
-          <!--<img alt="" v-lazy="item" v-for="item in ImageURL" v-show="ImageURL.length" width="100" height="100">-->
-
-          <p v-if="ImageURL.length" v-for="item in ImageURL">{{item}}</p>
-          <p v-for="item in updateAdminMerchantProductsObj.ta_tg_ShowImages"
-             v-show="updateAdminMerchantProductsObj.ta_tg_ShowImages.length" v-else>{{item?item:""}}</p>
-
+          <p>如果不修改图片默认为原来的图片</p>
+          <div v-show="isShow">正在上传图片文件...</div>
+          <div class="imgWap">
+            <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative">
+              <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="updateImageURL.length"
+              >
+            </p>
+          </div>
         </el-form-item>
-        <!--<el-form-item label="是否展示首页:" :label-width="formLabelWidth">-->
-        <!--<el-select v-model="updateAdminMerchantProductsObj.ts_tg_ShowTop" placeholder="请选择是否展示首页">-->
-        <!--<el-option-->
-        <!--label="是"-->
-        <!--value="1">-->
-        <!--</el-option>-->
-        <!--<el-option-->
-        <!--label="否"-->
-        <!--value="0">-->
-        <!--</el-option>-->
-        <!--</el-select>-->
-        <!--</el-form-item>-->
+
         <el-form-item label="是否精选:" :label-width="formLabelWidth">
           <el-select v-model="updateAdminMerchantProductsObj.ts_tg_Special" placeholder="请选择是否精选">
             <el-option
@@ -584,7 +542,7 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="cacheForm">取 消</el-button>
         <!--<el-button @click="updateAdminMerchantProductsDialog = false">取 消</el-button>-->
-        <el-button type="primary" @click="updateAdminMerchantProductsSubmit">确 定</el-button>
+        <el-button type="primary" @click="updateSubmit">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -749,7 +707,10 @@
     name: '',
     data(){
       return {
+        isShow:false,
+        updateImageURL:[],
         isUploaNode:true,
+        isNewUploaNode:true,
         listQuery: {
           page: 1,
           limit: 10,
@@ -830,8 +791,8 @@
         restaurants: [],
         isOff:false,
         productsID: '',//查询产品编号
-        addAdminMerchantProductsDialog: false,//添加弹窗
-        updateAdminMerchantProductsDialog: false,//修改弹窗
+        addDialog: false,//添加弹窗
+        updateDialog: false,//修改弹窗
         addBuyReasonDialog: false,//添加推荐理由弹窗
         updateBuyReasonDialog:false,
         addGoodIntroduceDialog:false,//添加产品介绍弹窗
@@ -916,15 +877,38 @@
       this.productsID = obj.sm_ui_ID
     },
     methods: {
+      //删除修改对应图片
+      deleteUpdateImageURL(val){
+        this.isNewUploaNode= false
+        this.updateImageURL = this.updateImageURL.filter(v=>{
+          if(v==val){
+            return false
+          }
+          return true
+        })
+      },
+      //删除对应图片
+      deleteImageURL(val){
+        this.isUploaNode = false;
+        this.ImageURL = this.ImageURL.filter(v=>{
+          if(v==val){
+            return false
+          }
+          return true
+        })
+      },
+
       closeDialog(){
         this.ImageURL = []
-        this.addAdminMerchantProductsDialog= false,
-        this.updateAdminMerchantProductsDialog = false
+        this.updateImageURL = [];
+        this.addDialog = false,
+          this.updateDialog = false
       },
       cacheForm(){
-          this.ImageURL = [],
-          this.addAdminMerchantProductsDialog= false,
-          this.updateAdminMerchantProductsDialog = false
+        this.ImageURL = [],
+          this.updateImageURL = [],
+          this.addDialog = false,
+          this.updateDialog = false
       },
       //查询很多
       selectInitData(id,ParentID){
@@ -1600,6 +1584,7 @@
           }, 10);
         })
       },
+
       //图片promise
       uploadToOSS(file) {
         return new Promise((relove,reject)=>{
@@ -1619,20 +1604,24 @@
           }
         })
       },
-      uploaNode() {
+      uploadNode(arr) {
         setTimeout(() => {
-          if (this.$refs.upload) {
-            this.ImageURL = []
+          if (this.$refs.upload && this.isUploaNode) {
+            if (arr) {
+              if (!arr.length) {
+                this.ImageURL = [];
+              }
+            }
             this.$refs.upload.addEventListener('change', data => {
+              this.isShow = true
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
                 this.uploadToOSS(this.$refs.upload.files[i])
-                  .then(data=>{
+                  .then(data => {
                     if (data) {
-
-                    this.ImageURL.push(data.data);
-                    this.$refs.upload.value = '';
-                    this.isUploaNode= false;
-
+                      this.isShow = false,
+                        this.ImageURL.push(data.data);
+                      this.$refs.upload.value = '';
+                      this.isUploaNode = false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -1640,6 +1629,34 @@
                       });
                     }
                   })
+              }
+            })
+
+          }
+          if (this.$refs.updateUpload && this.isNewUploaNode) {
+            if(arr){
+              if(!arr.length){
+                this.updateImageURL = [];
+              }
+            }
+            this.$refs.updateUpload.addEventListener('change', data => {
+              this.isShow = true
+              for (var i = 0; i < this.$refs.updateUpload.files.length; i++) {
+                this.uploadToOSS(this.$refs.updateUpload.files[i])
+                  .then(data => {
+                    if (data) {
+                      this.isShow = false,
+                        this.updateImageURL.push(data.data);
+                      this.$refs.updateUpload.value = '';
+                      this.isNewUploaNode= false;
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
+                //})
               }
             })
           }
@@ -1698,13 +1715,13 @@
       addAdminMerchantProducts(){
         this.ImageURL=[];
         this.$store.commit('setTranstionFalse');
-        this.addAdminMerchantProductsDialog = true;
-        if(this.isUploaNode){
-          this.uploaNode()
+        this.addDialog = true;
+        if (this.isUploaNode) {
+          this.uploadNode()
         }
       },
       //添加提交
-      addAdminMerchantProductsSubmit(){
+      addSubmit(){
         this.addOptions.data.ta_tg_ShowImage = this.ImageURL.join(',');
         this.addOptions.buyReason = this.buyReason;
         this.addOptions.feeIn = this.feeInfoList;
@@ -1727,20 +1744,29 @@
             type: 'error'
           });
         });
-        this.addAdminMerchantProductsDialog = false;
+        this.addDialog = false;
       },
       //修改
       updateAdminMerchantProducts(obj){
+
+
         this.updateAdminMerchantProductsObj = obj;
+
         this.$store.commit('setTranstionFalse');
-        this.updateAdminMerchantProductsDialog = true;
-        if(this.isUploaNode){
-          this.uploaNode()
-        }
-//        this.$store.commit('initUpdateAdminMerchantProductsObj', id)
+        setTimeout(()=>{
+         this.updateImageURL =this.updateAdminMerchantProductsObj.ta_tg_ShowImages
+          this.updateDialog = true;
+          if(this.isNewUploaNode){
+            this.uploadNode( this.updateImageURL)
+          };
+        },30)
+
+
       },
       //修改提交
-      updateAdminMerchantProductsSubmit(){
+      updateSubmit(){
+
+
 
         let updateOptions = {
           "loginUserID": "huileyou",
@@ -1748,31 +1774,9 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "data": {
-            "ta_tg_ID": this.updateAdminMerchantProductsObj.ta_tg_ID,
-            "ta_tg_TradeID": this.productsID,
-            ts_tg_lowestPrice: this.updateAdminMerchantProductsObj.ts_tg_lowestPrice,
-            "ta_tg_ItemInfoID": this.updateAdminMerchantProductsObj.ta_tg_ItemInfoID,
-            "ta_tg_Title": this.updateAdminMerchantProductsObj.ta_tg_Title,
-            "ts_tg_Country": this.updateAdminMerchantProductsObj.ts_tg_Country,
-            "ts_tg_Provice": this.updateAdminMerchantProductsObj.ts_tg_Provice,
-            "ts_tg_City": this.updateAdminMerchantProductsObj.ts_tg_City,
-            "ts_tg_GroupSite": this.updateAdminMerchantProductsObj.ts_tg_GroupSite,
-            "ta_tg_Describe": this.updateAdminMerchantProductsObj.ta_tg_Describe,
-            "ta_tg_ShowImage": '',
-            "ta_tg_IsDelete": this.updateAdminMerchantProductsObj.ta_tg_IsDelete,
-            "ta_tg_Remark": this.updateAdminMerchantProductsObj.ta_tg_Remark,
-            "ts_tg_ShowTop": this.updateAdminMerchantProductsObj.ts_tg_ShowTop,
-            "ts_tg_Special": this.updateAdminMerchantProductsObj.ts_tg_Special,
-            "ts_tg_LongOut": this.updateAdminMerchantProductsObj.ts_tg_LongOut,
-            "ts_tg_Type": this.updateAdminMerchantProductsObj.ts_tg_Type
-          }
-        };
-        if(this.ImageURL.length){
-          updateOptions.data.ta_tg_ShowImage = this.ImageURL.join(',')
-        }else{
-          updateOptions.data.ta_tg_ShowImage = this.updateAdminMerchantProductsObj.ta_tg_ShowImage
-        }
+          "data": this.updateAdminMerchantProductsObj
+      };
+        this.updateAdminMerchantProductsObj.ta_tg_ShowImage = this.updateAdminMerchantProductsObj.ta_tg_ShowImages.join(',')
         this.$store.dispatch('UpdateAdminMerchantProducts', updateOptions)
         .then(() => {
           this.$notify({
@@ -1786,7 +1790,7 @@
             type: 'error'
           });
         });
-        this.updateAdminMerchantProductsDialog = false;
+        this.updateDialog = false;
       },
       //删除
       DeleteAdminMerchantProducts(id){
@@ -1830,5 +1834,12 @@
   }
 </script>
 <style scoped>
-/*.tg_Title{width: 800px}*/
+  .imgWap{
+
+  }
+  .imgWap span{
+    position: absolute;
+    right: -15px;
+    top: -6px;
+  }
 </style>

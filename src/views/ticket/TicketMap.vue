@@ -48,7 +48,6 @@
           </a>
           <div v-show="isShow">正在上传图片文件...</div>
           <div class="imgWap">
-
             <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative">
               <img
                 :src="item"
@@ -56,7 +55,6 @@
                 height="125"
                 v-show="ImageURL.length"
               >
-
               <span style="color: #f60" @click="deleteImageURL(item)">X</span>
             </p>
           </div>
@@ -188,7 +186,7 @@
               <span >
                  <img v-for="item,index in props.row.tm_se_Image" :src="item" alt="" :key="index" width="300"
                       height="150">
-              
+
               </span>
             </el-form-item>
             <el-form-item label="景点介绍">
@@ -548,7 +546,7 @@
           },
 
          Update(obj){
-        console.log(this.obj)
+
         this.updateOptions.data = obj;
          setTimeout(() => {
           this.updateImageURL = obj.tm_se_Image
@@ -567,10 +565,6 @@
               })
             this.updateDialog = false;
           },
-
-
-
-
 
       //删除
       Delete(id){

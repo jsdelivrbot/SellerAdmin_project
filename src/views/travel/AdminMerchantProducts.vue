@@ -177,20 +177,16 @@
       </el-table-column>
     </el-table>
     <!--分页-->
-    <!--<div class="block" style="float: right;">-->
-      <!--<el-pagination-->
-        <!--@current-change="handleCurrentChange"-->
-        <!--:page-size="5"-->
-        <!--layout="total, prev, pager, next"-->
-        <!--:total="total"-->
-        <!--v-show="total"-->
-      <!--&gt;-->
-      <!--</el-pagination>-->
-
-    <!--</div>-->
-    <div class="pagination-container" style="float: right;margin-top: 10px">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total" v-show="total">
+    <div class="block" style="float: right;">
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :page-size="5"
+        layout="total, prev, pager, next"
+        :total="total"
+        v-show="total"
+      >
       </el-pagination>
+
     </div>
     <!--添加产品-->
     <el-dialog title="添加产品" :visible.sync="addDialog" width="60%" :close-on-click-modal="false" @close="closeDialog">
@@ -1707,10 +1703,7 @@
         this.num = num;
         this.initData(this.productsID, num);
       },
-      handleSizeChange(num) {
-        this.num = num;
-        this.initData(this.productsID, num);
-      },
+
       //添加
       addAdminMerchantProducts(){
         this.ImageURL=[];

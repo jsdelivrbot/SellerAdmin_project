@@ -181,9 +181,23 @@
         return
       }
       this.roomID = id;
-      this.initData(1)
+      this.initData(1);
+      this.initFacilitiesType();
     },
     methods: {
+      //惠乐游房间设施类型
+      initFacilitiesType(){
+        let roomTypeOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "操作员编码",
+          "operateUserName": "操作员名称",
+          "pcName": "",
+          "ht_rht_ID": "",//房间设施类型ID
+          "ht_rht_Name": "",//类型名称
+        }
+        this.$store.dispatch('initHotelRoomFacilitiesType', roomTypeOptions)
+      },
       //选中房间设施类型
       changeRoomFacilities(){
         //获取对应设施

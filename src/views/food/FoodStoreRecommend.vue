@@ -148,7 +148,25 @@
         bigPictureDialog: false,
       }
     },
+    created(){
+      this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
+      if( !this.foodStoreInformtionList.length ){
+        this.initFoodStoreInformtion();
+      }
+    },
     methods: {
+      //店面列表
+      initFoodStoreInformtion(){
+        let selectStoreFrontpInfo = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
+        };
+        this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontpInfo)
+      },
       //选择店面产品
       changeProduct(id){
         this.initStoreProdictData(id)

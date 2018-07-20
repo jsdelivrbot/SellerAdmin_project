@@ -5,14 +5,14 @@
       <!--查询-->
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
-          <el-form-item>
+<!--          <el-form-item>
             <span>店面名称筛选:</span>
           </el-form-item>
           <el-form-item>
             <el-input v-model="roomName" size="small"></el-input>
-          </el-form-item>
+          </el-form-item>-->
           <el-form-item>
-            <el-button type="primary" @click="search" size="small">查询</el-button>
+            <!--<el-button type="primary" @click="search" size="small">查询</el-button>-->
             <el-button type="primary" @click="add" size="small">添加</el-button>
           </el-form-item>
         </el-form>
@@ -29,17 +29,17 @@
               <el-form-item label="店面编号">
                 <span>{{ props.row.fd_sf_ID }}</span>
               </el-form-item>
-              <el-form-item label="分类编号">
-                <span>{{ props.row.fd_sf_TypeID }}</span>
+              <el-form-item label="店面用餐类型">
+                <span>{{ props.row.fd_py_Name }}</span>
+              </el-form-item>
+              <el-form-item label="店面图片">
+                <img v-lazy="props.row.fd_ImageURL" v-show="props.row.fd_ImageURL" alt="" style="width: 100px;height: 50px;">
               </el-form-item>
               <el-form-item label="用餐人数">
                 <span>{{ props.row.fd_py_MansName }}</span>
               </el-form-item>
               <el-form-item label="店面名称">
                 <span>{{ props.row.fd_sf_ProductName }}</span>
-              </el-form-item>
-              <el-form-item label="店面类型">
-                <span>{{ props.row.fd_py_Name }}</span>
               </el-form-item>
               <el-form-item label="地址描述">
                 <span>{{ props.row.fd_sf_Address }}</span>
@@ -71,8 +71,14 @@
               <el-form-item label="供应商编码">
                 <span>{{ props.row.fd_sf_TradeID }}</span>
               </el-form-item>
+              <el-form-item label="提前多少分钟通知">
+                <span>{{ props.row.fd_sf_Minutes }}</span>
+              </el-form-item>
               <el-form-item label="审核状态">
                 <span>{{ props.row.fd_sf_PassStatus }}</span>
+              </el-form-item>
+              <el-form-item label="店面简介">
+                <span>{{ props.row.fd_sf_Introduce }}</span>
               </el-form-item>
             </el-form>
           </template>
@@ -82,6 +88,10 @@
           prop="fd_sf_ProductName">
         </el-table-column>
         <el-table-column
+          label="审核状态"
+          prop="fd_sf_PassStatus">
+        </el-table-column>
+<!--        <el-table-column
           label="联系电话"
           prop="fd_sf_Phone">
         </el-table-column>
@@ -90,20 +100,19 @@
           <template slot-scope="scope">
             {{scope.row.fd_sf_AvgPrice}}元
           </template>
-        </el-table-column>
+        </el-table-column>-->
         <el-table-column
           label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="update(scope.row)">修改</el-button>
             <el-button size="mini" type="danger" @click="Delete(scope.row.fd_sf_ID)">删除</el-button>
-            <el-button size="mini" type="success" @click="recommendShop(scope.row.fd_sf_ID)">申请推荐店面</el-button>
+            <el-button size="mini"  v-show="scope.row.fd_sf_PassStatus == '通过'" type="success" @click="recommendShop(scope.row.fd_sf_ID)">申请推荐店面</el-button>
 
           </template>
         </el-table-column>
       </el-table>
 
       <!--分页-->
-
       <div class="block" style="text-align: right">
         <el-pagination
           :page-size="5"
@@ -116,7 +125,6 @@
       </div>
 
       <!--添加-->
-
       <el-dialog title="添加店面信息" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth" required>
@@ -203,6 +211,23 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item label="供应商编码:" :label-width="formLabelWidth" required>
+            <el-input v-model="addOptions.fd_sf_TradeID"></el-input>
+          </el-form-item>
+          <el-form-item label="交通信息:" :label-width="formLabelWidth" required>
+            <el-input v-model="addOptions.fd_sf_TransInfo"></el-input>
+          </el-form-item>
+          <el-form-item label="提前多少分钟通知:" :label-width="formLabelWidth" required>
+            <el-input v-model="addOptions.fd_sf_Minutes"></el-input>
+          </el-form-item>
+          <el-form-item label="店面介绍:" :label-width="formLabelWidth">
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="请输入内容"
+              v-model="addOptions.fd_sf_Introduce">
+            </el-input>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addDialog = false">取 消</el-button>
@@ -211,7 +236,6 @@
       </el-dialog>
 
       <!--修改-->
-
       <el-dialog title="修改店面信息" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth" required>
@@ -316,6 +340,7 @@
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
+//      'foodStoreInformtionList1',
       'numberOfMealsList',
       'storefrontTypeList',
       'foodProcinceList',
@@ -323,6 +348,8 @@
     ]),
     data() {
       return {
+        //是否禁用
+        isDisabled:false,
         userInfo: {},
         total: 0,
         addDialog: false,
@@ -341,6 +368,7 @@
           "fd_sf_Phone": "",
           "fd_sf_HasWafi": "",
           "fd_sf_TradeID": "",
+          "fd_sf_TransInfo": "",
         },
         formLabelWidth: '120px',
         updateDialog: false,
@@ -362,7 +390,42 @@
         isLoading: false
       }
     },
+    created() {
+      this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
+      this.initProvince();
+      this.initData();
+      this.initNumberOfMeals();
+      this.initStorefrontType();
+    },
     methods: {
+      //店面类型
+      initStorefrontType(){
+        let selectPropertyInfoType = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "fd_py_ParentID": "1",//父编码
+          "page": "1",
+          "rows": "10000",
+        }
+        this.$store.dispatch('initStorefrontType', selectPropertyInfoType)
+      },
+      //用餐人数类型
+      initNumberOfMeals(){
+        let selectPropertyInfo = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "fd_py_ParentID": "28",//父编码
+          "page": "1",
+          "rows": "10000",
+        }
+        this.$store.dispatch('initNumberOfMeals', selectPropertyInfo)
+      },
       //获取经纬度
       getLatitude(){
         window.open('http://api.map.baidu.com/lbsapi/getpoint/index.html')
@@ -385,20 +448,31 @@
         };
         this.$store.dispatch('initFoodCity', getAreaProvice)
       },
-      //初始化数据
-      initData(name, num) {
+      //初始化店面数据
+/*      initData(name, page) {
         let selectStoreFrontInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
+          //"fd_sf_ID": "2",//店面编号
+          //"fd_sf_TypeID": "4",//用餐类型
+          //"fd_sf_MansID": "31",//用餐人数编号
+          //"fd_sf_ProductName": "",//产品名称 like
+          //"fd_sf_Provice": "四川省",//省
+          //"fd_sf_City": "泸州市",//市
+          //"priceFrom": "21",//人均价格大于
+          //"priceTo":"50",//人均价格小于
+          //"fd_sf_Phone": "1",//联系电话
           "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
-          "page": 1,
-          "rows": 5,
+          // "openTimeFrom": "06:00",
+          //  "openTimeTo":"23:00",
+          "page": page?page:"1",
+          "rows":"5",
         };
         this.isLoading = true;
-        this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontInfo)
+        this.$store.dispatch('initFoodStoreInformtionAction', selectStoreFrontInfo)
           .then(total => {
             this.isLoading = false
             this.total = total;
@@ -408,6 +482,51 @@
               type: 'error'
             });
           })
+      },*/
+      initData(name, page) {
+        let selectStoreFrontInfo = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          //"fd_sf_ID": "2",//店面编号
+          //"fd_sf_TypeID": "4",//用餐类型
+          //"fd_sf_MansID": "31",//用餐人数编号
+          //"fd_sf_ProductName": "",//产品名称 like
+          //"fd_sf_Provice": "四川省",//省
+          //"fd_sf_City": "泸州市",//市
+          //"priceFrom": "21",//人均价格大于
+          //"priceTo":"50",//人均价格小于
+          //"fd_sf_Phone": "1",//联系电话
+          "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
+          // "openTimeFrom": "06:00",
+          //  "openTimeTo":"23:00",
+          "page": page?page:"1",
+          "rows":"5",
+        };
+        this.isLoading = true;
+        this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontInfo)
+          .then(data => {
+            this.isLoading = false
+            this.total = Number(data.totalrows);
+//            if(){};
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
+/*          .then(total => {
+            this.isLoading = false
+            this.total = total;
+//            if(){};
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })*/
       },
       //查询
       search() {
@@ -453,12 +572,13 @@
           })
         this.addDialog = false;
       },
-      //修改按钮
+      //修改
       update(rowData) {
+        console.log(1,rowData)
         this.updateObj = rowData
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
-        this.updateObj.fd_sf_HasWafi = '';
+//        this.updateObj.fd_sf_HasWafi = '';
       },
       //修改提交
       updateSubmit() {
@@ -562,11 +682,7 @@
       },
 
     },
-    created() {
-      this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      this.initProvince();
-      this.initData();
-    }
+
   }
 </script>
 <style scoped>

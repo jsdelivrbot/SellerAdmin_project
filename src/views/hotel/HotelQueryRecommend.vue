@@ -166,9 +166,20 @@
         return
       }
       this.initData();
+      this.initType();
     },
     methods: {
-
+      initType(){
+        //查询惠乐游酒店推荐类型
+        let hotelOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+        }
+        this.$store.dispatch('initHotelIntroduceType', hotelOptions)
+      },
       //选中父类型
       changeParent(){
           let options = {

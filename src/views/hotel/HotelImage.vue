@@ -179,9 +179,23 @@
         });
         return
       }
-      this.initData()
+      this.initData();
+      this.initImageType();
     },
     methods: {
+      //惠乐游图片类型
+      initImageType(){
+        let imgOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "ht_it_ID": "",//图片类型编码
+          "ht_hi_Name": '',//图片类型名称
+        };
+        this.$store.dispatch('initHotelImageType', imgOptions)
+      },
       uploadToOSS(file) {
         return new Promise((relove,reject)=>{
           var fd = new FormData();

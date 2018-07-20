@@ -68,9 +68,6 @@
       <!--添加-->
       <el-dialog title="添加停车场" :visible.sync="addDialog">
         <el-form>
-          <el-form-item label="停车位名称:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.data.fd_sc_SeatNo"></el-input>
-          </el-form-item>
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.data.fd_sc_ShopID" placeholder="请选择店面名称">
               <el-option
@@ -81,6 +78,9 @@
               >
               </el-option>
             </el-select>
+          </el-form-item>
+          <el-form-item label="停车位名称:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.data.fd_sc_SeatNo"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -172,7 +172,26 @@
 
       }
     },
+    created(){
+      this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
+      if( !this.foodStoreInformtionList.length ){
+        this.initFoodStoreInformtion();
+      }
+    },
     methods: {
+
+      //店面列表
+      initFoodStoreInformtion(){
+        let selectStoreFrontpInfo = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
+        };
+        this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontpInfo)
+      },
 //      分页
       handleCurrentChange(num) {
         this.initData(this.foodStoreName, num)

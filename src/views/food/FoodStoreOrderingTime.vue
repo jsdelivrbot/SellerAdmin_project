@@ -205,6 +205,18 @@
       }
     },
     methods: {
+      //店面列表
+      initFoodStoreInformtion(){
+        let selectStoreFrontpInfo = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
+        };
+        this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontpInfo)
+      },
       selete(selection) {
         this.deleteData = selection;
       },
@@ -310,6 +322,10 @@
       },
     },
     created() {
+      this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
+      if( !this.foodStoreInformtionList.length ){
+        this.initFoodStoreInformtion();
+      }
       this.initData();
     }
   }

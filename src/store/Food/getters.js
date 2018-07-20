@@ -1,5 +1,6 @@
 export default {
   foodStoreInformtionList: state => state.foodStoreInformtionList,
+  foodStoreInformtionList1: state => state.foodStoreInformtionList1,
   numberOfMealsList: state => state.numberOfMealsList,
   storefrontTypeList: state => state.storefrontTypeList,
   foodProcinceList: state => state.foodProcinceList,

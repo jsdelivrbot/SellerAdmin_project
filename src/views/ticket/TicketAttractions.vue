@@ -29,7 +29,7 @@
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
               <!--<el-form-item label="景点编码(主键):">-->
-                <!--<span>{{ props.row.tm_ts_Code }}</span>-->
+              <!--<span>{{ props.row.tm_ts_Code }}</span>-->
               <!--</el-form-item>-->
               <el-form-item label="景点名称:">
                 <span>{{ props.row.tm_ts_Name }}</span>
@@ -38,7 +38,7 @@
                 <span>{{ props.row.tm_tt_Name }}</span>
               </el-form-item>
               <!--<el-form-item label="票种编号:">-->
-                <!--<span>{{ props.row.tm_tm_ID }}</span>-->
+              <!--<span>{{ props.row.tm_tm_ID }}</span>-->
               <!--</el-form-item>-->
               <el-form-item label="洲:">
                 <span>{{ props.row.tm_ts_GreatName }}</span>
@@ -56,7 +56,7 @@
                 <span>{{ props.row.tm_ts_ContryName }}</span>
               </el-form-item>
               <el-form-item label="展示图片:">
-                <img v-for="item,index in props.row.tm_ts_ShowImage"  width="300" height="150"
+                <img v-for="item,index in props.row.tm_ts_ShowImage" width="300" height="150"
                      style="margin-top: 10px;" v-lazy="item">
               </el-form-item>
               <el-form-item label="介绍:">
@@ -111,8 +111,8 @@
           </template>
         </el-table-column>
         <!--<el-table-column-->
-          <!--label="景点编码"-->
-          <!--prop="tm_ts_Code">-->
+        <!--label="景点编码"-->
+        <!--prop="tm_ts_Code">-->
         <!--</el-table-column>-->
         <el-table-column
           label="景点名称"
@@ -146,7 +146,7 @@
       <el-dialog title="添加景点信息" :visible.sync="addDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="addOptions">
           <!--<el-form-item label="景点编码:" :label-width="formLabelWidth">-->
-            <!--<el-input v-model="addOptions.tm_ts_Code"></el-input>-->
+          <!--<el-input v-model="addOptions.tm_ts_Code"></el-input>-->
           <!--</el-form-item>-->
           <el-form-item label="景点名称:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Name"></el-input>
@@ -216,7 +216,11 @@
               <input type="file" name="" ref="upload" accept="image/*" multiple>
             </a>
             <div class="imgWap">
+<<<<<<< HEAD
               <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px">
+=======
+              <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px;">
+>>>>>>> 503578aa586e95734eec8f859bbf3cd5e873d698
                 <span style="color: #f60" @click="deleteImageURL(item)">X</span>
                 <img
                   :src="item"
@@ -301,9 +305,6 @@
 
       <el-dialog title="修改景点信息" :visible.sync="updateDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="updateTicketAttractionsObj">
-          <!--<el-form-item label="景点名称:" :label-width="formLabelWidth">-->
-            <!--<el-input v-model="updateTicketAttractionsObj.tm_ts_Name"></el-input>-->
-          <!--</el-form-item>-->
           <el-form-item label="景点名称:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Name"></el-input>
           </el-form-item>
@@ -318,7 +319,8 @@
             </el-select>
           </el-form-item>
           <el-form-item label="洲:" :label-width="formLabelWidth" required>
-            <el-select v-model="updateTicketAttractionsObj.tm_ts_GreatName" placeholder="请选择洲" @change="changeUpdateGreat">
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_GreatName" placeholder="请选择洲"
+                       @change="changeUpdateGreat">
               <el-option
                 v-for="item in ticketGreatList"
                 :key="item.sm_af_AreaID"
@@ -328,7 +330,8 @@
             </el-select>
           </el-form-item>
           <el-form-item label="国:" :label-width="formLabelWidth" required>
-            <el-select v-model="updateTicketAttractionsObj.tm_ts_CountrieName" placeholder="请选择国家" @change="changeUpdateCountrie">
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_CountrieName" placeholder="请选择国家"
+                       @change="changeUpdateCountrie">
               <el-option
                 v-for="item in ticketCountrieList"
                 :key="item.sm_af_AreaID"
@@ -338,7 +341,8 @@
             </el-select>
           </el-form-item>
           <el-form-item label="省:" :label-width="formLabelWidth" required>
-            <el-select v-model="updateTicketAttractionsObj.tm_ts_ProviceName" placeholder="请选择省" @change="changeUpdateProvice">
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_ProviceName" placeholder="请选择省"
+                       @change="changeUpdateProvice">
               <el-option
                 v-for="item in ticketProviceList"
                 :key="item.sm_af_AreaID"
@@ -348,7 +352,8 @@
             </el-select>
           </el-form-item>
           <el-form-item label="市:" :label-width="formLabelWidth" required>
-            <el-select v-model="updateTicketAttractionsObj.tm_ts_CityName" placeholder="请选择市" @change="changeUpdateCity">
+            <el-select v-model="updateTicketAttractionsObj.tm_ts_CityName" placeholder="请选择市"
+                       @change="changeUpdateCity">
               <el-option
                 v-for="item in ticketCityList"
                 :key="item.sm_af_AreaID"
@@ -373,7 +378,12 @@
             </a>
             <p>如果不修改图片默认为原来的图片</p>
             <div class="imgWap">
+<<<<<<< HEAD
               <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right: 30px">
+=======
+              <p v-for="item,index in updateImageURL"
+                 style="display: inline-block;position: relative;margin-right: 30px;">
+>>>>>>> 503578aa586e95734eec8f859bbf3cd5e873d698
                 <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
                 <img
                   :src="item"
@@ -383,14 +393,6 @@
                 >
               </p>
             </div>
-            <!--<img-->
-              <!--style="display: block"-->
-              <!--v-for="item in updateImageURL"-->
-              <!--:src="item"-->
-              <!--width="280"-->
-              <!--height="125"-->
-              <!--v-show="updateImageURL.length"-->
-            <!--&gt;-->
           </el-form-item>
           <el-form-item label="介绍:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Introduce"></el-input>
@@ -498,13 +500,14 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import {getNewStr,isNewPhone} from '@/assets/js/public'
+  import {getNewStr, isNewPhone} from '@/assets/js/public'
+
   export default {
     name: '',
     data() {
       return {
-        isUploaNode:true,
-        isNewUploaNode:true,
+        isUploaNode: true,
+        isNewUploaNode: true,
         formLabelWidth: '120px',
         isMap: false,
         siteName: '',//景点名称搜索
@@ -587,7 +590,7 @@
             label: '删除'
           }
         ],
-        updateTicketAttractionsObj:{},
+        updateTicketAttractionsObj: {},
         ImageURL: [],
         showImageList: [],
         updateDialog: false,
@@ -610,6 +613,7 @@
       this.adminUserInfo = JSON.parse(sessionStorage.getItem('admin'));
       this.initData('', 1);
       this.initGreat();
+      this.initTheme();
     },
     mounted() {
 //      var _this = this;
@@ -643,40 +647,53 @@
 //      }, {enableHighAccuracy: true})
     },
     methods: {
+      //查询景点主题分类信息
+      initTheme() {
+        let getThemeTypeList = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "ttID": "",
+          "ttName": "",
+          "isDelete": 0,
+          "page": 1,
+          "rows": 100
+        };
+        this.$store.dispatch('initThemeType', getThemeTypeList)
+      },
       //删除修改对应图片
-      deleteUpdateImageURL(val){
-        this.isNewUploaNode= false
-        this.updateImageURL = this.updateImageURL.filter(v=>{
-          if(v==val){
+      deleteUpdateImageURL(val) {
+        this.isNewUploaNode = false
+        this.updateImageURL = this.updateImageURL.filter(v => {
+          if (v == val) {
             return false
           }
           return true
         })
       },
       //删除对应图片
-      deleteImageURL(val){
+      deleteImageURL(val) {
         this.isUploaNode = false;
-        this.ImageURL = this.ImageURL.filter(v=>{
-          if(v==val){
+        this.ImageURL = this.ImageURL.filter(v => {
+          if (v == val) {
             return false
           }
           return true
         })
       },
-      closeDialog(){
+      closeDialog() {
         this.ImageURL = []
         this.updateImageURL = [];
         this.addDialog = false,
-        this.updateDialog = false
+          this.updateDialog = false
       },
-      cacheForm(){
+      cacheForm() {
         this.ImageURL = [],
-        this.updateImageURL = [],
-        this.addDialog = false,
-        this.updateDialog = false
+          this.updateImageURL = [],
+          this.addDialog = false,
+          this.updateDialog = false
       },
       //获取经纬度
-      getLatitude(){
+      getLatitude() {
         window.open('http://api.map.baidu.com/lbsapi/getpoint/index.html')
       },
       //添加地图导览
@@ -691,15 +708,6 @@
         if (this.value == 1) {
           this.goTrafficInformation(id);
         }
-      },
-      //图片转二进制
-      uploadImg(file) {
-        return new Promise(function (relove, reject) {
-          lrz(file)
-            .then(data => {
-              relove(data.base64.split(',')[1])
-            })
-        })
       },
       uploadToOSS(file) {
         return new Promise((relove, reject) => {
@@ -736,7 +744,7 @@
                     if (data) {
                       this.ImageURL.push(data.data);
                       this.$refs.upload.value = '';
-                      this.isUploaNode= false;
+                      this.isUploaNode = false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -761,7 +769,7 @@
                     if (data) {
                       this.updateImageURL.push(data.data);
                       this.$refs.updateUpload.value = '';
-                      this.isNewUploaNode= false;
+                      this.isNewUploaNode = false;
                     } else {
                       this.$notify({
                         message: '图片地址不存在!',
@@ -828,18 +836,18 @@
           "areaPid": this.addOptions.tm_ts_GreatID
         };
         this.$store.dispatch('initTicketCountrie', getAreaProvice)
-        .then()
+          .then()
       },
       //修改洲
-      changeUpdateGreat(){
-        if(this.updateTicketAttractionsObj.tm_ts_GreatName==''){
+      changeUpdateGreat() {
+        if (this.updateTicketAttractionsObj.tm_ts_GreatName == '') {
           this.updateTicketAttractionsObj.tm_ts_GreatName = this.updateTicketAttractionsObj.tm_ts_GreatID
         }
         let getAreaProvice = {
           "areaPid": this.updateTicketAttractionsObj.tm_ts_GreatName
         }
         this.$store.dispatch('initTicketCountrie', getAreaProvice)
-        .then()
+          .then()
       },
       //选择国家
       changeCountrie() {
@@ -847,18 +855,18 @@
           "areaPid": this.addOptions.tm_ts_CountrieID
         }
         this.$store.dispatch('initTicketProvice', getAreaProvice)
-        .then()
+          .then()
       },
       //选择国家
       changeUpdateCountrie() {
-        if(this.updateTicketAttractionsObj.tm_ts_CountrieName==''){
+        if (this.updateTicketAttractionsObj.tm_ts_CountrieName == '') {
           this.updateTicketAttractionsObj.tm_ts_CountrieName = this.updateTicketAttractionsObj.tm_ts_CountrieID
         }
         let getAreaProvice = {
           "areaPid": this.updateTicketAttractionsObj.tm_ts_CountrieName
         }
         this.$store.dispatch('initTicketProvice', getAreaProvice)
-        .then()
+          .then()
       },
       //选择省
       changeProvice() {
@@ -866,18 +874,18 @@
           "areaPid": this.addOptions.tm_ts_ProviceID
         }
         this.$store.dispatch('initTicketCity', getAreaProvice)
-        .then()
+          .then()
       },
       //修改选中省
       changeUpdateProvice() {
-        if(this.updateTicketAttractionsObj.tm_ts_ProviceName==''){
+        if (this.updateTicketAttractionsObj.tm_ts_ProviceName == '') {
           this.updateTicketAttractionsObj.tm_ts_ProviceName = this.updateTicketAttractionsObj.tm_ts_ProviceID
         }
         let getAreaProvice = {
-          "areaPid":this.updateTicketAttractionsObj.tm_ts_ProviceName
+          "areaPid": this.updateTicketAttractionsObj.tm_ts_ProviceName
         }
         this.$store.dispatch('initTicketCity', getAreaProvice)
-        .then()
+          .then()
       },
 //      选择市
       changeCity() {
@@ -885,18 +893,18 @@
           "areaPid": this.addOptions.tm_ts_CityID
         }
         this.$store.dispatch('initTicketContry', getAreaProvice)
-        .then()
+          .then()
       },
       //修改市
       changeUpdateCity() {
-        if(this.updateTicketAttractionsObj.tm_ts_CityName==''){
+        if (this.updateTicketAttractionsObj.tm_ts_CityName == '') {
           this.updateTicketAttractionsObj.tm_ts_CityName = this.updateTicketAttractionsObj.tm_ts_CityID
         }
         let getAreaProvice = {
-          "areaPid":this.updateTicketAttractionsObj.tm_ts_CityName
+          "areaPid": this.updateTicketAttractionsObj.tm_ts_CityName
         }
         this.$store.dispatch('initTicketContry', getAreaProvice)
-        .then()
+          .then()
       },
       //添加
       Add() {
@@ -907,15 +915,16 @@
         this.addOptions.tm_ts_ContryID = '';
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-       if(this.isUploaNode){
+        if (this.isUploaNode) {
           this.uploaNode()
-        };
+        }
+        ;
         this.addOptions.tm_ts_TradeInfoID = this.adminUserInfo.sm_ui_ID;
       },
       //添加提交
       addSubmit() {
         this.addOptions.tm_ts_ShowImage = this.ImageURL.join(',')
-        if(isNaN(this.addOptions.tm_ts_Time)){
+        if (isNaN(this.addOptions.tm_ts_Time)) {
           this.$notify({
             message: '建议游玩时间，请输入数字',
             type: 'error'
@@ -923,14 +932,14 @@
           return
         }
 
-        if(isNaN(this.addOptions.tm_ts_SuggestPrice)){
+        if (isNaN(this.addOptions.tm_ts_SuggestPrice)) {
           this.$notify({
             message: '建议价格，请输入数字',
             type: 'error'
           });
           return
         }
-        if(this.addOptions.tm_ts_Longitude.trim()==''||this.addOptions.tm_ts_Latitude.trim()==''){
+        if (this.addOptions.tm_ts_Longitude.trim() == '' || this.addOptions.tm_ts_Latitude.trim() == '') {
           this.$notify({
             message: '经纬度必须输入!',
             type: 'error'
@@ -964,15 +973,15 @@
       },
 //      修改
       update(obj) {
-
         this.updateTicketAttractionsObj = obj
         setTimeout(()=>{
           this.updateImageURL = obj.tm_ts_ShowImage
           this.updateDialog = true;
-          if(this.isNewUploaNode){
-            this.uploaNode( this.updateImageURL)
-          };
-        },30)
+          if (this.isNewUploaNode) {
+            this.uploaNode(this.updateImageURL)
+          }
+          ;
+        }, 30)
 
 //        this.$store.commit('updateTicketAttractions', id);
       },
@@ -980,12 +989,12 @@
       updateSubmit() {
         if (this.updateImageURL.length) {
           this.updateTicketAttractionsObj.tm_ts_ShowImage = this.updateImageURL.join(',');
-        }else{
-          if(this.updateTicketAttractionsObj.tm_ts_ShowImage){
+        } else {
+          if (this.updateTicketAttractionsObj.tm_ts_ShowImage) {
             this.updateTicketAttractionsObj.tm_ts_ShowImage = this.updateTicketAttractionsObj.tm_ts_ShowImage.join(',');
           }
         }
-        if(!this.updateImageURL.length){
+        if (!this.updateImageURL.length) {
           this.updateTicketAttractionsObj.tm_ts_ShowImage = ''
         }
 //        console.log(this.updateImageURL,this.updateTicketAttractionsObj.tm_ts_ShowImage)
@@ -1009,9 +1018,9 @@
 //        for(var attr in this.updateTicketAttractionsObj){
 //          this.updateTicketAttractionsObj[attr] = this.updateTicketAttractionsObj[attr].trim()
 //        }
-        this.updateTicketAttractionsObj.tm_ts_Phone =  this.updateTicketAttractionsObj.tm_ts_Phone.trim();
-        if(!isNaN(this.updateTicketAttractionsObj.tm_tt_Name)){
-          this.updateTicketAttractionsObj.tm_ts_ThemeTypeID =this.updateTicketAttractionsObj.tm_tt_Name
+        this.updateTicketAttractionsObj.tm_ts_Phone = this.updateTicketAttractionsObj.tm_ts_Phone.trim();
+        if (!isNaN(this.updateTicketAttractionsObj.tm_tt_Name)) {
+          this.updateTicketAttractionsObj.tm_ts_ThemeTypeID = this.updateTicketAttractionsObj.tm_tt_Name
         }
 
 //        console.log( this.updateTicketAttractionsObj)
@@ -1075,10 +1084,12 @@
     height: 500px;
     width: 100%;
   }
-  .imgWap{
+
+  .imgWap {
 
   }
-  .imgWap span{
+
+  .imgWap span {
     position: absolute;
     right: -15px;
     top: -6px;

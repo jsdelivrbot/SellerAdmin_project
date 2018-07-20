@@ -43,6 +43,9 @@
         </el-form-item>
 
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
+
+          <Upload></Upload>
+
           <a href="javascript:;" class="file">上传图片
             <input type="file" name="" ref="upload" accept="image/*" multiple>
           </a>
@@ -257,11 +260,18 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-
+//  import
+  import Upload from '@/components/Upload'
   export default {
     name: '',
+    components:{
+      Upload
+    },
     data() {
       return {
+        categoryMap:{
+          image: ['gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp'],
+        },
         isShow: false,
         isUploaNode: true,
         isNewUploaNode: true,

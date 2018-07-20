@@ -113,9 +113,24 @@
         });
         return
       }
-      this.initData(1)
+      this.initData(1);
+      this.initThemeType();
     },
     methods: {
+      //惠乐游主题类型
+      initThemeType(){
+        let themeOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "ht_tt_ThemeID": "",//主题ID
+          "ht_tt_Name": '',//主题名称
+          "ht_tt_IsHot": "",//是否热门
+        };
+        this.$store.dispatch('initHotelThemeType', themeOptions)
+      },
       //分页
       handleCurrentChange(num){
         this.initData(num);

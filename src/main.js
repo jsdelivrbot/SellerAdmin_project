@@ -9,7 +9,7 @@ import 'normalize.css/normalize.css'// A modern alternative to CSS resets
 // import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 
 import '@/styles/index.scss' // global css
-
+import uploader from 'vue-simple-uploader'
 import App from './App'
 import router from './router'
 import store from './store'
@@ -29,6 +29,7 @@ Object.keys(filters).forEach((key) => {
 
 import '@/icons' // icon
 import '@/permission' // permission control
+Vue.use(uploader)
 
 Vue.use(ELEMENT, ELEMENT.lang.zhCN)
 Vue.prototype.$http = axios;

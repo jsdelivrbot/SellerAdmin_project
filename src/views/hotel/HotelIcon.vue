@@ -102,9 +102,26 @@
         });
         return
       }
-      this.initData()
+      this.initData();
+      this.initIcon();
     },
     methods: {
+      //酒店图标库
+      initIcon(){
+        let iconOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "操作员编码",
+          "operateUserName": "操作员名称",
+          "pcName": "",
+          "ht_ie_ID": "",//图标库ID
+          "ht_ie_Name": '',//图标名称
+          "ht_ie_Image": '',//图标
+          "ht_id_Remark": "",//备注
+        }
+        this.$store.dispatch('initHotelIconGallery', iconOptions)
+      },
+
       initData(){
         let options = {
           "loginUserID": "huileyou",

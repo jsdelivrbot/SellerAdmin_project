@@ -1,8 +1,8 @@
 <template>
   <section id="wrap">
     <!--<div>-->
-      <!--<p style="font-weight: bold;font-size: 20px;margin-bottom: 20px">添加流程:</p>-->
-      <!--<el-tree :data="data" :props="defaultProps" :default-expand-all="isOff"></el-tree>-->
+    <!--<p style="font-weight: bold;font-size: 20px;margin-bottom: 20px">添加流程:</p>-->
+    <!--<el-tree :data="data" :props="defaultProps" :default-expand-all="isOff"></el-tree>-->
     <!--</div>-->
 
     <h1 class="userClass">商家产品信息</h1>
@@ -19,7 +19,7 @@
         <!--@select="handleSelect"-->
         <!--&gt;</el-autocomplete>-->
         <!--</el-form-item>-->
-        <el-form-item >
+        <el-form-item>
           <el-button type="primary" @click="search" size="small">查询</el-button>
           <el-button type="primary" @click="addAdminMerchantProducts" size="small">新增</el-button>
         </el-form-item>
@@ -51,10 +51,10 @@
               <span>¥ {{ props.row.ts_tg_lowestPrice}}</span>
             </el-form-item>
             <!--<el-form-item label="所属国家:">-->
-              <!--<span>{{ props.row.ts_tg_Country }}</span>-->
+            <!--<span>{{ props.row.ts_tg_Country }}</span>-->
             <!--</el-form-item>-->
             <el-form-item label="所属省市:">
-              <span>{{ props.row.ts_tg_Provice+props.row.ts_tg_City}}</span>
+              <span>{{ props.row.ts_tg_Provice + props.row.ts_tg_City}}</span>
             </el-form-item>
             <el-form-item label="产品类型:">
               <span>{{ props.row.ts_tg_Type | getTrandeType}}</span>
@@ -77,7 +77,8 @@
                 placement="top-start"
                 trigger="hover"
               >
-                <p v-for="item,index in props.row.feeIn" style="padding: 20px;width: 500px">({{index+1}}):{{item.ts_gi_Name}}</p>
+                <p v-for="item,index in props.row.feeIn" style="padding: 20px;width: 500px">
+                  ({{index + 1}}):{{item.ts_gi_Name}}</p>
               </el-popover>
               <el-button v-popover:popover1 size="small">移入查看</el-button>
             </el-form-item>
@@ -86,7 +87,8 @@
                 ref="popover1"
                 placement="top-start"
                 trigger="hover">
-                <p v-for="item,index in props.row.feeNotIn" style="padding: 20px;width: 500px">({{index+1}}):{{item.ts_gi_Name}}</p>
+                <p v-for="item,index in props.row.feeNotIn" style="padding: 20px;width: 500px">
+                  ({{index + 1}}):{{item.ts_gi_Name}}</p>
               </el-popover>
               <el-button v-popover:popover1 size="small">移入查看</el-button>
 
@@ -96,7 +98,8 @@
                 ref="popover1"
                 placement="top-start"
                 trigger="hover">
-                <p v-for="item,index in props.row.buyReason" style="padding: 20px;width: 500px">({{index+1}}):{{item.ts_gi_Name}}</p>
+                <p v-for="item,index in props.row.buyReason" style="padding: 20px;width: 500px">
+                  ({{index + 1}}):{{item.ts_gi_Name}}</p>
               </el-popover>
               <el-button v-popover:popover1 size="small">移入查看</el-button>
             </el-form-item>
@@ -105,7 +108,8 @@
                 ref="popover1"
                 placement="top-start"
                 trigger="hover">
-                <p v-for="item,index in props.row.goodIntroduce" style="padding: 20px;width: 500px">({{index+1}}):{{item.ts_gi_Name}}</p>
+                <p v-for="item,index in props.row.goodIntroduce" style="padding: 20px;width: 500px">
+                  ({{index + 1}}):{{item.ts_gi_Name}}</p>
               </el-popover>
               <el-button v-popover:popover1 size="small">移入查看</el-button>
             </el-form-item>
@@ -115,7 +119,8 @@
                 placement="top-start"
                 trigger="hover"
               >
-                <p v-for="item,index in props.row.bookKnow" style="padding: 20px;width: 500px">({{index+1}}):{{item.ts_gi_Name}}</p>
+                <p v-for="item,index in props.row.bookKnow" style="padding: 20px;width: 500px">
+                  ({{index + 1}}):{{item.ts_gi_Name}}</p>
               </el-popover>
               <el-button v-popover:popover1 size="small">移入查看</el-button>
             </el-form-item>
@@ -124,12 +129,13 @@
                 ref="popover1"
                 placement="top-start"
                 trigger="hover">
-                <p v-for="item,index in props.row.backRule" style="padding: 20px;width: 500px">({{index+1}}):{{item.ts_gi_Name}}</p>
+                <p v-for="item,index in props.row.backRule" style="padding: 20px;width: 500px">
+                  ({{index + 1}}):{{item.ts_gi_Name}}</p>
               </el-popover>
               <el-button v-popover:popover1 size="small">移入查看</el-button>
             </el-form-item>
             <el-form-item label="展示图片地址:">
-              <img  alt="" v-for="item in props.row.ta_tg_ShowImages"
+              <img alt="" v-for="item in props.row.ta_tg_ShowImages"
                    style="width: 100px;height: 100px;margin-right: 10px" v-lazy="item">
             </el-form-item>
             <el-form-item label="产品创建时间:">
@@ -148,7 +154,7 @@
             <!--<span>{{ props.row.ts_tg_ShowTop==0?"否":"是" }}</span>-->
             <!--</el-form-item>-->
             <el-form-item label="是否精选:">
-              <span>{{ props.row.ts_tg_Special==0?"非精选":"精选" }}</span>
+              <span>{{ props.row.ts_tg_Special == 0 ? "非精选" : "精选" }}</span>
             </el-form-item>
             <el-form-item label="跟团类型:">
               <span>{{ props.row.ts_tg_LongOut | getLongOut }}</span>
@@ -188,35 +194,38 @@
     </el-table>
     <!--分页-->
     <!--<div class="block" style="float: right;">-->
-      <!--<el-pagination-->
-        <!--@current-change="handleCurrentChange"-->
-        <!--:page-size="5"-->
-        <!--layout="total, prev, pager, next"-->
-        <!--:total="total"-->
-        <!--v-show="total"-->
-      <!--&gt;-->
-      <!--</el-pagination>-->
+    <!--<el-pagination-->
+    <!--@current-change="handleCurrentChange"-->
+    <!--:page-size="5"-->
+    <!--layout="total, prev, pager, next"-->
+    <!--:total="total"-->
+    <!--v-show="total"-->
+    <!--&gt;-->
+    <!--</el-pagination>-->
 
     <!--</div>-->
     <div class="pagination-container" style="float: right;margin-top: 10px">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total" v-show="total">
+      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                     :current-page="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit"
+                     layout="total, sizes, prev, pager, next, jumper" :total="total" v-show="total">
       </el-pagination>
     </div>
     <!--添加产品-->
-    <el-dialog title="添加产品" :visible.sync="addAdminMerchantProductsDialog" width="60%" :close-on-click-modal="false" @close="closeDialog">
+    <el-dialog title="添加产品" :visible.sync="addAdminMerchantProductsDialog" width="60%" :close-on-click-modal="false"
+               @close="closeDialog">
       <el-form :model="addOptions">
         <!--<el-form-item label="产品编号:" :label-width="formLabelWidth">-->
-          <!--<el-input v-model="addOptions.data.ta_tg_ID" placeholder="请输入产品编号"></el-input>-->
+        <!--<el-input v-model="addOptions.data.ta_tg_ID" placeholder="请输入产品编号"></el-input>-->
         <!--</el-form-item>-->
         <!--<el-form-item label="跟团游栏目:" :label-width="formLabelWidth">-->
-          <!--<el-select v-model="addOptions.data.ta_tg_ItemInfoID" placeholder="请选择跟团游栏目">-->
-            <!--<el-option-->
-              <!--v-for="item in homeAdminGroupTourList"-->
-              <!--:key="item.ii_ID"-->
-              <!--:label="item.ii_ItemName"-->
-              <!--:value="item.ii_ID">-->
-            <!--</el-option>-->
-          <!--</el-select>-->
+        <!--<el-select v-model="addOptions.data.ta_tg_ItemInfoID" placeholder="请选择跟团游栏目">-->
+        <!--<el-option-->
+        <!--v-for="item in homeAdminGroupTourList"-->
+        <!--:key="item.ii_ID"-->
+        <!--:label="item.ii_ItemName"-->
+        <!--:value="item.ii_ID">-->
+        <!--</el-option>-->
+        <!--</el-select>-->
         <!--</el-form-item>-->
         <!--<el-form-item label="商家名称" :label-width="formLabelWidth">-->
         <!--<el-autocomplete-->
@@ -235,7 +244,7 @@
           <el-input v-model="addOptions.data.ta_tg_Describe" placeholder="请输入产品描述" class="tg_Title"></el-input>
         </el-form-item>
         <!--<el-form-item label="所属国家:" :label-width="formLabelWidth">-->
-          <!--<el-input v-model="addOptions.data.ts_tg_Country" placeholder="请输入国家"></el-input>-->
+        <!--<el-input v-model="addOptions.data.ts_tg_Country" placeholder="请输入国家"></el-input>-->
         <!--</el-form-item>-->
         <el-form-item label="所属省:" :label-width="formLabelWidth" required>
           <el-select v-model="value" placeholder="请选择省份" @change="changeProvice">
@@ -262,7 +271,7 @@
         <el-form-item label="产品推荐理由:" :label-width="formLabelWidth" required>
           <el-button type="primary" size="small" @click="RecommendedReason">添加推荐理由</el-button>
           <div v-show="buyReason.length" v-for="item,index in buyReason">
-            <span style="margin: 10px 20px 10px 0">推荐理由{{index+1}} : {{item.ts_gi_Name}}</span>
+            <span style="margin: 10px 20px 10px 0">推荐理由{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateBuyReason(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteBuyReason(item,index)">删除</el-button>
           </div>
@@ -271,7 +280,7 @@
         <el-form-item label="产品介绍:" :label-width="formLabelWidth" required>
           <el-button type="primary" size="small" @click="addGoodIntroduce">添加产品介绍</el-button>
           <div v-show="goodIntroduce.length" v-for="item,index in goodIntroduce">
-            <span style="margin: 10px 20px 10px 0">产品介绍{{index+1}} : {{item.ts_gi_Name}}</span>
+            <span style="margin: 10px 20px 10px 0">产品介绍{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateGoodIntroduce(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteGoodIntroduce(item,index)">删除</el-button>
           </div>
@@ -280,7 +289,7 @@
         <el-form-item label="产品费用包含:" :label-width="formLabelWidth" required>
           <el-button type="primary" size="small" @click="addFeeInfoList">添加费用包含</el-button>
           <div v-show="feeInfoList.length" v-for="item,index in feeInfoList">
-            <span style="margin: 10px 20px 10px 0">费用包含{{index+1}} : {{item.ts_gi_Name}}</span>
+            <span style="margin: 10px 20px 10px 0">费用包含{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateFeeInfoList(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteFeeInfoList(item,index)">删除</el-button>
           </div>
@@ -289,7 +298,7 @@
         <el-form-item label="产品费用不包含:" label-width="140px" required>
           <el-button type="primary" size="small" @click="addFeeNotInList">添加费用不包含</el-button>
           <div v-show="feeNotInList.length" v-for="item,index in feeNotInList">
-            <span style="margin: 10px 20px 10px 0">费用不包含{{index+1}} : {{item.ts_gi_Name}}</span>
+            <span style="margin: 10px 20px 10px 0">费用不包含{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateFeeNotInList(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteFeeNotInList(item,index)">删除</el-button>
           </div>
@@ -298,7 +307,7 @@
         <el-form-item label="产品预订须知:" :label-width="formLabelWidth" required>
           <el-button type="primary" size="small" @click="addBookList">添加预订须知</el-button>
           <div v-show="bookList.length" v-for="item,index in bookList">
-            <span style="margin: 10px 20px 10px 0">预订须知{{index+1}} : {{item.ts_gi_Name}}</span>
+            <span style="margin: 10px 20px 10px 0">预订须知{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateBookList(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteBookList(item,index)">删除</el-button>
           </div>
@@ -307,7 +316,7 @@
         <el-form-item label="产品退改政策:" :label-width="formLabelWidth" required>
           <el-button type="primary" size="small" @click="addBackRuleList">添加退改政策</el-button>
           <div v-show="backRuleList.length" v-for="item,index in backRuleList">
-            <span style="margin: 10px 20px 10px 0">退改政策{{index+1}} : {{item.ts_gi_Name}}</span>
+            <span style="margin: 10px 20px 10px 0">退改政策{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateBackRuleList(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteBackRuleList(item,index)">删除</el-button>
           </div>
@@ -325,12 +334,12 @@
             </el-option>
           </el-select>
           <!--<el-select v-model="addOptions.data.ts_tg_City" placeholder="请选择市">-->
-            <!--<el-option-->
-              <!--v-for="item in cityList"-->
-              <!--:key="item.sm_af_AreaID"-->
-              <!--:label="item.sm_af_AreaName"-->
-              <!--:value="item.sm_af_AreaName">-->
-            <!--</el-option>-->
+          <!--<el-option-->
+          <!--v-for="item in cityList"-->
+          <!--:key="item.sm_af_AreaID"-->
+          <!--:label="item.sm_af_AreaName"-->
+          <!--:value="item.sm_af_AreaName">-->
+          <!--</el-option>-->
           <!--</el-select>-->
 
         </el-form-item>
@@ -371,9 +380,9 @@
               value="2">
             </el-option>
             <el-option
-            label="出境短线"
-            value="3">
-          </el-option>
+              label="出境短线"
+              value="3">
+            </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="产品类型:" :label-width="formLabelWidth">
@@ -402,38 +411,42 @@
 
 
     <!--修改产品-->
-    <el-dialog title="修改产品" :visible.sync="updateAdminMerchantProductsDialog" width="60%" :close-on-click-modal="false" @close="closeDialog">
+    <el-dialog title="修改产品" :visible.sync="updateAdminMerchantProductsDialog" width="60%" :close-on-click-modal="false"
+               @close="closeDialog">
       <el-form :model="updateAdminMerchantProductsObj">
         <!--<el-form-item label="跟团游栏目:" :label-width="formLabelWidth">-->
-          <!--<el-select v-model="updateAdminMerchantProductsObj.ta_tg_ItemInfoID" placeholder="请选择跟团游栏目">-->
-            <!--<el-option-->
-              <!--v-for="item in homeAdminGroupTourList"-->
-              <!--:key="item.ii_ID"-->
-              <!--:label="item.ii_ItemName"-->
-              <!--:value="item.ii_ID">-->
-            <!--</el-option>-->
-          <!--</el-select>-->
+        <!--<el-select v-model="updateAdminMerchantProductsObj.ta_tg_ItemInfoID" placeholder="请选择跟团游栏目">-->
+        <!--<el-option-->
+        <!--v-for="item in homeAdminGroupTourList"-->
+        <!--:key="item.ii_ID"-->
+        <!--:label="item.ii_ItemName"-->
+        <!--:value="item.ii_ID">-->
+        <!--</el-option>-->
+        <!--</el-select>-->
         <!--</el-form-item>-->
         <el-form-item label="产品推荐理由:" :label-width="formLabelWidth">
           <el-button type="primary" size="small" @click="RecommendedReason">添加推荐理由</el-button>
-          <div v-show="updateAdminMerchantProductsObj.buyReason.length" v-for="item,index in updateAdminMerchantProductsObj.buyReason">
-            <span style="margin: 10px 20px 10px 0">推荐理由{{index+1}} : {{item.ts_gi_Name}}</span>
+          <div v-show="updateAdminMerchantProductsObj.buyReason.length"
+               v-for="item,index in updateAdminMerchantProductsObj.buyReason">
+            <span style="margin: 10px 20px 10px 0">推荐理由{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateBuyReason(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteBuyReason(item,index)">删除</el-button>
           </div>
         </el-form-item>
         <el-form-item label="产品介绍:" :label-width="formLabelWidth">
           <el-button type="primary" size="small" @click="addGoodIntroduce">添加产品介绍</el-button>
-          <div v-show="updateAdminMerchantProductsObj.goodIntroduce.length" v-for="item,index in updateAdminMerchantProductsObj.goodIntroduce">
-            <span style="margin: 10px 20px 10px 0">产品介绍{{index+1}} : {{item.ts_gi_Name}}</span>
+          <div v-show="updateAdminMerchantProductsObj.goodIntroduce.length"
+               v-for="item,index in updateAdminMerchantProductsObj.goodIntroduce">
+            <span style="margin: 10px 20px 10px 0">产品介绍{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateGoodIntroduce(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteGoodIntroduce(item,index)">删除</el-button>
           </div>
         </el-form-item>
         <el-form-item label="产品费用包含:" :label-width="formLabelWidth">
           <el-button type="primary" size="small" @click="addFeeInfoList">添加费用包含</el-button>
-          <div v-show="updateAdminMerchantProductsObj.feeIn.length" v-for="item,index in updateAdminMerchantProductsObj.feeIn">
-            <span style="margin: 10px 20px 10px 0">费用包含{{index+1}} : {{item.ts_gi_Name}}</span>
+          <div v-show="updateAdminMerchantProductsObj.feeIn.length"
+               v-for="item,index in updateAdminMerchantProductsObj.feeIn">
+            <span style="margin: 10px 20px 10px 0">费用包含{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateFeeInfoList(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteFeeInfoList(item,index)">删除</el-button>
           </div>
@@ -441,8 +454,9 @@
 
         <el-form-item label="产品费用不包含:" :label-width="formLabelWidth">
           <el-button type="primary" size="small" @click="addFeeNotInList">添加费用不包含</el-button>
-          <div v-show="updateAdminMerchantProductsObj.feeNotIn.length" v-for="item,index in updateAdminMerchantProductsObj.feeNotIn">
-            <span style="margin: 10px 20px 10px 0">费用不包含{{index+1}} : {{item.ts_gi_Name}}</span>
+          <div v-show="updateAdminMerchantProductsObj.feeNotIn.length"
+               v-for="item,index in updateAdminMerchantProductsObj.feeNotIn">
+            <span style="margin: 10px 20px 10px 0">费用不包含{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateFeeNotInList(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteFeeNotInList(item,index)">删除</el-button>
           </div>
@@ -450,8 +464,9 @@
 
         <el-form-item label="产品预订须知:" :label-width="formLabelWidth">
           <el-button type="primary" size="small" @click="addBookList">添加预订须知</el-button>
-          <div v-show="updateAdminMerchantProductsObj.bookKnow.length" v-for="item,index in updateAdminMerchantProductsObj.bookKnow">
-            <span style="margin: 10px 20px 10px 0">预订须知{{index+1}} : {{item.ts_gi_Name}}</span>
+          <div v-show="updateAdminMerchantProductsObj.bookKnow.length"
+               v-for="item,index in updateAdminMerchantProductsObj.bookKnow">
+            <span style="margin: 10px 20px 10px 0">预订须知{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateBookList(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteBookList(item,index)">删除</el-button>
           </div>
@@ -459,8 +474,9 @@
 
         <el-form-item label="产品退改政策:" :label-width="formLabelWidth">
           <el-button type="primary" size="small" @click="addBackRuleList">添加退改政策</el-button>
-          <div v-show="updateAdminMerchantProductsObj.backRule.length" v-for="item,index in updateAdminMerchantProductsObj.backRule">
-            <span style="margin: 10px 20px 10px 0">退改政策{{index+1}} : {{item.ts_gi_Name}}</span>
+          <div v-show="updateAdminMerchantProductsObj.backRule.length"
+               v-for="item,index in updateAdminMerchantProductsObj.backRule">
+            <span style="margin: 10px 20px 10px 0">退改政策{{index + 1}} : {{item.ts_gi_Name}}</span>
             <el-button type="success" size="small" @click="updateBackRuleList(item,index)">修改</el-button>
             <el-button type="danger" size="small" @click="deleteBackRuleList(item,index)">删除</el-button>
           </div>
@@ -517,7 +533,7 @@
 
           <p v-if="ImageURL.length" v-for="item in ImageURL">{{item}}</p>
           <p v-for="item in updateAdminMerchantProductsObj.ta_tg_ShowImages"
-             v-show="updateAdminMerchantProductsObj.ta_tg_ShowImages.length" v-else>{{item?item:""}}</p>
+             v-show="updateAdminMerchantProductsObj.ta_tg_ShowImages.length" v-else>{{item ? item : ""}}</p>
 
         </el-form-item>
         <!--<el-form-item label="是否展示首页:" :label-width="formLabelWidth">-->
@@ -745,11 +761,12 @@
   import elDragDialog from '@/directive/el-dragDialog' // base on element-ui
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-  export default{
+
+  export default {
     name: '',
-    data(){
+    data() {
       return {
-        isUploaNode:true,
+        isUploaNode: true,
         listQuery: {
           page: 1,
           limit: 10,
@@ -758,13 +775,13 @@
           type: undefined,
           sort: '+id'
         },
-        title:'',
-        recommendedReasonContent:'',//添加推荐理由内容
-        goodIntroduceContent:'',
-        feeInfoListContent:'',//费用包含
-        updateGoodIntroduceContentObj:{},
-        updateBuyReasonObj:{},
-        recommendedReasonList:[],
+        title: '',
+        recommendedReasonContent: '',//添加推荐理由内容
+        goodIntroduceContent: '',
+        feeInfoListContent: '',//费用包含
+        updateGoodIntroduceContentObj: {},
+        updateBuyReasonObj: {},
+        recommendedReasonList: [],
         data: [{
           label: '商家产品',
           children: [{
@@ -781,30 +798,30 @@
               },
               {
                 label: '产品线路日程',
-                children:[
+                children: [
                   {
                     label: '日程时间',
-                    children:[
+                    children: [
                       {
                         label: '时间活动',
-                        children:[
+                        children: [
                           {
-                            label:'活动用餐'
+                            label: '活动用餐'
                           },
                           {
-                            label:'活动景点'
+                            label: '活动景点'
                           },
                           {
-                            label:'活动购物'
+                            label: '活动购物'
                           },
                           {
-                            label:'活动住宿'
+                            label: '活动住宿'
                           },
                           {
-                            label:'活动温馨提示'
+                            label: '活动温馨提示'
                           },
                           {
-                            label:'活动交通'
+                            label: '活动交通'
                           }
                         ]
                       }
@@ -828,24 +845,24 @@
         total: 0,
         ImageURL: [],
         restaurants: [],
-        isOff:false,
+        isOff: false,
         productsID: '',//查询产品编号
         addAdminMerchantProductsDialog: false,//添加弹窗
         updateAdminMerchantProductsDialog: false,//修改弹窗
         addBuyReasonDialog: false,//添加推荐理由弹窗
-        updateBuyReasonDialog:false,
-        addGoodIntroduceDialog:false,//添加产品介绍弹窗
-        updateGoodIntroduceDialog:false,//修改产品介绍弹窗
-        addFeeInfoListDialog:false,//添加费用包含弹窗
-        updateFeeInfoListDialog:false,//添加费用包含弹窗
+        updateBuyReasonDialog: false,
+        addGoodIntroduceDialog: false,//添加产品介绍弹窗
+        updateGoodIntroduceDialog: false,//修改产品介绍弹窗
+        addFeeInfoListDialog: false,//添加费用包含弹窗
+        updateFeeInfoListDialog: false,//添加费用包含弹窗
         isLoading: false,
         userObj: {},
-        feeInfoList:[],
-        feeNotInList:[],
-        bookList:[],
-        buyReason:[],
-        goodIntroduce:[],
-        updateAdminMerchantProductsObj:{},
+        feeInfoList: [],
+        feeNotInList: [],
+        bookList: [],
+        buyReason: [],
+        goodIntroduce: [],
+        updateAdminMerchantProductsObj: {},
         addOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -858,8 +875,8 @@
           "backRule": [],
           "stayRecom": [],
           "tourSiteRecom": [],
-          buyReason:[],
-          goodIntroduce:[],
+          buyReason: [],
+          goodIntroduce: [],
           "data": {
             ts_tg_lowestPrice: '',
             ta_tg_TradeName: '',
@@ -877,35 +894,34 @@
             "ts_tg_ShowTop": '',
             "ts_tg_Special": '',
             "ts_tg_LongOut": '',
-            ts_tg_Type:''
+            ts_tg_Type: ''
           }
         },
-        updateFeeInfoListContentObj:{},
-        feeNotInListContent:'',
-        addFeeInNotListDialog:false,
-        updateFeeInNotListDialog:false,
-        updateFeeNotInListContentObj:{},
-        bookListContent:'',
-        addBookListDialog:false,//添加预订须知弹窗
-        updateBookListDialog:false,//修改预订须知弹窗
-        updateBookListContentObj:{},
-        backRuleList:[],
-        num:0,
-        backRuleListContent:'',
-        addBackRuleListDialog:false,
-        updateBackRuleListDialog:false,
-        updateBackRuleListContentObj:{}
+        updateFeeInfoListContentObj: {},
+        feeNotInListContent: '',
+        addFeeInNotListDialog: false,
+        updateFeeInNotListDialog: false,
+        updateFeeNotInListContentObj: {},
+        bookListContent: '',
+        addBookListDialog: false,//添加预订须知弹窗
+        updateBookListDialog: false,//修改预订须知弹窗
+        updateBookListContentObj: {},
+        backRuleList: [],
+        num: 0,
+        backRuleListContent: '',
+        addBackRuleListDialog: false,
+        updateBackRuleListDialog: false,
+        updateBackRuleListContentObj: {}
       }
     },
     computed: mapGetters([
       'adminTradeGoodList',
       'homeAdminGroupTourList',
-//      'updateAdminMerchantProductsObj',
       'adminMerchantProductsId',
       'proviceList',
       'cityList'
     ]),
-    created(){
+    created() {
       //初始化省
       let sCity = {
         "areaPid": 3337
@@ -913,21 +929,35 @@
       this.$store.dispatch('initProvice', sCity)
       let obj = JSON.parse(sessionStorage.getItem('admin'));
       this.userObj = obj;
-      this.productsID = obj.sm_ui_ID
+      this.productsID = obj.sm_ui_ID;
+//      this.initGroupTour();
     },
     methods: {
-      closeDialog(){
-        this.ImageURL = []
-        this.addAdminMerchantProductsDialog= false,
-        this.updateAdminMerchantProductsDialog = false
+      //跟团游栏目
+      initGroupTour() {
+        let AdminOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          isDelete: '0',
+          groupName: ''
+        };
+        this.$store.dispatch('initHomeAdminGroupTour', AdminOptions)
       },
-      cacheForm(){
-          this.ImageURL = [],
-          this.addAdminMerchantProductsDialog= false,
+      closeDialog() {
+        this.ImageURL = []
+        this.addAdminMerchantProductsDialog = false,
+          this.updateAdminMerchantProductsDialog = false
+      },
+      cacheForm() {
+        this.ImageURL = [],
+          this.addAdminMerchantProductsDialog = false,
           this.updateAdminMerchantProductsDialog = false
       },
       //查询很多
-      selectInitData(id,ParentID){
+      selectInitData(id, ParentID) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -935,19 +965,19 @@
           "operateUserName": "",
           "pcName": "",
           "ts_gi_GoodID": id,//产品编号
-          "ts_gi_ParentID":ParentID?ParentID:''
+          "ts_gi_ParentID": ParentID ? ParentID : ''
         }
-        return this.$store.dispatch('initSelectInitAllData',options)
+        return this.$store.dispatch('initSelectInitAllData', options)
       },
       //添加退改政策
-      addBackRuleList(){
+      addBackRuleList() {
         this.backRuleListContent = '';
         this.$store.commit('setTranstionFalse');
         this.addBackRuleListDialog = true;
       },
       //添加退改政策提交
-      addBackRuleListSubmit(){
-        if(this.updateAdminMerchantProductsObj.backRule){
+      addBackRuleListSubmit() {
+        if (this.updateAdminMerchantProductsObj.backRule) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -960,32 +990,32 @@
               "ts_gi_Name": this.backRuleListContent,//类型名称
             }
           };
-          this.$store.dispatch('AddRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,6)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.backRule = data
-            })
-          },err=>{
+          this.$store.dispatch('AddRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 6)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.backRule = data
+                })
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.backRuleList.push({
-            ts_gi_Name:this.backRuleListContent
+            ts_gi_Name: this.backRuleListContent
           });
         }
         this.addBackRuleListDialog = false;
       },
       //修改退改政策
-      updateBackRuleList(item,index){
+      updateBackRuleList(item, index) {
         item.index = index;
         this.updateBackRuleListContentObj = item;
         this.$store.commit('setTranstionFalse');
         this.updateBackRuleListDialog = true;
       },
       //修改退改政策提交
-      updateBackRuleListSubmit(item){
-        if(this.updateAdminMerchantProductsObj.backRule){
+      updateBackRuleListSubmit(item) {
+        if (this.updateAdminMerchantProductsObj.backRule) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -994,19 +1024,19 @@
             "pcName": "",
             "data": item
           };
-          this.$store.dispatch('UpdateRecommendedReason',options)
-          .then(()=>{
-            this.updateBackRuleListDialog = false;
-          },err=>{
+          this.$store.dispatch('UpdateRecommendedReason', options)
+            .then(() => {
+              this.updateBackRuleListDialog = false;
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.updateBackRuleListDialog = false;
         }
       },
       //删除退改政策
-      deleteBackRuleList(item,index){
-        if(this.updateAdminMerchantProductsObj.backRule){
+      deleteBackRuleList(item, index) {
+        if (this.updateAdminMerchantProductsObj.backRule) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1017,18 +1047,18 @@
               "ts_gi_ID": item.ts_gi_ID,//产品信息ID
             }
           }
-          this.$store.dispatch('DeleteRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,6)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.backRule = data
-            })
-          },err=>{
+          this.$store.dispatch('DeleteRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 6)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.backRule = data
+                })
+            }, err => {
 
-          })
-        }else{
-          this.backRuleList = this.backRuleList.filter((item,v)=>{
-            if(index==v){
+            })
+        } else {
+          this.backRuleList = this.backRuleList.filter((item, v) => {
+            if (index == v) {
               return false;
             }
             return true;
@@ -1037,17 +1067,15 @@
       },
 
 
-
-
       //添加预订须知多个须知
-      addBookList(){
+      addBookList() {
         this.bookListContent = '';
         this.$store.commit('setTranstionFalse');
         this.addBookListDialog = true;
       },
       //添加预订须知提交
-      addBookListSubmit(){
-        if(this.updateAdminMerchantProductsObj.bookKnow) {
+      addBookListSubmit() {
+        if (this.updateAdminMerchantProductsObj.bookKnow) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1060,32 +1088,32 @@
               "ts_gi_Name": this.bookListContent,//类型名称
             }
           };
-          this.$store.dispatch('AddRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,5)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.bookKnow = data
-            })
-          },err=>{
+          this.$store.dispatch('AddRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 5)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.bookKnow = data
+                })
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.bookList.push({
-            ts_gi_Name:this.bookListContent
+            ts_gi_Name: this.bookListContent
           });
         }
         this.addBookListDialog = false;
       },
       //修改预订须知
-      updateBookList(item,index){
+      updateBookList(item, index) {
         item.index = index;
         this.updateBookListContentObj = item;
         this.$store.commit('setTranstionFalse');
         this.updateBookListDialog = true;
       },
       //修改预订须知提交
-      updateBookListSubmit(item){
-        if(this.updateAdminMerchantProductsObj.bookKnow) {
+      updateBookListSubmit(item) {
+        if (this.updateAdminMerchantProductsObj.bookKnow) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1094,19 +1122,19 @@
             "pcName": "",
             "data": item
           };
-          this.$store.dispatch('UpdateRecommendedReason',options)
-          .then(()=>{
-            this.updateBookListDialog = false;
-          },err=>{
+          this.$store.dispatch('UpdateRecommendedReason', options)
+            .then(() => {
+              this.updateBookListDialog = false;
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.updateBookListDialog = false;
         }
       },
       //删除预订须知
-      deleteBookList(item,index){
-        if(this.updateAdminMerchantProductsObj.bookKnow) {
+      deleteBookList(item, index) {
+        if (this.updateAdminMerchantProductsObj.bookKnow) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1117,19 +1145,19 @@
               "ts_gi_ID": item.ts_gi_ID,//产品信息ID
             }
           }
-          this.$store.dispatch('DeleteRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,5)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.bookKnow = data
-            })
-          },err=>{
+          this.$store.dispatch('DeleteRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 5)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.bookKnow = data
+                })
+            }, err => {
 
-          })
+            })
         }
-        else{
-          this.bookList = this.bookList.filter((item,v)=>{
-            if(index==v){
+        else {
+          this.bookList = this.bookList.filter((item, v) => {
+            if (index == v) {
               return false;
             }
             return true;
@@ -1139,15 +1167,15 @@
 
 
       //添加费用不包含多个费用
-      addFeeNotInList(){
+      addFeeNotInList() {
         this.feeNotInListContent = '';
         this.$store.commit('setTranstionFalse');
         this.addFeeInNotListDialog = true;
       },
       //添加费用不包含提交
-      addFeeInNotListSubmit(){
+      addFeeInNotListSubmit() {
 
-        if(this.updateAdminMerchantProductsObj.feeNotIn) {
+        if (this.updateAdminMerchantProductsObj.feeNotIn) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1160,32 +1188,32 @@
               "ts_gi_Name": this.feeNotInListContent,//类型名称
             }
           };
-          this.$store.dispatch('AddRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,4)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.feeNotIn = data
-            })
-          },err=>{
+          this.$store.dispatch('AddRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 4)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.feeNotIn = data
+                })
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.feeNotInList.push({
-            ts_gi_Name:this.feeNotInListContent
+            ts_gi_Name: this.feeNotInListContent
           });
         }
         this.addFeeInNotListDialog = false;
       },
       //修改费用不包含
-      updateFeeNotInList(item,index){
+      updateFeeNotInList(item, index) {
         item.index = index;
         this.updateFeeNotInListContentObj = item;
         this.$store.commit('setTranstionFalse');
         this.updateFeeInNotListDialog = true;
       },
       //修改费用不包含提交
-      updateFeeInNotListSubmit(item){
-        if(this.updateAdminMerchantProductsObj.feeNotIn){
+      updateFeeInNotListSubmit(item) {
+        if (this.updateAdminMerchantProductsObj.feeNotIn) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1194,19 +1222,19 @@
             "pcName": "",
             "data": item
           };
-          this.$store.dispatch('UpdateRecommendedReason',options)
-          .then(()=>{
-            this.updateFeeInNotListDialog = false;
-          },err=>{
+          this.$store.dispatch('UpdateRecommendedReason', options)
+            .then(() => {
+              this.updateFeeInNotListDialog = false;
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.updateFeeInNotListDialog = false;
         }
       },
       //删除费用不包含
-      deleteFeeNotInList(item,index){
-        if(this.updateAdminMerchantProductsObj.feeNotIn) {
+      deleteFeeNotInList(item, index) {
+        if (this.updateAdminMerchantProductsObj.feeNotIn) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1217,18 +1245,18 @@
               "ts_gi_ID": item.ts_gi_ID,//产品信息ID
             }
           }
-          this.$store.dispatch('DeleteRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,4)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.feeNotIn = data
-            })
-          },err=>{
+          this.$store.dispatch('DeleteRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 4)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.feeNotIn = data
+                })
+            }, err => {
 
-          })
-        }else{
-          this.feeNotInList = this.feeNotInList.filter((item,v)=>{
-            if(index==v){
+            })
+        } else {
+          this.feeNotInList = this.feeNotInList.filter((item, v) => {
+            if (index == v) {
               return false;
             }
             return true;
@@ -1237,18 +1265,15 @@
       },
 
 
-
-
-
       //添加费用包含多个费用
-      addFeeInfoList(){
+      addFeeInfoList() {
         this.feeInfoListContent = '';
         this.$store.commit('setTranstionFalse');
         this.addFeeInfoListDialog = true;
       },
       //添加费用包含提交
-      addFeeInfoListSubmit(){
-        if(this.updateAdminMerchantProductsObj.feeIn){
+      addFeeInfoListSubmit() {
+        if (this.updateAdminMerchantProductsObj.feeIn) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1261,33 +1286,33 @@
               "ts_gi_Name": this.feeInfoListContent,//类型名称
             }
           };
-          this.$store.dispatch('AddRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,3)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.feeIn = data
-            })
-          },err=>{
+          this.$store.dispatch('AddRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 3)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.feeIn = data
+                })
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.feeInfoList.push({
-            ts_gi_Name:this.feeInfoListContent
+            ts_gi_Name: this.feeInfoListContent
           });
         }
 
         this.addFeeInfoListDialog = false;
       },
       //修改费用包含
-      updateFeeInfoList(item,index){
+      updateFeeInfoList(item, index) {
         item.index = index;
         this.updateFeeInfoListContentObj = item;
         this.$store.commit('setTranstionFalse');
         this.updateFeeInfoListDialog = true;
       },
       //修改费用包含提交
-      updateFeeInfoListSubmit(item){
-        if(this.updateAdminMerchantProductsObj.feeIn){
+      updateFeeInfoListSubmit(item) {
+        if (this.updateAdminMerchantProductsObj.feeIn) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1296,20 +1321,20 @@
             "pcName": "",
             "data": item
           };
-          this.$store.dispatch('UpdateRecommendedReason',options)
-          .then(()=>{
-            this.updateFeeInfoListDialog = false;
-          },err=>{
+          this.$store.dispatch('UpdateRecommendedReason', options)
+            .then(() => {
+              this.updateFeeInfoListDialog = false;
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.updateFeeInfoListDialog = false;
         }
 
       },
       //删除费用包含
-      deleteFeeInfoList(item,index){
-        if(this.updateAdminMerchantProductsObj.feeIn) {
+      deleteFeeInfoList(item, index) {
+        if (this.updateAdminMerchantProductsObj.feeIn) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1320,18 +1345,18 @@
               "ts_gi_ID": item.ts_gi_ID,//产品信息ID
             }
           }
-          this.$store.dispatch('DeleteRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,3)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.feeIn = data
-            })
-          },err=>{
+          this.$store.dispatch('DeleteRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 3)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.feeIn = data
+                })
+            }, err => {
 
-          })
-        }else{
-          this.feeInfoList = this.feeInfoList.filter((item,v)=>{
-            if(index==v){
+            })
+        } else {
+          this.feeInfoList = this.feeInfoList.filter((item, v) => {
+            if (index == v) {
               return false;
             }
             return true;
@@ -1339,14 +1364,14 @@
         }
       },
       //添加产品多个介绍
-      addGoodIntroduce(){
+      addGoodIntroduce() {
         this.goodIntroduceContent = '';
         this.$store.commit('setTranstionFalse');
         this.addGoodIntroduceDialog = true;
       },
       //添加产品介绍提交
-      addGoodIntroduceSubmit(){
-        if(this.updateAdminMerchantProductsObj.goodIntroduce){
+      addGoodIntroduceSubmit() {
+        if (this.updateAdminMerchantProductsObj.goodIntroduce) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1359,32 +1384,32 @@
               "ts_gi_Name": this.goodIntroduceContent,//类型名称
             }
           };
-          this.$store.dispatch('AddRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,2)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.goodIntroduce = data
-            })
-          },err=>{
+          this.$store.dispatch('AddRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 2)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.goodIntroduce = data
+                })
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.goodIntroduce.push({
-            ts_gi_Name:this.goodIntroduceContent
+            ts_gi_Name: this.goodIntroduceContent
           });
         }
         this.addGoodIntroduceDialog = false;
       },
       //修改产品介绍
-      updateGoodIntroduce(item,index){
+      updateGoodIntroduce(item, index) {
         item.index = index;
         this.updateGoodIntroduceContentObj = item;
         this.$store.commit('setTranstionFalse');
         this.updateGoodIntroduceDialog = true;
       },
       //修改产品介绍提交
-      updateGoodIntroduceSubmit(item){
-        if(this.updateAdminMerchantProductsObj.goodIntroduce){
+      updateGoodIntroduceSubmit(item) {
+        if (this.updateAdminMerchantProductsObj.goodIntroduce) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1393,20 +1418,20 @@
             "pcName": "",
             "data": item
           };
-          this.$store.dispatch('UpdateRecommendedReason',options)
-          .then(()=>{
-            this.updateGoodIntroduceDialog = false;
-          },err=>{
+          this.$store.dispatch('UpdateRecommendedReason', options)
+            .then(() => {
+              this.updateGoodIntroduceDialog = false;
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.updateGoodIntroduceDialog = false;
         }
 
       },
       //删除产品介绍
-      deleteGoodIntroduce(item,index){
-        if(this.updateAdminMerchantProductsObj.goodIntroduce){
+      deleteGoodIntroduce(item, index) {
+        if (this.updateAdminMerchantProductsObj.goodIntroduce) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1417,18 +1442,18 @@
               "ts_gi_ID": item.ts_gi_ID,//产品信息ID
             }
           }
-          this.$store.dispatch('DeleteRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,2)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.goodIntroduce = data
-            })
-          },err=>{
+          this.$store.dispatch('DeleteRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 2)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.goodIntroduce = data
+                })
+            }, err => {
 
-          })
-        }else{
-          this.goodIntroduce = this.goodIntroduce.filter((item,v)=>{
-            if(index==v){
+            })
+        } else {
+          this.goodIntroduce = this.goodIntroduce.filter((item, v) => {
+            if (index == v) {
               return false;
             }
             return true;
@@ -1437,14 +1462,14 @@
       },
 
       //添加推荐理由
-      RecommendedReason(){
+      RecommendedReason() {
         this.recommendedReasonContent = '';
         this.$store.commit('setTranstionFalse');
         this.addBuyReasonDialog = true;
       },
       //添加推荐理由提交
-      addBuyReasonSubmit(){
-        if(this.updateAdminMerchantProductsObj.buyReason){
+      addBuyReasonSubmit() {
+        if (this.updateAdminMerchantProductsObj.buyReason) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1457,33 +1482,33 @@
               "ts_gi_Name": this.recommendedReasonContent,//类型名称
             }
           };
-          this.$store.dispatch('AddRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,1)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.buyReason = data
-            })
-          },err=>{
+          this.$store.dispatch('AddRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 1)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.buyReason = data
+                })
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.buyReason.push({
-            ts_gi_Name:this.recommendedReasonContent
+            ts_gi_Name: this.recommendedReasonContent
           });
         }
 
         this.addBuyReasonDialog = false;
       },
       //修改推荐理由
-      updateBuyReason(item,index){
+      updateBuyReason(item, index) {
         item.index = index;
         this.updateBuyReasonObj = item;
         this.$store.commit('setTranstionFalse');
         this.updateBuyReasonDialog = true;
       },
       //修改推荐理由提交
-      updateBuyReasonSubmit(item){
-        if(this.updateAdminMerchantProductsObj.buyReason){
+      updateBuyReasonSubmit(item) {
+        if (this.updateAdminMerchantProductsObj.buyReason) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1492,19 +1517,19 @@
             "pcName": "",
             "data": item
           };
-          this.$store.dispatch('UpdateRecommendedReason',options)
-          .then(()=>{
-            this.updateBuyReasonDialog = false;
-          },err=>{
+          this.$store.dispatch('UpdateRecommendedReason', options)
+            .then(() => {
+              this.updateBuyReasonDialog = false;
+            }, err => {
 
-          })
-        }else{
+            })
+        } else {
           this.updateBuyReasonDialog = false;
         }
       },
       //删除推荐理由
-      deleteBuyReason(item,index){
-        if(this.updateAdminMerchantProductsObj.buyReason){
+      deleteBuyReason(item, index) {
+        if (this.updateAdminMerchantProductsObj.buyReason) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -1515,18 +1540,18 @@
               "ts_gi_ID": item.ts_gi_ID,//产品信息ID
             }
           }
-          this.$store.dispatch('DeleteRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID,1)
-            .then(data=>{
-              this.updateAdminMerchantProductsObj.buyReason = data
-            })
-          },err=>{
+          this.$store.dispatch('DeleteRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminMerchantProductsObj.ta_tg_ID, 1)
+                .then(data => {
+                  this.updateAdminMerchantProductsObj.buyReason = data
+                })
+            }, err => {
 
-          })
-        }else{
-          this.buyReason = this.buyReason.filter((item,v)=>{
-            if(index==v){
+            })
+        } else {
+          this.buyReason = this.buyReason.filter((item, v) => {
+            if (index == v) {
               return false;
             }
             return true;
@@ -1536,7 +1561,7 @@
 
       },
       //选中省
-      changeProvice(item){
+      changeProvice(item) {
         let obj = this.proviceList.filter(v => {
           if (v.sm_af_AreaID == item) {
             return true;
@@ -1552,7 +1577,7 @@
         this.$store.dispatch('initCityList', searchCity)
       },
       //选中商家
-      handleSelect(item){
+      handleSelect(item) {
         this.userName = item.value;
         this.productsID = item.id;
         this.updateAdminMerchantProductsObj.ta_tg_TradeID = item.id;
@@ -1575,14 +1600,14 @@
           };
           //旅行社商户查询
           this.$store.dispatch('AdminBusinessInformationSearch', GetAdminBusinessInformationList)
-          .then(data => {
-            relove(data)
-          }, err => {
-            this.$message({
-              message: err,
-              type: 'error'
-            });
-          })
+            .then(data => {
+              relove(data)
+            }, err => {
+              this.$message({
+                message: err,
+                type: 'error'
+              });
+            })
         })
       },
       querySearchAsync(queryString, cb) {
@@ -1602,19 +1627,19 @@
       },
       //图片promise
       uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
+        return new Promise((relove, reject) => {
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
+          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
           xhr.send(fd);
           xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200){
+            if (xhr.readyState == 4 && xhr.status == 200) {
               if (xhr.responseText) {
                 var data = xhr.responseText;
                 relove(JSON.parse(data))
               }
-            }else{
+            } else {
             }
           }
         })
@@ -1626,12 +1651,12 @@
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
                 this.uploadToOSS(this.$refs.upload.files[i])
-                  .then(data=>{
+                  .then(data => {
                     if (data) {
 
-                    this.ImageURL.push(data.data);
-                    this.$refs.upload.value = '';
-                    this.isUploaNode= false;
+                      this.ImageURL.push(data.data);
+                      this.$refs.upload.value = '';
+                      this.isUploaNode = false;
 
                     } else {
                       this.$notify({
@@ -1646,14 +1671,14 @@
         }, 30)
       },
       //初始化数据
-      initData(id, page,title){
+      initData(id, page, title) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "tradeID": id ? id : '',
-          "goodTitle":title?title:'',
+          "goodTitle": title ? title : '',
           "userID": "",
           "pcName": "",
           "ID": '',
@@ -1661,32 +1686,32 @@
           "page": page ? page : 1,
           "rows": 10
         };
-        if(this.num){
+        if (this.num) {
           options.page = this.num;
         }
         this.isLoading = true;
         this.$store.dispatch('initAdminTradeGoodList', options)
-        .then((data) => {
-          this.total = data.totalRows;
-          this.isLoading = false;
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then((data) => {
+            this.total = data.totalRows;
+            this.isLoading = false;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //查询
-      search(){
-        this.initData(this.productsID, 1,this.title)
+      search() {
+        this.initData(this.productsID, 1, this.title)
       },
       //查询初始化数据
-      searchInitData(){
+      searchInitData() {
         this.initData(this.productsID)
       },
 
       //分页
-      handleCurrentChange(num){
+      handleCurrentChange(num) {
         this.num = num;
         this.initData(this.productsID, num);
       },
@@ -1695,16 +1720,16 @@
         this.initData(this.productsID, num);
       },
       //添加
-      addAdminMerchantProducts(){
-        this.ImageURL=[];
+      addAdminMerchantProducts() {
+        this.ImageURL = [];
         this.$store.commit('setTranstionFalse');
         this.addAdminMerchantProductsDialog = true;
-        if(this.isUploaNode){
+        if (this.isUploaNode) {
           this.uploaNode()
         }
       },
       //添加提交
-      addAdminMerchantProductsSubmit(){
+      addAdminMerchantProductsSubmit() {
         this.addOptions.data.ta_tg_ShowImage = this.ImageURL.join(',');
         this.addOptions.buyReason = this.buyReason;
         this.addOptions.feeIn = this.feeInfoList;
@@ -1715,32 +1740,32 @@
         this.addOptions.data.ta_tg_TradeID = this.productsID
 //        this.addOptions.data.ta_tg_TradeName = this.userObj.sm_ai_GoodName
         this.$store.dispatch('AddAdminMerchantProducts', this.addOptions)
-        .then(() => {
-          this.$notify({
-            message: '添加成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '添加成功!',
+              type: 'success'
+            });
+            this.initData(this.productsID, 1);
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.productsID, 1);
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.addAdminMerchantProductsDialog = false;
       },
       //修改
-      updateAdminMerchantProducts(obj){
+      updateAdminMerchantProducts(obj) {
         this.updateAdminMerchantProductsObj = obj;
         this.$store.commit('setTranstionFalse');
         this.updateAdminMerchantProductsDialog = true;
-        if(this.isUploaNode){
+        if (this.isUploaNode) {
           this.uploaNode()
         }
 //        this.$store.commit('initUpdateAdminMerchantProductsObj', id)
       },
       //修改提交
-      updateAdminMerchantProductsSubmit(){
+      updateAdminMerchantProductsSubmit() {
 
         let updateOptions = {
           "loginUserID": "huileyou",
@@ -1768,28 +1793,28 @@
             "ts_tg_Type": this.updateAdminMerchantProductsObj.ts_tg_Type
           }
         };
-        if(this.ImageURL.length){
+        if (this.ImageURL.length) {
           updateOptions.data.ta_tg_ShowImage = this.ImageURL.join(',')
-        }else{
+        } else {
           updateOptions.data.ta_tg_ShowImage = this.updateAdminMerchantProductsObj.ta_tg_ShowImage
         }
         this.$store.dispatch('UpdateAdminMerchantProducts', updateOptions)
-        .then(() => {
-          this.$notify({
-            message: '修改成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '修改成功!',
+              type: 'success'
+            });
+            this.initData(this.productsID, 1);
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.productsID, 1);
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.updateAdminMerchantProductsDialog = false;
       },
       //删除
-      DeleteAdminMerchantProducts(id){
+      DeleteAdminMerchantProducts(id) {
         let deleteOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -1801,34 +1826,34 @@
           }
         }
         this.$store.dispatch('DeleteAdminMerchantProducts', deleteOptions)
-        .then(() => {
-          this.$notify({
-            message: '删除成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '删除成功!',
+              type: 'success'
+            });
+            this.initData(this.productsID, 1);
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.productsID, 1);
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
       },
       //点击跳转到产品线路管理
-      productLineManagement(id){
+      productLineManagement(id) {
         this.$store.commit('adminProductLineManagementId', id);
         this.$router.push({path: '/travel/adminQueryProductInformation'})
         sessionStorage.setItem('index', '1')
       }
     },
-    mounted(){
+    mounted() {
       this.searchInitData();
     },
-    updated(){
+    updated() {
     },
 
   }
 </script>
 <style scoped>
-/*.tg_Title{width: 800px}*/
+  /*.tg_Title{width: 800px}*/
 </style>

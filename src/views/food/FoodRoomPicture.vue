@@ -85,6 +85,16 @@
       <!--添加-->
       <el-dialog title="添加店面房间图片" :visible.sync="addDialog">
         <el-form :model="addOptions">
+          <el-form-item label="请选择店面:" :label-width="formLabelWidth">
+            <el-select v-model="storeId" placeholder="请选择店面" @change="changeRoom">
+              <el-option
+                v-for="item in foodStoreInformtionList"
+                :key="item.fd_sf_ID"
+                :label="item.fd_sf_ProductName"
+                :value="item.fd_sf_ID">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="店面房间:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.fd_ri_RoomID" placeholder="请选择房间">
               <el-option
@@ -174,8 +184,14 @@
     },
     created(){
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      if(!this.foodStoreInformtionList.length){
-        let selectStoreFrontInfo = {
+      if( !this.foodStoreInformtionList.length ){
+        this.initFoodStoreInformtion();
+      }
+    },
+    methods: {
+      //店面列表
+      initFoodStoreInformtion(){
+        let selectStoreFrontpInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
@@ -183,10 +199,8 @@
           "pcName": "",
           "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
         };
-        this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontInfo)
-      }
-    },
-    methods: {
+        this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontpInfo)
+      },
       //图片转二进制
       uploadImg(file) {
         return new Promise(function (relove, reject) {

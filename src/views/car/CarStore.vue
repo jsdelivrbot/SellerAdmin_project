@@ -240,9 +240,21 @@
         });
         return
       }
-      this.initData(this.storeName, 1)
+      this.initData(this.storeName, 1);
+      this.initCityList();
     },
     methods: {
+      //租车城市级联城市
+      initCityList() {
+        let carOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+        };
+        this.$store.dispatch('initCarCityPlace', carOptions)
+      },
       //分页
       handleCurrentChange(num) {
         this.initData(this.storeName, num)

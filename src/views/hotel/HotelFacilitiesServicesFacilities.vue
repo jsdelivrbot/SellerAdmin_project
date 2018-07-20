@@ -130,9 +130,23 @@
         });
         return
       }
-      this.initData()
+      this.initData();
+      this.initFacilitiesType();
     },
     methods: {
+      //惠乐游设施类型
+      initFacilitiesType(){
+        let hotelFacilitiesTypeOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "ht_ht_ID": "",//设施类型Id
+          "ht_ht_Name": '',//设施类型名称
+        }
+        this.$store.dispatch('initHotelFacilitiesType', hotelFacilitiesTypeOptions)
+      },
       //选中设施类型
       changeFacilitiesType(){
         let options = {

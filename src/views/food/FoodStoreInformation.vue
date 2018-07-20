@@ -362,7 +362,42 @@
         isLoading: false
       }
     },
+    created() {
+      this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
+      this.initProvince();
+      this.initData();
+      this.initNumberOfMeals();
+      this.initStorefrontType();
+    },
     methods: {
+      //店面类型
+      initStorefrontType(){
+        let selectPropertyInfoType = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "fd_py_ParentID": "1",//父编码
+          "page": "1",
+          "rows": "10000",
+        }
+        this.$store.dispatch('initStorefrontType', selectPropertyInfoType)
+      },
+      //用餐人数类型
+      initNumberOfMeals(){
+        let selectPropertyInfo = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "fd_py_ParentID": "28",//父编码
+          "page": "1",
+          "rows": "10000",
+        }
+        this.$store.dispatch('initNumberOfMeals', selectPropertyInfo)
+      },
       //获取经纬度
       getLatitude(){
         window.open('http://api.map.baidu.com/lbsapi/getpoint/index.html')
@@ -562,11 +597,7 @@
       },
 
     },
-    created() {
-      this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      this.initProvince();
-      this.initData();
-    }
+
   }
 </script>
 <style scoped>

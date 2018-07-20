@@ -175,9 +175,25 @@
         });
         return
       }
-      this.initData()
+      this.initData();
+//      this.initFacilities();
     },
     methods: {
+      //惠乐游设施
+      initFacilities(){
+        let hotelFacilitiesServicesoptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "ht_hd_ID": "",//设施编码
+          "ht_hd_Name": '',//设施名称
+          "ht_hd_HardTypeID": "",//设施类型ID
+          "ht_hd_IsHot": "",//是否热门
+        }
+        this.$store.dispatch('initHotelFacilities', hotelFacilitiesServicesoptions)
+      },
       //分页
       handleCurrentChange(num){
         this.initData(num);

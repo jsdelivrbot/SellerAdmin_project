@@ -146,6 +146,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -154,7 +155,7 @@
     data() {
       return {
         storeId: '',
-        isLoading:false,
+        isLoading: false,
         addDialog: false,
         addOptions: {
           "fd_sfp_StoreFrontID": "",//店面编号
@@ -168,15 +169,16 @@
         updateDialog: false,
       }
     },
-    created(){
+    created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      if( !this.foodStoreInformtionList.length ){
+      if (!this.foodStoreInformtionList.length) {
         this.initFoodStoreInformtion();
       }
+      this.initData();
     },
     methods: {
       //店面列表
-      initFoodStoreInformtion(){
+      initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -193,13 +195,13 @@
       },
       //初始化数据
       initData(id, num) {
-        if (!id) {
-          this.$notify({
-            message: '请选择店面！',
-            type: 'error'
-          })
-          return;
-        }
+//        if (!id) {
+//          this.$notify({
+//            message: '请选择店面！',
+//            type: 'error'
+//          })
+//          return;
+//        }
         let selectStoreFrontProductInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -207,10 +209,11 @@
           "operateUserName": "",
           "pcName": "",
           "fd_sfp_ID": "",//店面产品编码
-          "fd_sfp_StoreFrontID": id,//店面编号
+          "fd_sfp_StoreFrontID": id ? id : '',//店面编号
           "fd_sfp_Name": "",//名称
           "priceFrom": "",//价格
           "priceTo": "",//备注
+          agentID: this.userInfo.sm_ui_ID,
           "page": num ? num : 1,
           "rows": "5",
         };
@@ -220,7 +223,7 @@
             this.isLoading = false;
             this.total = total;
           }, err => {
-            $notify({
+            this.$notify({
               message: err,
               type: 'error'
             })
@@ -329,7 +332,7 @@
             "fd_pi_StoreID": id ? id : '',//店面产品编码
           }
         };
-        this.$store.dispatch('applyRecommendFood',insertPageIntroduceInfo)
+        this.$store.dispatch('applyRecommendFood', insertPageIntroduceInfo)
           .then(suc => {
             this.$notify({
               message: suc,

@@ -183,18 +183,19 @@
         isLoading: false,
         updateDialog: false,
         videoShow: false,
-        isShow:false,
+        isShow: false,
       }
     },
-    created(){
+    created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      if( !this.foodStoreInformtionList.length ){
+      if (!this.foodStoreInformtionList.length) {
         this.initFoodStoreInformtion();
       }
+      this.initData();
     },
     methods: {
       //店面列表
-      initFoodStoreInformtion(){
+      initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -210,22 +211,23 @@
         this.initData('', num);
       },
       //初始化数据
-      initData(id) {
-        if (!id) {
-          this.$notify({
-            message: '请选择店面！',
-            type: 'error'
-          })
-          return;
-        }
+      initData(id,num) {
+//        if (!id) {
+//          this.$notify({
+//            message: '请选择店面！',
+//            type: 'error'
+//          })
+//          return;
+//        }
         let initStoreRoom = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "操作员编码",
           "operateUserName": "操作员名称",
           "pcName": "",
-          "fd_sfr_StoreFrontID": id,//店面编号
-          "page": "1",
+          "fd_sfr_StoreFrontID": id ? id : '',//店面编号
+          agentID: this.userInfo.sm_ui_ID,
+          "page": num ? num : 1,
           "rows": "5",
         };
         this.isLoading = true;

@@ -125,6 +125,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -133,7 +134,7 @@
     ]),
     data() {
       return {
-        isLoading:false,
+        isLoading: false,
         storeId: '',
         total: 0,
         formLabelWidth: '120px',
@@ -141,22 +142,23 @@
         updateDialog: false,
         addOptions: {
           "fd_if_ProductID": "",//店面产品编码
-          "fd_if_Describe":""//描述
+          "fd_if_Describe": ""//描述
         },
         updateObj: {},
         imgUrl: '',
         bigPictureDialog: false,
       }
     },
-    created(){
+    created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      if( !this.foodStoreInformtionList.length ){
+      if (!this.foodStoreInformtionList.length) {
         this.initFoodStoreInformtion();
       }
+      this.initData();
     },
     methods: {
       //店面列表
-      initFoodStoreInformtion(){
+      initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -168,18 +170,18 @@
         this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontpInfo)
       },
       //选择店面产品
-      changeProduct(id){
+      changeProduct(id) {
         this.initStoreProdictData(id)
       },
       //初始化店面产品数据
       initStoreProdictData(id) {
-        if (!id) {
-          this.$notify({
-            message: '请选择店面！',
-            type: 'error'
-          })
-          return;
-        }
+//        if (!id) {
+//          this.$notify({
+//            message: '请选择店面！',
+//            type: 'error'
+//          })
+//          return;
+//        }
         let selectStoreFrontProductInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -187,10 +189,11 @@
           "operateUserName": "",
           "pcName": "",
           "fd_sfp_ID": "",//店面产品编码
-          "fd_sfp_StoreFrontID": id,//店面编号
+          "fd_sfp_StoreFrontID": id ? id : '',//店面编号
           "fd_sfp_Name": "",//名称
           "priceFrom": "",//价格
           "priceTo": "",//备注
+          agentID: this.userInfo.sm_ui_ID,
           "page": 1,
           "rows": "10000",
         };
@@ -209,13 +212,13 @@
       },
       //初始化数据
       initData(id, num) {
-        if (!id) {
-          this.$notify({
-            message: '请选择店面！',
-            type: 'error'
-          })
-          return
-        }
+//        if (!id) {
+//          this.$notify({
+//            message: '请选择店面！',
+//            type: 'error'
+//          })
+//          return
+//        }
         let selectIntroduceFoodInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -225,9 +228,10 @@
           "fd_if_ID": "",//推荐菜编号
           "fd_sf_ID": id,//店面编号
           "priceFrom": "",//价格大于
-          "priceTo":"",
+          "priceTo": "",
+          agentID: this.userInfo.sm_ui_ID,
           "page": "1",
-          "rows":"10",
+          "rows": "10",
         };
         this.isLoading = true;
         this.$store.dispatch('initFoodStoreRecommend', selectIntroduceFoodInfo)
@@ -292,7 +296,7 @@
             "fd_if_ID": id ? id : '',//推荐菜编号
           }
         };
-        this.$store.dispatch('deleteFoodStoreRecommend',deleteIntroduceFoodInfo)
+        this.$store.dispatch('deleteFoodStoreRecommend', deleteIntroduceFoodInfo)
           .then(suc => {
             this.$notify({
               message: suc,

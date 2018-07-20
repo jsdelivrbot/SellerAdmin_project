@@ -124,6 +124,17 @@
         </div>
       </el-dialog>
     </div>
+    <!--分页-->
+    <div class="block" style="text-align: right">
+      <el-pagination
+        :page-size="5"
+        @current-change="handleCurrentChange"
+        layout="prev, pager, next"
+        :total="total"
+        v-show="total"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -149,19 +160,24 @@
         bigPictureDialog: false,
         updateDialog: false,
         updateObj: {},
-        isShow: false
+        isShow: false,
+        total: 0,
       }
     },
-    created(){
+    created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      if( !this.foodStoreInformtionList.length ){
+      if (!this.foodStoreInformtionList.length) {
         this.initFoodStoreInformtion();
       }
+      this.initData();
     },
     methods: {
-
+      //分页
+      handleCurrentChange(num) {
+        this.initData(this.storeId, num)
+      },
       //店面列表
-      initFoodStoreInformtion(){
+      initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -220,14 +236,14 @@
         }, 30)
       },
       //初始化数据
-      initData(id) {
-        if (!id) {
-          this.$notify({
-            message: '请先选择店面！',
-            type: 'error'
-          })
-          return
-        }
+      initData(id, num) {
+//        if (!id) {
+//          this.$notify({
+//            message: '请先选择店面！',
+//            type: 'error'
+//          })
+//          return
+//        }
         this.isLoading = true;
         let selectProductImageInfo = {
           "loginUserID": "huileyou",
@@ -236,10 +252,14 @@
           "operateUserName": "",
           "pcName": "",
           "fd_pi_ID": "",//图片编号
-          "fd_pi_StoreFront": id,//店面编号
+          "fd_pi_StoreFront": id ? id : '',//店面编号
+          agentID: this.userInfo.sm_ui_ID,
+          page: num ? num : 1,
+          rows: 5,
         };
         this.$store.dispatch('initFoodProductPicture', selectProductImageInfo)
-          .then(() => {
+          .then((total) => {
+            this.total = total;
             this.isLoading = false;
           }, err => {
             this.$notify({

@@ -9,7 +9,7 @@
             <span>店面名称筛选:</span>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="storeId" placeholder="请选择店面" @change="changeRoom"  size="small">
+            <el-select v-model="storeId" placeholder="请选择店面" @change="changeRoom" size="small">
               <el-option
                 v-for="item in foodStoreInformtionList"
                 :key="item.fd_sf_ID"
@@ -19,7 +19,7 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="roomId" placeholder="请选择房间"  size="small">
+            <el-select v-model="roomId" placeholder="请选择房间" size="small">
               <el-option
                 v-for="item in foodStoreRoomList"
                 :key="item.fd_sfr_ID"
@@ -29,8 +29,8 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="search"  size="small">查询</el-button>
-            <el-button type="primary" @click="add"  size="small">添加</el-button>
+            <el-button type="primary" @click="search" size="small">查询</el-button>
+            <el-button type="primary" @click="add" size="small">添加</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -150,6 +150,18 @@
         </div>
       </el-dialog>
     </div>
+
+    <!--分页-->
+    <div class="block" style="text-align: right">
+      <el-pagination
+        :page-size="5"
+        @current-change="handleCurrentChange"
+        layout="prev, pager, next"
+        :total="total"
+        v-show="total"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -179,18 +191,23 @@
         updateObj: {},
         bigPictureDialog: false,
         imgUrl: '',
-        userInfo:{}
+        userInfo: {},
       }
     },
-    created(){
+    created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      if( !this.foodStoreInformtionList.length ){
+      if (!this.foodStoreInformtionList.length) {
         this.initFoodStoreInformtion();
       }
+      this.initData();
     },
     methods: {
+      //分页
+      handleCurrentChange(num) {
+        this.initData(this.storeId, num)
+      },
       //店面列表
-      initFoodStoreInformtion(){
+      initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -266,13 +283,13 @@
       },
       //初始化房间数据
       initRoomData(id) {
-        if (!id) {
-          this.$notify({
-            message: '请选择店面！',
-            type: 'error'
-          })
-          return;
-        }
+//        if (!id) {
+//          this.$notify({
+//            message: '请选择店面！',
+//            type: 'error'
+//          })
+//          return;
+//        }
         let initStoreRoom = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -280,10 +297,8 @@
           "operateUserName": "操作员名称",
           "pcName": "",
           "fd_sfr_ID": "",//店面房间编号
-          "fd_sfr_StoreFrontID": id,//店面编号
+          "fd_sfr_StoreFrontID": id ? id : '',//店面编号
           "fd_sfr_RoomName": "",//房间名称
-          "page": "1",
-          "rows": "10000",
         }
         this.$store.dispatch('initFoodStoreRoom', initStoreRoom).then(
           total => {
@@ -296,25 +311,27 @@
           })
       },
       //初始化数据
-      initData(id) {
-        if (!id) {
-          this.$notify({
-            message: '请选择房间！',
-            type: 'error'
-          })
-          return;
-        }
+      initData(id, num) {
+//        if (!id) {
+//          this.$notify({
+//            message: '请选择房间！',
+//            type: 'error'
+//          })
+//          return;
+//        }
         let selectRoomImageInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "page": "1",
-          "rows": "10",
+          "page": num ? num : 1,
+          "rows": "5",
           "fd_ri_ID": "",//房间图片编码
-          "fd_ri_RoomID": id,//店面房间编号
+          "fd_ri_RoomID": id ? id : '',//店面房间编号
+          agentID: this.userInfo.sm_ui_ID,
         }
+
         this.isLoading = true;
         this.$store.dispatch('initFoodRoomPicture', selectRoomImageInfo)
           .then(total => {

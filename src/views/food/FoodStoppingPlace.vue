@@ -9,7 +9,7 @@
             <span>店面停车位查询:</span>
           </el-form-item>
           <el-form-item>
-            <el-select v-model="foodStoreName" placeholder="请选择店面名称"  size="small">
+            <el-select v-model="foodStoreName" placeholder="请选择店面名称" size="small">
               <el-option
                 v-for="item in foodStoreInformtionList"
                 :key="item.fd_sf_ID"
@@ -20,8 +20,8 @@
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="search"  size="small">查询</el-button>
-            <el-button type="primary" @click="add"  size="small">添加</el-button>
+            <el-button type="primary" @click="search" size="small">查询</el-button>
+            <el-button type="primary" @click="add" size="small">添加</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -130,6 +130,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+
   export default {
     computed: mapGetters([
       'foodStoppingPlaceList',
@@ -140,7 +141,7 @@
         isOff: true,
         foodStoreName: "",
         updateObj: {},
-        isLoading:false,
+        isLoading: false,
         addDialog: false,
         formLabelWidth: '120px',
         updateDialog: false,
@@ -163,25 +164,26 @@
           value: 1,
           label: '锁定'
         },
-        //   {
-        //   value: 2,
-        //   label: '已售'
-        // }
+          //   {
+          //   value: 2,
+          //   label: '已售'
+          // }
         ],
         total: 0,
 
       }
     },
-    created(){
+    created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      if( !this.foodStoreInformtionList.length ){
+      if (!this.foodStoreInformtionList.length) {
         this.initFoodStoreInformtion();
       }
+      this.initData();
     },
     methods: {
 
       //店面列表
-      initFoodStoreInformtion(){
+      initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -198,13 +200,13 @@
       },
       //初始化数据
       initData(name, num) {
-        if (!name) {
-          this.$notify({
-            message: '请选择店面！',
-            type: 'error'
-          })
-          return
-        }
+//        if (!name) {
+//          this.$notify({
+//            message: '请选择店面！',
+//            type: 'error'
+//          })
+//          return
+//        }
         let selectFoodStoppingPlace = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -212,11 +214,12 @@
           "operateUserName": "",
           "pcName": "",
           "page": num ? num : 1,
-          "rows": "10",
+          "rows": "5",
           "fd_sc_ID": "",//停车位编码
-          "fd_sc_ShopID": name,//店面编号
+          "fd_sc_ShopID": name ? name : '',//店面编号
           "fd_sc_SeatNo": "",//停车位名称
           "fd_sc_LockStatus": "",//锁定状态
+          agentID: this.userInfo.sm_ui_ID,
         };
         this.isLoading = true;
         this.$store.dispatch('initFoodStoppingPlace', selectFoodStoppingPlace)

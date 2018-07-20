@@ -30,7 +30,8 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search" size="small">查询</el-button>
-            <el-button type="primary" @click="add" v-show="!foodStoreProductPictureList.length" size="small">添加</el-button>
+            <el-button type="primary" @click="add" v-show="!foodStoreProductPictureList.length" size="small">添加
+            </el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -80,7 +81,7 @@
       <!--添加-->
       <el-dialog title="添加店面菜肴图片" :visible.sync="addDialog">
         <el-form :model="addOptions">
-          <el-form-item label="选择店面:" :label-width="formLabelWidth" >
+          <el-form-item label="选择店面:" :label-width="formLabelWidth">
             <el-select v-model="storeId" placeholder="请选择产品" @change="changeProduct">
               <el-option
                 v-for="item in foodStoreInformtionList"
@@ -138,11 +139,24 @@
         </div>
       </el-dialog>
     </div>
+
+    <!--分页-->
+    <div class="block" style="text-align: right">
+      <el-pagination
+        :page-size="5"
+        @current-change="handleCurrentChange"
+        layout="prev, pager, next"
+        :total="total"
+        v-show="total"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
+
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -164,18 +178,24 @@
         updateDialog: false,
         bigPictureDialog: false,
         imgUrl: '',
-        userInfo:{}
+        userInfo: {},
+        total: 0
       }
     },
-    created(){
+    created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      if( !this.foodStoreInformtionList.length ){
+      if (!this.foodStoreInformtionList.length) {
         this.initFoodStoreInformtion();
       }
+      this.initData()
     },
     methods: {
+      //分页
+      handleCurrentChange(num) {
+        this.initData(this.storeId, num)
+      },
       //店面列表
-      initFoodStoreInformtion(){
+      initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -187,7 +207,7 @@
         this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontpInfo)
       },
       uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
+        return new Promise((relove, reject) => {
           var fd = new FormData();
           fd.append("fileToUpload", file);
           var xhr = new XMLHttpRequest();
@@ -199,7 +219,7 @@
                 var data = xhr.responseText
                 relove(JSON.parse(data))
               }
-            }else{
+            } else {
               console.log(xhr.responseText)
 //               if (xhr.responseText) {
 //                 var data = xhr.responseText;
@@ -230,7 +250,7 @@
                       });
                     }
                   })
-               // })
+                // })
               }
             })
           }
@@ -238,18 +258,17 @@
       },
       //选择菜肴
       changeProduct(id) {
-        console.log(1)
         this.initProductData(id);
       },
       //初始化数据
       initProductData(id) {
-        if (!id) {
-          this.$notify({
-            message: '请选择店面！',
-            type: 'error'
-          })
-          return;
-        }
+//        if (!id) {
+//          this.$notify({
+//            message: '请选择店面！',
+//            type: 'error'
+//          })
+//          return;
+//        }
         let selectStoreFrontProductInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -257,52 +276,52 @@
           "operateUserName": "",
           "pcName": "",
           "fd_sfp_ID": "",//店面产品编码
-          "fd_sfp_StoreFrontID": id,//店面编号
+          "fd_sfp_StoreFrontID": id ? id : '',//店面编号
           "fd_sfp_Name": "",//名称
           "priceFrom": "",//价格
           "priceTo": "",//备注
-          "page": 1,
-          "rows": "10000",
         };
         this.$store.dispatch('initFoodStoreProduct', selectStoreFrontProductInfo)
-        .then(() => {
-        }, err => {
-          $notify({
-            message: err,
-            type: 'error'
+          .then(() => {
+          }, err => {
+            $notify({
+              message: err,
+              type: 'error'
+            })
           })
-        })
       },
       //初始化数据
       initData(id) {
-        if (!id) {
-          this.$notify({
-            message: '请选择菜肴！',
-            type: 'error'
-          })
-          return;
-        }
+//        if (!id) {
+//          this.$notify({
+//            message: '请选择菜肴！',
+//            type: 'error'
+//          })
+//          return;
+//        }
         let selectGoodImageInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          //"page": "1",
-          //"rows": "10",
+          "page": "1",
+          "rows": "5",
+          agentID: this.userInfo.sm_ui_ID,
           "fd_gi_ID": "",//商品图片编码
-          "fd_gi_GoodID": id,//店面产品编码
+          "fd_gi_GoodID": id ? id : '',//店面产品编码
         };
         this.isLoading = true;
         this.$store.dispatch('initFoodStoreProductPicture', selectGoodImageInfo)
-        .then(() => {
-          this.isLoading = false;
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
+          .then((total) => {
+            this.total = total;
+            this.isLoading = false;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
           })
-        })
       },
       //查询
       search() {
@@ -331,18 +350,18 @@
           "data": this.addOptions
         };
         this.$store.dispatch('addFoodStoreProductPicture', insertGoodImageInfo)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            })
+            this.initData(this.productId);
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
           })
-          this.initData(this.productId);
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          })
-        })
         this.addDialog = false;
       },
       //修改
@@ -366,18 +385,18 @@
           "data": this.updateObj
         };
         this.$store.dispatch('updateFoodStoreProductPicture', updateGoodImageInfo)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            })
+            this.initData(this.productId);
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
           })
-          this.initData(this.productId);
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          })
-        })
         this.updateDialog = false;
       },
       //删除
@@ -393,18 +412,18 @@
           }
         }
         this.$store.dispatch('deleteFoodStoreProductPicture', deleteGoodImageInfo)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            })
+            this.initData(this.productId);
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
           })
-          this.initData(this.productId);
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          })
-        })
       },
     },
   }

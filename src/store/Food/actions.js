@@ -430,7 +430,7 @@ export default {
         .then(data => {
           var data = data.data;
           if (Number(data.resultcode) == 200) {
-            relove()
+            relove(Number(data.totalrows))
             commit('initFoodProductPicture', data.data)
           }
           else {
@@ -906,7 +906,7 @@ export default {
         .then(data => {
           var data = data.data;
           if (Number(data.resultcode) == 200) {
-            relove()
+            relove(Number(data.totalrows))
             commit('initFoodStoreProductPicture', data.data)
           }
           else {

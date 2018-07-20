@@ -73,7 +73,7 @@
       <!--分页-->
       <div class="block" style="text-align: right">
         <el-pagination
-          :page-size="10"
+          :page-size="5"
           @current-change="handleCurrentChange"
           layout="prev, pager, next"
           :total="total"
@@ -146,6 +146,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -154,7 +155,7 @@
     ]),
     data() {
       return {
-        isLoading:false,
+        isLoading: false,
         storeId: '',
         roomId: '',
         formLabelWidth: '120px',
@@ -169,15 +170,16 @@
         updateObj: {},
       }
     },
-    created(){
+    created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      if( !this.foodStoreInformtionList.length ){
+      if (!this.foodStoreInformtionList.length) {
         this.initFoodStoreInformtion();
       }
+      this.initData();
     },
     methods: {
       //店面列表
-      initFoodStoreInformtion(){
+      initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -198,13 +200,13 @@
       },
       //初始化房间数据
       initRoomData(id) {
-        if (!id) {
-          this.$notify({
-            message: '请选择店面！',
-            type: 'error'
-          })
-          return;
-        }
+//        if (!id) {
+//          this.$notify({
+//            message: '请选择店面！',
+//            type: 'error'
+//          })
+//          return;
+//        }
         let initStoreRoom = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -212,10 +214,9 @@
           "operateUserName": "操作员名称",
           "pcName": "",
           "fd_sfr_ID": "",//店面房间编号
-          "fd_sfr_StoreFrontID": id,//店面编号
+          "fd_sfr_StoreFrontID": id ? id : '',//店面编号
           "fd_sfr_RoomName": "",//房间名称
-          "page": "1",
-          "rows": "1000",
+          agentID: this.userInfo.sm_ui_ID,
         }
         this.$store.dispatch('initFoodStoreRoom', initStoreRoom)
           .then(() => {
@@ -228,13 +229,13 @@
       },
       //初始化数据
       initData(id, num) {
-        if (!id) {
-          this.$notify({
-            message: '请选择房间！',
-            type: 'error'
-          })
-          return;
-        }
+//        if (!id) {
+//          this.$notify({
+//            message: '请选择房间！',
+//            type: 'error'
+//          })
+//          return;
+//        }
         let selectRoomTableInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -242,9 +243,10 @@
           "operateUserName": "",
           "pcName": "",
           "fd_rt_ID": "",//房间餐桌编号
-          "fd_rt_RoomID": id,//店面房间编号
+          "fd_rt_RoomID": id ? id : '',//店面房间编号
           "page": num ? num : 1,//允许占用时间
-          "rows": "10",//备注
+          "rows": "5",//备注
+          agentID: this.userInfo.sm_ui_ID,
         }
         this.isLoading = true;
         this.$store.dispatch('initFoodStoreRoomTabel', selectRoomTableInfo)

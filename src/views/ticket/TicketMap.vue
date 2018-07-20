@@ -51,11 +51,7 @@
           </a>
           <div v-show="isShow">正在上传图片文件...</div>
           <div class="imgWap">
-<<<<<<< HEAD
             <p v-for="item,index in ImageURL" style="display: inline-block;position: relative">
-=======
-            <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative">
->>>>>>> a49c33517b4d0326ee5630cc95bfa1d2656f5f17
               <img
                 :src="item"
                 width="280"

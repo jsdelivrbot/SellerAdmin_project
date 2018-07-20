@@ -5,13 +5,7 @@
       <!--查询栏-->
       <el-col :span="24" class="formSearch">
         <el-form :inline="true" size="mini">
-          <!--<el-form-item label="电影类型筛选:" :label-width="formLabelWidth">-->
-          <!--<el-select v-model="movieType" placeholder="请选择电影类型" >-->
-          <!--<el-option :key="item.vf_te_ID" :label="item.vf_te_Name" :value="item.vf_te_ID" v-for="item in VMovieTypeList"></el-option>-->
-          <!--</el-select>-->
-          <!--</el-form-item>-->
           <el-form-item :label-width="formLabelWidth">
-            <!--<el-button type="primary" @click="search">查询</el-button>-->
             <el-button type="primary" @click="Add">新增</el-button>
           </el-form-item>
         </el-form>

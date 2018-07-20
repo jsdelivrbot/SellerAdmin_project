@@ -323,7 +323,7 @@
                   });
               },*/
       Add() {
-        this.seriesName();
+//        this.seriesName();
         this.addDialog = true;
         this.$store.commit('setTranstionFalse');
       },
@@ -464,7 +464,7 @@
             })
       },
       Update(obj) {
-        this.seriesName();
+//        this.seriesName();
         this.typeName();
         this.VMovieSeriesCategoriesUpdateObj.data=obj;
         this.updateDialog = true;

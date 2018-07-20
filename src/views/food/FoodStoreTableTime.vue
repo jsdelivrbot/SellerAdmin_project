@@ -135,6 +135,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
@@ -142,7 +143,7 @@
     ]),
     data() {
       return {
-        isLoading:false,
+        isLoading: false,
         storeId: '',
         total: 0,
         formLabelWidth: '120px',
@@ -155,15 +156,16 @@
         updateObj: {},
       }
     },
-    created(){
+    created() {
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
-      if( !this.foodStoreInformtionList.length ){
+      if (!this.foodStoreInformtionList.length) {
         this.initFoodStoreInformtion();
       }
+      this.initData();
     },
     methods: {
       //店面列表
-      initFoodStoreInformtion(){
+      initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -180,13 +182,13 @@
       },
       //初始化数据
       initData(id, num) {
-        if (!id) {
-          this.$notify({
-            message: '请选择店面！',
-            type: 'error'
-          })
-          return
-        }
+//        if (!id) {
+//          this.$notify({
+//            message: '请选择店面！',
+//            type: 'error'
+//          })
+//          return
+//        }
         let selectCanLockTimeInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -196,8 +198,9 @@
           "page": num ? num : 1,
           "rows": "5",
           "fd_clt_ID": "",//店面可锁桌时间编码
-          "fd_clt_FrontID": id,//店面编号
+          "fd_clt_FrontID": id ? id : '',//店面编号
           "fd_clt_CanSellTime": "",//可售时间
+          agentID: this.userInfo.sm_ui_ID,
         };
         this.isLoading = true;
         this.$store.dispatch('initFoodStoreTableTime', selectCanLockTimeInfo)
@@ -288,7 +291,7 @@
             "fd_clt_ID": id,//店面可锁桌时间编码
           }
         };
-        this.$store.dispatch('deleteFoodStoreTableTime',deleteCanLockTimeInfo)
+        this.$store.dispatch('deleteFoodStoreTableTime', deleteCanLockTimeInfo)
           .then(suc => {
             this.$notify({
               message: suc,

@@ -184,7 +184,9 @@ export default {
   },
   initUpdateAdminMerchantProductsObj(state, id) {
     state.updateAdminMerchantProductsObj = state.adminTradeGoodList.filter(item => {
+
       if (item.ta_tg_ID == id) {
+
         return true;
       }
       return false;

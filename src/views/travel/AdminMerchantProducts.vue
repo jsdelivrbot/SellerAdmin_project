@@ -1769,7 +1769,7 @@
           "pcName": "",
           "data": this.updateAdminMerchantProductsObj
       };
-        this.updateAdminMerchantProductsObj.ta_tg_ShowImage = this.updateAdminMerchantProductsObj.ta_tg_ShowImages.join(',')
+        this.updateAdminMerchantProductsObj.ta_tg_ShowImage = this.updateImageURL.join(',')
         this.$store.dispatch('UpdateAdminMerchantProducts', updateOptions)
         .then(() => {
           this.$notify({

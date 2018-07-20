@@ -230,8 +230,9 @@ export default {
         "operateUserName": "",
         "pcName": "",
         "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
+
       };
-      await this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontInfo)
+//      await this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontInfo)
     },
     handleClickOutside() {
       this.$store.dispatch('CloseSideBar', { withoutAnimation: false })

@@ -94,6 +94,24 @@ export default {
     })
   },
   //店面信息
+  initFoodStoreInformtionAction({commit}, data) {
+    return new Promise(function (relove, reject) {
+      axios.post(getNewStr + '/StoreFront/Select', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data => {
+          var data = data.data;
+          if (Number(data.resultcode == 200)) {
+            commit('initFoodStoreInformtionAction', data.data);
+            relove(Number(data.totalrows))
+          } else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
   initFoodStoreInformtion({commit}, data) {
     return new Promise(function (relove, reject) {
       axios.post(getNewStr + '/StoreFront/Select', JSON.stringify(data), {
@@ -105,7 +123,8 @@ export default {
           var data = data.data;
           if (Number(data.resultcode == 200)) {
             commit('initFoodStoreInformtion', data.data);
-            relove(Number(data.totalrows))
+            // relove(Number(data.totalrows))
+            relove(data)
           } else {
             reject(data.resultcontent)
           }

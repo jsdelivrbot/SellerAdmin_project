@@ -9,6 +9,9 @@ export default {
   initFoodStoreInformtion(state, data) {
     state.foodStoreInformtionList = data;
   },
+  initFoodStoreInformtionAction(state, data) {
+    state.foodStoreInformtionList1 = data;
+  },
   initNumberOfMeals(state, data) {
     state.numberOfMealsList = data;
   },

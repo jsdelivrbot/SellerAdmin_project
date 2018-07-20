@@ -44,7 +44,7 @@
 
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
 
-          <Upload></Upload>
+          <Upload @getData="getData" :attrs="imageObj"></Upload>
 
           <a href="javascript:;" class="file">上传图片
             <input type="file" name="" ref="upload" accept="image/*" multiple>
@@ -260,17 +260,20 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-//  import
+  //  import
   import Upload from '@/components/Upload'
   export default {
     name: '',
-    components:{
+    components: {
       Upload
     },
     data() {
       return {
-        categoryMap:{
+        categoryMap: {
           image: ['gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp'],
+        },
+        imageObj:{
+          accept: 'image/*'
         },
         isShow: false,
         isUploaNode: true,
@@ -289,7 +292,7 @@
         AudioNews: "",
         //添加
         addOptions: {
-          "tm_se_Code": "002",  //景点编号
+          "tm_se_Code": "",  //景点编号
           "tm_se_Name": "",  //小景点名称
           "tm_se_HandX": "",  //位于手绘图X
           "tm_se_HandY": "",  //位于手绘图Y
@@ -308,7 +311,7 @@
           "pcName": "",  //机器码
           "data": {
             "tm_se_ID": "",  //景区小景点编码
-            "tm_se_Code": "002",  //景点编号
+            "tm_se_Code": "",  //景点编号
             "tm_se_Name": "",  //小景点名称
             "tm_se_HandX": "",  //位于手绘图X
             "tm_se_HandY": "",  //位于手绘图Y
@@ -326,10 +329,14 @@
       'ticketMapList',
     ]),
     created() {
-      this.id = this.$route.query.id;
+      this.id = this.$route.params.id;
       this.initData()
     },
     methods: {
+      getData(data){
+        console.log(data)
+      },
+
       //删除修改对应图片
       deleteUpdateImageURL(val){
         this.isNewUploaNode = false
@@ -392,7 +399,7 @@
         let arr = 'mp3,wma,rm,wav,midi,ape,flac'.split(',')
         if (this.$refs.audios) {
           let str = this.$refs.audios.files[0].type.split('/')[1];
-          if(!arr.includes(str)){
+          if (!arr.includes(str)) {
             this.$notify({
               message: '音频格式不对!',
               type: 'error'
@@ -410,7 +417,7 @@
         }
         if (this.$refs.audios1) {
           let str1 = this.$refs.audios1.files[0].type.split('/')[1];
-          if(!arr.includes(str1)){
+          if (!arr.includes(str1)) {
             this.$notify({
               message: '音频格式不对!',
               type: 'error'
@@ -518,8 +525,8 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "tm_se_ID": "",//景区小景点编码
-          "tm_se_Code": "002",//景点编号
+          "tm_se_ID": '',//景区小景点编码
+          "tm_se_Code": this.id,//景点编号
           "tm_se_Name": name ? name : '',//小景点名称
           "page": page ? page : 1,//页码
           "rows": "5"//条数
@@ -570,7 +577,7 @@
         this.addDialog = false;
       },
 
-         Update(obj){
+      Update(obj){
         this.updateOptions.data = obj;
         setTimeout(() => {
           this.updateImageURL = obj.tm_se_Image
@@ -589,7 +596,6 @@
         })
         this.updateDialog = false;
       },
-
       //删除
       Delete(id){
         let deleteOption = {

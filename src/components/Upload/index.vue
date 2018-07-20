@@ -15,7 +15,7 @@
   import {getNewStr} from '@/assets/js/public'
   export default{
     name: '',
-//    props:['categoryMap'],
+    props:['attrs'],
     data(){
       return {
         options: {
@@ -23,10 +23,6 @@
           target: getNewStr+'/OSSFile/PostToOSS',
           fileParameterName:'fileToUpload',
           testChunks: false
-        },
-//        categoryMap:{image: ['gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp'],},
-        attrs: {
-          accept: 'video/*'
         },
         statusText: {
           success: '成功了',
@@ -46,6 +42,8 @@
     methods: {
       //上传成功的事件
       fileSuccess (rootFile, file, message, chunk) {
+        var obj = JSON.parse(message)
+        this.$emit('getData',obj);
         console.log('complete', rootFile, file, message, chunk)
       },
     },

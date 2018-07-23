@@ -37,7 +37,7 @@
                 <span>{{ props.row.tm_tt_Name }}</span>
               </el-form-item>
               <!--<el-form-item label="票种编号:">-->
-                <!--<span>{{ props.row.tm_tm_ID }}</span>-->
+              <!--<span>{{ props.row.tm_tm_ID }}</span>-->
               <!--</el-form-item>-->
               <el-form-item label="洲:">
                 <span>{{ props.row.tm_ts_GreatName }}</span>
@@ -148,7 +148,7 @@
         total: 0,
         adminUserInfo: {},
         isLoading: false,
-        page:1,
+        page: 1,
       }
     },
     methods: {
@@ -227,6 +227,13 @@
     created() {
       this.adminUserInfo = JSON.parse(sessionStorage.getItem('admin'));
       this.initData('')
+    },
+    mounted() {
+      document.addEventListener('keydown', (e) => {
+        if (e.keyCode == 13) {
+          this.initData(this.siteName);
+        }
+      });
     }
   }
 </script>

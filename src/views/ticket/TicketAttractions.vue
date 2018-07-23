@@ -521,7 +521,7 @@
     },
     data() {
       return {
-        radioIndex: '',
+
         isUploaNode: true,
         isNewUploaNode: true,
         formLabelWidth: '120px',
@@ -614,6 +614,7 @@
         updateImageURL: [],
         value: '',
         imageObj: {accept: 'image/*'},
+        radioIndex: '',
         addRadioIndex: 0
       }
     },
@@ -634,35 +635,11 @@
       this.initTheme();
     },
     mounted() {
-//      var _this = this;
-//      var geolocation = new BMap.Geolocation();
-//      geolocation.getCurrentPosition(function (r) {
-//        _this.form.x = r.point.lng;
-//        _this.form.y = r.point.lat;
-//        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-//          var map = new BMap.Map("allmap");
-//          // var point = new BMap.Point(116.400244, 39.92556);
-//          map.centerAndZoom(r.point, 12); //定义地图等级，就是放大倍数
-//          map.enableScrollWheelZoom(true); //启用地图滚轮放大缩小
-//          var marker = new BMap.Marker(r.point);// 创建标注
-//          map.addOverlay(marker);  // 将标注添加到地图中
-//          map.panTo(r.point);
-//          // alert('您的位置：' + r.point.lng + ',' + r.point.lat);
-//          marker.enableDragging(); //标注可拖拽
-//          //marker.disableDragging();           // 不可拖拽
-//          // 开启事件监听
-//          marker.addEventListener("dragend", function (e) {
-//            var x = e.point.lng; //经度
-//            var y = e.point.lat; //纬度
-////            alert("拖到的地点的经纬度：" + x + "，" + y);
-//            _this.form.x = x;
-//            _this.form.y = y;
-//          });
-//        }
-//        else {
-//          alert('failed' + this.getStatus());
-//        }
-//      }, {enableHighAccuracy: true})
+      document.addEventListener('keydown', (e) => {
+        if (e.keyCode == 13) {
+          this.initData(this.siteName, 1);
+        }
+      });
     },
     methods: {
       //修改图片

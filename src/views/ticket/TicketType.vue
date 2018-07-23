@@ -112,7 +112,13 @@
       <el-dialog title="添加票种信息" :visible.sync="addDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="addOptions">
           <el-form-item label="票种名称:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_tt_Name"></el-input>
+            <el-autocomplete
+              class="inline-input"
+              v-model="addOptions.tm_tt_Name"
+              :fetch-suggestions="querySearchTicket"
+              placeholder="请输入票种名称"
+              @select="addHandleSelect"
+            ></el-autocomplete>
           </el-form-item>
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
 
@@ -173,7 +179,13 @@
       <el-dialog title="修改票种信息" :visible.sync="updateDialog" :close-on-click-modal="false" @close="closeDialog">
         <el-form :model="updateTicketTypeObj">
           <el-form-item label="票种名称:" :label-width="formLabelWidth">
-            <el-input v-model="updateTicketTypeObj.tm_tt_Name"></el-input>
+            <el-autocomplete
+              class="inline-input"
+              v-model="updateTicketTypeObj.tm_tt_Name"
+              :fetch-suggestions="querySearchTicket"
+              placeholder="请输入票种名称"
+              @select="addHandleSelect"
+            ></el-autocomplete>
           </el-form-item>
           <el-form-item label="票种名称:" :label-width="formLabelWidth">
 
@@ -301,9 +313,32 @@
         },
         radioIndex: 0,
         addRadioIndex: 0,
+        arr: [
+          {
+            value:'成人票'
+          },
+          {
+            value:'儿童票'
+          }
+        ]
       }
     },
     methods: {
+      querySearchTicket(queryString,cb){
+        var restaurants = this.arr;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+      },
+      createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
+      addHandleSelect(item) {
+        this.addOptions.tm_tt_Name = item.value
+        console.log(item);
+      },
       //添加图片
       getData(data) {
         if (!this.addRadioIndex) {
@@ -415,8 +450,6 @@
           "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
           "tm_ts_IsHot": "",//是否热门景点（0普通1热门)
           "tm_ts_ThemeTypeID": "",//主题编码
-          "page": 1,
-          "rows": 5
         };
         this.$store.dispatch('initTicketAttractions', options)
       },

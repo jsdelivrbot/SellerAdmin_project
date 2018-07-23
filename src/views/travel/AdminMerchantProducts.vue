@@ -295,11 +295,6 @@
         <el-form-item label="展示图片:" :label-width="formLabelWidth" required>
 
           <Upload @getData="getData" :attrs="imageObj"></Upload>
-
-          <!--<a href="javascript:;" class="file">上传图片-->
-            <!--<input type="file" name="" ref="upload" accept="image/*" multiple>-->
-          <!--</a>-->
-          <!--<div v-show="isShow">正在上传图片文件...</div>-->
           <div class="imgWap">
             <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative">
               <img
@@ -309,6 +304,9 @@
                 v-show="ImageURL.length"
               >
               <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="addRadioIndex" :label="index+1">替换</el-radio>
+              </em>
             </p>
           </div>
         </el-form-item>
@@ -471,14 +469,15 @@
 
         <el-form-item label="展示图片:" :label-width="formLabelWidth">
 
-          <a href="javascript:;" class="file">上传文件
-            <input type="file" name="" ref="updateUpload" accept="image/*" multiple>
-          </a>
-          <p>如果不修改图片默认为原来的图片</p>
-          <div v-show="isShow">正在上传图片文件...</div>
+          <Upload @getData="updateImage" :attrs="imageObj"></Upload>
+
           <div class="imgWap">
-            <p  v-for="item,index in updateImageURL" style="display: inline-block;position: relative">
+            <p v-for="item,index in updateImageURL"
+               style="display: inline-block;position: relative;margin-right: 70px">
               <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
+              </em>
               <img
                 :src="item"
                 width="280"
@@ -859,7 +858,10 @@
         backRuleListContent:'',
         addBackRuleListDialog:false,
         updateBackRuleListDialog:false,
-        updateBackRuleListContentObj:{}
+        updateBackRuleListContentObj:{},
+        imageObj: {accept: 'image/*'},
+        radioIndex: '',
+        addRadioIndex: 0
       }
     },
     computed: mapGetters([
@@ -892,7 +894,12 @@
       },
       //图片上传
       getData(data) {
-        this.ImageURL.push(data.data);
+        if (!this.addRadioIndex) {
+          this.ImageURL.push(data.data);
+        } else {
+          this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.addRadioIndex = '';
+        }
       },
       //删除修改对应图片
       deleteUpdateImageURL(val){

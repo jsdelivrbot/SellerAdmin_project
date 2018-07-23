@@ -293,10 +293,13 @@
           <el-input v-model="addOptions.data.ts_tg_lowestPrice" placeholder="请输入推荐价格" class="tg_Title"></el-input>
         </el-form-item>
         <el-form-item label="展示图片:" :label-width="formLabelWidth" required>
-          <a href="javascript:;" class="file">上传图片
-            <input type="file" name="" ref="upload" accept="image/*" multiple>
-          </a>
-          <div v-show="isShow">正在上传图片文件...</div>
+
+          <Upload @getData="getData" :attrs="imageObj"></Upload>
+
+          <!--<a href="javascript:;" class="file">上传图片-->
+            <!--<input type="file" name="" ref="upload" accept="image/*" multiple>-->
+          <!--</a>-->
+          <!--<div v-show="isShow">正在上传图片文件...</div>-->
           <div class="imgWap">
             <p  v-for="item,index in ImageURL" style="display: inline-block;position: relative">
               <img
@@ -699,10 +702,15 @@
   import elDragDialog from '@/directive/el-dragDialog' // base on element-ui
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
+  import Upload from '@/components/Upload'
   export default{
     name: '',
+    components: {
+      Upload
+    },
     data(){
       return {
+        radioIndex: '',
         isShow:false,
         updateImageURL:[],
         isUploaNode:true,
@@ -873,6 +881,19 @@
       this.productsID = obj.sm_ui_ID
     },
     methods: {
+      //修改图片
+      updateImage(data) {
+        if (!this.radioIndex) {
+          this.updateImageURL.push(data.data);
+        } else {
+          this.updateImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.radioIndex = '';
+        }
+      },
+      //图片上传
+      getData(data) {
+        this.ImageURL.push(data.data);
+      },
       //删除修改对应图片
       deleteUpdateImageURL(val){
         this.isNewUploaNode= false
@@ -1579,84 +1600,6 @@
             cb(this.restaurants);
           }, 10);
         })
-      },
-
-      //图片promise
-      uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
-          var fd = new FormData();
-          fd.append("fileToUpload", file);
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
-          xhr.send(fd);
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200){
-              if (xhr.responseText) {
-                var data = xhr.responseText;
-                relove(JSON.parse(data))
-              }
-            }else{
-            }
-          }
-        })
-      },
-      uploadNode(arr) {
-        setTimeout(() => {
-          if (this.$refs.upload && this.isUploaNode) {
-            if (arr) {
-              if (!arr.length) {
-                this.ImageURL = [];
-              }
-            }
-            this.$refs.upload.addEventListener('change', data => {
-              this.isShow = true
-              for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                this.uploadToOSS(this.$refs.upload.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.isShow = false,
-                        this.ImageURL.push(data.data);
-                      this.$refs.upload.value = '';
-                      this.isUploaNode = false;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-              }
-            })
-
-          }
-          if (this.$refs.updateUpload && this.isNewUploaNode) {
-            if(arr){
-              if(!arr.length){
-                this.updateImageURL = [];
-              }
-            }
-            this.$refs.updateUpload.addEventListener('change', data => {
-              this.isShow = true
-              for (var i = 0; i < this.$refs.updateUpload.files.length; i++) {
-                this.uploadToOSS(this.$refs.updateUpload.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.isShow = false,
-                        this.updateImageURL.push(data.data);
-                      this.$refs.updateUpload.value = '';
-                      this.isNewUploaNode= false;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                //})
-              }
-            })
-          }
-        }, 30)
       },
       //初始化数据
       initData(id, page,title){

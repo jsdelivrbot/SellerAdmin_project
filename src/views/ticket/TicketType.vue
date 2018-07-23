@@ -58,7 +58,7 @@
                 <span>{{ props.row.tm_tt_ExpireDay }}天</span>
               </el-form-item>
               <el-form-item label="提前预定时间">
-                <span>{{ props.row.tm_tt_BeforeTime/60 }}小时</span>
+                <span>{{ props.row.tm_tt_BeforeTime / 60 }}小时</span>
               </el-form-item>
               <el-form-item label="票价">
                 <span>{{ props.row.tm_tt_TicketPrice }}元</span>
@@ -122,18 +122,25 @@
               placeholder="请输入景点名称"
               @select="handleSelect"
             ></el-autocomplete>
-            <!--<el-select v-model="addOptions.tm_ts_Code" placeholder="请选择">-->
-            <!--<el-option-->
-            <!--v-for="item in ticketAttractionsList"-->
-            <!--:key="item.tm_ts_Code"-->
-            <!--:label="item.tm_ts_Name"-->
-            <!--:value="item.tm_ts_Code">-->
-            <!--</el-option>-->
-            <!--</el-select>-->
           </el-form-item>
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
 
             <Upload @getData="getData" :attrs="imageObj"></Upload>
+
+            <div class="imgWap">
+              <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px">
+                <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+                <em>
+                  <el-radio v-model="addRadioIndex" :label="index+1">替换</el-radio>
+                </em>
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="ImageURL.length"
+                >
+              </p>
+            </div>
 
           </el-form-item>
           <el-form-item label="描述:" :label-width="formLabelWidth">
@@ -195,6 +202,9 @@
               <p v-for="item,index in updateImageURL"
                  style="display: inline-block;position: relative;margin-right: 30px;">
                 <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+                <em>
+                  <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
+                </em>
                 <img
                   :src="item"
                   width="280"
@@ -249,6 +259,7 @@
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
   import Upload from '@/components/Upload'
+
   export default {
     components: {
       Upload
@@ -288,24 +299,35 @@
           "tm_tt_TicketPrice": "",//票价
           "tm_tt_RealPrice": "",//实际价格
         },
-
+        radioIndex: 0,
+        addRadioIndex: 0,
       }
     },
     methods: {
       //添加图片
-      getData(data){
-        this.ImageURL.push(data.data)
+      getData(data) {
+        if (!this.addRadioIndex) {
+          this.ImageURL.push(data.data);
+        } else {
+          this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.addRadioIndex = '';
+        }
       },
       //修改图片
-      updateImage(data)
-      {
-        this.updateImageURL.push(data.data)
+      updateImage(data) {
+        if (!this.radioIndex) {
+          this.updateImageURL.push(data.data);
+        } else {
+          this.updateImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.radioIndex = '';
+        }
+
       },
       //点击到票件
-      toTicketTypeTicketPrice(id){
+      toTicketTypeTicketPrice(id) {
         this.$router.push({name: 'TicketTypeTicketPrice', params: {id}})
       },
-      handleSelect(item){
+      handleSelect(item) {
         this.addOptions.tm_ts_Code = item.id;
         this.updateTicketTypeObj.tm_ts_Code = item.id;
       },
@@ -346,7 +368,7 @@
         })
       },
       //删除修改对应图片
-      deleteUpdateImageURL(val){
+      deleteUpdateImageURL(val) {
         this.isNewUploaNode = false
         this.updateImageURL = this.updateImageURL.filter(v => {
           if (v == val) {
@@ -356,7 +378,7 @@
         })
       },
       //删除对应图片
-      deleteImageURL(val){
+      deleteImageURL(val) {
         this.isUploaNode = false;
         this.ImageURL = this.ImageURL.filter(v => {
           if (v == val) {
@@ -365,13 +387,13 @@
           return true
         })
       },
-      closeDialog(){
+      closeDialog() {
         this.ImageURL = []
         this.updateImageURL = [];
         this.addDialog = false,
           this.updateDialog = false
       },
-      cacheForm(){
+      cacheForm() {
         this.ImageURL = [],
           this.updateImageURL = [],
           this.addDialog = false,
@@ -414,14 +436,14 @@
           "rows": 5
         };
         this.$store.dispatch('initTicketType', getTicketTypePriceList)
-        .then(total => {
-          this.total = total;
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(total => {
+            this.total = total;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //查询
       search() {
@@ -444,18 +466,18 @@
           "data": this.addOptions
         };
         this.$store.dispatch('addTicketTypeSubmit', insertTicketType)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
-          });
-          this.initData();
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData();
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
         this.addDialog = false;
       },
       //修改按钮
@@ -483,18 +505,18 @@
           "data": this.updateTicketTypeObj
         }
         this.$store.dispatch('updateTicketTypeSubmit', updateTicketType)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
-          });
-          this.initData();
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData();
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
         this.updateDialog = false;
       },
       //删除按钮
@@ -507,18 +529,18 @@
           }
         };
         this.$store.dispatch('deleteTicketType', deleteTicketType)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
-          });
-          this.initData();
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData();
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       }
     },
     created() {
@@ -537,5 +559,13 @@
     position: absolute;
     right: -15px;
     top: -6px;
+  }
+
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
   }
 </style>

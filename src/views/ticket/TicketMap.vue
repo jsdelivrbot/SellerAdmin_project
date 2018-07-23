@@ -47,24 +47,6 @@
 
           <Upload @getData="getData" :attrs="imageObj"></Upload>
 
-<<<<<<< Updated upstream
-
-          <!--<div class="imgWap">-->
-          <!--<p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px;">-->
-          <!--<img-->
-          <!--:src="item"-->
-          <!--width="280"-->
-          <!--height="125"-->
-          <!--v-show="ImageURL.length"-->
-          <!--&gt;-->
-          <!--<span style="color: #f60" @click="deleteImageURL(item)">X</span>-->
-          <!--</p>-->
-          <!--</div>-->
-=======
-          <a href="javascript:;" class="file">上传图片
-            <input type="file" name="" ref="upload" accept="image/*" multiple>
-          </a>
-          <div v-show="isShow">正在上传图片文件...</div>
           <div class="imgWap">
             <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right:30px;">
               <img
@@ -74,9 +56,11 @@
                 v-show="ImageURL.length"
               >
               <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="addRadioIndex" :label="index+1">替换</el-radio>
+              </em>
             </p>
           </div>
->>>>>>> Stashed changes
 
         </el-form-item>
 
@@ -130,6 +114,9 @@
           <div class="imgWap">
             <p v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right:30px;">
               <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
+              </em>
               <img
                 :src="item"
                 width="280"
@@ -153,7 +140,8 @@
 
         <el-form-item label="小景点视频:" :label-width="formLabelWidth">
 
-          <video :src="updateOptions.data.tm_se_Vedio" v-show="updateOptions.data.tm_se_Vedio" controls width="100"></video>
+          <video :src="updateOptions.data.tm_se_Vedio" v-show="updateOptions.data.tm_se_Vedio" controls
+                 width="100"></video>
 
           <Upload @getData="updateVideo" :attrs="videoObj"></Upload>
 
@@ -192,7 +180,7 @@
               <span>
                  <img
                    v-for="item,index in props.row.tm_se_Image"
-                   :src="item" alt=""
+                   v-lazy="item" alt=""
                    :key="index"
                    width="200"
                    height="100"
@@ -287,7 +275,7 @@
           accept: 'audio/*'
         },
 
-        videoObj:{
+        videoObj: {
           accept: 'video/*'
         },
         isShow: false,
@@ -337,6 +325,8 @@
           }
         },
         "Imgs": "",
+        radioIndex: '',
+        addRadioIndex: 0,
       }
     },
     computed: mapGetters([
@@ -348,10 +338,20 @@
     },
     methods: {
       getData(data) {
-        this.ImageURL.push(data.data);
+        if (!this.addRadioIndex) {
+          this.ImageURL.push(data.data);
+        } else {
+          this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.addRadioIndex = '';
+        }
       },
       updateImage(data) {
-        this.updateImageURL.push(data.data);
+        if (!this.radioIndex) {
+          this.updateImageURL.push(data.data);
+        } else {
+          this.updateImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.radioIndex = '';
+        }
       },
       passAudio(data) {
         this.addOptions.tm_se_Sound = data.data;
@@ -474,7 +474,7 @@
       Update(obj) {
         this.updateOptions.data = obj;
         setTimeout(() => {
-          if(obj.tm_se_Image){
+          if (obj.tm_se_Image) {
             this.updateImageURL = obj.tm_se_Image
           }
           this.updateDialog = true;
@@ -482,7 +482,7 @@
       },
 
       updateSubmit() {
-        if(this.updateImageURL.length){
+        if (this.updateImageURL.length) {
           this.updateOptions.data.tm_se_Image = this.updateImageURL.join(",");
         }
         this.$store.dispatch('upDateTicketMap', this.updateOptions)
@@ -557,5 +557,13 @@
     position: absolute;
     right: -15px;
     top: -6px;
+  }
+
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
   }
 </style>

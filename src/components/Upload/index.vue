@@ -5,6 +5,7 @@
     <uploader-drop>
       <p>上传文件</p>
       <uploader-btn :attrs="attrs">点击上传</uploader-btn>
+      <uploader-btn :attrs="attrs" v-show="attrs.accept== 'image/*'">选中替换</uploader-btn>
       <!--<uploader-btn :attrs="attrs">select images</uploader-btn>-->
       <!--<uploader-btn :directory="true">select folder</uploader-btn>-->
     </uploader-drop>

@@ -143,7 +143,11 @@
 
       <!--添加景点-->
 
-      <el-dialog title="添加景点信息" :visible.sync="addDialog" :close-on-click-modal="false" @close="closeDialog">
+      <el-dialog
+        title="添加景点信息"
+        :visible.sync="addDialog"
+        :close-on-click-modal="false"
+        @close="closeDialog">
         <el-form :model="addOptions">
           <!--<el-form-item label="景点编码:" :label-width="formLabelWidth">-->
           <!--<el-input v-model="addOptions.tm_ts_Code"></el-input>-->
@@ -214,23 +218,23 @@
           <el-form-item label="展示图片:" :label-width="formLabelWidth">
 
 
-
-
             <Upload @getData="getData" :attrs="imageObj"></Upload>
 
 
-
-            <!--<div class="imgWap">-->
-            <!--<p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px">-->
-              <!--<span style="color: #f60" @click="deleteImageURL(item)">X</span>-->
-              <!--<img-->
-                <!--:src="item"-->
-                <!--width="280"-->
-                <!--height="125"-->
-                <!--v-show="ImageURL.length"-->
-              <!--&gt;-->
-            <!--</p>-->
-            <!--</div>-->
+            <div class="imgWap">
+              <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px">
+                <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+                <em>
+                  <el-radio v-model="addRadioIndex" :label="index+1">替换</el-radio>
+                </em>
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="ImageURL.length"
+                >
+              </p>
+            </div>
 
 
           </el-form-item>
@@ -306,7 +310,11 @@
 
       <!--修改景点-->
 
-      <el-dialog title="修改景点信息" :visible.sync="updateDialog" :close-on-click-modal="false" @close="closeDialog">
+      <el-dialog
+        title="修改景点信息"
+        :visible.sync="updateDialog"
+        :close-on-click-modal="false"
+        @close="closeDialog">
         <el-form :model="updateTicketAttractionsObj">
           <el-form-item label="景点名称:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Name"></el-input>
@@ -381,8 +389,11 @@
 
             <div class="imgWap">
               <p v-for="item,index in updateImageURL"
-                 style="display: inline-block;position: relative;margin-right: 30px">
+                 style="display: inline-block;position: relative;margin-right: 70px">
                 <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+                <em>
+                  <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
+                </em>
                 <img
                   :src="item"
                   width="280"
@@ -510,6 +521,7 @@
     },
     data() {
       return {
+        radioIndex: '',
         isUploaNode: true,
         isNewUploaNode: true,
         formLabelWidth: '120px',
@@ -602,6 +614,7 @@
         updateImageURL: [],
         value: '',
         imageObj: {accept: 'image/*'},
+        addRadioIndex: 0
       }
     },
     computed: mapGetters([
@@ -653,12 +666,22 @@
     },
     methods: {
       //修改图片
-      updateImage(data){
-        this.updateImageURL.push(data.data);
+      updateImage(data) {
+        if (!this.radioIndex) {
+          this.updateImageURL.push(data.data);
+        } else {
+          this.updateImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.radioIndex = '';
+        }
       },
       //图片上传
-      getData(data){
-        this.ImageURL.push(data.data);
+      getData(data) {
+        if (!this.addRadioIndex) {
+          this.ImageURL.push(data.data);
+        } else {
+          this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.addRadioIndex = '';
+        }
       },
       //查询景点主题分类信息
       initTheme() {
@@ -1003,5 +1026,13 @@
     position: absolute;
     right: -15px;
     top: -6px;
+  }
+
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
   }
 </style>

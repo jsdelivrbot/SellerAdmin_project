@@ -633,4 +633,22 @@ export default {
         })
     })
   },
+  //搜索景点
+  initSearchTicketAttractions(store,data){
+    return new Promise((relove, reject) => {
+      axios.post(getNewStr + '/TourSite/GetTourSite', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(data => {
+        var data = data.data;
+        if (Number(data.resultcode) == 200) {
+          relove(data.data);
+        } else {
+          reject(data.resultcontent)
+        }
+      })
+    })
+  }
 }

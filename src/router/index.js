@@ -134,8 +134,10 @@ export const constantRouterMap = [
         meta: {title: 'ticketType'}
       },
       {
-        path: 'ticketTypeTicketPrice',
+        path: 'ticketTypeTicketPrice/:id',
         name: 'TicketTypeTicketPrice',
+        hidden:true,
+        alwaysShow: true,
         component: () => import('@/views/ticket/TicketTypeTicketPrice'),
         meta: {title: 'ticketTypeTicketPrice'}
       },

@@ -6,14 +6,21 @@
       <!--添加-->
 
       <div class="add">
-        <el-select v-model="ticketAttractionsValue" placeholder="请选择查询的景点" size="mini">
-          <el-option
-            v-for="item in ticketAttractionsList"
-            :key="item.tm_ts_Code"
-            :label="item.tm_ts_Name"
-            :value="item.tm_ts_Code">
-          </el-option>
-        </el-select>
+        <el-autocomplete
+          size="mini"
+          v-model="tourName"
+          :fetch-suggestions="querySearchAsync"
+          placeholder="请输入景点名称"
+          @select="handleSelect"
+        ></el-autocomplete>
+        <!--<el-select v-model="ticketAttractionsValue" placeholder="请选择查询的景点" size="mini">-->
+          <!--<el-option-->
+            <!--v-for="item in ticketAttractionsList"-->
+            <!--:key="item.tm_ts_Code"-->
+            <!--:label="item.tm_ts_Name"-->
+            <!--:value="item.tm_ts_Code">-->
+          <!--</el-option>-->
+        <!--</el-select>-->
 
         <el-button type="primary" @click="search" size="mini">查询</el-button>
         <el-button type="primary" @click="Add" size="mini">新增</el-button>
@@ -94,14 +101,21 @@
       <el-dialog title="添加交通信息" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_tm_TourSiteID" placeholder="请选择景点">
-              <el-option
-                v-for="item in ticketAttractionsList"
-                :key="item.tm_ts_Code"
-                :label="item.tm_ts_Name"
-                :value="item.tm_ts_Code">
-              </el-option>
-            </el-select>
+
+            <el-autocomplete
+              v-model="tourName"
+              :fetch-suggestions="querySearchAsync"
+              placeholder="请输入景点名称"
+              @select="handleSelect"
+            ></el-autocomplete>
+            <!--<el-select v-model="addOptions.tm_tm_TourSiteID" placeholder="请选择景点">-->
+              <!--<el-option-->
+                <!--v-for="item in ticketAttractionsList"-->
+                <!--:key="item.tm_ts_Code"-->
+                <!--:label="item.tm_ts_Name"-->
+                <!--:value="item.tm_ts_Code">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
           </el-form-item>
           <el-form-item label="自驾线路:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tm_Drive" type="textarea"></el-input>
@@ -124,14 +138,21 @@
       <el-dialog title="修改交通信息" :visible.sync="updateDialog">
         <el-form :model="updateTrafficInformationObj">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
-            <el-select v-model="updateTrafficInformationObj.tm_tm_TourSiteID" placeholder="请选择景点">
-              <el-option
-                v-for="item in ticketAttractionsList"
-                :key="item.tm_ts_Code"
-                :label="item.tm_ts_Name"
-                :value="item.tm_ts_Code">
-              </el-option>
-            </el-select>
+
+            <el-autocomplete
+              v-model="tourName"
+              :fetch-suggestions="querySearchAsync"
+              placeholder="请输入景点名称"
+              @select="handleSelect"
+            ></el-autocomplete>
+            <!--<el-select v-model="updateTrafficInformationObj.tm_tm_TourSiteID" placeholder="请选择景点">-->
+              <!--<el-option-->
+                <!--v-for="item in ticketAttractionsList"-->
+                <!--:key="item.tm_ts_Code"-->
+                <!--:label="item.tm_ts_Name"-->
+                <!--:value="item.tm_ts_Code">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
           </el-form-item>
           <el-form-item label="自驾线路:" :label-width="formLabelWidth">
             <el-input v-model="updateTrafficInformationObj.tm_tm_Drive" type="textarea"></el-input>
@@ -169,6 +190,7 @@
           "tm_tm_Bus": "",
           "tm_tm_Address": ""
         },
+        tourName:'',
         addDialog: false,
         formLabelWidth: '120px',
         isLoading: false,
@@ -178,6 +200,48 @@
       }
     },
     methods: {
+      handleSelect(item){
+        this.ticketAttractionsValue = item.id;
+        this.addOptions.tm_tm_TourSiteID = item.id;
+        this.updateTrafficInformationObj.tm_tm_TourSiteID = item.id;
+      },
+      loadAll(num, name) {
+        let options = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "tm_ts_Code": "",    //景点编码
+          "tm_ts_Name": name,//景点名称
+          "tm_ts_TradeInfoID": this.adminUserInfo.sm_ui_ID,//供应商编码
+          "tm_ts_IsDelete": 0,//必须传
+          "tm_ts_IsPass": "",//是否通过审核(0审核中1通过审核2未通过审核)
+          "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
+          "tm_ts_IsHot": "",//是否热门景点（0普通1热门)
+          "tm_ts_ThemeTypeID": "",//主题编码
+          "page": 1,
+          "rows": 5
+        };
+        return this.$store.dispatch('initSearchTicketAttractions', options)
+
+      },
+      querySearchAsync(queryString, cb) {
+        this.loadAll(1, queryString).then(data => {
+          data = data.map(item => {
+            return {
+              id: item.tm_ts_Code,
+              value: item.tm_ts_Name
+            }
+          })
+          this.restaurants = data;
+          clearTimeout(this.timeout);
+          this.timeout = setTimeout(() => {
+            cb(this.restaurants);
+          }, 10);
+        })
+      },
+
       //初始化景点信息
       initTicketAttraction() {
         let options = {
@@ -305,7 +369,7 @@
     },
     created() {
       this.adminUserInfo = JSON.parse(sessionStorage.getItem('admin'));
-      this.initTicketAttraction();
+//      this.initTicketAttraction();
     }
   }
 </script>

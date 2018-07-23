@@ -10,22 +10,22 @@
           <el-form-item>
             <span>票种编码筛选:</span>
           </el-form-item>
-          <el-select v-model="ticketTypeNumber" placeholder="请选择票种" size="mini" style="margin-top: 7px;">
-            <el-option
-              v-for="item in ticketTypeList"
-              :key="item.tm_tt_ID"
-              :label="item.tm_tt_Name"
-              :value="item.tm_tt_ID">
-            </el-option>
-          </el-select>
-          <el-select v-model="scenicNumber" placeholder="请选择景点" @change="changeScenicNumber" size="mini">
-            <el-option
-              v-for="item in ticketAttractionsList"
-              :key="item.tm_ts_Code"
-              :label="item.tm_ts_Name"
-              :value="item.tm_ts_Code">
-            </el-option>
-          </el-select>
+          <!--<el-select v-model="ticketTypeNumber" placeholder="请选择票种" size="mini" style="margin-top: 7px;">-->
+            <!--<el-option-->
+              <!--v-for="item in ticketTypeList"-->
+              <!--:key="item.tm_tt_ID"-->
+              <!--:label="item.tm_tt_Name"-->
+              <!--:value="item.tm_tt_ID">-->
+            <!--</el-option>-->
+          <!--</el-select>-->
+          <!--<el-select v-model="scenicNumber" placeholder="请选择景点" @change="changeScenicNumber" size="mini">-->
+            <!--<el-option-->
+              <!--v-for="item in ticketAttractionsList"-->
+              <!--:key="item.tm_ts_Code"-->
+              <!--:label="item.tm_ts_Name"-->
+              <!--:value="item.tm_ts_Code">-->
+            <!--</el-option>-->
+          <!--</el-select>-->
           <el-form-item>
             <div class="block">
               <el-date-picker
@@ -50,6 +50,7 @@
 
       <el-table
         :data="ticketTypeTicketPriceList"
+        v-loading="isLoading"
         style="width: 100%">
         <el-table-column type="expand">
           <template slot-scope="props">
@@ -220,6 +221,7 @@
       return {
         searchTime: '',
         loginId: '',
+        isLoading:false,
         scenicNumber: '',
         ticketTypeNumber: '',
         total: 0,
@@ -265,26 +267,26 @@
         };
         this.$store.dispatch('initTicketAttractions', options)
       },
-      //初始化票种
-      initTicketType(id) {
-        let getTicketTypePriceList = {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",
-          "operateUserName": "",
-          "pcName": "",
-          "tm_ts_Code": id ? id : '',
-          "tm_tt_TradeInfoID": this.loginId.sm_ui_ID,
-          "tm_tt_IsDelete": 0,
-          "page": 1,
-          "rows": 1000
-        };
-        this.$store.dispatch('initTicketType', getTicketTypePriceList)
-      },
-      //选择景点
-      changeScenicNumber() {
-        this.initTicketType(this.scenicNumber)
-      },
+//      //初始化票种
+//      initTicketType(id) {
+//        let getTicketTypePriceList = {
+//          "loginUserID": "huileyou",
+//          "loginUserPass": "123",
+//          "operateUserID": "",
+//          "operateUserName": "",
+//          "pcName": "",
+//          "tm_ts_Code": id ? id : '',
+//          "tm_tt_TradeInfoID": this.loginId.sm_ui_ID,
+//          "tm_tt_IsDelete": 0,
+//          "page": 1,
+//          "rows": 1000
+//        };
+//        this.$store.dispatch('initTicketType', getTicketTypePriceList)
+//      },
+//      //选择景点
+//      changeScenicNumber() {
+//        this.initTicketType(this.scenicNumber)
+//      },
       //初始化数据
       initData(id, num) {
         let getTicketTypePriceList = {
@@ -298,8 +300,10 @@
           "page": num ? num : 1,
           "rows": 5
         };
+        this.isLoading = true;
         this.$store.dispatch('initTicketTypeTicketPrice', getTicketTypePriceList)
           .then(total => {
+            this.isLoading = false;
             this.total = total;
           }, err => {
             this.$notify({
@@ -376,8 +380,10 @@
       },
     },
     created() {
+      this.ticketTypeNumber = this.$route.params.id
       this.loginId = JSON.parse(sessionStorage.getItem('admin'));
-      this.initTicketAttraction();
+      this.initData(this.ticketTypeNumber)
+//      this.initTicketAttraction();
     }
   }
 </script>

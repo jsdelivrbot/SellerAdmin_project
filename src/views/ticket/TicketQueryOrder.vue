@@ -214,7 +214,7 @@
           "operateUserName": "",
           "pcName": "",
           "tm_or_UserID": "", //用户编码
-          "tm_or_TradeInfoID": this.userInfo.sm_ai_ID, //商户编码
+          "tm_or_TradeInfoID": this.userInfo.sm_ui_ID, //商户编码
           "tm_or_PayState": this.searchId, //支付状态(0未支付1已支付)
           "page": num ? num : 1,
           "rows": 10

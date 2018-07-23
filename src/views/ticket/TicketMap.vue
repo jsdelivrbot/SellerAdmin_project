@@ -47,6 +47,7 @@
 
           <Upload @getData="getData" :attrs="imageObj"></Upload>
 
+<<<<<<< Updated upstream
 
           <!--<div class="imgWap">-->
           <!--<p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px;">-->
@@ -59,6 +60,23 @@
           <!--<span style="color: #f60" @click="deleteImageURL(item)">X</span>-->
           <!--</p>-->
           <!--</div>-->
+=======
+          <a href="javascript:;" class="file">上传图片
+            <input type="file" name="" ref="upload" accept="image/*" multiple>
+          </a>
+          <div v-show="isShow">正在上传图片文件...</div>
+          <div class="imgWap">
+            <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right:30px;">
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="ImageURL.length"
+              >
+              <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+            </p>
+          </div>
+>>>>>>> Stashed changes
 
         </el-form-item>
 
@@ -110,7 +128,7 @@
           <Upload @getData="updateImage" :attrs="imageObj"></Upload>
 
           <div class="imgWap">
-            <p v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right: 30px">
+            <p v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right:30px;">
               <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
               <img
                 :src="item"
@@ -511,7 +529,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .el-upload__input {
     display: none !important;
   }

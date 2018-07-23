@@ -68,9 +68,8 @@ export default {
     state.ticketTypeList = data;
   },
   updateTicketType(state, id) {
+
     state.updateTicketTypeObj = state.ticketTypeList.filter(item => {
-
-
 
       if (item.tm_tt_ID == id) {
         return true;

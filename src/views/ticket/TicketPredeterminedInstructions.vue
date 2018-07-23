@@ -12,6 +12,7 @@
           placeholder="请输入景点名称"
           @select="handleSelect"
         ></el-autocomplete>
+<<<<<<< Updated upstream
 
         <!--<el-select v-model="ticketAttractionsValue" placeholder="请选择查询的景点" size="mini">-->
           <!--<el-option-->
@@ -22,9 +23,10 @@
           <!--</el-option>-->
         <!--</el-select>-->
 
+=======
+>>>>>>> Stashed changes
         <el-button type="primary" @click="search" size="mini">查询</el-button>
         <el-button type="primary" @click="Add" size="mini">新增</el-button>
-
       </div>
       <!--数据展示-->
 
@@ -142,6 +144,11 @@
               size="mini"
               @click="update(scope.row.tm_bk_ID)">修改
             </el-button>
+            <el-button
+              type="success"
+              size="small"
+              @click="jump(scope.row)">预览效果
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -151,13 +158,17 @@
       <el-dialog title="添加预定须知" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             <el-autocomplete
               v-model="tourName"
               :fetch-suggestions="querySearchAsync"
               placeholder="请输入景点名称"
               @select="handleSelect"
             ></el-autocomplete>
+<<<<<<< Updated upstream
 
             <!--<el-select v-model="addOptions.tm_bk_TourSiteID" placeholder="请选择景点">-->
               <!--<el-option-->
@@ -167,6 +178,8 @@
                 <!--:value="item.tm_ts_Code">-->
               <!--</el-option>-->
             <!--</el-select>-->
+=======
+>>>>>>> Stashed changes
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>
@@ -195,9 +208,7 @@
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
-
       <!--修改预定须知-->
-
       <el-dialog title="修改预定须知" :visible.sync="updateDialog">
         <el-form :model="updatePredeterminedInstructionsObj">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
@@ -208,6 +219,7 @@
               placeholder="请输入景点名称"
               @select="handleSelect"
             ></el-autocomplete>
+<<<<<<< Updated upstream
 
             <!--<el-select v-model="updatePredeterminedInstructionsObj.tm_bk_TourSiteID" placeholder="请选择景点">-->
               <!--<el-option-->
@@ -217,6 +229,8 @@
                 <!--:value="item.tm_ts_Code">-->
               <!--</el-option>-->
             <!--</el-select>-->
+=======
+>>>>>>> Stashed changes
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth">
             <el-input v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" type="textarea"></el-input>
@@ -281,6 +295,9 @@
       }
     },
     methods: {
+      jump(obj){
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/ticketsDetail/'+this.ticketAttractionsValue,'_blank')
+      },
       handleSelect(item){
         this.ticketAttractionsValue = item.id;
         this.addOptions.tm_bk_TourSiteID = item.id;
@@ -369,6 +386,7 @@
       },
 
       search(){
+
         this.initData(this.ticketAttractionsValue)
       },
 

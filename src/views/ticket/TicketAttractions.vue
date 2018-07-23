@@ -71,7 +71,7 @@
               <el-form-item label="开放时间:">
                 <span>{{ props.row.tm_ts_Opentime }}</span>
               </el-form-item>
-              <el-form-item label="建议游玩时间:">
+              <el-form-item label="建议游玩时长:">
                 <span>{{ props.row.tm_ts_Time }}</span>
               </el-form-item>
               <el-form-item label="联系电话号码:">
@@ -136,6 +136,11 @@
             <el-button
               size="mini"
               @click="AddMap(scope.row.tm_ts_Code)">添加地图导览
+            </el-button>
+            <el-button
+              type="success"
+              size="mini"
+              @click="jump(scope.row)">预览效果
             </el-button>
           </template>
         </el-table-column>
@@ -247,7 +252,7 @@
           <el-form-item label="开放时间:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Opentime"></el-input>
           </el-form-item>
-          <el-form-item label="建议游玩时间:" :label-width="formLabelWidth" required>
+          <el-form-item label="建议游玩时长:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Time" placeholder="以小时为单位且为数字"></el-input>
           </el-form-item>
           <el-form-item label="联系电话号码:" :label-width="formLabelWidth" required>
@@ -414,7 +419,7 @@
           <el-form-item label="开放时间:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Opentime"></el-input>
           </el-form-item>
-          <el-form-item label="建议游玩时间:" :label-width="formLabelWidth" required>
+          <el-form-item label="建议游玩时长:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Time" placeholder="以小时为单位且为数字"></el-input>
           </el-form-item>
           <el-form-item label="联系电话号码:" :label-width="formLabelWidth" required>
@@ -656,6 +661,30 @@
           this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
           this.addRadioIndex = '';
         }
+      }
+
+    },
+    methods: {
+
+      jump(obj){
+
+        sessionStorage.setItem("code",obj.tm_ts_Code)
+        if(obj.tm_ts_IsPass==0){
+            this.$notify({
+              message: "当前景点信息未审核！需惠乐游审核！",
+              type: 'error'
+            })
+        }else{
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/admissionTicketMore?id=272&keycode='+obj.tm_ts_Name,'_blank')
+        }
+      },
+      //修改图片
+      updateImage(data){
+        this.updateImageURL.push(data.data);
+      },
+      //图片上传
+      getData(data){
+        this.ImageURL.push(data.data);
       },
       //查询景点主题分类信息
       initTheme() {
@@ -856,7 +885,7 @@
         this.addOptions.tm_ts_ShowImage = this.ImageURL.join(',')
         if (isNaN(this.addOptions.tm_ts_Time)) {
           this.$notify({
-            message: '建议游玩时间，请输入数字',
+            message: '建议游玩时长，请输入数字',
             type: 'error'
           });
           return

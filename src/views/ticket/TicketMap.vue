@@ -13,6 +13,11 @@
         <el-form-item>
           <el-button type="primary" @click="search" size="small">查询</el-button>
           <el-button type="primary" @click="Add" size="small">新增</el-button>
+          <el-button
+            type="success"
+            size="small"
+            @click="jump">预览效果
+          </el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -44,6 +49,12 @@
 
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
 
+<<<<<<< Updated upstream
+=======
+
+          <Upload @getData="getData" :attrs="imageObj"></Upload>
+
+>>>>>>> Stashed changes
 
           <Upload @getData="getData" :attrs="imageObj"></Upload>
 
@@ -61,6 +72,7 @@
               </em>
             </p>
           </div>
+
 
         </el-form-item>
 
@@ -140,8 +152,12 @@
 
         <el-form-item label="小景点视频:" :label-width="formLabelWidth">
 
+<<<<<<< Updated upstream
           <video :src="updateOptions.data.tm_se_Vedio" v-show="updateOptions.data.tm_se_Vedio" controls
                  width="100"></video>
+=======
+          <video :src="updateOptions.data.tm_se_Vedio" v-show="updateOptions.data.tm_se_Vedio" controls width="100"></video>
+>>>>>>> Stashed changes
 
           <Upload @getData="updateVideo" :attrs="videoObj"></Upload>
 
@@ -237,6 +253,9 @@
             type="danger"
             @click="Delete(scope.row.tm_se_ID)">删除
           </el-button>
+
+
+
         </template>
       </el-table-column>
     </el-table>
@@ -274,7 +293,6 @@
         audioObj: {
           accept: 'audio/*'
         },
-
         videoObj: {
           accept: 'video/*'
         },
@@ -352,6 +370,10 @@
           this.updateImageURL.splice(this.radioIndex - 1, 1, data.data);
           this.radioIndex = '';
         }
+      },
+      jump(){
+      let code=  sessionStorage.getItem("code")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/ticketsDetail/'+code,'_blank')
       },
       passAudio(data) {
         this.addOptions.tm_se_Sound = data.data;
@@ -482,7 +504,7 @@
       },
 
       updateSubmit() {
-        if (this.updateImageURL.length) {
+        if(this.updateImageURL.length){
           this.updateOptions.data.tm_se_Image = this.updateImageURL.join(",");
         }
         this.$store.dispatch('upDateTicketMap', this.updateOptions)

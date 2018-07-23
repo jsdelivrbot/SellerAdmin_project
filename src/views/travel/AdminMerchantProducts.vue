@@ -173,6 +173,11 @@
             size="mini"
             @click="productLineManagement(scope.row.ta_tg_ID)">产品线路管理
           </el-button>
+          <el-button
+           type="success"
+            size="mini"
+            @click="jump(scope.row)">预览效果
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -901,6 +906,9 @@
           this.addRadioIndex = '';
         }
       },
+      jump(obj){
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/admissionTicketMore','_blank')
+      },
       //删除修改对应图片
       deleteUpdateImageURL(val){
         this.isNewUploaNode= false
@@ -1283,7 +1291,6 @@
             ts_gi_Name:this.feeInfoListContent
           });
         }
-
         this.addFeeInfoListDialog = false;
       },
       //修改费用包含

@@ -110,6 +110,12 @@
             type="danger"
             @click="deleteAdminProductFeatures(scope.row.ts_gs_ID)">删除
           </el-button>
+
+          <el-button
+            type="success"
+            size="mini"
+            @click="jump(scope.row)">预览效果
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -204,6 +210,9 @@
       }
     },
     methods: {
+      jump(obj){
+        console.log(obj)
+      },
       //选中产品
       handleSelect(item) {
         this.addAdminProductFeaturesObj.tsGsLinePrepareID = item.id;

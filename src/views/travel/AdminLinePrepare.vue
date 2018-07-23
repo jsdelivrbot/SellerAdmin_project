@@ -134,10 +134,12 @@
               type="danger"
               @click="deleteAdminLinePrepare(scope.row.ts_pt_ID)">删除
             </el-button>
-            <!--<el-button-->
-            <!--size="mini"-->
-            <!--@click="scheduleTimeManagement(scope.row.ts_pt_ID)">日程时间管理-->
-            <!--</el-button>-->
+
+            <el-button
+              type="success"
+              size="mini"
+              @click="jump(scope.row)">预览效果
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -458,7 +460,11 @@
           return true
         })
       },
-      closeDialog() {
+      jump(obj){
+        let ID =sessionStorage.getItem('id')
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+ID,'_blank')
+      },
+      closeDialog(){
         this.ImageURL = []
         this.ImageURL2 = []
         this.addAdminLinePrepareDialog = false

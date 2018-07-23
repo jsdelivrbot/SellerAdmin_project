@@ -358,6 +358,7 @@ export default {
       })
         .then(data => {
           var data = data.data;
+          console.log('2',data)
           if (Number(data.resultcode) == 200) {
             commit('initTicketType', data.data);
             relove(Number(data.totalRows));

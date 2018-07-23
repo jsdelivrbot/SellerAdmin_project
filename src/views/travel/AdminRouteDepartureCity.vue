@@ -71,6 +71,11 @@
               type="danger"
               @click="deleteAdminRouteDepartureCity(scope.row.ts_cc_ID)">删除
             </el-button>
+            <el-button
+              type="success"
+              size="mini"
+              @click="jump(scope.row)">预览效果
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -242,6 +247,10 @@
       }
     },
     methods: {
+      jump(obj){
+        let ID =sessionStorage.getItem('id')
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+ID,'_blank')
+      },
       //选中省
       changeProvice(){
         let searchCity = {
@@ -255,6 +264,7 @@
       },
       //选中产品
       handleSelect(item) {
+        console.log(item)
 //        this.addOptions.ts_pt_Product_LineID = item.id;
 //        this.updateAdminLinePrepareObj.ts_pt_Product_LineID = item.id;
         this.userName = item.value;

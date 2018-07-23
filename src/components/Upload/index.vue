@@ -32,8 +32,8 @@
 //          accept: 'video/*'
 //        },
         statusText: {
-          success: '成功了',
-          error: '出错了',
+          success: '上传成功',
+          error: '上传出错',
           uploading: '上传中',
           paused: '暂停中',
           waiting: '等待中'

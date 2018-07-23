@@ -102,6 +102,11 @@
             >
               产品线路详情
             </el-button>
+            <el-button
+              type="success"
+              size="mini"
+              @click="jump(scope.row)">预览效果
+            </el-button>
             <!--<el-button-->
             <!--size="mini"-->
             <!--@click="productCharacteristicManagement(scope.row.ts_pt_ID)">产品特色管理-->
@@ -266,6 +271,10 @@
       }
     },
     methods: {
+      jump(obj){
+       sessionStorage.setItem('id',obj.ts_pt_GoodsListID)
+       window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+obj.ts_pt_GoodsListID,'_blank')
+      },
       toMerch(){
         sessionStorage.setItem('index',0);
         this.$router.push({name:'AdminMerchantProducts'})

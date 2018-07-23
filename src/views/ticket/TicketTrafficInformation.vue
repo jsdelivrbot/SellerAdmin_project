@@ -13,6 +13,7 @@
           placeholder="请输入景点名称"
           @select="handleSelect"
         ></el-autocomplete>
+<<<<<<< Updated upstream
         <!--<el-select v-model="ticketAttractionsValue" placeholder="请选择查询的景点" size="mini">-->
           <!--<el-option-->
             <!--v-for="item in ticketAttractionsList"-->
@@ -22,6 +23,8 @@
           <!--</el-option>-->
         <!--</el-select>-->
 
+=======
+>>>>>>> Stashed changes
         <el-button type="primary" @click="search" size="mini">查询</el-button>
         <el-button type="primary" @click="Add" size="mini">新增</el-button>
       </div>
@@ -91,6 +94,12 @@
               size="mini"
               type="danger"
               @click="deleteTrafficInformation(scope.row.tm_tm_ID)">删除
+            </el-button>
+
+            <el-button
+              type="success"
+              size="small"
+              @click="jump(scope.row)">预览效果
             </el-button>
           </template>
         </el-table-column>
@@ -200,6 +209,9 @@
       }
     },
     methods: {
+      jump(obj){
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/ticketsDetail/'+this.ticketAttractionsValue,'_blank')
+      },
       handleSelect(item){
         this.ticketAttractionsValue = item.id;
         this.addOptions.tm_tm_TourSiteID = item.id;

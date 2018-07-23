@@ -119,6 +119,9 @@
       }
     },
     created(){
+
+      // sessionStorage.setItem('index',2)
+      // sessionStorage.getItem(index)
       let name = this.$route.query.name;
       if (name) {
         this.activeName = name;

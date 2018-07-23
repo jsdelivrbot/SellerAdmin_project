@@ -141,6 +141,12 @@
               type="danger"
               @click="deleteAdminLinePrice(scope.row.ts_pp_ID)">删除
             </el-button>
+            <el-button
+              type="success"
+              size="mini"
+              @click="jump(scope.row)">预览效果
+            </el-button>
+
           </template>
         </el-table-column>
       </el-table>
@@ -327,6 +333,10 @@
       }
     },
     methods: {
+      jump(obj){
+        let ID =sessionStorage.getItem('id')
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+ID,'_blank')
+      },
       //删除
       deleteAdminLinePrice(id){
         let options = {

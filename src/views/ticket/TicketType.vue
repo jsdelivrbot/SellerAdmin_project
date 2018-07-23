@@ -88,8 +88,9 @@
           label="实际价格"
           prop="tm_tt_RealPrice">
         </el-table-column>
-        <el-table-column label="操作" width="280">
+        <el-table-column label="操作" width="280" align="left">
           <template slot-scope="scope">
+            <!---->
             <el-button
               size="mini"
               @click="update(scope.row.tm_tt_ID)">修改
@@ -103,8 +104,14 @@
               size="mini"
               @click="toTicketTypeTicketPrice(scope.row.tm_tt_ID)">点击设置票价
             </el-button>
+            <!--<el-button-->
+              <!--type="success"-->
+              <!--size="small"-->
+              <!--@click="jump(scope.row)">预览效果-->
+            <!--</el-button>-->
           </template>
         </el-table-column>
+
       </el-table>
 
       <!--添加票种-->
@@ -128,11 +135,23 @@
               placeholder="请输入景点名称"
               @select="handleSelect"
             ></el-autocomplete>
+<<<<<<< Updated upstream
+=======
+            <!--<el-select v-model="addOptions.tm_ts_Code" placeholder="请选择">-->
+            <!--<el-option-->
+            <!--v-for="item in ticketAttractionsList"-->
+            <!--:key="item.tm_ts_Code"-->
+            <!--:label="item.tm_ts_Name"-->
+            <!--:value="item.tm_ts_Code">-->
+            <!--</el-option>-->
+            <!--</el-select>-->
+>>>>>>> Stashed changes
           </el-form-item>
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
 
             <Upload @getData="getData" :attrs="imageObj"></Upload>
 
+<<<<<<< Updated upstream
             <div class="imgWap">
               <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px">
                 <span style="color: #f60" @click="deleteImageURL(item)">X</span>
@@ -148,6 +167,8 @@
               </p>
             </div>
 
+=======
+>>>>>>> Stashed changes
           </el-form-item>
           <el-form-item label="描述:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tt_Description" type="textarea"></el-input>
@@ -271,7 +292,6 @@
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
   import Upload from '@/components/Upload'
-
   export default {
     components: {
       Upload
@@ -324,6 +344,8 @@
       }
     },
     methods: {
+      jump(){},
+
       querySearchTicket(queryString,cb){
         var restaurants = this.arr;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
@@ -403,7 +425,7 @@
         })
       },
       //删除修改对应图片
-      deleteUpdateImageURL(val) {
+      deleteUpdateImageURL(val){
         this.isNewUploaNode = false
         this.updateImageURL = this.updateImageURL.filter(v => {
           if (v == val) {
@@ -428,7 +450,7 @@
         this.addDialog = false,
           this.updateDialog = false
       },
-      cacheForm() {
+      cacheForm(){
         this.ImageURL = [],
           this.updateImageURL = [],
           this.addDialog = false,
@@ -469,18 +491,19 @@
           "rows": 5
         };
         this.$store.dispatch('initTicketType', getTicketTypePriceList)
-          .then(total => {
-            this.total = total;
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+        .then(total => {
+          this.total = total;
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        })
       },
       //查询
       search() {
-        this.initData(this.siteId)
+
+
       },
       // 添加按钮
       Add() {
@@ -498,23 +521,25 @@
           "loginUserPass": "123",
           "data": this.addOptions
         };
+
         this.$store.dispatch('addTicketTypeSubmit', insertTicketType)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData();
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+        .then(suc => {
+          this.$notify({
+            message: suc,
+            type: 'success'
+          });
+          this.initData();
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        })
         this.addDialog = false;
       },
       //修改按钮
       update(id) {
+
         this.$store.commit('setTranstionFalse');
         this.$store.commit('updateTicketType', id);
         setTimeout(() => {
@@ -523,8 +548,6 @@
           }
           this.updateDialog = true;
         }, 30)
-
-
       },
       //修改提交
       updateSubmit() {
@@ -537,19 +560,20 @@
           "loginUserPass": "123",
           "data": this.updateTicketTypeObj
         }
+        console.log('1',this.updateTicketTypeObj)
         this.$store.dispatch('updateTicketTypeSubmit', updateTicketType)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData();
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+        .then(suc => {
+          this.$notify({
+            message: suc,
+            type: 'success'
+          });
+          this.initData();
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        })
         this.updateDialog = false;
       },
       //删除按钮
@@ -562,18 +586,18 @@
           }
         };
         this.$store.dispatch('deleteTicketType', deleteTicketType)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData();
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+        .then(suc => {
+          this.$notify({
+            message: suc,
+            type: 'success'
+          });
+          this.initData();
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        })
       }
     },
     created() {

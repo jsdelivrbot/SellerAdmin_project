@@ -1659,9 +1659,6 @@
         this.ImageURL=[];
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        if (this.isUploaNode) {
-          this.uploadNode()
-        }
       },
       //添加提交
       addSubmit(){
@@ -1691,17 +1688,12 @@
       },
       //修改
       updateAdminMerchantProducts(obj){
-
-
         this.updateAdminMerchantProductsObj = obj;
 
         this.$store.commit('setTranstionFalse');
         setTimeout(()=>{
          this.updateImageURL =this.updateAdminMerchantProductsObj.ta_tg_ShowImages
           this.updateDialog = true;
-          if(this.isNewUploaNode){
-            this.uploadNode( this.updateImageURL)
-          };
         },30)
 
 
@@ -1784,5 +1776,14 @@
     position: absolute;
     right: -15px;
     top: -6px;
+  }
+
+
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
   }
 </style>

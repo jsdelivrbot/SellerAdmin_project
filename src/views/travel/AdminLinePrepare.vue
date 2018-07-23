@@ -52,13 +52,14 @@
                   ref="popover1"
                   placement="top-start"
                   trigger="hover">
-                  <p v-for="item,index in props.row.activityContentList" style="padding: 20px;width: 500px">({{index+1}}):{{item.ts_gi_Name}}</p>
+                  <p v-for="item,index in props.row.activityContentList" style="padding: 20px;width: 500px">({{index + 1}}):{{item.ts_gi_Name}}</p>
                 </el-popover>
                 <el-button v-popover:popover1 size="small">移入查看</el-button>
                 <!--<p v-for="item in props.row.activityContentList">{{item.ts_gi_Name}}</p>-->
               </el-form-item>
               <el-form-item label="活动图片:">
-                <img alt="" v-for="item in props.row.activityImage" style="width: 100px;height: 100px;margin-right: 10px"  v-lazy="item.ts_gi_Name">
+                <img alt="" v-for="item in props.row.activityImage"
+                     style="width: 100px;height: 100px;margin-right: 10px" v-lazy="item.ts_gi_Name">
               </el-form-item>
               <el-form-item label="线路编号:">
                 <span>{{ props.row.ts_pt_Product_LineID }}</span>
@@ -71,12 +72,13 @@
                   ref="popover2"
                   placement="top-start"
                   trigger="hover">
-                  <p  style="padding: 20px;width: 500px">{{props.row.ts_pt_Describe}}</p>
+                  <p style="padding: 20px;width: 500px">{{props.row.ts_pt_Describe}}</p>
                 </el-popover>
                 <el-button v-popover:popover2 size="small">移入查看</el-button>
               </el-form-item>
               <el-form-item label="展示图片地址:">
-                <img alt="" v-for="item in props.row.ts_pt_ShowImage" style="width: 100px;height: 100px;margin-right: 10px" v-lazy="item">
+                <img alt="" v-for="item in props.row.ts_pt_ShowImage"
+                     style="width: 100px;height: 100px;margin-right: 10px" v-lazy="item">
                 <!--<p v-for="item in props.row.ta_tg_ShowImages">{{ item }}</p>-->
               </el-form-item>
               <el-form-item label="第几天日程:">
@@ -141,7 +143,8 @@
       </el-table>
 
       <!--添加线路日程-->
-      <el-dialog title="添加线路日程" :visible.sync="addAdminLinePrepareDialog" :close-on-click-modal="false" @close="closeDialog">
+      <el-dialog title="添加线路日程" :visible.sync="addAdminLinePrepareDialog" :close-on-click-modal="false"
+                 @close="closeDialog">
         <el-form :model="addOptions">
           <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.data.ts_pt_Product_LineID" placeholder="请选择产品线路">
@@ -157,22 +160,49 @@
             <el-input v-model="addOptions.data.ts_pt_Name" placeholder="请输入日程名称"></el-input>
           </el-form-item>
           <el-form-item label="展示图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">展示图片上传
-              <input type="file" name="" ref="upload" accept="image/*" multiple>
-            </a>
-            <img alt="" v-lazy="item" v-for="item in ImageURL" v-show="ImageURL.length" width="100" height="100">
-            <!--<p v-for="item in ImageURL" v-show="ImageURL.length">{{item?item:""}}</p>-->
+
+            <Upload @getData="getData" :attrs="imageObj"></Upload>
+
+            <div class="imgWap">
+              <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px">
+                <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+                <em>
+                  <el-radio v-model="addRadioIndex" :label="index+1">替换</el-radio>
+                </em>
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="ImageURL.length"
+                >
+              </p>
+            </div>
+
           </el-form-item>
           <el-form-item label="活动图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">活动图片上传
-              <input type="file" name="" ref="upload2" accept="image/*" multiple>
-            </a>
-            <img v-lazy="item.ts_gi_Name" v-for="item in ImageURL2"  width="128" height="80">
+
+            <Upload @getData="getActiveData" :attrs="imageObj"></Upload>
+
+            <div class="imgWap">
+              <p v-for="item,index in ImageURL2" style="display: inline-block;position: relative;margin-right: 30px">
+                <span style="color: #f60" @click="deleteImageURL2(item)">X</span>
+                <em>
+                  <el-radio v-model="addActiveIndex" :label="index+1">替换</el-radio>
+                </em>
+                <img
+                  :src="item.ts_gi_Name"
+                  width="280"
+                  height="125"
+                  v-show="ImageURL2.length"
+                >
+              </p>
+            </div>
+
           </el-form-item>
           <el-form-item label="活动内容:" :label-width="formLabelWidth">
             <el-button type="primary" size="small" @click="addActivityContent">添加</el-button>
             <div v-show="addOptions.activityContent.length" v-for="item,index in addOptions.activityContent">
-              <span style="margin: 10px 20px 10px 0">活动内容{{index+1}} : {{item.ts_gi_Name}}</span>
+              <span style="margin: 10px 20px 10px 0">活动内容{{index + 1}} : {{item.ts_gi_Name}}</span>
               <el-button type="success" size="small" @click="updateActivityContent(item,index)">修改</el-button>
               <el-button type="danger" size="small" @click="deleteActivityContent(item,index)">删除</el-button>
             </div>
@@ -205,7 +235,8 @@
       </el-dialog>
 
       <!--修改线路日程-->
-      <el-dialog title="修改线路日程" :visible.sync="updateAdminLinePrepareDialog" :close-on-click-modal="false" @close="closeDialog">
+      <el-dialog title="修改线路日程" :visible.sync="updateAdminLinePrepareDialog" :close-on-click-modal="false"
+                 @close="closeDialog">
         <el-form :model="updateAdminLinePrepareObj">
           <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
             <el-select v-model="updateAdminLinePrepareObj.ts_pt_Product_LineID" placeholder="请选择产品线路">
@@ -222,28 +253,49 @@
           </el-form-item>
           <el-form-item label="活动内容:" :label-width="formLabelWidth">
             <el-button type="primary" size="small" @click="addActivityContent">添加</el-button>
-            <div v-show="updateAdminLinePrepareObj.activityContentList.length" v-for="item,index in updateAdminLinePrepareObj.activityContentList">
-              <span style="margin: 10px 20px 10px 0">活动内容{{index+1}} : {{item.ts_gi_Name}}</span>
+            <div v-show="updateAdminLinePrepareObj.activityContentList.length"
+                 v-for="item,index in updateAdminLinePrepareObj.activityContentList">
+              <span style="margin: 10px 20px 10px 0">活动内容{{index + 1}} : {{item.ts_gi_Name}}</span>
               <el-button type="success" size="small" @click="updateActivityContent(item,index)">修改</el-button>
               <el-button type="danger" size="small" @click="deleteActivityContent(item,index)">删除</el-button>
             </div>
           </el-form-item>
 
           <el-form-item label="活动图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">添加图片
-              <input type="file" name="" ref="upload3" accept="image/*" multiple>
-            </a>
-            <div v-show="updateAdminLinePrepareObj.activityImage.length" v-for="item,index in updateAdminLinePrepareObj.activityImage">
-              <img v-lazy="item.ts_gi_Name"  width="128" height="80">
-              <el-button type="danger" size="small" @click="deleteActivityImage(item,index)">删除</el-button>
+
+
+            <div class="imgWap">
+              <p v-for="item,index in updateAdminLinePrepareObj.activityImage" style="display: inline-block;position: relative;margin-right: 30px">
+                <img
+                  :src="item.ts_gi_Name"
+                  width="280"
+                  height="125"
+                  v-show="updateAdminLinePrepareObj.activityImage.length"
+                >
+              </p>
             </div>
+
           </el-form-item>
           <el-form-item label="展示图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">展示图片上传
-              <input type="file" name="" ref="upload1" accept="image/*" multiple>
-            </a>
-            <p v-if="ImageURL.length" v-for="item in ImageURL">{{item}}</p>
-            <p v-for="item in updateAdminLinePrepareObj.ts_pt_ShowImage" v-show="updateAdminLinePrepareObj.ts_pt_ShowImage.length" v-else>{{item?item:""}}</p>
+
+            <Upload @getData="updateActiveImage" :attrs="imageObj"></Upload>
+
+
+            <div class="imgWap">
+              <p v-for="item,index in updateAdminLinePrepareObj.ts_pt_ShowImage" style="display: inline-block;position: relative;margin-right: 30px">
+                <span style="color: #f60" @click="deleteUpdateImageURL2(item)">X</span>
+                <em>
+                  <el-radio v-model="updateActiveIndex" :label="index+1">替换</el-radio>
+                </em>
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="updateAdminLinePrepareObj.ts_pt_ShowImage.length"
+                >
+              </p>
+            </div>
+
           </el-form-item>
           <el-form-item label="第几天日程:" :label-width="formLabelWidth">
             <el-input v-model="updateAdminLinePrepareObj.ts_pt_Day" placeholder="请输入第几天日程"></el-input>
@@ -294,44 +346,53 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-  export default{
+  import Upload from '@/components/Upload'
+
+  export default {
     name: '',
-    data(){
+    components: {
+      Upload
+    },
+    data() {
       return {
-        isUploaNode:true,
-        options:[],
-        updateActivityContentObj:{},
-        addActivityContentDialog:false,
-        updateActivityContentDialog:false,
-        activityContent:'',
+        isUploaNode: true,
+        options: [],
+        updateActivityContentObj: {},
+        addActivityContentDialog: false,
+        updateActivityContentDialog: false,
+        activityContent: '',
         GoodId: '',
         LineID: '',
         userName: '',
         ImageURL: [],
-        ImageURL2:[],
+        ImageURL2: [],
         isLoading: false,
         userSearchID: '',
         formLabelWidth: '120px',
-        addAdminLinePrepareDialog:false,
-        updateAdminLinePrepareDialog:false,
-        updateAdminLinePrepareObj:{},
-        addOptions:{
+        addAdminLinePrepareDialog: false,
+        updateAdminLinePrepareDialog: false,
+        updateAdminLinePrepareObj: {},
+        addOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          activityContent:[],
-          activityImage:[],
+          activityContent: [],
+          activityImage: [],
           "data": {
             "ts_pt_Product_LineID": "",
             "ts_pt_Name": "",
             "ts_pt_Day": "",
             "ts_pt_Remark": "",
-            ts_pt_Describe:'',
-            ts_pt_ShowImage:'',
+            ts_pt_Describe: '',
+            ts_pt_ShowImage: '',
           }
-        }
+        },
+        imageObj: {accept: 'image/*'},
+        addRadioIndex: 0,
+        addActiveIndex: 0,
+        updateActiveIndex: 0,
       }
     },
     computed: mapGetters([
@@ -343,182 +404,75 @@
       'adminLineScheduleManagementId'
     ]),
     methods: {
-      closeDialog(){
+      //图片上传
+      getData(data) {
+        if (!this.addRadioIndex) {
+          this.ImageURL.push(data.data);
+        } else {
+          this.ImageURL.splice(this.addRadioIndex - 1, 1, data.data);
+          this.addRadioIndex = '';
+        }
+      },
+      //活动图片
+      getActiveData(data) {
+        if (!this.addActiveIndex) {
+          this.ImageURL2.push({ts_gi_Name:data.data});
+        } else {
+          this.ImageURL2.splice(this.addActiveIndex - 1, 1, {ts_gi_Name:data.data});
+          this.addActiveIndex = '';
+        }
+      },
+      updateActiveImage(data){
+        if (!this.updateActiveIndex) {
+          this.updateAdminLinePrepareObj.ts_pt_ShowImage.push(data.data);
+        } else {
+          this.updateAdminLinePrepareObj.ts_pt_ShowImage.splice(this.updateActiveIndex - 1, 1, data.data);
+          this.updateActiveIndex = '';
+        }
+      },
+      //删除对应图片
+      deleteImageURL(val) {
+        this.isUploaNode = false;
+        this.ImageURL = this.ImageURL.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
+      deleteImageURL2(val){
+        this.isUploaNode = false;
+        this.ImageURL2 = this.ImageURL2.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
+      deleteUpdateImageURL2(val){
+        this.isUploaNode = false;
+        this.updateAdminLinePrepareObj.ts_pt_ShowImage = this.updateAdminLinePrepareObj.ts_pt_ShowImage.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
+      closeDialog() {
         this.ImageURL = []
         this.ImageURL2 = []
         this.addAdminLinePrepareDialog = false
         this.updateAdminLinePrepareDialog = false
       },
-      cacheForm(){
+      cacheForm() {
         this.addAdminLinePrepareDialog = false
         this.updateAdminLinePrepareDialog = false
         this.ImageURL = []
         this.ImageURL2 = []
 
       },
-      //图片转二进制
-      uploadImg(file){
-        return new Promise(function (relove, reject) {
-          lrz(file)
-            .then(data => {
-              relove(data.base64.split(',')[1])
-            })
-        })
-      },
-      uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
-          var fd = new FormData();
-          fd.append("fileToUpload", file);
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
-          xhr.send(fd);
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-              if (xhr.responseText) {
-                var data = xhr.responseText
-                relove(JSON.parse(data))
-              }
-            }else{
-              console.log(xhr.responseText)
-//               if (xhr.responseText) {
-//                 var data = xhr.responseText;
-//                 reject(JSON.parse(data).resultcontent)
-//               }
-            }
-          }
-        })
-      },
-      uploaNode(){
-        setTimeout(() => {
-          if (this.$refs.upload) {
-            this.ImageURL = []
-            this.$refs.upload.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload.files.length; i++) {
-//                console.log(1)
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('uploadAdminImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.upload.files[i])
-                  .then(data => {
-                    if (data) {
-//                      this.ImageURL = []
-                      this.ImageURL.push(data.data);
-                      this.$refs.upload.value = '';
-                      this.isUploaNode= false;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                // })
-              }
-            })
-          }
-          if (this.$refs.upload1) {
-            this.ImageURL = []
-            this.$refs.upload1.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload1.files.length; i++) {
-                // this.uploadImg(this.$refs.upload1.files[i]).then(data => {
-                //   this.$store.dispatch('uploadAdminImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.upload1.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.ImageURL = []
-                      this.ImageURL.push(data.data);
-                      this.$refs.upload1.value = '';
-                      this.isUploaNode= false;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                // })
-              }
-            })
-          }
-          if (this.$refs.upload2) {
-            this.ImageURL2 = []
-            this.$refs.upload2.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload2.files.length; i++) {
-                // this.uploadImg(this.$refs.upload2.files[i]).then(data => {
-                //   this.$store.dispatch('uploadAdminImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.upload2.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.ImageURL2 = []
-                      this.ImageURL2.push({
-                        ts_gi_Name:data.data
-                      });
-                      this.$refs.upload2.value = '';
-                      this.isUploaNode= false;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                // })
-              }
-            })
-          }
-          if (this.$refs.upload3) {
-            this.$refs.upload3.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload3.files.length; i++) {
-                // this.uploadImg(this.$refs.upload3.files[i]).then(data => {
-                //   this.$store.dispatch('uploadAdminImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.upload3.files[i])
-                  .then(data => {
-                    if (data) {
-                      let options = {
-                        "loginUserID": "huileyou",
-                        "loginUserPass": "123",
-                        "operateUserID": "",
-                        "operateUserName": "",
-                        "pcName": "",
-                        "data": {
-                          "ts_gi_GoodID": this.updateAdminLinePrepareObj.ts_pt_ID,//产品编号
-                          "ts_gi_ParentID": "8",//父编码 1.推荐理由 2.产品介绍  3.费用包含 4.费用不包含 5.预定须知 6.退订政策 7活动内容 8活动图片
-                          "ts_gi_Name": data.data//类型名称
-                        }
-                      };
-                      this.$store.dispatch('AddRecommendedReason',options)
-                        .then(()=>{
-                          this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,8)
-                            .then(data=>{
-                              this.$refs.upload3.value = '';
-                              this.isUploaNode= false;
-                              this.updateAdminLinePrepareObj.activityImage = data
-                            })
-                        },err=>{
-                          // console.log(err)
-                        })
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                //})
-              }
-            })
-          }
-        }, 30)
-      },
       //删除活动图片
-      deleteActivityImage(item,index){
+      deleteActivityImage(item, index) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -529,18 +483,18 @@
             "ts_gi_ID": item.ts_gi_ID//产品信息ID
           }
         }
-        this.$store.dispatch('DeleteRecommendedReason',options)
-          .then(()=>{
-            this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,8)
-              .then(data=>{
+        this.$store.dispatch('DeleteRecommendedReason', options)
+          .then(() => {
+            this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID, 8)
+              .then(data => {
                 this.updateAdminLinePrepareObj.activityImage = data
               })
-          },err=>{
+          }, err => {
             //console.log(err)
           })
       },
       //查询很多
-      selectInitData(id,ParentID){
+      selectInitData(id, ParentID) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -548,19 +502,19 @@
           "operateUserName": "",
           "pcName": "",
           "ts_gi_GoodID": id,//产品编号
-          "ts_gi_ParentID":ParentID?ParentID:''
+          "ts_gi_ParentID": ParentID ? ParentID : ''
         }
-        return this.$store.dispatch('initSelectInitAllData',options)
+        return this.$store.dispatch('initSelectInitAllData', options)
       },
       //添加活动内容
-      addActivityContent(){
+      addActivityContent() {
         this.activityContent = '';
         this.$store.commit('setTranstionFalse');
         this.addActivityContentDialog = true;
       },
       //添加活动内容提交
-      addActivityContentSubmit(){
-        if(this.updateAdminLinePrepareObj.activityContentList){
+      addActivityContentSubmit() {
+        if (this.updateAdminLinePrepareObj.activityContentList) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -573,31 +527,31 @@
               "ts_gi_Name": this.activityContent,
             }
           };
-          this.$store.dispatch('AddRecommendedReason',options)
-            .then(()=>{
-              this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,7)
-                .then(data=>{
+          this.$store.dispatch('AddRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID, 7)
+                .then(data => {
                   this.updateAdminLinePrepareObj.activityContentList = data
                 })
-            },err=>{
+            }, err => {
               // console.log(err)
             })
-        }else{
+        } else {
           this.addOptions.activityContent.push({
-            ts_gi_Name:this.activityContent
+            ts_gi_Name: this.activityContent
           });
         }
         this.addActivityContentDialog = false;
       },
       //修改活动内容
-      updateActivityContent(item,index){
+      updateActivityContent(item, index) {
         this.updateActivityContentObj = item;
         this.$store.commit('setTranstionFalse');
         this.updateActivityContentDialog = true;
       },
       //修改活动内容提交
-      updateActivityContentSubmit(item){
-        if(this.updateAdminLinePrepareObj.activityContentList){
+      updateActivityContentSubmit(item) {
+        if (this.updateAdminLinePrepareObj.activityContentList) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -606,19 +560,19 @@
             "pcName": "",
             "data": item
           };
-          this.$store.dispatch('UpdateRecommendedReason',options)
-            .then(()=>{
+          this.$store.dispatch('UpdateRecommendedReason', options)
+            .then(() => {
               this.updateActivityContentDialog = false;
-            },err=>{
+            }, err => {
               // console.log(err)
             })
-        }else{
+        } else {
           this.updateActivityContentDialog = false;
         }
       },
       //删除活动内容
-      deleteActivityContent(item,index){
-        if(this.updateAdminLinePrepareObj.activityContentList){
+      deleteActivityContent(item, index) {
+        if (this.updateAdminLinePrepareObj.activityContentList) {
           let options = {
             "loginUserID": "huileyou",
             "loginUserPass": "123",
@@ -629,18 +583,18 @@
               "ts_gi_ID": item.ts_pt_ID,//产品信息ID
             }
           }
-          this.$store.dispatch('DeleteRecommendedReason',options)
-            .then(()=>{
-              this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID,7)
-                .then(data=>{
+          this.$store.dispatch('DeleteRecommendedReason', options)
+            .then(() => {
+              this.selectInitData(this.updateAdminLinePrepareObj.ts_pt_ID, 7)
+                .then(data => {
                   this.updateAdminLinePrepareObj.activityContentList = data
                 })
-            },err=>{
+            }, err => {
               //console.log(err)
             })
-        }else{
-          this.addOptions.activityContent =  this.addOptions.activityContent.filter((item,v)=>{
-            if(index==v){
+        } else {
+          this.addOptions.activityContent = this.addOptions.activityContent.filter((item, v) => {
+            if (index == v) {
               return false;
             }
             return true;
@@ -669,7 +623,7 @@
             "operateUserID": "",
             "operateUserName": "",
             "tradeID": obj.sm_ui_ID ? obj.sm_ui_ID : '',
-            goodTitle:name?name:'',
+            goodTitle: name ? name : '',
             "userID": "",
             "pcName": "",
             "ID": '',
@@ -690,7 +644,7 @@
       },
       querySearchAsync(queryString, cb) {
         this.loadAll(1, queryString).then(data => {
-          var  data = data.data
+          var data = data.data
           data = data.map(item => {
             return {
               id: item.ta_tg_ID,
@@ -704,20 +658,20 @@
           }, 10);
         })
       },
-      initData(id){
+      initData(id) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "goodID": id?id:''
+          "goodID": id ? id : ''
         };
         this.isLoading = true;
-        this.$store.dispatch('initAdminLinePrepare',options)
-          .then(()=>{
+        this.$store.dispatch('initAdminLinePrepare', options)
+          .then(() => {
             this.isLoading = false;
-          },err=>{
+          }, err => {
             this.$notify({
               message: err,
               type: 'error'
@@ -725,8 +679,8 @@
           })
       },
       //查询
-      search(){
-        if(!this.userSearchID){
+      search() {
+        if (!this.userSearchID) {
           this.$notify({
             message: '请选择筛选条件',
             type: 'error'
@@ -736,32 +690,29 @@
         this.initData(this.userSearchID)
       },
       //查询初始化数据
-      searchInitData(){
-        if(this.adminLineScheduleManagementId){
+      searchInitData() {
+        if (this.adminLineScheduleManagementId) {
           this.initData(this.adminLineScheduleManagementId)
         }
       },
       //添加
-      addAdminLinePrepare(){
-        this.ImageURL =[];
+      addAdminLinePrepare() {
+        this.ImageURL = [];
         this.ImageURL1 = [];
         let obj = this.addOptions.data;
         this.addOptions.activityContent = [];
         this.addOptions.activityImage = [];
-        for(var attr in obj){
+        for (var attr in obj) {
           obj[attr] = ''
         }
         this.$store.commit('setTranstionFalse');
         this.addAdminLinePrepareDialog = true;
-        if(this.isUploaNode){
-          this.uploaNode()
-        }
       },
       //添加提交
-      addAdminLinePrepareSubmit(){
-        this.addOptions.activityImage =  this.ImageURL2;
-        this.addOptions.data.ts_pt_ShowImage =  this.ImageURL.join(',');
-        this.$store.dispatch('AddAdminLinePrepare',this.addOptions)
+      addAdminLinePrepareSubmit() {
+        this.addOptions.activityImage = this.ImageURL2;
+        this.addOptions.data.ts_pt_ShowImage = this.ImageURL.join(',');
+        this.$store.dispatch('AddAdminLinePrepare', this.addOptions)
           .then(() => {
             this.$notify({
               message: '添加成功!',
@@ -777,40 +728,37 @@
         this.addAdminLinePrepareDialog = false;
       },
       //修改
-      updateAdminLinePrepare(obj){
+      updateAdminLinePrepare(obj) {
         this.updateAdminLinePrepareObj = obj
         this.$store.commit('setTranstionFalse');
         this.updateAdminLinePrepareDialog = true;
-        if(this.isUploaNode){
-          this.uploaNode()
-        }
 //        this.$store.commit('initUpdateAdminLinePrepareObj',id)
       },
       //修改提交
-      updateAdminLinePrepareSubmit(){
+      updateAdminLinePrepareSubmit() {
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          data:{
+          data: {
             "ts_pt_ID": this.updateAdminLinePrepareObj.ts_pt_ID,
             "ts_pt_Product_LineID": this.updateAdminLinePrepareObj.ts_pt_Product_LineID,
             "ts_pt_Name": this.updateAdminLinePrepareObj.ts_pt_Name,
             "ts_pt_Day": this.updateAdminLinePrepareObj.ts_pt_Day,
             "ts_pt_Describe": this.updateAdminLinePrepareObj.ts_pt_Describe,
-            "ts_pt_ShowImage":  this.ImageURL.join(','),
+            "ts_pt_ShowImage": this.updateAdminLinePrepareObj.ts_pt_ShowImage.join(','),
             "ts_pt_Remark": this.updateAdminLinePrepareObj.ts_pt_Remark,
           }
         };
-        this.$store.dispatch('UpdateAdminLinePrepare',updateOptions)
+        this.$store.dispatch('UpdateAdminLinePrepare', updateOptions)
           .then(() => {
             this.$notify({
               message: '修改成功!',
               type: 'success'
             });
-            this.initData( this.updateAdminLinePrepareObj.ts_pt_Product_LineID)
+            this.initData(this.updateAdminLinePrepareObj.ts_pt_Product_LineID)
           }, err => {
             this.$notify({
               message: err,
@@ -820,7 +768,7 @@
         this.updateAdminLinePrepareDialog = false;
       },
       //删除
-      deleteAdminLinePrepare(id){
+      deleteAdminLinePrepare(id) {
         let deleteOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -829,7 +777,7 @@
           "pcName": "",
           "ID": id
         };
-        this.$store.dispatch('DeleteAdminLinePrepare',deleteOptions)
+        this.$store.dispatch('DeleteAdminLinePrepare', deleteOptions)
           .then(() => {
             this.$notify({
               message: '删除成功!',
@@ -844,16 +792,16 @@
           });
       },
       //点击跳转日程时间管理
-      scheduleTimeManagement(id){
-        this.$store.commit('adminScheduleTimeManagementId',id);
-        this.$router.push({name:'AdminScheduleTime'});
-        sessionStorage.setItem('index','3')
+      scheduleTimeManagement(id) {
+        this.$store.commit('adminScheduleTimeManagementId', id);
+        this.$router.push({name: 'AdminScheduleTime'});
+        sessionStorage.setItem('index', '3')
       }
     },
-    created(){
-      for(var i=1;i<21;i++){
+    created() {
+      for (var i = 1; i < 21; i++) {
         this.options.push({
-          value:i
+          value: i
         })
       }
       let timeID = this.$route.query.timeID;
@@ -861,10 +809,25 @@
         this.initData(timeID)
       }
     },
-    mounted(){
+    mounted() {
       this.searchInitData();
     }
   }
 </script>
 <style scoped>
+
+
+  .imgWap span {
+    position: absolute;
+    right: -15px;
+    top: -6px;
+  }
+
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
+  }
 </style>

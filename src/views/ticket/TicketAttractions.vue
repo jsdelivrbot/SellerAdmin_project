@@ -149,9 +149,6 @@
         :close-on-click-modal="false"
         @close="closeDialog">
         <el-form :model="addOptions">
-          <!--<el-form-item label="景点编码:" :label-width="formLabelWidth">-->
-          <!--<el-input v-model="addOptions.tm_ts_Code"></el-input>-->
-          <!--</el-form-item>-->
           <el-form-item label="景点名称:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Name"></el-input>
           </el-form-item>

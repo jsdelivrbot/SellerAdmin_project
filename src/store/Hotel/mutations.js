@@ -20,6 +20,7 @@ export default {
   },
   //修改酒店信息
   updateHotelDetilsContent(state){
+    state.myHotelDetailsList[0].ht_ht_Stars = state.myHotelDetailsList[0].ht_ht_Stars+'';
     state.updateHotelDetilsObj = state.myHotelDetailsList[0];
   },
   //酒店推荐列表数据

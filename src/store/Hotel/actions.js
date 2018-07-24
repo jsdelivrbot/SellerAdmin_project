@@ -211,7 +211,17 @@ export default {
       .then(data => {
         var data = data.data;
         if (Number(data.resultcode) == 200) {
-          commit('initHotelImage',data.data)
+
+          let resulte = data.data;
+          for (var i = 0; i < resulte.length; i++) {
+            if (resulte[i].ht_hi_ImageURL) {
+              resulte[i].ht_hi_ImageURL = resulte[i].ht_hi_ImageURL.split(',')
+            } else {
+              resulte[i].ht_hi_ImageURL = []
+            }
+          }
+
+          commit('initHotelImage',resulte)
           relove(data.resultcontent);
         } else {
           reject(data.resultcontent);
@@ -229,7 +239,16 @@ export default {
       }).then(data=>{
         var data = data.data;
         if(Number(data.resultcode)==200){
-          commit('initHotelImageType',data.data)
+          let resulte = data.data;
+          // for (var i = 0; i < resulte.length; i++) {
+          //   if (resulte[i].ht_hi_ImageURL) {
+          //     resulte[i].ht_hi_ImageURL = resulte[i].ht_hi_ImageURL.split(',')
+          //   } else {
+          //     resulte[i].ht_hi_ImageURL = []
+          //   }
+          // }
+
+          commit('initHotelImageType',resulte)
           relove(data.resultcontent)
         }else{
           reject(data.resultcontent)

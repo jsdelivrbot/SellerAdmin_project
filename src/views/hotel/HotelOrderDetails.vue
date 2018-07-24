@@ -125,7 +125,7 @@
         });
         return
       }
-      this.touristTraderID = JSON.parse(sessionStorage.getItem('admin')).sm_ai_AgentID;
+      this.touristTraderID = JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID;
       this.initData('',1)
     },
     methods: {

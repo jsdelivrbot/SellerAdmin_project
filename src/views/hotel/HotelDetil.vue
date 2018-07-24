@@ -2,8 +2,11 @@
   <div>
     <div id="wrap" class="clearfix">
       <div class="title clearfix" style="padding: 20px">
-        <h1>酒店基本信息</h1>
-        <el-button type="primary" v-show="isShow" @click="addButton" size="small">添加</el-button>
+        <h1>酒店基本信息</h1><br/>
+        <div>
+          <el-button type="primary" v-show="isShow" @click="addButton" size="small" style="margin-left: 200px;">添加</el-button>
+        </div>
+
       </div>
 
       <!--数据展示-->
@@ -29,8 +32,8 @@
               <el-form-item label="酒店地址:">
                 <span>{{ props.row.ht_ht_HotelAddress }}</span>
               </el-form-item>
-              <el-form-item label="酒店星级:">
-                <span>{{ props.row.ht_ht_Stars }}星级</span>
+              <el-form-item label="酒店星级/主题:">
+                <span>{{ props.row.ht_ht_Stars }}</span>
               </el-form-item>
               <el-form-item label="酒店咨询电话:">
                 <span>{{ props.row.ht_ht_Phone }}</span>
@@ -89,7 +92,7 @@
           prop="ht_ht_HotelAddress">
         </el-table-column>
         <el-table-column
-          label="酒店星级"
+          label="酒店星级/主题"
           align="center"
           prop="ht_ht_Stars">
         </el-table-column>
@@ -191,7 +194,7 @@
             <el-input v-model="addHotelDetilsObj.ht_ht_TelePhone"></el-input>
           </el-form-item>
 
-          <el-form-item label="酒店星级:" :label-width="formLabelWidth">
+          <el-form-item label="酒店星级/酒店:" :label-width="formLabelWidth">
             <!--<el-input v-model="addHotelDetilsObj.ht_ht_Stars" placeholder="最高为8星级酒店并且输入数字即可"></el-input>-->
 
             <el-autocomplete
@@ -308,7 +311,7 @@
             <el-input v-model="updateHotelDetilsObj.ht_ht_TelePhone"></el-input>
           </el-form-item>
 
-          <el-form-item label="酒店星级:" :label-width="formLabelWidth">
+          <el-form-item label="酒店星级/主题:" :label-width="formLabelWidth">
             <!--<el-input v-model="updateHotelDetilsObj.ht_ht_Stars" placeholder="最高为8星级酒店并且输入数字即可"></el-input>-->
 
             <el-autocomplete
@@ -413,11 +416,11 @@
       },
       loadAll(){
         return [
-          { "value": "1星" },
-          { "value": "2星" },
-          { "value": "3星" },
-          { "value": "4星" },
-          { "value": "5星" },
+          { "value": "1" },
+          { "value": "2" },
+          { "value": "3" },
+          { "value": "4" },
+          { "value": "5" },
         ]
       },
       //获取经纬度

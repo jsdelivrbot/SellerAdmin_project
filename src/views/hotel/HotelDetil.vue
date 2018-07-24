@@ -117,9 +117,17 @@
             <el-input v-model="addHotelDetilsObj.ht_ht_HotelName"></el-input>
           </el-form-item>
 
+          <!--<el-form-item label="省:" :label-width="formLabelWidth">-->
+            <!--<el-cascader-->
+              <!--:options="options2"-->
+              <!--@active-item-change="handleItemChange"-->
+              <!--:props="props"-->
+            <!--&gt;</el-cascader>-->
+          <!--</el-form-item>-->
+
           <el-form-item label="省:" :label-width="formLabelWidth">
             <template>
-              <el-select v-model="addHotelDetilsObj.ht_ht_ProviceId" placeholder="请选择省" @focus="changeProvince">
+              <el-select v-model="addHotelDetilsObj.ht_ht_ProviceId" placeholder="请选择省" @change="changeCity">
                 <el-option
                   v-for="item in provinceHotelDataList"
                   :key="item.sm_af_AreaID"
@@ -133,7 +141,7 @@
 
           <el-form-item label="市:" :label-width="formLabelWidth">
             <template>
-              <el-select v-model="addHotelDetilsObj.ht_ht_CityId" placeholder="请选择市" @focus="changeCity">
+              <el-select v-model="addHotelDetilsObj.ht_ht_CityId" placeholder="请选择市" @change="changeCounty">
                 <el-option
                   v-for="item in cityHotelDataList"
                   :key="item.sm_af_AreaID"
@@ -147,7 +155,7 @@
 
           <el-form-item label="县:" :label-width="formLabelWidth">
             <template>
-              <el-select v-model="addHotelDetilsObj.ht_ht_ContryId" placeholder="请选择县" @focus="changeCounty">
+              <el-select v-model="addHotelDetilsObj.ht_ht_ContryId" placeholder="请选择县">
                 <el-option
                   v-for="item in countyHotelDataList"
                   :key="item.sm_af_AreaID"
@@ -184,8 +192,19 @@
           </el-form-item>
 
           <el-form-item label="酒店星级:" :label-width="formLabelWidth">
-            <el-input v-model="addHotelDetilsObj.ht_ht_Stars" placeholder="最高为8星级酒店并且输入数字即可"></el-input>
+            <!--<el-input v-model="addHotelDetilsObj.ht_ht_Stars" placeholder="最高为8星级酒店并且输入数字即可"></el-input>-->
+
+            <el-autocomplete
+              class="inline-input"
+              v-model="addHotelDetilsObj.ht_ht_Stars"
+              :fetch-suggestions="querySearch"
+              placeholder="请输入酒店星级"
+              @select="handleSelect"
+            ></el-autocomplete>
+
           </el-form-item>
+
+
 
           <el-form-item label="创建时间:" :label-width="formLabelWidth">
             <div class="block">
@@ -230,7 +249,7 @@
           </el-form-item>
 
           <el-form-item label="省:" :label-width="formLabelWidth">
-            <el-select v-model="addHotelDetilsObj.ht_ht_ProviceId" placeholder="请选择省" @focus="changeProvince">
+            <el-select v-model="updateHotelDetilsObj.ht_ht_ProviceName" placeholder="请选择省" @change="changeUpdateProvice">
               <el-option
                 v-for="item in provinceHotelDataList"
                 :key="item.sm_af_AreaID"
@@ -242,7 +261,7 @@
           </el-form-item>
 
           <el-form-item label="市:" :label-width="formLabelWidth">
-            <el-select v-model="addHotelDetilsObj.ht_ht_CityId" placeholder="请选择市" @focus="changeCity">
+            <el-select v-model="updateHotelDetilsObj.ht_ht_CityName" placeholder="请选择市" @change="changeUpdateCity">
               <el-option
                 v-for="item in cityHotelDataList"
                 :key="item.sm_af_AreaID"
@@ -254,7 +273,7 @@
           </el-form-item>
 
           <el-form-item label="县:" :label-width="formLabelWidth">
-            <el-select v-model="addHotelDetilsObj.ht_ht_ContryId" placeholder="请选择县" @focus="changeCounty">
+            <el-select v-model="updateHotelDetilsObj.ht_ht_ContryName" placeholder="请选择县">
               <el-option
                 v-for="item in countyHotelDataList"
                 :key="item.sm_af_AreaID"
@@ -290,7 +309,15 @@
           </el-form-item>
 
           <el-form-item label="酒店星级:" :label-width="formLabelWidth">
-            <el-input v-model="updateHotelDetilsObj.ht_ht_Stars" placeholder="最高为8星级酒店并且输入数字即可"></el-input>
+            <!--<el-input v-model="updateHotelDetilsObj.ht_ht_Stars" placeholder="最高为8星级酒店并且输入数字即可"></el-input>-->
+
+            <el-autocomplete
+              class="inline-input"
+              v-model="updateHotelDetilsObj.ht_ht_Stars"
+              :fetch-suggestions="querySearch"
+              placeholder="请输入酒店星级"
+              @select="handleSelect"
+            ></el-autocomplete>
           </el-form-item>
 
           <el-form-item label="创建时间:" :label-width="formLabelWidth">
@@ -362,9 +389,33 @@
         formLabelWidth: '120px',
         isShow: true,
         updateHotelDetilsDialog: false,
+        restaurants: [],
       }
     },
     methods: {
+      querySearch(queryString, cb) {
+        var restaurants = this.restaurants;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+      },
+      createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
+      handleSelect(item) {
+        console.log(item);
+      },
+      loadAll(){
+        return [
+          { "value": "1星" },
+          { "value": "2星" },
+          { "value": "3星" },
+          { "value": "4星" },
+          { "value": "5星" },
+        ]
+      },
       //获取经纬度
       getLatitude(){
         window.open('http://api.map.baidu.com/lbsapi/getpoint/index.html')
@@ -404,39 +455,60 @@
       },
 
       //选择省
-      changeProvince(v) {
-        let getAreaProvice = {
-          "areaPid": 3337
-        };
-        this.$store.dispatch('initHotelProvinceData', getAreaProvice)
-        .then()
-      },
+//      changeProvince(v) {
+//        let getAreaProvice = {
+//          "areaPid": 3337
+//        };
+//        this.$store.dispatch('initHotelProvinceData', getAreaProvice)
+//        .then()
+//      },
 
       //选择市
       changeCity() {
-        if (!this.addHotelDetilsObj.ht_ht_ProviceId) {
-          this.$notify({
-            message: '请先选择省!!',
-            type: 'error'
-          });
-          return
-        }
+//        if (!this.addHotelDetilsObj.ht_ht_ProviceId) {
+//          this.$notify({
+//            message: '请先选择省!!',
+//            type: 'error'
+//          });
+//          return
+//        }
         let getCity = {
           "areaPid": this.addHotelDetilsObj.ht_ht_ProviceId ? this.addHotelDetilsObj.ht_ht_ProviceId : ''
         }
         this.$store.dispatch('initHotelCityData', getCity)
         .then()
       },
+      //修改选中省
+      changeUpdateProvice() {
+        if (this.updateHotelDetilsObj.ht_ht_ProviceName == '') {
+          this.updateHotelDetilsObj.ht_ht_ProviceName = this.updateHotelDetilsObj.ht_ht_ProviceId
+        }
+        let getAreaProvice = {
+          "areaPid": this.updateHotelDetilsObj.ht_ht_ProviceName
+        }
+        this.$store.dispatch('initHotelCityData', getAreaProvice)
+      },
+      //修改市
+      changeUpdateCity() {
+        if (this.updateHotelDetilsObj.ht_ht_CityName == '') {
+          this.updateHotelDetilsObj.ht_ht_CityName = this.updateHotelDetilsObj.ht_ht_CityId
+        }
+        let getAreaProvice = {
+          "areaPid": this.updateHotelDetilsObj.ht_ht_CityName
+        }
+        this.$store.dispatch('initHotelCountyData', getAreaProvice)
+        .then()
+      },
 
       //选择县
       changeCounty() {
-        if (!this.addHotelDetilsObj.ht_ht_ProviceId && !this.addHotelDetilsObj.ht_ht_CityId) {
-          this.$notify({
-            message: '请先选择省和市!!',
-            type: 'error'
-          });
-          return
-        }
+//        if (!this.addHotelDetilsObj.ht_ht_ProviceId && !this.addHotelDetilsObj.ht_ht_CityId) {
+//          this.$notify({
+//            message: '请先选择省和市!!',
+//            type: 'error'
+//          });
+//          return
+//        }
         let getCounty = {
           "areaPid": this.addHotelDetilsObj.ht_ht_CityId ? this.addHotelDetilsObj.ht_ht_CityId : ''
         }
@@ -446,6 +518,8 @@
 
       //添加提交
       addHotelDetilsSubmit() {
+//        console.log(this.addHotelDetilsObj.ht_ht_Stars)
+//        return
         let insertHotelInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -476,9 +550,11 @@
 
       //修改提交
       updateHotelDetilsSubmit() {
-        this.updateHotelDetilsObj.ht_ht_ProviceId = this.addHotelDetilsObj.ht_ht_ProviceId;
-        this.updateHotelDetilsObj.ht_ht_CityId = this.addHotelDetilsObj.ht_ht_CityId;
-        this.updateHotelDetilsObj.ht_ht_ContryId = this.addHotelDetilsObj.ht_ht_ContryId;
+//        console.log(this.updateHotelDetilsObj)
+//        return
+//        this.updateHotelDetilsObj.ht_ht_ProviceId = this.addHotelDetilsObj.ht_ht_ProviceId;
+//        this.updateHotelDetilsObj.ht_ht_CityId = this.addHotelDetilsObj.ht_ht_CityId;
+//        this.updateHotelDetilsObj.ht_ht_ContryId = this.addHotelDetilsObj.ht_ht_ContryId;
         //修改提交数据
         let updateHotelInfo = {
           "loginUserID": "huileyou",
@@ -487,9 +563,9 @@
             "ht_ht_hotelID": this.updateHotelDetilsObj.ht_ht_hotelID,
             "sm_ai_AgentInfoID": this.updateHotelDetilsObj.sm_ai_AgentInfoID,
             "ht_ht_HotelName": this.updateHotelDetilsObj.ht_ht_HotelName,
-            "ht_ht_ProviceId": this.updateHotelDetilsObj.ht_ht_ProviceId,
-            "ht_ht_CityId": this.updateHotelDetilsObj.ht_ht_CityId,
-            "ht_ht_ContryId": this.updateHotelDetilsObj.ht_ht_ContryId,
+            "ht_ht_ProviceId": this.updateHotelDetilsObj.ht_ht_ProviceName,
+            "ht_ht_CityId": this.updateHotelDetilsObj.ht_ht_CityName,
+            "ht_ht_ContryId": this.updateHotelDetilsObj.ht_ht_ContryName,
             "ht_ht_HotelAddress": this.updateHotelDetilsObj.ht_ht_HotelAddress,
             "ht_ht_Longitude": this.updateHotelDetilsObj.ht_ht_Longitude,
             "ht_ht_Latitude": this.updateHotelDetilsObj.ht_ht_Latitude,
@@ -520,9 +596,16 @@
       },
     },
     created() {
+      let getAreaProvice = {
+        "areaPid": 3337
+      };
+      this.$store.dispatch('initHotelProvinceData', getAreaProvice)
       let id = JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID
       this.addHotelDetilsObj.sm_ai_AgentInfoID = id;
       this.initData()
+    },
+    mounted(){
+      this.restaurants = this.loadAll();
     }
   }
 </script>
@@ -532,7 +615,7 @@
   }
 
   .demo-table-expand label {
-    width: 90px;
+    /*width: 90px;*/
     color: #99a9bf;
   }
 

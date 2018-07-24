@@ -441,3 +441,14 @@ export const getIsShowTop=val=>{
       return '其他';
   }
 }
+//审核状态
+export const getIsPass = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '未审核';
+    case 1:
+      return '已审核';
+    default:
+      return '其他';
+  }
+}

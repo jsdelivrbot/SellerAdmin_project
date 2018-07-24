@@ -104,6 +104,9 @@
               <el-form-item label="创建时间:">
                 <span>{{ props.row.tm_ts_CreateTime }}</span>
               </el-form-item>
+              <el-form-item label="审核状态:">
+                <span>{{ props.row.tm_ts_IsPass | getIsPass }}</span>
+              </el-form-item>
               <el-form-item label="备注:">
                 <span>{{ props.row.tm_ts_Remark }}</span>
               </el-form-item>
@@ -221,7 +224,6 @@
 
 
             <Upload @getData="getData" :attrs="imageObj"></Upload>
-
 
             <div class="imgWap">
               <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px">

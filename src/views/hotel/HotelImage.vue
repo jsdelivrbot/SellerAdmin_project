@@ -24,12 +24,12 @@
       >
       </el-table-column>
       <el-table-column
-        label="图片地址"
+        label="点击查看大图"
         align="center"
       >
         <template slot-scope="scope">
           <!--<span>{{scope.row.ht_hi_ImageURL}}</span>-->
-          <img src="" alt="" v-lazy="scope.row.ht_hi_ImageURL" title="点击查看大图" style="width:100px;height:100px;cursor: pointer" @click="clickImg(scope.row.ht_hi_ImageURL)">
+          <img  alt="" v-lazy="item" title="点击查看大图" style="width:100px;height:100px;cursor: pointer" @click="clickImg(item)" v-for="item in scope.row.ht_hi_ImageURL">
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">

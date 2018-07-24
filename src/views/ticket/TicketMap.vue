@@ -203,7 +203,6 @@
                 <el-popover
                   placement="top-start"
                   width="500"
-                  title="景点介绍"
                   trigger="hover"
                   :content="props.row.tm_se_Intro">
                   <el-button slot="reference">移入查看</el-button>

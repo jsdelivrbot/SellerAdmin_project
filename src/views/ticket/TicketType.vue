@@ -8,10 +8,16 @@
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
-            <span>票种编码筛选:</span>
+            <span>景点名称:</span>
           </el-form-item>
           <el-form-item>
-            <el-input v-model="siteId" size="mini"></el-input>
+            <el-autocomplete
+              size="mini"
+              v-model="tourName"
+              :fetch-suggestions="querySearchAsync"
+              placeholder="请输入景点名称"
+              @select="handleSelect"
+            ></el-autocomplete>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search" size="mini">查询</el-button>
@@ -25,6 +31,7 @@
 
       <el-table
         :data="ticketTypeList"
+        v-loading="isLoading"
         style="width: 100%">
         <el-table-column type="expand">
           <template slot-scope="props">
@@ -296,6 +303,7 @@
         isShow: false,
         updateImageURL: [],
         ImageURL: [],
+        isLoading:false,
         updateDialog: false,
         loginId: '',
         siteId: '',
@@ -328,7 +336,8 @@
           {
             value:'儿童票'
           }
-        ]
+        ],
+        tm_ts_Code:''
       }
     },
     methods: {
@@ -380,6 +389,7 @@
       handleSelect(item) {
         this.addOptions.tm_ts_Code = item.id;
         this.updateTicketTypeObj.tm_ts_Code = item.id;
+        this.tm_ts_Code = item.id
       },
       loadAll(num, name) {
         let options = {
@@ -483,9 +493,12 @@
           "page": num ? num : 1,
           "rows": 5
         };
+        this.isLoading = true;
         this.$store.dispatch('initTicketType', getTicketTypePriceList)
           .then(total => {
             this.total = total;
+            this.isLoading = false;
+
           }, err => {
             this.$notify({
               message: err,
@@ -495,8 +508,11 @@
       },
       //查询
       search() {
-
-
+        if(this.tm_ts_Code){
+          this.initData(this.tm_ts_Code)
+        }else{
+          this.initData('')
+        }
       },
       // 添加按钮
       Add() {

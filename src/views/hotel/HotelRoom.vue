@@ -100,6 +100,11 @@
             type="primary"
             @click="toRoomFacilities(scope.row.ht_bt_RoomID)">前往房间房间设施
           </el-button>
+          <el-button
+            type="success"
+            size="mini"
+            @click="jump(scope.row)">预览效果
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -380,6 +385,10 @@
 
 
 
+      jump(obj){
+        let hotelID=sessionStorage.getItem("hotelID")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
+      },
       //前往生成房间数
       toRoomNumber(RoomID){
         this.$router.push({name:'HotelRoomNumber', params: {id: RoomID}})

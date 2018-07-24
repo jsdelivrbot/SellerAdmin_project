@@ -15,7 +15,7 @@
         </el-form-item>
         <el-form-item  style="float: right;">
           <!--<el-button type="primary" @click="search" size="small">查询</el-button>-->
-          <el-button type="primary" @click="Add" size="small">新增</el-button>
+          <el-button type="primary" @click="Add" size="small" style="margin-right: 80px;">新增</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -55,6 +55,11 @@
             size="mini"
             type="danger"
             @click="Delete(scope.row.ht_rth_ID)">删除
+          </el-button>
+          <el-button
+            type="success"
+            size="mini"
+            @click="jump(scope.row)">预览效果
           </el-button>
         </template>
       </el-table-column>
@@ -185,6 +190,10 @@
       this.initFacilitiesType();
     },
     methods: {
+      jump(obj){
+        let hotelID=sessionStorage.getItem("hotelID")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
+      },
       //惠乐游房间设施类型
       initFacilitiesType(){
         let roomTypeOptions = {

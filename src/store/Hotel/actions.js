@@ -49,6 +49,7 @@ export default {
       })
         .then(data => {
           var data = data.data;
+
           if (Number(data.resultcode) == 200) {
             commit('initMyHotelDetails', data.data.HotelModel);
             relove(data.data.HotelModel.ht_ht_hotelID);

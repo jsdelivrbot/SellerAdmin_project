@@ -13,18 +13,7 @@
           placeholder="请输入景点名称"
           @select="handleSelect"
         ></el-autocomplete>
-<<<<<<< Updated upstream
-        <!--<el-select v-model="ticketAttractionsValue" placeholder="请选择查询的景点" size="mini">-->
-          <!--<el-option-->
-            <!--v-for="item in ticketAttractionsList"-->
-            <!--:key="item.tm_ts_Code"-->
-            <!--:label="item.tm_ts_Name"-->
-            <!--:value="item.tm_ts_Code">-->
-          <!--</el-option>-->
-        <!--</el-select>-->
 
-=======
->>>>>>> Stashed changes
         <el-button type="primary" @click="search" size="mini">查询</el-button>
         <el-button type="primary" @click="Add" size="mini">新增</el-button>
       </div>

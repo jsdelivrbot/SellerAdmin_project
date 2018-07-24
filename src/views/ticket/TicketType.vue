@@ -135,23 +135,12 @@
               placeholder="请输入景点名称"
               @select="handleSelect"
             ></el-autocomplete>
-<<<<<<< Updated upstream
-=======
-            <!--<el-select v-model="addOptions.tm_ts_Code" placeholder="请选择">-->
-            <!--<el-option-->
-            <!--v-for="item in ticketAttractionsList"-->
-            <!--:key="item.tm_ts_Code"-->
-            <!--:label="item.tm_ts_Name"-->
-            <!--:value="item.tm_ts_Code">-->
-            <!--</el-option>-->
-            <!--</el-select>-->
->>>>>>> Stashed changes
+
           </el-form-item>
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
 
             <Upload @getData="getData" :attrs="imageObj"></Upload>
 
-<<<<<<< Updated upstream
             <div class="imgWap">
               <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 30px">
                 <span style="color: #f60" @click="deleteImageURL(item)">X</span>
@@ -167,8 +156,7 @@
               </p>
             </div>
 
-=======
->>>>>>> Stashed changes
+
           </el-form-item>
           <el-form-item label="描述:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tt_Description" type="textarea"></el-input>

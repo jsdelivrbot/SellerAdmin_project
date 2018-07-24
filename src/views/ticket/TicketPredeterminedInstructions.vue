@@ -219,18 +219,7 @@
               placeholder="请输入景点名称"
               @select="handleSelect"
             ></el-autocomplete>
-<<<<<<< Updated upstream
 
-            <!--<el-select v-model="updatePredeterminedInstructionsObj.tm_bk_TourSiteID" placeholder="请选择景点">-->
-              <!--<el-option-->
-                <!--v-for="item in ticketAttractionsList"-->
-                <!--:key="item.tm_ts_Code"-->
-                <!--:label="item.tm_ts_Name"-->
-                <!--:value="item.tm_ts_Code">-->
-              <!--</el-option>-->
-            <!--</el-select>-->
-=======
->>>>>>> Stashed changes
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth">
             <el-input v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" type="textarea"></el-input>

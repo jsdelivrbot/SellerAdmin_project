@@ -49,12 +49,7 @@
 
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
 
-<<<<<<< Updated upstream
-=======
 
-          <Upload @getData="getData" :attrs="imageObj"></Upload>
-
->>>>>>> Stashed changes
 
           <Upload @getData="getData" :attrs="imageObj"></Upload>
 
@@ -152,12 +147,10 @@
 
         <el-form-item label="小景点视频:" :label-width="formLabelWidth">
 
-<<<<<<< Updated upstream
+
           <video :src="updateOptions.data.tm_se_Vedio" v-show="updateOptions.data.tm_se_Vedio" controls
                  width="100"></video>
-=======
-          <video :src="updateOptions.data.tm_se_Vedio" v-show="updateOptions.data.tm_se_Vedio" controls width="100"></video>
->>>>>>> Stashed changes
+
 
           <Upload @getData="updateVideo" :attrs="videoObj"></Upload>
 

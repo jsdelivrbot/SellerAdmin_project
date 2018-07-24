@@ -88,11 +88,11 @@
             type="primary"
             @click="toRoomEntity(scope.row)">前往房间实体
           </el-button>
-          <el-button
-          size="mini"
-          type="primary"
-          @click="toLotRoomNumber(scope.row.ht_rpp_ID)">前往批量生成房间数
-          </el-button>
+          <!--<el-button-->
+          <!--size="mini"-->
+          <!--type="primary"-->
+          <!--@click="toLotRoomNumber(scope.row.ht_rpp_ID)">前往批量生成房间数-->
+          <!--</el-button>-->
         </template>
       </el-table-column>
     </el-table>

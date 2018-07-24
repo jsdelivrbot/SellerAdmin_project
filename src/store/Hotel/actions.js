@@ -705,7 +705,7 @@ export default {
         var data = data.data;
         if(Number(data.resultcode)==200){
           commit('initHotelFacilitiesType',data.data);
-          relove(data.resultcontent)
+          relove()
         }else{
           reject(data.resultcontent)
         }

@@ -130,8 +130,9 @@
         });
         return
       }
-      this.initData();
       this.initFacilitiesType();
+      this.initData();
+
     },
     methods: {
       //惠乐游设施类型
@@ -146,6 +147,13 @@
           "ht_ht_Name": '',//设施类型名称
         }
         this.$store.dispatch('initHotelFacilitiesType', hotelFacilitiesTypeOptions)
+          .then(()=>{
+          },err=>{
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
+          })
       },
       //选中设施类型
       changeFacilitiesType(){

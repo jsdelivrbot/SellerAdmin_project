@@ -407,7 +407,6 @@
               </p>
             </div>
 
-
           </el-form-item>
           <el-form-item label="介绍:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Introduce"></el-input>
@@ -525,7 +524,6 @@
     },
     data() {
       return {
-
         isUploaNode: true,
         isNewUploaNode: true,
         formLabelWidth: '120px',
@@ -660,33 +658,22 @@
         if (!this.addRadioIndex) {
           this.ImageURL.push(data.data);
         } else {
-          this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.ImageURL.splice(this.addRadioIndex - 1, 1, data.data);
           this.addRadioIndex = '';
         }
-      }
+      },
 
-    },
-    methods: {
+      jump(obj) {
 
-      jump(obj){
-
-        sessionStorage.setItem("code",obj.tm_ts_Code)
-        if(obj.tm_ts_IsPass==0){
-            this.$notify({
-              message: "当前景点信息未审核！需惠乐游审核！",
-              type: 'error'
-            })
-        }else{
-          window.open('http://hly.1000da.com.cn/index.html#/Comment/admissionTicketMore?id=272&keycode='+obj.tm_ts_Name,'_blank')
+        sessionStorage.setItem("code", obj.tm_ts_Code)
+        if (obj.tm_ts_IsPass == 0) {
+          this.$notify({
+            message: "当前景点信息未审核！需惠乐游审核！",
+            type: 'error'
+          })
+        } else {
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/admissionTicketMore?id=272&keycode=' + obj.tm_ts_Name, '_blank')
         }
-      },
-      //修改图片
-      updateImage(data){
-        this.updateImageURL.push(data.data);
-      },
-      //图片上传
-      getData(data){
-        this.ImageURL.push(data.data);
       },
       //查询景点主题分类信息
       initTheme() {

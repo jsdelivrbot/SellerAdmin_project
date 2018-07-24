@@ -68,9 +68,9 @@
               <el-form-item label="是否有WAFI">
                 <span>{{ props.row.fd_sf_HasWafi }}</span>
               </el-form-item>
-              <el-form-item label="供应商编码">
-                <span>{{ props.row.fd_sf_TradeID }}</span>
-              </el-form-item>
+              <!--<el-form-item label="供应商编码">-->
+                <!--<span>{{ props.row.fd_sf_TradeID }}</span>-->
+              <!--</el-form-item>-->
               <el-form-item label="提前多少分钟通知">
                 <span>{{ props.row.fd_sf_Minutes }}</span>
               </el-form-item>
@@ -211,9 +211,9 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="供应商编码:" :label-width="formLabelWidth" required>
-            <el-input v-model="addOptions.fd_sf_TradeID"></el-input>
-          </el-form-item>
+          <!--<el-form-item label="供应商编码:" :label-width="formLabelWidth" required>-->
+            <!--<el-input v-model="addOptions.fd_sf_TradeID"></el-input>-->
+          <!--</el-form-item>-->
           <el-form-item label="交通信息:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.fd_sf_TransInfo"></el-input>
           </el-form-item>
@@ -682,4 +682,5 @@
   }
 </script>
 <style scoped>
+
 </style>

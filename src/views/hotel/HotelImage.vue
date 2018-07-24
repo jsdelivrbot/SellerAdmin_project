@@ -28,8 +28,13 @@
         align="center"
       >
         <template slot-scope="scope">
-          <!--<span>{{scope.row.ht_hi_ImageURL}}</span>-->
-          <img  alt="" v-lazy="item" title="点击查看大图" style="width:100px;height:100px;cursor: pointer" @click="clickImg(item)" v-for="item in scope.row.ht_hi_ImageURL">
+          <img
+            v-for="item,index in scope.row.ht_hi_ImageURL"
+            v-lazy="item"
+            title="点击查看大图"
+            style="width:100px;height:100px;cursor: pointer;margin-right: 10px;"
+            @click="clickImg(item)"
+          >
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
@@ -37,7 +42,7 @@
           <el-button
           size="mini"
           type="primary"
-          @click="Update(scope.row.ht_hi_ID)">修改
+          @click="Update(scope.row)">修改
           </el-button>
           <el-button
             size="mini"
@@ -53,7 +58,7 @@
       :visible.sync="imgShow"
       width="60%"
       center>
-      <img src="" alt="" v-lazy="imgUrl" style="width: 100%">
+      <img :src="imgUrl" alt="" style="width: 100%">
       <span slot="footer" class="dialog-footer">
         <el-button @click="imgShow = false">取 消</el-button>
         <el-button type="primary" @click="imgShow = false">确 定</el-button>
@@ -75,10 +80,25 @@
           </el-select>
         </el-form-item>
         <el-form-item label="图片上传:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">上传图片
-            <input type="file" name="" ref="upload" accept="image/*" multiple>
-          </a>
-          <img src="" alt="" v-lazy="item"  v-show="ImageURL.length" v-for="item in ImageURL" style="width: 100px;height: 100px">
+
+          <Upload @getData="getData" :attrs="imageObj"></Upload>
+
+          <div class="imgWap">
+            <p v-for="item,index in ImageURL"
+               style="display: inline-block;position: relative;margin-right: 70px">
+              <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
+              </em>
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="ImageURL.length"
+              >
+            </p>
+          </div>
+
         </el-form-item>
         <el-form-item label="备注:" :label-width="formLabelWidth">
           <el-input
@@ -110,10 +130,25 @@
           </el-select>
         </el-form-item>
         <el-form-item label="图片上传:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">上传图片
-            <input type="file" name="" ref="upload1" accept="image/*" multiple>
-          </a>
-          <img src="" alt="" v-lazy="item"  v-show="ImageURL1.length" v-for="item in ImageURL1" style="width: 100px;height: 100px">
+
+          <Upload @getData="updateImage" :attrs="imageObj"></Upload>
+
+          <div class="imgWap">
+            <p v-for="item,index in ImageURL1"
+               style="display: inline-block;position: relative;margin-right: 70px">
+              <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="updateRadioIndex" :label="index+1">替换</el-radio>
+              </em>
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="ImageURL1.length"
+              >
+            </p>
+          </div>
+
         </el-form-item>
         <el-form-item label="备注:" :label-width="formLabelWidth">
           <el-input
@@ -133,10 +168,14 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   import {getNewStr} from '@/assets/js/public'
+  import Upload from '@/components/Upload'
+
   export default{
     name: '',
+    components: {
+      Upload
+    },
     data(){
       return {
         ImageURL:[],
@@ -160,7 +199,11 @@
             "ht_hi_ImageURL": "",//图片
             "ht_hi_Remark": "",//备注
           }
-        }
+        },
+        imageObj: {accept: 'image/*'},
+        radioIndex: 0,
+        updateRadioIndex: 0,
+        isNewUploaNode: true,
       }
     },
     computed: mapGetters([
@@ -183,6 +226,58 @@
       this.initImageType();
     },
     methods: {
+      //图片上传
+      getData(data) {
+        if (!this.radioIndex) {
+          this.ImageURL.push(data.data);
+        } else {
+          this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.radioIndex = '';
+        }
+      },
+      //修改图片
+      updateImage(data) {
+        if (!this.updateRadioIndex) {
+          this.ImageURL1.push(data.data);
+        } else {
+          this.ImageURL1.splice(this.updateRadioIndex - 1, 1, data.data);
+          this.updateRadioIndex = '';
+        }
+      },
+
+
+      //删除修改对应图片
+      deleteImageURL(val) {
+        this.isNewUploaNode = false
+        this.ImageURL = this.ImageURL.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
+      //删除修改对应图片
+      deleteUpdateImageURL(val) {
+        this.isNewUploaNode = false
+        this.ImageURL1 = this.ImageURL1.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
+      //展示大图
+      clickImg(val){
+        this.$store.commit('setTranstionFalse');
+        this.imgUrl = val;
+        this.imgShow = true
+      },
+
+
+
+
+
+
       //惠乐游图片类型
       initImageType(){
         let imgOptions = {
@@ -195,85 +290,6 @@
           "ht_hi_Name": '',//图片类型名称
         };
         this.$store.dispatch('initHotelImageType', imgOptions)
-      },
-      uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
-          var fd = new FormData();
-          fd.append("fileToUpload", file);
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
-          xhr.send(fd);
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-              if (xhr.responseText) {
-                var data = xhr.responseText
-                relove(JSON.parse(data))
-              }
-            }else{
-              console.log(xhr.responseText)
-//               if (xhr.responseText) {
-//                 var data = xhr.responseText;
-//                 reject(JSON.parse(data).resultcontent)
-//               }
-            }
-          }
-        })
-      },
-
-      uploaNode() {
-        this.ImageURL = [];
-        this.ImageURL1 = [];
-        setTimeout(() => {
-          if (this.$refs.upload) {
-            this.$refs.upload.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('hotelUploadAdminImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.upload.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.ImageURL.push(data.data);
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                // })
-              }
-            })
-          }
-          if (this.$refs.upload1) {
-            this.$refs.upload1.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload1.files.length; i++) {
-                // this.uploadImg(this.$refs.upload1.files[i]).then(data => {
-                //   this.$store.dispatch('hotelUploadAdminImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.upload1.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.ImageURL1.push(data.data);
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                // })
-              }
-            })
-          }
-        }, 30)
-      },
-      clickImg(imgUrl){
-        this.$store.commit('setTranstionFalse');
-        this.imgShow = true;
-        this.imgUrl = imgUrl
       },
 
       //初始化
@@ -305,7 +321,6 @@
         this.ImageURL1 = [];
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        this.uploaNode()
       },
       //添加提交
       addSubmit(){
@@ -327,11 +342,11 @@
         this.addDialog = false;
       },
       //修改
-      Update(id){
+      Update(obj){
+        this.ImageURL1 = obj.ht_hi_ImageURL;
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
-        this.$store.commit('updateHotelImage',id)
-        this.uploaNode()
+        this.$store.commit('updateHotelImage',obj.ht_hi_ID)
       },
       //修改提交
       updateSubmit(){
@@ -390,4 +405,18 @@
 </script>
 <style scoped>
 
+
+  .imgWap span {
+    position: absolute;
+    right: -15px;
+    top: -6px;
+  }
+
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
+  }
 </style>

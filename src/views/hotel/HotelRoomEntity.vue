@@ -49,16 +49,18 @@
       >
       </el-table-column>
       <el-table-column
-        prop="ht_re_ImagePath"
         label="房间图片"
       >
+        <template slot-scope="scope">
+          <img v-for="item,index in scope.row.ht_re_ImagePath" v-lazy="item" style="height: 100px;margin-right: 10px;">
+        </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button
             size="mini"
             type="primary"
-            @click="Update(scope.row.ht_re_Id)">修改
+            @click="Update(scope.row)">修改
           </el-button>
           <el-button
             size="mini"
@@ -93,11 +95,26 @@
           <el-input v-model="addOptions.data.ht_re_HouseNumber"></el-input>
         </el-form-item>
         <el-form-item label="房间图片上传:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">上传图片
-            <input type="file" name="" ref="upload" accept="image/*" multiple>
-          </a>
-          <img src="" alt="" v-lazy="item" v-show="ImageURL.length" v-for="item in ImageURL"
-               style="width: 100px;height: 100px">
+
+          <Upload @getData="getData" :attrs="imageObj"></Upload>
+
+          <div class="imgWap">
+            <p v-for="item,index in ImageURL"
+               style="display: inline-block;position: relative;margin-right: 70px">
+              <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
+              </em>
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="ImageURL.length"
+              >
+            </p>
+          </div>
+
+
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -113,11 +130,25 @@
           <el-input v-model="updateHotelRoomEntityObj.ht_re_HouseNumber"></el-input>
         </el-form-item>
         <el-form-item label="房间图片上传:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">上传图片
-            <input type="file" name="" ref="upload1" accept="image/*" multiple>
-          </a>
-          <img src="" alt="" v-lazy="item" v-show="ImageURL1.length" v-for="item in ImageURL1"
-               style="width: 100px;height: 100px">
+
+          <Upload @getData="updateImage" :attrs="imageObj"></Upload>
+
+          <div class="imgWap">
+            <p v-for="item,index in ImageURL1"
+               style="display: inline-block;position: relative;margin-right: 70px">
+              <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="updateRadioIndex" :label="index+1">替换</el-radio>
+              </em>
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="ImageURL1.length"
+              >
+            </p>
+          </div>
+
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -130,9 +161,13 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
+  import Upload from '@/components/Upload'
 
   export default {
     name: '',
+    components: {
+      Upload
+    },
     data() {
       return {
         houseName: '',
@@ -155,7 +190,11 @@
             "ht_re_HouseNumber": "",//房间门牌号
             "ht_re_ImagePath": "",//房间图片
           }
-        }
+        },
+        imageObj: {accept: 'image/*'},
+        radioIndex: 0,
+        updateRadioIndex: 0,
+        isNewUploaNode: true,
       }
     },
     computed: mapGetters([
@@ -177,6 +216,51 @@
       this.initData('', 1)
     },
     methods: {
+
+      //图片上传
+      getData(data) {
+        if (!this.radioIndex) {
+          this.ImageURL.push(data.data);
+        } else {
+          this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.radioIndex = '';
+        }
+      },
+      //修改图片
+      updateImage(data) {
+        if (!this.updateRadioIndex) {
+          this.ImageURL1.push(data.data);
+        } else {
+          this.ImageURL1.splice(this.updateRadioIndex - 1, 1, data.data);
+          this.updateRadioIndex = '';
+        }
+      },
+
+
+      //删除修改对应图片
+      deleteImageURL(val) {
+        this.isNewUploaNode = false
+        this.ImageURL = this.ImageURL.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
+      //删除修改对应图片
+      deleteUpdateImageURL(val) {
+        this.isNewUploaNode = false
+        this.ImageURL1 = this.ImageURL1.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
+
+
+
+
       goHotelRoomProduct() {
         this.$router.push({name: 'HotelRoomProduct', params: {id: 1378}})
       },
@@ -301,7 +385,6 @@
       Add() {
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        this.uploaNode()
       },
       //添加提交
       addSubmit() {
@@ -322,11 +405,11 @@
           });
         this.addDialog = false;
       },
-      Update(id) {
+      Update(obj) {
+        this.ImageURL1 = obj.ht_re_ImagePath;
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
-        this.$store.commit('UpdateHotelRoomEntity', id)
-        this.uploaNode()
+        this.$store.commit('UpdateHotelRoomEntity', obj.ht_re_Id)
       },
       //修改提交
       updateSubmit() {
@@ -385,4 +468,17 @@
 </script>
 <style scoped>
 
+  .imgWap span {
+    position: absolute;
+    right: -15px;
+    top: -6px;
+  }
+
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
+  }
 </style>

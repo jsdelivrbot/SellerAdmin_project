@@ -11,20 +11,20 @@
             <span>票种编码筛选:</span>
           </el-form-item>
           <!--<el-select v-model="ticketTypeNumber" placeholder="请选择票种" size="mini" style="margin-top: 7px;">-->
-            <!--<el-option-->
-              <!--v-for="item in ticketTypeList"-->
-              <!--:key="item.tm_tt_ID"-->
-              <!--:label="item.tm_tt_Name"-->
-              <!--:value="item.tm_tt_ID">-->
-            <!--</el-option>-->
+          <!--<el-option-->
+          <!--v-for="item in ticketTypeList"-->
+          <!--:key="item.tm_tt_ID"-->
+          <!--:label="item.tm_tt_Name"-->
+          <!--:value="item.tm_tt_ID">-->
+          <!--</el-option>-->
           <!--</el-select>-->
           <!--<el-select v-model="scenicNumber" placeholder="请选择景点" @change="changeScenicNumber" size="mini">-->
-            <!--<el-option-->
-              <!--v-for="item in ticketAttractionsList"-->
-              <!--:key="item.tm_ts_Code"-->
-              <!--:label="item.tm_ts_Name"-->
-              <!--:value="item.tm_ts_Code">-->
-            <!--</el-option>-->
+          <!--<el-option-->
+          <!--v-for="item in ticketAttractionsList"-->
+          <!--:key="item.tm_ts_Code"-->
+          <!--:label="item.tm_ts_Name"-->
+          <!--:value="item.tm_ts_Code">-->
+          <!--</el-option>-->
           <!--</el-select>-->
           <el-form-item>
             <div class="block">
@@ -41,6 +41,11 @@
           <el-form-item>
             <el-button type="primary" @click="search" size="mini">查询</el-button>
             <el-button type="primary" @click="Add" size="mini">新增</el-button>
+            <el-button
+              type="success"
+              size="mini"
+              @click="jump">预览效果
+            </el-button>
             <el-button type="danger" @click="deleteBtn" size="mini">删除</el-button>
           </el-form-item>
         </el-form>
@@ -65,13 +70,13 @@
                 <span>{{ props.row.tm_tp_TicketPrice }}元</span>
               </el-form-item>
               <!--<el-form-item label="折价金额">-->
-                <!--<span>{{ props.row.tm_tp_SalePrice }}元</span>-->
+              <!--<span>{{ props.row.tm_tp_SalePrice }}元</span>-->
               <!--</el-form-item>-->
               <el-form-item label="实际价格">
                 <span>{{ props.row.tm_tp_RealPrice }}元</span>
               </el-form-item>
               <!--<el-form-item label="退票手续费">-->
-                <!--<span>{{ props.row.tm_tp_BackPriceFee }}元</span>-->
+              <!--<span>{{ props.row.tm_tp_BackPriceFee }}元</span>-->
               <!--</el-form-item>-->
               <el-form-item label="日期">
                 <span>{{ props.row.tm_tp_Date }}</span>
@@ -80,7 +85,7 @@
                 <span>{{ props.row.tm_tp_Limit }}张</span>
               </el-form-item>
               <!--<el-form-item label="备注">-->
-                <!--<span>{{ props.row.tm_tp_Remark }}</span>-->
+              <!--<span>{{ props.row.tm_tp_Remark }}</span>-->
               <!--</el-form-item>-->
             </el-form>
           </template>
@@ -94,8 +99,8 @@
           prop="tm_tp_Limit">
         </el-table-column>
         <!--<el-table-column-->
-          <!--label="退票手续费(元)"-->
-          <!--prop="tm_tp_BackPriceFee">-->
+        <!--label="退票手续费(元)"-->
+        <!--prop="tm_tp_BackPriceFee">-->
         <!--</el-table-column>-->
         <el-table-column
           label="日期"
@@ -242,6 +247,10 @@
       }
     },
     methods: {
+      jump(){
+        let code =sessionStorage.getItem("code")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/ticketsDetail/'+code,'_blank')
+      },
       //分页
       handleCurrentChange(num) {
         this.initData(this.ticketTypeNumber, num)

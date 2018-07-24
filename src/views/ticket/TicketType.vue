@@ -88,9 +88,9 @@
           label="实际价格"
           prop="tm_tt_RealPrice">
         </el-table-column>
-        <el-table-column label="操作" width="280" align="left">
+        <el-table-column label="操作" width="350" align="center">
           <template slot-scope="scope">
-            <!---->
+
             <el-button
               size="mini"
               @click="update(scope.row.tm_tt_ID)">修改
@@ -102,13 +102,13 @@
             </el-button>
             <el-button
               size="mini"
-              @click="toTicketTypeTicketPrice(scope.row.tm_tt_ID)">点击设置票价
+              @click="toTicketTypeTicketPrice(scope.row.tm_tt_ID)">设置票价
             </el-button>
-            <!--<el-button-->
-              <!--type="success"-->
-              <!--size="small"-->
-              <!--@click="jump(scope.row)">预览效果-->
-            <!--</el-button>-->
+            <el-button
+              type="success"
+              size="small"
+              @click="jump(scope.row)">预览效果
+            </el-button>
           </template>
         </el-table-column>
 
@@ -332,7 +332,10 @@
       }
     },
     methods: {
-      jump(){},
+      jump(obj){
+        sessionStorage.setItem("code",obj.tm_ts_Code)
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/ticketsDetail/'+obj.tm_ts_Code,'_blank')
+      },
 
       querySearchTicket(queryString,cb){
         var restaurants = this.arr;
@@ -347,7 +350,9 @@
       },
       addHandleSelect(item) {
         this.addOptions.tm_tt_Name = item.value
-        console.log(item);
+
+
+
       },
       //添加图片
       getData(data) {
@@ -479,14 +484,14 @@
           "rows": 5
         };
         this.$store.dispatch('initTicketType', getTicketTypePriceList)
-        .then(total => {
-          this.total = total;
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(total => {
+            this.total = total;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //查询
       search() {
@@ -511,18 +516,18 @@
         };
 
         this.$store.dispatch('addTicketTypeSubmit', insertTicketType)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
-          });
-          this.initData();
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData();
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
         this.addDialog = false;
       },
       //修改按钮
@@ -548,20 +553,20 @@
           "loginUserPass": "123",
           "data": this.updateTicketTypeObj
         }
-        console.log('1',this.updateTicketTypeObj)
+
         this.$store.dispatch('updateTicketTypeSubmit', updateTicketType)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
-          });
-          this.initData();
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData();
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
         this.updateDialog = false;
       },
       //删除按钮
@@ -574,18 +579,18 @@
           }
         };
         this.$store.dispatch('deleteTicketType', deleteTicketType)
-        .then(suc => {
-          this.$notify({
-            message: suc,
-            type: 'success'
-          });
-          this.initData();
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(suc => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
+            this.initData();
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       }
     },
     created() {

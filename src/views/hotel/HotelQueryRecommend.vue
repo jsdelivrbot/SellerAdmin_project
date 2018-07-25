@@ -3,7 +3,7 @@
     <div id="wrap" class="clearfix">
       <div class="title clearfix" style="padding: 20px">
         <h1>酒店推荐信息</h1><br><br>
-        <el-button type="primary" @click="addButton" size="small">新增</el-button>
+        <el-button type="primary" @click="addButton" size="small"  style="float: right;margin-right: 80px;"> 新增</el-button>
       </div>
 
       <!--数据展示-->
@@ -42,10 +42,11 @@
             type="danger"
             @click="Delete(scope.row.ht_hi_ID)">删除
             </el-button>
-            <!--<el-button-->
-            <!--size="mini"-->
-            <!--@click="goHotelRecommend">前往酒店推荐-->
-            <!--</el-button>-->
+            <el-button
+              type="success"
+              size="mini"
+              @click="jump(scope.row)">预览效果
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -169,6 +170,29 @@
       this.initType();
     },
     methods: {
+      jump(obj){
+       console.log(obj.ht_it_IntroduceTypePName)
+        if(obj.ht_it_IntroduceTypePName=="青旅酒店"){
+          window.open('http://hly.1000da.com.cn/index.html#/hotelQingLv/10','_blank')
+        }else if((obj.ht_it_IntroduceTypePName=="古镇酒店")){
+          window.open('http://hly.1000da.com.cn/index.html#/hotelAncientTown/11','_blank')
+        }else if((obj.ht_it_IntroduceTypePName=="亲子酒店")){
+          window.open('http://hly.1000da.com.cn/index.html#/hotelParentChildTour/12','_blank')
+        }else if((obj.ht_it_IntroduceTypePName=="依山酒店")){
+          window.open('http://hly.1000da.com.cn/index.html#/hotelMountaineering/13','_blank')
+        }else if((obj.ht_it_IntroduceTypePName=="最美客栈")){
+          window.open('http://hly.1000da.com.cn/index.html#/hotelInn/14','_blank')
+        }else if((obj.ht_it_IntroduceTypePName=="情侣酒店")){
+          window.open('http://hly.1000da.com.cn/index.html#/hotelLovers/15','_blank')
+        }
+
+
+
+
+
+       // let hotelID=sessionStorage.getItem("hotelID")
+       //  window.open('http://hly.1000da.com.cn/index.html#/hotelParentChildTour/12','_blank')
+      },
       initType(){
         //查询惠乐游酒店推荐类型
         let hotelOptions = {

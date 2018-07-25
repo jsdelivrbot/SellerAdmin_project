@@ -88,11 +88,18 @@
             type="primary"
             @click="toRoomEntity(scope.row)">前往房间实体
           </el-button>
+
           <el-button
           size="mini"
           type="primary"
           @click="toLotRoomNumber(scope.row.ht_rpp_ID)">前往批量生成房间数
           </el-button>
+          <el-button
+            type="success"
+            size="mini"
+            @click="jump(scope.row)">预览效果
+          </el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -342,7 +349,10 @@
       this.initData('', 1)
     },
     methods: {
-
+      jump(obj){
+        let hotelID=sessionStorage.getItem("hotelID")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
+      },
       //前往房间实体
       toRoomEntity(item){
         sessionStorage.setItem('roomProductID',item.ht_rpp_ID)

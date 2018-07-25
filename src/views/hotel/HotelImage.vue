@@ -2,7 +2,7 @@
   <div id="wrap" class="clearfix">
     <div class="title clearfix" style="padding: 20px">
       <h1 style="font-size: 20px;">酒店图片信息</h1><br><br>
-      <el-button type="primary" @click="Add" size="small" style="float: right;">新增</el-button>
+      <el-button type="primary" @click="Add" size="small" style="float: right;;margin-right: 80px;">新增</el-button>
     </div>
 
     <!--数据展示-->
@@ -49,6 +49,12 @@
             type="danger"
             @click="Delete(scope.row.ht_hi_ID)">删除
           </el-button>
+          <el-button
+            type="success"
+            size="mini"
+            @click="jump(scope.row)">预览效果
+          </el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -278,6 +284,10 @@
 
 
 
+      jump(obj){
+        let hotelID=sessionStorage.getItem("hotelID")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
+      },
       //惠乐游图片类型
       initImageType(){
         let imgOptions = {

@@ -2,8 +2,11 @@
   <div>
     <div id="wrap" class="clearfix">
       <div class="title clearfix" style="padding: 20px">
-        <h1>酒店基本信息</h1>
-        <el-button type="primary" v-show="isShow" @click="addButton" size="small">添加</el-button>
+        <h1>酒店基本信息</h1><br/>
+        <div>
+          <el-button type="primary" v-show="isShow" @click="addButton" size="small" style="margin-left: 200px;">添加</el-button>
+        </div>
+
       </div>
 
       <!--数据展示-->
@@ -29,8 +32,8 @@
               <el-form-item label="酒店地址:">
                 <span>{{ props.row.ht_ht_HotelAddress }}</span>
               </el-form-item>
-              <el-form-item label="酒店星级:">
-                <span>{{ props.row.ht_ht_Stars }}星级</span>
+              <el-form-item label="酒店星级/主题:">
+                <span>{{ props.row.ht_ht_Stars }}</span>
               </el-form-item>
               <el-form-item label="酒店咨询电话:">
                 <span>{{ props.row.ht_ht_Phone }}</span>
@@ -89,7 +92,7 @@
           prop="ht_ht_HotelAddress">
         </el-table-column>
         <el-table-column
-          label="酒店星级"
+          label="酒店星级/主题"
           align="center"
           prop="ht_ht_Stars">
         </el-table-column>
@@ -100,6 +103,13 @@
               type="primary"
               @click="updateHotelDetils">修改
             </el-button>
+            <el-button
+              type="success"
+              size="mini"
+              @click="jump(scope.row)">预览效果
+            </el-button>
+
+
           </template>
         </el-table-column>
       </el-table>
@@ -117,13 +127,6 @@
             <el-input v-model="addHotelDetilsObj.ht_ht_HotelName"></el-input>
           </el-form-item>
 
-          <!--<el-form-item label="省:" :label-width="formLabelWidth">-->
-            <!--<el-cascader-->
-              <!--:options="options2"-->
-              <!--@active-item-change="handleItemChange"-->
-              <!--:props="props"-->
-            <!--&gt;</el-cascader>-->
-          <!--</el-form-item>-->
 
           <el-form-item label="省:" :label-width="formLabelWidth">
             <template>
@@ -191,7 +194,7 @@
             <el-input v-model="addHotelDetilsObj.ht_ht_TelePhone"></el-input>
           </el-form-item>
 
-          <el-form-item label="酒店星级:" :label-width="formLabelWidth">
+          <el-form-item label="酒店星级/酒店:" :label-width="formLabelWidth">
             <!--<el-input v-model="addHotelDetilsObj.ht_ht_Stars" placeholder="最高为8星级酒店并且输入数字即可"></el-input>-->
 
             <el-autocomplete
@@ -308,7 +311,7 @@
             <el-input v-model="updateHotelDetilsObj.ht_ht_TelePhone"></el-input>
           </el-form-item>
 
-          <el-form-item label="酒店星级:" :label-width="formLabelWidth">
+          <el-form-item label="酒店星级/主题:" :label-width="formLabelWidth">
             <!--<el-input v-model="updateHotelDetilsObj.ht_ht_Stars" placeholder="最高为8星级酒店并且输入数字即可"></el-input>-->
 
             <el-autocomplete
@@ -393,6 +396,10 @@
       }
     },
     methods: {
+      jump(obj){
+
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelSearchMore?keycode=%E5%B9%BF%E5%B7%9E%E9%95%BF%E9%9A%86%E9%A6%99%E6%B1%9F%E5%A4%A7%E9%85%92%E5%BA%97&cityId=','_blank')
+      },
       querySearch(queryString, cb) {
         var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
@@ -405,15 +412,15 @@
         };
       },
       handleSelect(item) {
-        console.log(item);
+
       },
       loadAll(){
         return [
-          { "value": "1星" },
-          { "value": "2星" },
-          { "value": "3星" },
-          { "value": "4星" },
-          { "value": "5星" },
+          { "value": "1" },
+          { "value": "2" },
+          { "value": "3" },
+          { "value": "4" },
+          { "value": "5" },
         ]
       },
       //获取经纬度
@@ -518,8 +525,7 @@
 
       //添加提交
       addHotelDetilsSubmit() {
-//        console.log(this.addHotelDetilsObj.ht_ht_Stars)
-//        return
+
         let insertHotelInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -550,34 +556,12 @@
 
       //修改提交
       updateHotelDetilsSubmit() {
-//        console.log(this.updateHotelDetilsObj)
-//        return
-//        this.updateHotelDetilsObj.ht_ht_ProviceId = this.addHotelDetilsObj.ht_ht_ProviceId;
-//        this.updateHotelDetilsObj.ht_ht_CityId = this.addHotelDetilsObj.ht_ht_CityId;
-//        this.updateHotelDetilsObj.ht_ht_ContryId = this.addHotelDetilsObj.ht_ht_ContryId;
+
         //修改提交数据
         let updateHotelInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
-          "data": {
-            "ht_ht_hotelID": this.updateHotelDetilsObj.ht_ht_hotelID,
-            "sm_ai_AgentInfoID": this.updateHotelDetilsObj.sm_ai_AgentInfoID,
-            "ht_ht_HotelName": this.updateHotelDetilsObj.ht_ht_HotelName,
-            "ht_ht_ProviceId": this.updateHotelDetilsObj.ht_ht_ProviceName,
-            "ht_ht_CityId": this.updateHotelDetilsObj.ht_ht_CityName,
-            "ht_ht_ContryId": this.updateHotelDetilsObj.ht_ht_ContryName,
-            "ht_ht_HotelAddress": this.updateHotelDetilsObj.ht_ht_HotelAddress,
-            "ht_ht_Longitude": this.updateHotelDetilsObj.ht_ht_Longitude,
-            "ht_ht_Latitude": this.updateHotelDetilsObj.ht_ht_Latitude,
-            "ht_ht_Phone": this.updateHotelDetilsObj.ht_ht_Phone,
-            "ht_ht_TelePhone": this.updateHotelDetilsObj.ht_ht_TelePhone,
-            "ht_ht_Stars": this.updateHotelDetilsObj.ht_ht_Stars,
-            "ht_ht_CreateTime": this.updateHotelDetilsObj.ht_ht_CreateTime,
-            "ht_ht_IsDelete": this.updateHotelDetilsObj.ht_ht_IsDelete,
-            "ht_ht_HappyNotice": this.updateHotelDetilsObj.ht_ht_HappyNotice,
-            "ht_ht_Details": this.updateHotelDetilsObj.ht_ht_Details,
-            "ht_ht_Remark": this.updateHotelDetilsObj.ht_ht_Remark,
-          }
+          "data":this.updateHotelDetilsObj
         }
         this.$store.dispatch('updateHotelDetilsSubmit', updateHotelInfo)
         .then(suc => {

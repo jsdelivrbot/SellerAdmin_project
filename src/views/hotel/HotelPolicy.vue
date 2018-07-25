@@ -53,6 +53,12 @@
             type="danger"
             @click="Delete(scope.row.ht_hi_ID)">删除
           </el-button>
+
+          <el-button
+            type="success"
+            size="mini"
+            @click="jump(scope.row)">预览效果
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -200,6 +206,10 @@
       this.initData()
     },
     methods: {
+      jump(obj){
+        let hotelID=sessionStorage.getItem("hotelID")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
+      },
       //分页
       handleCurrentChange(num){
         this.initData(num)

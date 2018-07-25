@@ -17,7 +17,13 @@
         </el-form-item>
         <el-form-item  style="float: right;">
           <!--<el-button type="primary" @click="search" size="small">查询</el-button>-->
-          <el-button type="primary" @click="Add" size="small">生成房间</el-button>
+          <el-button type="primary" @click="Add" size="mini ">生成房间</el-button>
+          <el-button
+            type="success"
+            size="mini"
+            style="margin-right: 80px;"
+            @click="jump">预览效果
+          </el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -179,6 +185,10 @@
       this.initData(1)
     },
     methods: {
+      jump(){
+        let hotelID=sessionStorage.getItem("hotelID")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
+      },
       goHotelRoomProduct(){
         this.$router.push({name:'HotelRoomProduct',params:{id:1378}})
       },

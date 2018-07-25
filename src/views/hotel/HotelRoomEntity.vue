@@ -52,9 +52,18 @@
         label="房间图片"
       >
         <template slot-scope="scope">
+
           <img v-for="item,index in scope.row.ht_re_ImagePath" v-lazy="item" style="height: 100px;margin-right: 10px;">
+
+
         </template>
       </el-table-column>
+      <!--<el-table-column-->
+        <!--label="房间图片"-->
+        <!--align="center"-->
+      <!--&gt;-->
+
+      <!--</el-table-column>-->
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button
@@ -72,6 +81,12 @@
             type="primary"
             @click="toRoomNumber(scope.row.ht_re_Id)">前往生成房间数
           </el-button>
+          <el-button
+            type="success"
+            size="mini"
+            @click="jump(scope.row)">预览效果
+          </el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -261,6 +276,10 @@
 
 
 
+      jump(obj){
+        let hotelID=sessionStorage.getItem("hotelID")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
+      },
       goHotelRoomProduct() {
         this.$router.push({name: 'HotelRoomProduct', params: {id: 1378}})
       },

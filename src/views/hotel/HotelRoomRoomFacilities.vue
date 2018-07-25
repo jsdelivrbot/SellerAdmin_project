@@ -2,9 +2,9 @@
   <div id="wrap" class="clearfix">
     <el-breadcrumb separator-class="el-icon-arrow-right"style="margin: 20px 0px 0px 20px" >
       <el-breadcrumb-item :to="{ path:'/home/hotelRoom/'}" >房间</el-breadcrumb-item>
-      <el-breadcrumb-item >酒店房间房间设施</el-breadcrumb-item>
+      <el-breadcrumb-item >酒店房间设施</el-breadcrumb-item>
     </el-breadcrumb>
-    <h1 class="userClass">酒店房间房间设施管理</h1>
+    <h1 class="userClass">酒店房间设施管理</h1>
     <el-col :span="24" class="formSearch">
       <el-form :inline="true">
         <el-form-item>
@@ -15,7 +15,7 @@
         </el-form-item>
         <el-form-item  style="float: right;">
           <!--<el-button type="primary" @click="search" size="small">查询</el-button>-->
-          <el-button type="primary" @click="Add" size="small">新增</el-button>
+          <el-button type="primary" @click="Add" size="small" style="margin-right: 80px;">新增</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -56,6 +56,11 @@
             type="danger"
             @click="Delete(scope.row.ht_rth_ID)">删除
           </el-button>
+          <el-button
+            type="success"
+            size="mini"
+            @click="jump(scope.row)">预览效果
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -73,7 +78,7 @@
     </div>
 
     <!--添加房间房间设施-->
-    <el-dialog title="添加房间房间设施" :visible.sync="addDialog">
+    <el-dialog title="添加房间设施" :visible.sync="addDialog">
       <el-form :model="addOptions">
 
         <el-form-item label="房间设施类型:" :label-width="formLabelWidth">
@@ -104,7 +109,7 @@
     </el-dialog>
 
     <!--修改房间房间设施-->
-    <el-dialog title="修改房间房间设施" :visible.sync="updateDialog">
+    <el-dialog title="修改房间设施" :visible.sync="updateDialog">
       <el-form :model="updateHotelRoomRoomFacilitiesObj">
 
         <el-form-item label="房间设施类型:" :label-width="formLabelWidth">
@@ -185,6 +190,10 @@
       this.initFacilitiesType();
     },
     methods: {
+      jump(obj){
+        let hotelID=sessionStorage.getItem("hotelID")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
+      },
       //惠乐游房间设施类型
       initFacilitiesType(){
         let roomTypeOptions = {

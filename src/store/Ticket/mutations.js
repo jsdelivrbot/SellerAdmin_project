@@ -11,7 +11,7 @@ export default {
       if(data[i].tm_ts_ShowImage){
         data[i].tm_ts_ShowImage = data[i].tm_ts_ShowImage.split(',');
       }else{
-        data[i].tm_ts_ShowImage = ''
+        data[i].tm_ts_ShowImage = [];
       }
     }
     state.ticketAttractionsList = data;

@@ -281,8 +281,6 @@
             "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
             "tm_ts_IsHot": "",//是否热门景点（0普通1热门)
             "tm_ts_ThemeTypeID": "",//主题编码
-            "page": 1,
-            "rows": 5
           };
           return this.$store.dispatch('initSearchTicketAttractions', options)
 

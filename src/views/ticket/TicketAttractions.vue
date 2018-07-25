@@ -242,7 +242,7 @@
 
 
           </el-form-item>
-          <el-form-item label="介绍:" :label-width="formLabelWidth">
+          <el-form-item label="简介:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_ts_Introduce"></el-input>
           </el-form-item>
           <el-form-item label="详细介绍:" :label-width="formLabelWidth">

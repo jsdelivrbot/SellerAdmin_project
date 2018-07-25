@@ -203,7 +203,7 @@
               @select="addHandleSelect"
             ></el-autocomplete>
           </el-form-item>
-          <el-form-item label="票种名称:" :label-width="formLabelWidth">
+          <el-form-item label="景点名称:" :label-width="formLabelWidth">
 
             <el-autocomplete
               v-model="tourName"
@@ -249,7 +249,7 @@
             <el-input v-model="updateTicketTypeObj.tm_tt_ExpireDay" placeholder="请输入数字"></el-input>
           </el-form-item>
           <el-form-item label="提前预定时间(小时):" :label-width="formLabelWidth">
-            <el-input v-model="updateTicketTypeObj.tm_tt_BeforeTime/60" placeholder="请输入小时且为数字"></el-input>
+            <el-input v-model="updateTicketTypeObj.tm_tt_BeforeTime" placeholder="请输入小时且为数字"></el-input>
           </el-form-item>
           <el-form-item label="备注:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketTypeObj.tm_tt_Remark" type="textarea"></el-input>
@@ -407,7 +407,7 @@
           "tm_ts_IsHot": "",//是否热门景点（0普通1热门)
           "tm_ts_ThemeTypeID": "",//主题编码
           "page": 1,
-          "rows": 5
+          "rows": 10
         };
         return this.$store.dispatch('initSearchTicketAttractions', options)
 

@@ -88,13 +88,7 @@
             type="primary"
             @click="toRoomEntity(scope.row)">前往房间实体
           </el-button>
-<<<<<<< Updated upstream
-          <!--<el-button-->
-          <!--size="mini"-->
-          <!--type="primary"-->
-          <!--@click="toLotRoomNumber(scope.row.ht_rpp_ID)">前往批量生成房间数-->
-          <!--</el-button>-->
-=======
+
           <el-button
           size="mini"
           type="primary"
@@ -105,7 +99,7 @@
             size="mini"
             @click="jump(scope.row)">预览效果
           </el-button>
->>>>>>> Stashed changes
+
         </template>
       </el-table-column>
     </el-table>

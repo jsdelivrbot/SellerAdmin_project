@@ -2,9 +2,9 @@
   <div id="wrap" class="clearfix">
     <el-breadcrumb separator-class="el-icon-arrow-right"style="margin: 20px 0px 0px 20px" >
       <el-breadcrumb-item :to="{ path:'/home/hotelRoom/'}" >房间</el-breadcrumb-item>
-      <el-breadcrumb-item >酒店房间房间设施</el-breadcrumb-item>
+      <el-breadcrumb-item >酒店房间设施</el-breadcrumb-item>
     </el-breadcrumb>
-    <h1 class="userClass">酒店房间房间设施管理</h1>
+    <h1 class="userClass">酒店房间设施管理</h1>
     <el-col :span="24" class="formSearch">
       <el-form :inline="true">
         <el-form-item>
@@ -78,7 +78,7 @@
     </div>
 
     <!--添加房间房间设施-->
-    <el-dialog title="添加房间房间设施" :visible.sync="addDialog">
+    <el-dialog title="添加房间设施" :visible.sync="addDialog">
       <el-form :model="addOptions">
 
         <el-form-item label="房间设施类型:" :label-width="formLabelWidth">
@@ -109,7 +109,7 @@
     </el-dialog>
 
     <!--修改房间房间设施-->
-    <el-dialog title="修改房间房间设施" :visible.sync="updateDialog">
+    <el-dialog title="修改房间设施" :visible.sync="updateDialog">
       <el-form :model="updateHotelRoomRoomFacilitiesObj">
 
         <el-form-item label="房间设施类型:" :label-width="formLabelWidth">

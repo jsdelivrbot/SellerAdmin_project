@@ -198,7 +198,7 @@ export const constantRouterMap = [
         meta: {title: 'hotelImage'}
       },
       {
-        path: 'hotelLotRoomNumber',
+        path: 'hotelLotRoomNumber/:id',
         name: 'HotelLotRoomNumber',
         hidden:true,
         alwaysShow: true,
@@ -230,7 +230,7 @@ export const constantRouterMap = [
         meta: {title: 'hotelRoom'}
       },
       {
-        path: 'hotelRoomEntity',
+        path: 'hotelRoomEntity/:id',
         name: 'HotelRoomEntity',
         hidden:true,
         alwaysShow: true,
@@ -245,7 +245,7 @@ export const constantRouterMap = [
         meta: {title: 'hotelFacilitiesServicesFacilities'}
       },
       {
-        path: 'hotelRoomNumber',
+        path: 'hotelRoomNumber/:id',
         name: 'HotelRoomNumber',
         hidden:true,
         alwaysShow: true,
@@ -253,7 +253,7 @@ export const constantRouterMap = [
         meta: {title: 'hotelRoomNumber'}
       },
       {
-        path: 'hotelRoomProduct',
+        path: 'hotelRoomProduct/:id',
         name: 'HotelRoomProduct',
         hidden:true,
         alwaysShow: true,
@@ -263,7 +263,7 @@ export const constantRouterMap = [
       {
         hidden:true,
         alwaysShow: true,
-        path: 'hotelRoomRoomFacilities',
+        path: 'hotelRoomRoomFacilities/:id',
         name: 'HotelRoomRoomFacilities',
         component: () => import('@/views/hotel/HotelRoomRoomFacilities'),
         meta: {title: 'hotelRoomRoomFacilities'}

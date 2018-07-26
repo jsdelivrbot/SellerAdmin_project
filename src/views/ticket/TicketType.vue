@@ -76,6 +76,61 @@
               <el-form-item label="备注">
                 <span>{{ props.row.tm_tt_Remark }}</span>
               </el-form-item>
+              <el-form-item label="门票类型">
+                <span>{{ props.row.tm_tt_typeName }}</span>
+              </el-form-item>
+              <el-form-item label="提前预定时间">
+                <span>{{ props.row.tm_tt_BeforeTime }}分钟</span>
+              </el-form-item>
+              <el-form-item label="退改规则">
+                <span>{{ props.row.tm_tt_ReturnRule }}</span>
+              </el-form-item>
+              <el-form-item label="使用方法">
+                <span>{{ props.row.tm_tt_UseMethod }}</span>
+              </el-form-item>
+              <el-form-item label="取票时间">
+                <span>{{ props.row.tm_tt_GetTime }}</span>
+              </el-form-item>
+              <el-form-item label="取票地址">
+                <span>{{ props.row.tm_tt_GetAddress }}</span>
+              </el-form-item>
+              <el-form-item label="补充说明">
+                <span>{{ props.row.tm_tt_AddRemarks }}</span>
+              </el-form-item>
+              <el-form-item label="费用包含">
+                <span>{{ props.row.tm_tt_PriceInclude }}</span>
+              </el-form-item>
+              <el-form-item label="重要条款">
+                <span>{{ props.row.tm_tt_ImportantCause }}</span>
+              </el-form-item>
+              <el-form-item label="预订生效时间">
+                <span>{{ props.row.tm_tt_EffectiveTime }}</span>
+              </el-form-item>
+              <el-form-item label="预订生效时间">
+                <span>{{ props.row.tm_tt_EffectiveTime }}</span>
+              </el-form-item>
+              <el-form-item label="预订生效时间">
+                <span>{{ props.row.tm_tt_EffectiveTime }}</span>
+              </el-form-item>
+              <el-form-item label="适用人群">
+                <span>{{ props.row.tm_tt_SuitableCrowd }}</span>
+              </el-form-item>
+              <el-form-item label="特别提示">
+                <span>{{ props.row.tm_tt_SpecialNotice }}</span>
+              </el-form-item>
+              <el-form-item label="预订限制">
+                <span>{{ props.row.tm_tt_BookLimit }}</span>
+              </el-form-item>
+              <el-form-item label="温馨提示">
+                <span>{{ props.row.tm_tt_HappyNotice }}</span>
+              </el-form-item>
+              <el-form-item label="优待政策">
+                <span>{{ props.row.tm_tt_PreferentialPolicy }}</span>
+              </el-form-item>
+              <el-form-item label="购票须知">
+                <span>{{ props.row.tm_tt_ByeNotice }}</span>
+              </el-form-item>
+
             </el-form>
           </template>
         </el-table-column>
@@ -183,6 +238,58 @@
           <el-form-item label="实际价格:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tt_RealPrice" placeholder="请输入数字"></el-input>
           </el-form-item>
+
+          <el-form-item label="门票类型:" :label-width="formLabelWidth">
+            <el-autocomplete
+              class="inline-input"
+              v-model="addOptions.tm_tt_typeName"
+              :fetch-suggestions="querySearch1"
+              placeholder="请输入门票类型"
+              @select="handleSelect1"
+            ></el-autocomplete>
+          </el-form-item>
+          <el-form-item label="退改规则:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_ReturnRule"></el-input>
+          </el-form-item>
+          <el-form-item label="使用方法:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_UseMethod"></el-input>
+          </el-form-item>
+          <el-form-item label="取票时间:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_GetTime"></el-input>
+          </el-form-item>
+          <el-form-item label="取票地址:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_GetAddress"></el-input>
+          </el-form-item>
+          <el-form-item label="补充说明:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_AddRemarks"></el-input>
+          </el-form-item>
+          <el-form-item label="费用包含:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_PriceInclude"></el-input>
+          </el-form-item>
+          <el-form-item label="重要条款:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_ImportantCause"></el-input>
+          </el-form-item>
+          <el-form-item label="预订生效时间:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_EffectiveTime"></el-input>
+          </el-form-item>
+          <el-form-item label="适用人群:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_SuitableCrowd"></el-input>
+          </el-form-item>
+          <el-form-item label="特别提示:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_SpecialNotice"></el-input>
+          </el-form-item>
+          <el-form-item label="预订限制:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_BookLimit"></el-input>
+          </el-form-item>
+          <el-form-item label="温馨提示:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_HappyNotice"></el-input>
+          </el-form-item>
+          <el-form-item label="优待政策:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_PreferentialPolicy"></el-input>
+          </el-form-item>
+          <el-form-item label="购票须知:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_ByeNotice"></el-input>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="cacheForm">取 消</el-button>
@@ -260,6 +367,57 @@
           <el-form-item label="实际价格:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketTypeObj.tm_tt_RealPrice" placeholder="请输入数字"></el-input>
           </el-form-item>
+          <el-form-item label="门票类型:" :label-width="formLabelWidth">
+            <el-autocomplete
+              class="inline-input"
+              v-model="updateTicketTypeObj.tm_tt_typeName"
+              :fetch-suggestions="querySearch1"
+              placeholder="请输入门票类型"
+              @select="handleSelect1"
+            ></el-autocomplete>
+          </el-form-item>
+          <el-form-item label="退改规则:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_ReturnRule"></el-input>
+          </el-form-item>
+          <el-form-item label="使用方法:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_UseMethod"></el-input>
+          </el-form-item>
+          <el-form-item label="取票时间:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_GetTime"></el-input>
+          </el-form-item>
+          <el-form-item label="取票地址:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_GetAddress"></el-input>
+          </el-form-item>
+          <el-form-item label="补充说明:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_AddRemarks"></el-input>
+          </el-form-item>
+          <el-form-item label="费用包含:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_PriceInclude"></el-input>
+          </el-form-item>
+          <el-form-item label="重要条款:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_ImportantCause"></el-input>
+          </el-form-item>
+          <el-form-item label="预订生效时间:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_EffectiveTime"></el-input>
+          </el-form-item>
+          <el-form-item label="适用人群:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_SuitableCrowd"></el-input>
+          </el-form-item>
+          <el-form-item label="特别提示:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_SpecialNotice"></el-input>
+          </el-form-item>
+          <el-form-item label="预订限制:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_BookLimit"></el-input>
+          </el-form-item>
+          <el-form-item label="温馨提示:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_HappyNotice"></el-input>
+          </el-form-item>
+          <el-form-item label="优待政策:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_PreferentialPolicy"></el-input>
+          </el-form-item>
+          <el-form-item label="购票须知:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_ByeNotice"></el-input>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="cacheForm">取 消</el-button>
@@ -326,6 +484,23 @@
           "tm_tt_Remark": "",//备注(门票描述属性)
           "tm_tt_TicketPrice": "",//票价
           "tm_tt_RealPrice": "",//实际价格
+
+          "tm_tt_typeName": "",//门票类型（电子票）
+          "tm_tt_ReturnRule": "",//退改规则
+          "tm_tt_UseMethod": "",//使用方法
+          "tm_tt_GetTime": "",//取票时间
+          "tm_tt_GetAddress": "",//取票地址
+          "tm_tt_AddRemarks": "",//补充说明
+          "tm_tt_PriceInclude": "",//费用包含
+          "tm_tt_ImportantCause": "",//重要条款
+          "tm_tt_EffectiveTime": "",//预订生效时间
+          "tm_tt_SuitableCrowd": "",//适用人群
+          "tm_tt_SpecialNotice": "",//特别提示
+          "tm_tt_BookLimit": "",//预订限制
+          "tm_tt_HappyNotice": "",//温馨提示
+          "tm_tt_PreferentialPolicy": "",//优待政策
+          "tm_tt_ByeNotice": "",//购票须知
+
         },
         radioIndex: 0,
         addRadioIndex: 0,
@@ -337,10 +512,23 @@
             value:'儿童票'
           }
         ],
-        tm_ts_Code:''
+        tm_ts_Code:'',
+        restaurants:[{value:'电子票'}]
       }
     },
     methods: {
+      querySearch1(queryString, cb) {
+        var restaurants = this.restaurants;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+      },
+      createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
+      handleSelect1(){},
       jump(obj){
         sessionStorage.setItem("code",obj.tm_ts_Code)
         window.open('http://hly.1000da.com.cn/index.html#/Comment/ticketsDetail/'+obj.tm_ts_Code,'_blank')
@@ -557,6 +745,7 @@
           }
           this.updateDialog = true;
         }, 30)
+        this.tourName = this.updateTicketTypeObj.tm_ts_Name
       },
       //修改提交
       updateSubmit() {

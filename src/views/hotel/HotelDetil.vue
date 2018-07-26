@@ -398,7 +398,7 @@
     methods: {
       jump(obj){
 
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelSearchMore?keycode=%E5%B9%BF%E5%B7%9E%E9%95%BF%E9%9A%86%E9%A6%99%E6%B1%9F%E5%A4%A7%E9%85%92%E5%BA%97&cityId=','_blank')
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelSearchMore?keycode='+obj.ht_ht_HotelName+'&cityId=','_blank')
       },
       querySearch(queryString, cb) {
         var restaurants = this.restaurants;

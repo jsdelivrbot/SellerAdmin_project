@@ -52,10 +52,9 @@
         label="房间图片"
       >
         <template slot-scope="scope">
-
           <img v-for="item,index in scope.row.ht_re_ImagePath" v-lazy="item" style="height: 100px;margin-right: 10px;">
-
-
+          <!--<span>{{scope.row.ht_hi_ImageURL}}</span>-->
+          <!--<img  alt="" v-lazy="scope.row.ht_re_ImagePath" title="点击查看大图" style="width:100px;height:100px;cursor: pointer">-->
         </template>
       </el-table-column>
       <!--<el-table-column-->

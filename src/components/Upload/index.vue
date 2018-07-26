@@ -45,6 +45,7 @@
 //    },
     computed: {},
     methods: {
+
       //上传成功的事件
       fileSuccess (rootFile, file, message, chunk) {
         var obj = JSON.parse(message)

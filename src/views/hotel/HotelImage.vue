@@ -30,9 +30,9 @@
         <template slot-scope="scope">
           <img
             v-for="item,index in scope.row.ht_hi_ImageURL"
-            v-lazy="item"
+            :src="item"
             title="点击查看大图"
-            style="width:100px;height:100px;cursor: pointer;margin-right: 10px;"
+            style="width:100px;cursor: pointer;margin-right: 10px;"
             @click="clickImg(item)"
           >
         </template>

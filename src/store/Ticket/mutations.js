@@ -63,7 +63,10 @@ export default {
   },
   initTicketType(state, data) {
     for (let i = 0; i < data.length; i++) {
-      data[i].tm_tt_Image = data[i].tm_tt_Image.split(',');
+      if( data[i].tm_tt_Image ){
+        data[i].tm_tt_Image = data[i].tm_tt_Image.split(',');
+      }
+
     }
     state.ticketTypeList = data;
   },

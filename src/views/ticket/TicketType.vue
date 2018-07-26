@@ -445,6 +445,7 @@
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
   import Upload from '@/components/Upload'
+
   export default {
     components: {
       Upload
@@ -461,7 +462,7 @@
         isShow: false,
         updateImageURL: [],
         ImageURL: [],
-        isLoading:false,
+        isLoading: false,
         updateDialog: false,
         loginId: '',
         siteId: '',
@@ -506,10 +507,10 @@
         addRadioIndex: 0,
         arr: [
           {
-            value:'成人票'
+            value: '成人票'
           },
           {
-            value:'儿童票'
+            value: '儿童票'
           }
         ],
         tm_ts_Code:'',
@@ -534,7 +535,7 @@
         window.open('http://hly.1000da.com.cn/index.html#/Comment/ticketsDetail/'+obj.tm_ts_Code,'_blank')
       },
 
-      querySearchTicket(queryString,cb){
+      querySearchTicket(queryString, cb) {
         var restaurants = this.arr;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
         // 调用 callback 返回建议列表的数据
@@ -611,7 +612,7 @@
         })
       },
       //删除修改对应图片
-      deleteUpdateImageURL(val){
+      deleteUpdateImageURL(val) {
         this.isNewUploaNode = false
         this.updateImageURL = this.updateImageURL.filter(v => {
           if (v == val) {
@@ -633,14 +634,14 @@
       closeDialog() {
         this.ImageURL = []
         this.updateImageURL = [];
-        this.addDialog = false,
-          this.updateDialog = false
+        this.addDialog = false;
+        this.updateDialog = false
       },
-      cacheForm(){
+      cacheForm() {
         this.ImageURL = [],
-          this.updateImageURL = [],
-          this.addDialog = false,
-          this.updateDialog = false
+          this.updateImageURL = [];
+          this.addDialog = false;
+        this.updateDialog = false
       },
       //初始化景点信息
       initTicketAttraction() {
@@ -691,9 +692,9 @@
       },
       //查询
       search() {
-        if(this.tm_ts_Code){
+        if (this.tm_ts_Code) {
           this.initData(this.tm_ts_Code)
-        }else{
+        } else {
           this.initData('')
         }
       },
@@ -745,6 +746,8 @@
       updateSubmit() {
         if (this.updateImageURL.length) {
           this.updateTicketTypeObj.tm_tt_Image = this.updateImageURL.join(',');
+        }else{
+          this.updateTicketTypeObj.tm_tt_Image = '';
         }
         this.updateTicketTypeObj.tm_tt_BeforeTime = this.updateTicketTypeObj.tm_tt_BeforeTime * 60
         let updateTicketType = {

@@ -265,6 +265,7 @@ export const urlPath = val=>{
 //微信号正则
 export const wxPath = val=>{
   return /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$/.test(val);
+  
 };
 //http://hly.1000da.com.cn
 export const getNewStr =  '/api' //'http://192.168.3.4' //'http://192.168.3.50'///api

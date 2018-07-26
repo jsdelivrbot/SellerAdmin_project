@@ -59,10 +59,24 @@
                 <img v-for="item,index in props.row.tm_ts_ShowImage" width="300" height="150"
                      style="margin: 10px 15px 0;" v-lazy="item">
               </el-form-item>
-              <el-form-item label="介绍:">
+              <el-form-item label="简介:">
                 <span>{{ props.row.tm_ts_Introduce }}</span>
               </el-form-item>
               <el-form-item label="详细介绍:">
+                <!--<ul>-->
+                <!--<li-->
+                <!--v-for="item,index in props.row.tm_ts_Detailedintroductions"-->
+                <!--v-if="item.tm_ti_ParentID == 1"-->
+                <!--&gt;{{item.tm_ti_Content}}</li>-->
+                <!--<li-->
+                <!--v-for="item,index in props.row.tm_ts_Detailedintroductions"-->
+                <!--v-if="item.tm_ti_ParentID == 2"-->
+                <!--&gt;-->
+                <!--<img :src="item.tm_ti_Content" style="height: 100px;">-->
+                <!--</li>-->
+                <!--</ul>-->
+
+
                 <span>{{ props.row.tm_ts_Detailedintroduction }}</span>
               </el-form-item>
               <el-form-item label="详细地址:">
@@ -408,7 +422,7 @@
             </div>
 
           </el-form-item>
-          <el-form-item label="介绍:" :label-width="formLabelWidth">
+          <el-form-item label="简介:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Introduce"></el-input>
           </el-form-item>
           <el-form-item label="详细介绍:" :label-width="formLabelWidth">
@@ -617,7 +631,8 @@
         value: '',
         imageObj: {accept: 'image/*'},
         radioIndex: '',
-        addRadioIndex: 0
+        addRadioIndex: 0,
+        imageArr: [],
       }
     },
     computed: mapGetters([
@@ -657,8 +672,10 @@
       getData(data) {
         if (!this.addRadioIndex) {
           this.ImageURL.push(data.data);
+          this.imageArr.push(data.data);
         } else {
           this.ImageURL.splice(this.addRadioIndex - 1, 1, data.data);
+          this.imageArr.splice(this.addRadioIndex - 1, 1, data.data);
           this.addRadioIndex = '';
         }
       },
@@ -860,6 +877,9 @@
       },
       //添加
       Add() {
+        if( this.imageArr.length ){
+          this.ImageURL = this.imageArr;
+        }
         this.addOptions.tm_ts_GreatID = '';
         this.addOptions.tm_ts_CountrieID = '';
         this.addOptions.tm_ts_ProviceID = '';
@@ -898,7 +918,6 @@
 //          alert('输入有误')
 //          return
 //        }
-        this.addOptions.tm_ts_ShowImage = this.ImageURL.join(',');
         let insertTourSite = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -921,7 +940,7 @@
       },
 //      修改
       update(obj) {
-        this.updateTicketAttractionsObj = obj
+        this.updateTicketAttractionsObj = obj;
         setTimeout(() => {
           this.updateImageURL = obj.tm_ts_ShowImage
           this.updateDialog = true;
@@ -1008,6 +1027,12 @@
   #l-map {
     height: 500px;
     width: 100%;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   .imgWap {

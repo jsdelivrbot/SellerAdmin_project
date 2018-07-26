@@ -72,6 +72,7 @@ export default {
     state.updateTicketTypeObj = state.ticketTypeList.filter(item => {
 
       if (item.tm_tt_ID == id) {
+        item.tm_tt_BeforeTime = item.tm_tt_BeforeTime/60
         return true;
       }
       return false;

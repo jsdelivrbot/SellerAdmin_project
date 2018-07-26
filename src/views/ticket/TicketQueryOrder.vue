@@ -153,7 +153,13 @@
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-            <el-button type="success" size="mini" @click="confirmOrder(scope.row.tm_or_OrderID)">确认订单并出单</el-button>
+            <el-button
+              type="success"
+              size="mini"
+              @click="confirmOrder(scope.row.tm_or_OrderID)"
+              v-show="scope.row.tm_or_OutStatus != '已出票'"
+            >确认订单并出单</el-button>
+            <span v-show="scope.row.tm_or_OutStatus == '已出票'">已出单</span>
           </template>
         </el-table-column>
       </el-table>

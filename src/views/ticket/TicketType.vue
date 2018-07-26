@@ -358,10 +358,7 @@
         };
       },
       addHandleSelect(item) {
-        this.addOptions.tm_tt_Name = item.value
-
-
-
+        this.addOptions.tm_tt_Name = item.value;
       },
       //添加图片
       getData(data) {
@@ -406,8 +403,6 @@
           "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
           "tm_ts_IsHot": "",//是否热门景点（0普通1热门)
           "tm_ts_ThemeTypeID": "",//主题编码
-          "page": 1,
-          "rows": 10
         };
         return this.$store.dispatch('initSearchTicketAttractions', options)
 
@@ -548,7 +543,6 @@
       },
       //修改按钮
       update(id) {
-
         this.$store.commit('setTranstionFalse');
         this.$store.commit('updateTicketType', id);
         setTimeout(() => {
@@ -569,7 +563,6 @@
           "loginUserPass": "123",
           "data": this.updateTicketTypeObj
         }
-
         this.$store.dispatch('updateTicketTypeSubmit', updateTicketType)
           .then(suc => {
             this.$notify({

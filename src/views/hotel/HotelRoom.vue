@@ -228,7 +228,6 @@
           <el-input v-model="updateHotelRoomObj.ht_bt_AddBed"></el-input>
         </el-form-item>
         <el-form-item label="图片上传:" :label-width="formLabelWidth">
-
           <Upload @getData="updateImage" :attrs="imageObj"></Upload>
 
           <div class="imgWap">
@@ -246,7 +245,6 @@
               >
             </p>
           </div>
-
         </el-form-item>
         <el-form-item label="创建时间:" :label-width="formLabelWidth">
           <el-date-picker
@@ -265,7 +263,6 @@
             v-model="updateHotelRoomObj.ht_bt_Remark">
           </el-input>
         </el-form-item>
-
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="updateDialog = false">取 消</el-button>

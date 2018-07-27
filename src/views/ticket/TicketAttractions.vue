@@ -28,18 +28,12 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-              <!--<el-form-item label="景点编码(主键):">-->
-              <!--<span>{{ props.row.tm_ts_Code }}</span>-->
-              <!--</el-form-item>-->
               <el-form-item label="景点名称:">
                 <span>{{ props.row.tm_ts_Name }}</span>
               </el-form-item>
               <el-form-item label="主题名称:">
                 <span>{{ props.row.tm_tt_Name }}</span>
               </el-form-item>
-              <!--<el-form-item label="票种编号:">-->
-              <!--<span>{{ props.row.tm_tm_ID }}</span>-->
-              <!--</el-form-item>-->
               <el-form-item label="洲:">
                 <span>{{ props.row.tm_ts_GreatName }}</span>
               </el-form-item>
@@ -234,6 +228,8 @@
               </el-option>
             </el-select>
           </el-form-item>
+
+
           <el-form-item label="展示图片:" :label-width="formLabelWidth">
 
 

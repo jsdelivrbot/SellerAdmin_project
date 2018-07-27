@@ -150,8 +150,6 @@
 
           <video :src="updateOptions.data.tm_se_Vedio" v-show="updateOptions.data.tm_se_Vedio" controls
                  width="100"></video>
-
-
           <Upload @getData="updateVideo" :attrs="videoObj"></Upload>
 
 

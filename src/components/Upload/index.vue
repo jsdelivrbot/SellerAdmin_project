@@ -1,11 +1,11 @@
 <template>
   <uploader :options="options" :file-status-text="statusText" class="uploader-example" ref="uploader"
-            @file-success="fileSuccess">
+            @file-success="fileSuccess"  @file-added="add">
     <uploader-unsupport></uploader-unsupport>
     <uploader-drop>
       <p>上传文件</p>
-      <uploader-btn :attrs="attrs">点击上传</uploader-btn>
-      <uploader-btn :attrs="attrs" v-show="attrs.accept== 'image/*'">选中替换</uploader-btn>
+      <uploader-btn >点击上传</uploader-btn>
+      <uploader-btn v-show="attrs.accept== 'image/*'">选中替换</uploader-btn>
       <!--<uploader-btn :attrs="attrs">select images</uploader-btn>-->
       <!--<uploader-btn :directory="true">select folder</uploader-btn>-->
     </uploader-drop>
@@ -45,6 +45,49 @@
 //    },
     computed: {},
     methods: {
+      add(file){
+        let type = this.attrs.accept.split('/')[0];
+        let fileType = file.fileType.split('/')[0];
+        if(type!==fileType){
+          switch (type){
+            case 'video':
+              alert("请上传视频格式的文件!")
+              break;
+            case 'audio':
+              alert("请上传音频格式的文件!")
+              break;
+            default:
+              alert("请上传图片格式的文件!")
+              break;
+          }
+          file.ignored = true
+          return
+        }
+        let size = file.size/1024;
+        switch (type){
+          case 'video':
+            if(size>600000){
+              alert("上传的视频不能大于600M!")
+              file.ignored = true
+              return
+            }
+            break;
+          case 'audio':
+            if(size>10000){
+              alert("上传的音频不能大于10M!")
+              file.ignored = true
+              return
+            }
+            break;
+          default:
+            if(size>2000){
+              alert("上传的图片不能大于2M!")
+              file.ignored = true
+              return
+            }
+            break;
+        }
+      },
 
       //上传成功的事件
       fileSuccess (rootFile, file, message, chunk) {

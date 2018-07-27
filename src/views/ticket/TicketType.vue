@@ -64,9 +64,9 @@
               <el-form-item label="允许超过天数">
                 <span>{{ props.row.tm_tt_ExpireDay }}天</span>
               </el-form-item>
-              <el-form-item label="提前预定时间">
-                <span>{{ props.row.tm_tt_BeforeTime / 60 }}小时</span>
-              </el-form-item>
+              <!--<el-form-item label="提前预定时间">-->
+                <!--<span>{{ props.row.tm_tt_BeforeTime / 60 }}小时</span>-->
+              <!--</el-form-item>-->
               <el-form-item label="票价">
                 <span>{{ props.row.tm_tt_TicketPrice }}元</span>
               </el-form-item>
@@ -80,7 +80,7 @@
                 <span>{{ props.row.tm_tt_typeName }}</span>
               </el-form-item>
               <el-form-item label="提前预定时间">
-                <span>{{ props.row.tm_tt_BeforeTime }}分钟</span>
+                <span>{{ props.row.tm_tt_BeforeTime }}</span>
               </el-form-item>
               <el-form-item label="退改规则">
                 <span>{{ props.row.tm_tt_ReturnRule }}</span>
@@ -226,8 +226,8 @@
           <el-form-item label="允许超过天数:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tt_ExpireDay" placeholder="请输入数字"></el-input>
           </el-form-item>
-          <el-form-item label="提前预定时间(小时):" :label-width="formLabelWidth">
-            <el-input v-model="addBeforeTime" placeholder="请输入小时数且为数字"></el-input>
+          <el-form-item label="提前预定时间:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.tm_tt_BeforeTime"></el-input>
           </el-form-item>
           <el-form-item label="备注:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tt_Remark" type="textarea"></el-input>
@@ -355,8 +355,8 @@
           <el-form-item label="允许超过天数:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketTypeObj.tm_tt_ExpireDay" placeholder="请输入数字"></el-input>
           </el-form-item>
-          <el-form-item label="提前预定时间(小时):" :label-width="formLabelWidth">
-            <el-input v-model="updateTicketTypeObj.tm_tt_BeforeTime" placeholder="请输入小时且为数字"></el-input>
+          <el-form-item label="提前预定时间:" :label-width="formLabelWidth">
+            <el-input v-model="updateTicketTypeObj.tm_tt_BeforeTime"></el-input>
           </el-form-item>
           <el-form-item label="备注:" :label-width="formLabelWidth">
             <el-input v-model="updateTicketTypeObj.tm_tt_Remark" type="textarea"></el-input>
@@ -513,12 +513,12 @@
           }
         ],
         tm_ts_Code:'',
-        restaurants:[{value:'电子票'}]
+        restaurants1:[{value:'电子票'}]
       }
     },
     methods: {
       querySearch1(queryString, cb) {
-        var restaurants = this.restaurants;
+        var restaurants = this.restaurants1;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
         // 调用 callback 返回建议列表的数据
         cb(results);
@@ -707,7 +707,7 @@
       addSubmit() {
         this.addOptions.tm_tt_TradeInfoID = this.loginId.sm_ui_ID;
         this.addOptions.tm_tt_Image = this.ImageURL.join(',');
-        this.addOptions.tm_tt_BeforeTime = this.addBeforeTime * 60;
+//        this.addOptions.tm_tt_BeforeTime = this.addBeforeTime * 60;
         let insertTicketType = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -746,7 +746,7 @@
         if (this.updateImageURL.length) {
           this.updateTicketTypeObj.tm_tt_Image = this.updateImageURL.join(',');
         }
-        this.updateTicketTypeObj.tm_tt_BeforeTime = this.updateTicketTypeObj.tm_tt_BeforeTime * 60
+//        this.updateTicketTypeObj.tm_tt_BeforeTime = this.updateTicketTypeObj.tm_tt_BeforeTime * 60
         let updateTicketType = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",

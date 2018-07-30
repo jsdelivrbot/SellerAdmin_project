@@ -102,6 +102,6 @@ module.exports = {
     'vue': 'Vue',
     'axios':'axios',
     'element-ui':'ELEMENT',
-    'vue-i18n':'VueI18n'
+    'vue-i18n':'VueI18n',
   },
 }

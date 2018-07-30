@@ -43,7 +43,7 @@
           label="店面图片"
           align="center">
           <template slot-scope="scope">
-            <img v-lazy="scope.row.fd_pi_ImageUrl" width="128" height="80"
+            <img :src="scope.row.fd_pi_ImageUrl" width="128" height="80"
                  @click="displayBigPicture(scope.row.fd_pi_ImageUrl)">
           </template>
         </el-table-column>
@@ -62,7 +62,9 @@
           </template>
         </el-table-column>
       </el-table>
+
       <!--显示大图-->
+
       <el-dialog
         title="显示大图"
         :visible.sync="bigPictureDialog"
@@ -85,13 +87,28 @@
               </el-option>
             </el-select>
           </el-form-item>
+
+
           <el-form-item label="菜肴图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">上传图片
-              <input type="file" name="" ref="upload" accept="image/*">
-            </a>
-            <div v-show="isShow">正在上传图片文件...</div>
-            <img v-lazy="addOptions.fd_pi_ImageUrl" v-show="addOptions.fd_pi_ImageUrl" width="128" height="80">
+            <Upload @getData="getData" :attrs="imageObj"></Upload>
+            <div class="imgWap">
+              <p v-for="item,index in ImageURL"
+                 style="display: inline-block;position: relative;margin-right: 70px">
+                <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+                <em>
+                  <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
+                </em>
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="ImageURL.length"
+                >
+              </p>
+            </div>
           </el-form-item>
+
+
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addDialog = false">取 消</el-button>
@@ -111,12 +128,30 @@
               </el-option>
             </el-select>
           </el-form-item>
+
           <el-form-item label="菜肴图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">上传图片
-              <input type="file" name="" ref="upload" accept="image/*">
-            </a>
-            <img v-lazy="addOptions.fd_pi_ImageUrl" v-show="addOptions.fd_pi_ImageUrl" width="128" height="80">
+
+            <Upload @getData="getUpdateData" :attrs="imageObj"></Upload>
+            <div class="imgWap">
+              <p v-for="item,index in ImageURL1"
+                 style="display: inline-block;position: relative;margin-right: 70px">
+                <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+                <em>
+                  <el-radio v-model="updateRadioIndex" :label="index+1">替换</el-radio>
+                </em>
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="ImageURL1.length"
+                >
+              </p>
+            </div>
+
+
+
           </el-form-item>
+
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="updateDialog = false">取 消</el-button>
@@ -140,23 +175,34 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
+  import Upload from '@/components/Upload'
 
   export default {
     computed: mapGetters([
       'foodStoreInformtionList',
       'foodProductPictureList'
     ]),
+    name: '',
+    components: {
+      Upload
+    },
     data() {
       return {
         isLoading: false,
         storeId: '',
         addDialog: false,
         formLabelWidth: '120px',
+        imageObj: {accept: 'image/*'},
         addOptions: {
-          "fd_pi_StoreFront": "",//店面编号
+          "fd_pi_StoreFront": '',//店面编号
           "fd_pi_ImageUrl": "",//图片地址
         },
         imgUrl: '',
+        ImageURL:[],
+        ImageURL1:[],
+        radioIndex: 0,
+        updateRadioIndex: 0,
+        isNewUploaNode: true,
         bigPictureDialog: false,
         updateDialog: false,
         updateObj: {},
@@ -172,6 +218,45 @@
       this.initData();
     },
     methods: {
+      //图片上传
+      getData(data) {
+        if (!this.radioIndex) {
+          this.ImageURL.push(data.data);
+        } else {
+          this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.radioIndex = '';
+        }
+      },
+      //修改图片
+      getUpdateData(data) {
+        if (!this.updateRadioIndex) {
+          this.ImageURL1.push(data.data);
+        } else {
+          this.ImageURL1.splice(this.updateRadioIndex - 1, 1, data.data);
+          this.updateRadioIndex = '';
+        }
+      },
+      //删除修改对应图片
+      deleteImageURL(val) {
+        this.isNewUploaNode = false
+        this.ImageURL = this.ImageURL.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
+      //删除修改对应图片
+      deleteUpdateImageURL(val) {
+        console.log(1)
+        this.isNewUploaNode = false
+        this.ImageURL1 = this.ImageURL1.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
       //分页
       handleCurrentChange(num) {
         this.initData(this.storeId, num)
@@ -188,62 +273,10 @@
         };
         this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontpInfo)
       },
-      uploadToOSS(file) {
-        return new Promise((relove, reject) => {
-          var fd = new FormData();
-          fd.append("fileToUpload", file);
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS");
-          xhr.send(fd);
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-              if (xhr.responseText) {
-                var data = xhr.responseText
-                relove(JSON.parse(data))
-              }
-            } else {
-//               if (xhr.responseText) {
-//                 var data = xhr.responseText;
-//                 reject(JSON.parse(data).resultcontent)
-//               }
-            }
-          }
-        })
-      },
-      uploaNode() {
-        this.addOptions.fd_pi_ImageUrl = '';
-        setTimeout(() => {
-          if (this.$refs.upload) {
-            this.$refs.upload.addEventListener('change', data => {
-              this.isShow = true;
-              for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                this.uploadToOSS(this.$refs.upload.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.isShow = false;
-                      this.addOptions.fd_pi_ImageUrl = data.data;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                //})
-              }
-            })
-          }
-        }, 30)
-      },
+
       //初始化数据
       initData(id, num) {
-//        if (!id) {
-//          this.$notify({
-//            message: '请先选择店面！',
-//            type: 'error'
-//          })
-//          return
-//        }
+
         this.isLoading = true;
         let selectProductImageInfo = {
           "loginUserID": "huileyou",
@@ -280,12 +313,16 @@
       },
       //添加
       add() {
+        this.ImageURL = [];
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
-        this.uploaNode();
+
       },
       //添加提交
       addSubmit() {
+
+        this.addOptions.fd_pi_ImageUrl = this.ImageURL.join(',')
+
         let insertProductImageInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -311,16 +348,18 @@
       },
       //修改
       update(rowData) {
-        this.$store.commit('setTranstionFalse');
+
         this.updateDialog = true;
+        this.ImageURL1 = rowData.fd_pi_ImageUrl.split(",");
+        this.$store.commit('setTranstionFalse');
+
         this.updateObj = rowData;
-        this.uploaNode();
+
       },
       //修改提交
       updateSubmit() {
-        if (this.addOptions.fd_pi_ImageUrl) {
-          this.updateObj.fd_pi_ImageUrl = this.addOptions.fd_pi_ImageUrl
-        }
+
+        this.updateObj.fd_pi_ImageUrl = this.ImageURL1.join(',');
         let updateProductImageInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -374,4 +413,16 @@
   }
 </script>
 <style scoped>
+  .imgWap span {
+    position: absolute;
+    right: -15px;
+    top: -6px;
+  }
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
+  }
 </style>

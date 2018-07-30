@@ -9,7 +9,7 @@
     <el-table
       :data="hotelImageList"
       v-loading="isLoading"
-      style="width: 100%"
+      style="width:100%"
     >
       <el-table-column
         prop="ht_hi_ID"
@@ -54,7 +54,6 @@
             size="mini"
             @click="jump(scope.row)">预览效果
           </el-button>
-
         </template>
       </el-table-column>
     </el-table>
@@ -74,7 +73,6 @@
     <!--添加酒店图片-->
     <el-dialog title="添加酒店图片" :visible.sync="addDialog">
       <el-form :model="addOptions">
-
         <el-form-item label="图片类型:" :label-width="formLabelWidth">
           <el-select v-model="addOptions.data.ht_hi_ImageTypeID" placeholder="请选择类型">
             <el-option
@@ -85,6 +83,7 @@
             </el-option>
           </el-select>
         </el-form-item>
+
         <el-form-item label="图片上传:" :label-width="formLabelWidth">
 
           <Upload @getData="getData" :attrs="imageObj"></Upload>
@@ -104,8 +103,8 @@
               >
             </p>
           </div>
-
         </el-form-item>
+
         <el-form-item label="备注:" :label-width="formLabelWidth">
           <el-input
             type="textarea"
@@ -122,9 +121,9 @@
     </el-dialog>
 
     <!--修改酒店图片-->
+
     <el-dialog title="修改酒店图片" :visible.sync="updateDialog">
       <el-form :model="updateHotelImageObj">
-
         <el-form-item label="图片类型:" :label-width="formLabelWidth">
           <el-select v-model="updateHotelImageObj.ht_hi_ImageTypeID" placeholder="请选择类型">
             <el-option
@@ -136,9 +135,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="图片上传:" :label-width="formLabelWidth">
-
           <Upload @getData="updateImage" :attrs="imageObj"></Upload>
-
           <div class="imgWap">
             <p v-for="item,index in ImageURL1"
                style="display: inline-block;position: relative;margin-right: 70px">
@@ -154,7 +151,6 @@
               >
             </p>
           </div>
-
         </el-form-item>
         <el-form-item label="备注:" :label-width="formLabelWidth">
           <el-input
@@ -176,7 +172,6 @@
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
   import Upload from '@/components/Upload'
-
   export default{
     name: '',
     components: {
@@ -250,8 +245,6 @@
           this.updateRadioIndex = '';
         }
       },
-
-
       //删除修改对应图片
       deleteImageURL(val) {
         this.isNewUploaNode = false
@@ -278,12 +271,6 @@
         this.imgUrl = val;
         this.imgShow = true
       },
-
-
-
-
-
-
       jump(obj){
         let hotelID=sessionStorage.getItem("hotelID")
         window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
@@ -301,7 +288,6 @@
         };
         this.$store.dispatch('initHotelImageType', imgOptions)
       },
-
       //初始化
       initData(){
         let options = {
@@ -414,14 +400,11 @@
   }
 </script>
 <style scoped>
-
-
   .imgWap span {
     position: absolute;
     right: -15px;
     top: -6px;
   }
-
   .imgWap em {
     position: absolute;
     right: -55px;

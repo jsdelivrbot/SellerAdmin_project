@@ -112,16 +112,11 @@
         </el-form-item>
 
         <el-form-item label="上传视频:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">上传视频
-            <input type="file" name="" ref="upload" multiple>
-          </a>
-          <video v-show="videoShow" id="addVideo" :src="addOptions.fd_sfr_VedioURL" width="320" height="240"
-                 controls="controls"></video>
+
+          <Upload @getData="addVideo" :attrs="videoObj"></Upload>
+
         </el-form-item>
-        <el-form-item size="large" :label-width="formLabelWidth">
-          <el-button type="primary" size="mini" @click="uploadFile">立即上传</el-button>
-          <strong v-show="isShow">正在上传视频文件...</strong>
-        </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -139,16 +134,14 @@
           <el-input v-model="updateObj.fd_sfr_BookMoney" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="上传视频:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">上传视频
-            <input type="file" name="" ref="upload2" multiple>
-          </a>
-          <video id="updateVideo" :src="updateObj.fd_sfr_VedioURL" width="320" height="240"
-                 controls="controls"></video>
+
+          <Upload @getData="updateVideo" :attrs="videoObj"></Upload>
+
+          <video :src="  this.updateObj.fd_sfr_VedioURL" v-show="  this.updateObj.fd_sfr_VedioURL" controls
+                 width="100"></video>
+
         </el-form-item>
-        <el-form-item size="large" :label-width="formLabelWidth">
-          <el-button type="primary" size="mini" @click="updateFile">立即上传</el-button>
-          <strong v-show="isShow">正在上传视频文件...</strong>
-        </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="updateDialog = false">取 消</el-button>
@@ -161,8 +154,12 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-
+  import Upload from '@/components/Upload'
   export default {
+    name: '',
+    components: {
+      Upload
+    },
     computed: mapGetters([
       'foodStoreRoomList',
       'foodStoreInformtionList'
@@ -184,6 +181,9 @@
         updateDialog: false,
         videoShow: false,
         isShow: false,
+        videoObj: {
+          accept: 'video/*'
+        },
       }
     },
     created() {
@@ -194,6 +194,12 @@
       this.initData();
     },
     methods: {
+      addVideo(data) {
+       this.addOptions.fd_sfr_VedioURL = data.data;
+      },
+      updateVideo(data) {
+         this.updateObj.fd_sfr_VedioURL = data.data;
+      },
       //店面列表
       initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {
@@ -212,13 +218,6 @@
       },
       //初始化数据
       initData(id,num) {
-//        if (!id) {
-//          this.$notify({
-//            message: '请选择店面！',
-//            type: 'error'
-//          })
-//          return;
-//        }
         let initStoreRoom = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -249,35 +248,14 @@
       },
       //新增
       add() {
+
         this.dialogFormVisible = true;
         this.$store.commit('setTranstionFalse');
       },
 
-      //添加上传视频
-      uploadFile() {
-        this.isShow = true;
-        this.addOptions.fd_sfr_VedioURL = '';
-        var fd = new FormData();
-        if (this.$refs.upload.files[0]) {
-          fd.append("fileToUpload", this.$refs.upload.files[0]);
-          var xhr = new XMLHttpRequest();
-          xhr.onreadystatechange = () => {
-            if (xhr.readyState == 4 && xhr.status == 200)
-            //给视频赋值
-              if (xhr.responseText) {
-                this.isShow = false;
-                this.videoShow = true;
-                this.addOptions.fd_sfr_VedioURL = JSON.parse(xhr.responseText).data;
-              }
-          };
-          xhr.open("POST", getNewStr + "/OSSFile/PostToOSS", true);
-          xhr.send(fd);
-        } else {
-          alert("请选择上传视频")
-        }
-      },
       //新增提交
       addSubmit() {
+
         let addStoreRoom = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -286,6 +264,7 @@
           "pcName": "",
           "data": this.addOptions
         };
+
         this.$store.dispatch('addFoodStoreRoom', addStoreRoom)
           .then(suc => {
             this.$notify({
@@ -303,6 +282,7 @@
       },
       //修改
       update(rowData) {
+        console.log(rowData)
         this.updateObj = rowData;
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
@@ -387,4 +367,17 @@
 </script>
 
 <style scoped>
+
+  .imgWap span {
+    position: absolute;
+    right: -15px;
+    top: -6px;
+  }
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
+  }
 </style>

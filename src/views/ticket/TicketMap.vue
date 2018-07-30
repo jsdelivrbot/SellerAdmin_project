@@ -48,11 +48,8 @@
         </el-form-item>
 
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
-
-
-
+          <span>图片不超过2M</span>
           <Upload @getData="getData" :attrs="imageObj"></Upload>
-
           <div class="imgWap">
             <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right:30px;">
               <img
@@ -72,13 +69,13 @@
         </el-form-item>
 
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
-
+          <span>音频不超过10M</span>
           <Upload @getData="passAudio" :attrs="audioObj"></Upload>
 
         </el-form-item>
 
         <el-form-item label="小景点视频:" :label-width="formLabelWidth">
-
+          <span>视频不超过600M</span>
           <Upload @getData="passVideo" :attrs="videoObj"></Upload>
 
         </el-form-item>
@@ -112,12 +109,9 @@
         <el-form-item label="小景点备注:" :label-width="formLabelWidth">
           <el-input v-model="updateOptions.data.tm_se_Remark" auto-complete="off"></el-input>
         </el-form-item>
-
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
-
-
+          <span>图片不超过2M</span>
           <Upload @getData="updateImage" :attrs="imageObj"></Upload>
-
           <div class="imgWap">
             <p v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right:30px;">
               <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
@@ -132,26 +126,19 @@
               >
             </p>
           </div>
-
-
         </el-form-item>
-
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
-
+          <span>音频不超过10M</span>
           <audio :src="updateOptions.data.tm_se_Sound" v-show="updateOptions.data.tm_se_Sound" controls></audio>
-
           <Upload @getData="updateAudio" :attrs="audioObj"></Upload>
-
-
         </el-form-item>
 
         <el-form-item label="小景点视频:" :label-width="formLabelWidth">
-
+          <span>音频不超过10M</span>
 
           <video :src="updateOptions.data.tm_se_Vedio" v-show="updateOptions.data.tm_se_Vedio" controls
                  width="100"></video>
           <Upload @getData="updateVideo" :attrs="videoObj"></Upload>
-
 
         </el-form-item>
       </el-form>

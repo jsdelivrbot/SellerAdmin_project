@@ -42,6 +42,19 @@ export const constantRouterMap = [
       meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
     }]
   },
+  // /*demo***/
+  // {
+  //   path: '/demo',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'demo',
+  //       component: () => import('@/views/demo/index'),
+  //       meta: {title: 'demo', icon: 'form'}
+  //     }
+  //   ]
+  // },
   /**
    *  旅行社
    **/

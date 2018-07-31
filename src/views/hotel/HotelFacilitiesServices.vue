@@ -238,8 +238,8 @@
       },
       //添加
       Add(){
-        for(let attr in this.addOptions){
-          this.addOptions[attr] = ''
+        for(let attr in this.addOptions.data){
+          this.addOptions.data[attr] = ''
         }
         if(this.showAdd){
           this.$store.commit('setTranstionFalse');

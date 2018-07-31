@@ -251,6 +251,8 @@
         isLoading: false,
         //分页
         total: 0,
+
+        
         //查询
         movieType: '',
         //添加
@@ -337,7 +339,6 @@
       },
       //删除修改对应图片
       deleteUpdateImageURL(val) {
-        console.log(1)
         this.isNewUploaNode = false
         this.ImageURL1 = this.ImageURL1.filter(v => {
           if (v == val) {
@@ -394,7 +395,7 @@
       },
       //新增提交
       addSubmit() {
-        this.addOptions.data.vf_ss_SeriesImageURL = this.ImageURL
+        this.addOptions.data.vf_ss_SeriesImageURL = this.ImageURL.join(",")
 
         this.addOptions.data.vf_ss_AuthorID=JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID +'';
 

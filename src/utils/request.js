@@ -18,6 +18,7 @@ service.interceptors.request.use(config => {
   if(config.method === 'post') {
     let obj = JSON.parse(config.data)
     obj.token  = sessionStorage.getItem('token');
+    console.log(obj)
     config.data = JSON.stringify(obj)
   }
   // let token = sessionStorage.getItem("admin_token")

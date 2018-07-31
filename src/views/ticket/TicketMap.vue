@@ -153,6 +153,7 @@
       </div>
     </el-dialog>
 
+
     <!--展示-->
     <el-table
       :data="ticketMapList"

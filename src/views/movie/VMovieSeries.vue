@@ -396,6 +396,17 @@
       },
       //新增
       Add() {
+
+        for(let attr in this.addOptions.data){
+          if(typeof this.addOptions.data[attr]=='object'){
+            for(let attr1 in this.addOptions.data[attr]){
+              this.addOptions.data[attr][attr1] = ''
+            }
+          }else{
+            this.addOptions.data[attr] = ''
+          }
+        }
+
         ImageURL: []
         let content =this.addOptions.data;
         for(let i in content){

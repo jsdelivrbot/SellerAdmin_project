@@ -203,6 +203,7 @@
         radioIndex: 0,
         updateRadioIndex: 0,
         isNewUploaNode: true,
+
         bigPictureDialog: false,
         updateDialog: false,
         updateObj: {},

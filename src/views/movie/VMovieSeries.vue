@@ -49,9 +49,22 @@
               <el-form-item label="完载时间:">
                 <span>{{props.row.vf_ss_OverTime}}</span>
               </el-form-item>
+
               <el-form-item label="系列图片:">
+
+                <!--<template slot-scope="scope">-->
+                  <!--<img-->
+                    <!--v-for="item,index in props.row.vf_ss_SeriesImageURL"-->
+                    <!--:src="item"-->
+                    <!--title="点击查看大图"-->
+                    <!--style="width:100px;cursor: pointer;margin-right: 10px;"-->
+                    <!--@click="clickImg(item)"-->
+                  <!--&gt;-->
+                <!--</template>-->
+
                 <img :src="props.row.vf_ss_SeriesImageURL" alt="" style="width: 100px;height: 50px">
               </el-form-item>
+
               <el-form-item label="更新时间:">
                 <span>{{props.row.vf_ss_UpdateTime}}</span>
               </el-form-item>
@@ -120,12 +133,32 @@
             <el-input v-model="addOptions.data.vf_ss_UpdateTime" placeholder="更新时间"></el-input>
           </el-form-item>
           <el-form-item label="系列图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">
-              系列图片上传
-              <input type="file" name="" ref="upload" accept="image/*">
-            </a>
-            <img v-lazy="addOptions.data.vf_ss_SeriesImageURL" v-show="addOptions.data.vf_ss_SeriesImageURL"
-                 style="width: 100px;height: 100px">
+            <Upload @getData="getData" :attrs="imageObj"></Upload>
+            <div class="imgWap">
+              <p v-for="item,index in ImageURL"
+                 style="display: inline-block;position: relative;margin-right: 70px">
+                <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+                <em>
+                  <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
+                </em>
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="ImageURL.length"
+                >
+              </p>
+            </div>
+
+
+
+            <!--<a href="javascript:;" class="file">-->
+              <!--系列图片上传-->
+              <!--<input type="file" name="" ref="upload" accept="image/*">-->
+            <!--</a>-->
+            <!--<img v-lazy="addOptions.data.vf_ss_SeriesImageURL" v-show="addOptions.data.vf_ss_SeriesImageURL"-->
+                 <!--style="width: 100px;height: 100px">-->
+
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -177,9 +210,12 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-
+  import Upload from '@/components/Upload'
   export default {
-
+    name: '',
+    components: {
+      Upload
+    },
     data() {
       return {
         //当前页
@@ -207,7 +243,7 @@
         isDisabled: true,
         //修改
         updateDialog: false,
-        ImageURL: '',
+        ImageURL: [],
         //添加系列图片上传
         addSeriesImgUpload: '',
         ImageURL1: [],
@@ -218,6 +254,12 @@
         //查询
         movieType: '',
         //添加
+        imgUrl: '',
+        imgShow:false,
+        radioIndex: 0,
+        updateRadioIndex: 0,
+        isNewUploaNode: true,
+        imageObj: {accept: 'image/*'},
         addDialog: false,
         addOptions: {
           "loginUserID": "huileyou",
@@ -260,6 +302,50 @@
       this.initData();
     },
     methods: {
+      clickImg(val){
+        this.$store.commit('setTranstionFalse');
+        this.imgUrl = val;
+        this.imgShow = true
+      },
+      //图片上传
+      getData(data) {
+        if (!this.radioIndex) {
+         this.ImageURL.push(data.data);
+        } else {
+          this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.radioIndex = '';
+        }
+      },
+      //修改图片
+      getUpdateData(data) {
+        if (!this.updateRadioIndex) {
+          this.ImageURL1.push(data.data);
+        } else {
+          this.ImageURL1.splice(this.updateRadioIndex - 1, 1, data.data);
+          this.updateRadioIndex = '';
+        }
+      },
+      //删除修改对应图片
+      deleteImageURL(val) {
+        this.isNewUploaNode = false
+        this.ImageURL = this.ImageURL.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
+      //删除修改对应图片
+      deleteUpdateImageURL(val) {
+        console.log(1)
+        this.isNewUploaNode = false
+        this.ImageURL1 = this.ImageURL1.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
       //分页
       handleCurrentChange(num) {
         this.initData('','','',num)
@@ -297,17 +383,21 @@
       },
       //新增
       Add() {
+        ImageURL: []
         let content =this.addOptions.data;
         for(let i in content){
           content[i]="";
         };
         this.addDialog = true;
         this.$store.commit('setTranstionFalse');
-        this.uploadNode();
+
       },
       //新增提交
       addSubmit() {
+        this.addOptions.data.vf_ss_SeriesImageURL = this.ImageURL
+
         this.addOptions.data.vf_ss_AuthorID=JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID +'';
+
         this.$store.dispatch("addVMovieSeries", this.addOptions)
           .then((suc) => {
             this.$notify({
@@ -459,4 +549,16 @@
 
 </script>
 <style scoped>
+  .imgWap span {
+    position: absolute;
+    right: -15px;
+    top: -6px;
+  }
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
+  }
 </style>

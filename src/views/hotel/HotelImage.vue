@@ -27,6 +27,7 @@
         label="点击查看大图"
         align="center"
       >
+
         <template slot-scope="scope">
           <img
             v-for="item,index in scope.row.ht_hi_ImageURL"
@@ -36,6 +37,7 @@
             @click="clickImg(item)"
           >
         </template>
+
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">

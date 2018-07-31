@@ -18,6 +18,7 @@ export default {
       })
         .then(data => {
           var data = data.data;
+          console.log(data)
           if (Number(data.resultcode) == 200) {
             relove(Number(data.totalRows));
             commit('initVMovieCheckTable', data.data)

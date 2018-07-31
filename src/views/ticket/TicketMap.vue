@@ -5,10 +5,19 @@
     <el-col :span="24" class="formSearch">
       <el-form :inline="true">
         <el-form-item>
-          <span>导览名称筛选:</span>
+          <span>小景点名称筛选:</span>
         </el-form-item>
         <el-form-item>
+          <!--<el-autocomplete-->
+            <!--size="mini"-->
+            <!--v-model="siteName"-->
+            <!--:fetch-suggestions="querySearchAsync"-->
+            <!--placeholder="请输入景点名称"-->
+            <!--@select="handleSelect"-->
+          <!--&gt;</el-autocomplete>-->
+
           <el-input v-model="siteName" size="small"></el-input>
+
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search" size="small">查询</el-button>
@@ -71,13 +80,10 @@
         <el-form-item label="小景点音频:" :label-width="formLabelWidth">
           <span>音频不超过10M</span>
           <Upload @getData="passAudio" :attrs="audioObj"></Upload>
-
         </el-form-item>
-
         <el-form-item label="小景点视频:" :label-width="formLabelWidth">
           <span>视频不超过600M</span>
           <Upload @getData="passVideo" :attrs="videoObj"></Upload>
-
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -134,12 +140,11 @@
         </el-form-item>
 
         <el-form-item label="小景点视频:" :label-width="formLabelWidth">
-          <span>音频不超过10M</span>
 
+          <span>视频不超过600M</span>
           <video :src="updateOptions.data.tm_se_Vedio" v-show="updateOptions.data.tm_se_Vedio" controls
                  width="100"></video>
           <Upload @getData="updateVideo" :attrs="videoObj"></Upload>
-
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -151,6 +156,7 @@
     <!--展示-->
     <el-table
       :data="ticketMapList"
+      v-loading="isLoading"
       style="width: 100%">
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -203,7 +209,7 @@
         prop="tm_se_ID">
       </el-table-column>
       <el-table-column
-        label="景点名称"
+        label="小景点名称"
         prop="tm_se_Name">
       </el-table-column>
       <el-table-column
@@ -241,7 +247,7 @@
     <div class="block" v-show="total" style="float: right;">
       <el-pagination
         @current-change="handleCurrentChange"
-        :page-size="5"
+        :page-size="8"
         layout="total, prev, pager, next"
         :total="total"
       >
@@ -332,6 +338,9 @@
       this.initData()
     },
     methods: {
+
+      handleSelect(){},
+      querySearchAsync(){},
       getData(data) {
         if (!this.addRadioIndex) {
           this.ImageURL.push(data.data);
@@ -416,7 +425,7 @@
           "tm_se_Code": this.id,//景点编号
           "tm_se_Name": name ? name : '',//小景点名称
           "page": page ? page : 1,//页码
-          "rows": "5"//条数
+          "rows": "8"//条数
         };
         this.isLoading = true;
         this.$store.dispatch('initTicketMap', options)

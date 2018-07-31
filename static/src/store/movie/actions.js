@@ -17,6 +17,7 @@ export default {
       })
         .then(data => {
           var data = data.data;
+
           if (Number(data.resultcode) == 200) {
             relove(Number(data.totalRows));
             commit('initVMovieCheckTable', data.data)
@@ -36,6 +37,7 @@ export default {
       })
         .then(data => {
           var data = data.data;
+
           if (Number(data.resultcode) == 200) {
             relove(Number(data.totalRows));
             commit('initVMovieSorting', data.data)

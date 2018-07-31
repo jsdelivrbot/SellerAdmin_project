@@ -116,18 +116,7 @@
           align="center"
           prop="ts_pp_FromPlace">
         </el-table-column>
-        <!--<el-table-column-->
-          <!--align="center"-->
-          <!--label="备注">-->
-          <!--<template slot-scope="props">-->
-            <!--<el-popover-->
-              <!--ref="popover1"-->
-              <!--placement="top-start"-->
-              <!--trigger="hover"-->
-              <!--:content="props.row.ts_pp_Remark">-->
-            <!--</el-popover>-->
-            <!--<el-button v-popover:popover1>移入查看</el-button>-->
-          <!--</template>-->
+
 
         <!--</el-table-column>-->
         <el-table-column label="操作" width="300" align="center">

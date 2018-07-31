@@ -794,10 +794,11 @@
       },
       //修改提交
       updateSubmit() {
-          this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_TomImageURL='',
-          this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_ImageURL='',
-          this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_TomImageURL= this.ImageUpdateURL.join(',')
-          this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_ImageURL= this.ImageUpdateURLOne.join(',')
+
+           this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_TomImageURL='',
+           this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_ImageURL='',
+           this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_TomImageURL= this.ImageUpdateURL.join(',')
+           this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_ImageURL= this.ImageUpdateURLOne.join(',')
            this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_te_ID=this.updateCategoriesName.join(",");//最新子分类名称
            this.$store.dispatch("updateVMovieCheckTable", this.VMovieCheckTableUpdateObj)
           .then(

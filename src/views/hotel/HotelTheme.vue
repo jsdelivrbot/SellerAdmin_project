@@ -172,10 +172,16 @@
       },
       //添加
       Add(){
-        for(let attr in this.addOptions){
-          this.addOptions[attr] = ''
+        for(let attr in this.addOptions.data){
+          if(typeof this.addOptions.data[attr]=='object'){
+            for(let attr1 in this.addOptions.data[attr]){
+              this.addOptions.data[attr][attr1] = ''
+            }
+          }else{
+            this.addOptions.data[attr] = ''
+          }
         }
-        this.$store.commit('setTranstionFalse');
+//        this.$store.commit('setTranstionFalse');
         this.addDialog = true;
       },
       //添加提交

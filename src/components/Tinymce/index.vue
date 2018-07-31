@@ -38,13 +38,11 @@
           xhr.open('POST', getNewStr + '/OSSFile/PostToOSS');
           xhr.onload = function() {
             var json;
-
             if (xhr.status != 200) {
               failure('HTTP Error: ' + xhr.status);
               return;
             }
             json = JSON.parse(xhr.responseText);
-
             if (!json || typeof json.data != 'string') {
               failure('Invalid JSON: ' + xhr.responseText);
               return;
@@ -60,5 +58,4 @@
   }
 </script>
 <style scoped>
-
 </style>

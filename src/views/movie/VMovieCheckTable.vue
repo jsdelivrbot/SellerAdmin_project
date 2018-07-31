@@ -233,7 +233,7 @@
             <div class="imgWap">
               <p v-for="item,index in ImageUpdateURL"
                  style="display: inline-block;position: relative;margin-right: 70px">
-                <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+                <span style="color: #f60" @click="deleteUpdateImageURLOne(item)">X</span>
                 <em>
                   <el-radio v-model="radioUpdateIndex" :label="index+1">替换</el-radio>
                 </em>
@@ -248,15 +248,6 @@
 
 
 
-
-            <!--<a href="javascript:;" class="file">-->
-              <!--首页大图上传-->
-              <!--<input type="file" name="" ref="updateBigImg" accept="image/*">-->
-            <!--</a>-->
-            <!--<img  :src="VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_TomImageURL"-->
-                 <!--v-show="VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_TomImageURL"-->
-                 <!--style="width: 100px;height: 100px">-->
-            <!---->
           </el-form-item>
           <el-form-item label="视频图片:" :label-width="formLabelWidth">
             <span>图片不超过2M,且只上传一张图片</span>
@@ -266,7 +257,7 @@
             <div class="imgWapOne">
               <p v-for="item,index in ImageUpdateURLOne"
                  style="display: inline-block;position: relative;margin-right: 70px">
-                <span style="color: #f60" @click="deleteImageURLOne(item)">X</span>
+                <span style="color: #f60" @click="deleteUpdateImageURLTwo(item)">X</span>
                 <em>
                   <el-radio v-model="radioUpdateIndexOne" :label="index+1">替换</el-radio>
                 </em>
@@ -279,13 +270,7 @@
               </p>
             </div>
 
-            <!--<a href="javascript:;" class="file">-->
-              <!--视频图片上传-->
-              <!--<input type="file" name="" ref="updateFilmImg" accept="image/*">-->
-            <!--</a>-->
-            <!--<img  :src="VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_ImageURL"-->
-                 <!--v-show="VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_ImageURL"-->
-                 <!--style="width: 100px;height: 100px">-->
+
 
           </el-form-item>
           <el-form-item label="上传视频:" :label-width="formLabelWidth">
@@ -360,6 +345,8 @@
 
         isNewUploaNode: true,
         isNewUploaNodeOne: true,
+        isNewUploaUpdateNode:true,
+        isNewUploaUpdateNodeOne:true,
         //是否禁用
         isDisabled: true,
         //修改
@@ -472,21 +459,26 @@
       },
 
       getUpdateData(data) {
+
        if (!this.radioUpdateIndex) {
              this.ImageUpdateURL.push(data.data);
           } else {
              this.ImageUpdateURL.splice(this.radioUpdateIndex - 1, 1, data.data);
              this.radioUpdateIndex = '';
         }
+
        },
       getUpdateDataOne(data) {
-        if (!this.radioUpdateIndex) {
+
+        if (!this.radioUpdateIndexOne) {
           this.ImageUpdateURLOne.push(data.data);
         } else {
-          this.ImageUpdateURLOne.splice(this.radioUpdateIndex - 1, 1, data.data);
-          this.radioUpdateIndex = '';
+          this.ImageUpdateURLOne.splice(this.radioUpdateIndexOne - 1, 1, data.data);
+          this.radioUpdateIndexOne = '';
         }
+
       },
+
       updateVideo(data) {
         this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_FileURL = data.data;
       },
@@ -515,7 +507,27 @@
         })
       },
 
+      deleteUpdateImageURLOne(val){
+        this.isNewUploaUpdateNode = false
+        this.ImageUpdateURL = this.ImageUpdateURL.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
 
+
+      },
+      deleteUpdateImageURLTwo(val){
+        this.isNewUploaUpdateNodeOne = false
+        this.ImageUpdateURLOne = this.ImageUpdateURLOne.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+
+      },
 
 
 
@@ -647,9 +659,15 @@
 
       Add() {
 
-        // for(let attr in this.addOptions){
-        //   this.addOptions[attr] = ''
-        // }
+        for(let attr in this.addOptions.data){
+          if(typeof this.addOptions.data[attr]=='object'){
+            for(let attr1 in this.addOptions.data[attr]){
+              this.addOptions.data[attr][attr1] = ''
+            }
+          }else{
+            this.addOptions.data[attr] = ''
+          }
+        }
         this.ImageURL = [];
         this.ImageURLOne = [];
         this.intTypeData();
@@ -778,10 +796,10 @@
       updateSubmit() {
           this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_TomImageURL='',
           this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_ImageURL='',
-          this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_TomImageURL= this.ImageUpdateURL
-          this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_ImageURL= this.ImageUpdateURLOne
+          this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_TomImageURL= this.ImageUpdateURL.join(',')
+          this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_vo_ImageURL= this.ImageUpdateURLOne.join(',')
            this.VMovieCheckTableUpdateObj.data.vf_ve_Content.vf_te_ID=this.updateCategoriesName.join(",");//最新子分类名称
-        this.$store.dispatch("updateVMovieCheckTable", this.VMovieCheckTableUpdateObj)
+           this.$store.dispatch("updateVMovieCheckTable", this.VMovieCheckTableUpdateObj)
           .then(
             (suc) => {
               this.$notify({

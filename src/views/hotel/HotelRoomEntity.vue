@@ -401,6 +401,9 @@
         this.initData(this.houseName, 1)
       },
       Add() {
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
       },

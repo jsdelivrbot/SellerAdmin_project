@@ -239,6 +239,9 @@
       },
       //添加
       add() {
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         this.addOptions.data.fd_sc_SeatNo = "";
         this.addOptions.data.fd_sc_ShopID = "";
         this.$store.commit('setTranstionFalse');

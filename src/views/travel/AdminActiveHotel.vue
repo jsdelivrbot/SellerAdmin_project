@@ -343,6 +343,9 @@
       },
       //添加活动酒店
       addAdminActiveHotel() {
+        for(let attr in this.addAdminActiveHotelObj){
+          this.addAdminActiveHotelObj[attr] = ''
+        }
         this.$store.commit('setTranstionFalse');
         this.addAdminActiveHotelDialog = true;
       },

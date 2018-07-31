@@ -64,9 +64,7 @@
               <el-form-item label="允许超过天数">
                 <span>{{ props.row.tm_tt_ExpireDay }}天</span>
               </el-form-item>
-              <!--<el-form-item label="提前预定时间">-->
-                <!--<span>{{ props.row.tm_tt_BeforeTime / 60 }}小时</span>-->
-              <!--</el-form-item>-->
+
               <el-form-item label="票价">
                 <span>{{ props.row.tm_tt_TicketPrice }}元</span>
               </el-form-item>
@@ -211,8 +209,6 @@
                 >
               </p>
             </div>
-
-
           </el-form-item>
           <el-form-item label="描述:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tt_Description" type="textarea"></el-input>
@@ -305,22 +301,12 @@
             ></el-autocomplete>
           </el-form-item>
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
-
             <el-autocomplete
               v-model="tourName"
               :fetch-suggestions="querySearchAsync"
               placeholder="请输入景点名称"
               @select="handleSelect"
             ></el-autocomplete>
-
-            <!--<el-select v-model="updateTicketTypeObj.tm_ts_Code" placeholder="请选择">-->
-            <!--<el-option-->
-            <!--v-for="item in ticketAttractionsList"-->
-            <!--:key="item.tm_ts_Code"-->
-            <!--:label="item.tm_ts_Name"-->
-            <!--:value="item.tm_ts_Code">-->
-            <!--</el-option>-->
-            <!--</el-select>-->
           </el-form-item>
 
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
@@ -694,9 +680,11 @@
       },
       // 添加按钮
       Add() {
+
         for(let attr in this.addOptions){
           this.addOptions[attr] = ''
         }
+
         this.ImageURL = [];
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;

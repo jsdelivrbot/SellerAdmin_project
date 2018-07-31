@@ -292,6 +292,7 @@
       },
       //添加
       Add() {
+
         this.film();
         this.searchSeries();
         for(let i in this.addOptions.data){

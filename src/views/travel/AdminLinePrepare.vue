@@ -703,6 +703,9 @@
       },
       //添加
       addAdminLinePrepare() {
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         this.ImageURL = [];
         this.ImageURL1 = [];
         let obj = this.addOptions.data;

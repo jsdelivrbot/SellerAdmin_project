@@ -873,6 +873,9 @@
       },
       //添加
       Add() {
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         if( this.imageArr.length ){
           this.ImageURL = this.imageArr;
         }

@@ -248,7 +248,9 @@
       },
       //新增
       add() {
-
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         this.dialogFormVisible = true;
         this.$store.commit('setTranstionFalse');
       },

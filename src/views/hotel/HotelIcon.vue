@@ -155,6 +155,9 @@
       },
       //添加
       Add(){
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         let obj = this.addOptions.data
         for(var attr in obj){
           obj[attr] = ''

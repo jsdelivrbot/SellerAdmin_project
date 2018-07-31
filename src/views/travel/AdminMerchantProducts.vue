@@ -1663,6 +1663,11 @@
 
       //添加
       addAdminMerchantProducts(){
+
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
+
         this.ImageURL=[];
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;

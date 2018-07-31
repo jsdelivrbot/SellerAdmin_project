@@ -280,6 +280,9 @@
 
       //添加按钮
       addButton() {
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         this.TypeID = '';
         this.ParentID = '';
         this.showChild = false;

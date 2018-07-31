@@ -457,6 +457,9 @@
       },
       //点击添加按钮
       addButton() {
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         this.addHotelDetilsDialog = true;
         this.$store.commit('setTranstionFalse');
       },

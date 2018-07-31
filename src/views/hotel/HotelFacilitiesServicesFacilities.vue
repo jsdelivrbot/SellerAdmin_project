@@ -211,6 +211,9 @@
       },
       //添加
       Add(){
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         this.facilitiesTypeID = ''
         let obj = this.addOptions.data
         for(var attr in obj){

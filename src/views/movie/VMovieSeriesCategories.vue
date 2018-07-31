@@ -323,6 +323,9 @@
                   });
               },*/
       Add() {
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
 //        this.seriesName();
         this.addDialog = true;
         this.$store.commit('setTranstionFalse');

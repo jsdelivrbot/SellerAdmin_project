@@ -530,6 +530,9 @@
       },
       //添加
       add() {
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
         this.addOptions.fd_sf_TradeID = this.userInfo.sm_ui_ID;

@@ -671,6 +671,9 @@
       },
 
       Add() {
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         console.log(this.VMovieCheckTableList)
         this.ImageURL = [];
         this.ImageURLOne = [];

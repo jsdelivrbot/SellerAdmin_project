@@ -244,6 +244,9 @@
       },
       //添加
       Add(){
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         if(this.showAdd){
           this.$store.commit('setTranstionFalse');
           this.addDialog = true;

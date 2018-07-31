@@ -292,6 +292,9 @@
         this.initData(this.ticketAttractionsValue)
       },
       Add() {
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
         this.addOptions.tm_tm_TourSiteID = this.ticketAttractionsValue

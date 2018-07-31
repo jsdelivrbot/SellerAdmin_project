@@ -405,6 +405,9 @@
       },
       //添加活动用餐
       addAdminActiveFood() {
+        for(let attr in this.addAdminActiveFoodObj){
+          this.addAdminActiveFoodObj[attr] = ''
+        }
         this.addAdminActiveFoodBox = true
         this.$store.commit('setTranstionFalse');
       },

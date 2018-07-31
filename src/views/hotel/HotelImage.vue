@@ -315,6 +315,9 @@
       },
       //添加
       Add(){
+        for(let attr in this.addOptions){
+          this.addOptions[attr] = ''
+        }
         this.ImageURL = [];
         this.ImageURL1 = [];
         this.$store.commit('setTranstionFalse');

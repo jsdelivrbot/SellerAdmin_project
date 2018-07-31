@@ -15,6 +15,7 @@ import router from './router'
 import store from './store'
 import VueLazyLoad from 'vue-lazyload'
 // import axios from 'axios'
+import { getToken } from '@/utils/auth'
 import * as filters from './filters'
 import i18n from './lang'
 Vue.use(VueLazyLoad,{
@@ -30,6 +31,24 @@ Object.keys(filters).forEach((key) => {
 import '@/icons' // icon
 import '@/permission' // permission control
 Vue.use(uploader)
+// axios.interceptors.request.use(function (config) {  //配置发送请求的信息\
+//   // let token =  getToken()
+//   // if(token){
+//   //   config.headers.Authorization = getToken()
+//   // }
+//   config.headers.Authorization = getToken()
+//   // config.headers['token'] = getToken()
+//
+//   return config;
+// }, function (error) {
+//   return Promise.reject(error);
+// });
+// axios.interceptors.response.use(function (response) { //配置请求回来的信息
+//   return response;
+// }, function (error) {
+//
+//   return Promise.reject(error);
+// });
 
 Vue.use(ELEMENT, ELEMENT.lang.zhCN)
 Vue.prototype.$http = axios;

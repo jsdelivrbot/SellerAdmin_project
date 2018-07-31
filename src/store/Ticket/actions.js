@@ -1,16 +1,17 @@
 /**
  * Created by leibo on 18/3/29.
  */
-// import axios from 'axios'
+// import request from 'request'
 // import {postPromise} from '@/assets/js/public'
 // import {adminSupplier} from '@/api/agencies'
 
 import {getNewStr} from '@/assets/js/public'
+import request from '@/utils/request'
 export default {
   //查询景点主题分类信息
   initThemeType({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TmThemeType/GetThemeTypeList', JSON.stringify(data), {
+      request.post(getNewStr + '/TmThemeType/GetThemeTypeList', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -29,7 +30,7 @@ export default {
   //初始化商家景点信息
   initTicketAttractions({commit}, data) {
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/TourSite/GetTourSite', JSON.stringify(data), {
+      request.post(getNewStr + '/TourSite/GetTourSite', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -74,7 +75,7 @@ export default {
   //添加景点信息
   addTicletInformation({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TourSite/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/TourSite/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -92,7 +93,7 @@ export default {
   //洲
   initTicketGreat({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
+      request.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -111,7 +112,7 @@ export default {
   //国家
   initTicketCountrie({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
+      request.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -130,7 +131,7 @@ export default {
   //省
   initTicketProvice({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
+      request.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -149,7 +150,7 @@ export default {
   //市
   initTicketCity({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
+      request.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -168,7 +169,7 @@ export default {
   //县
   initTicketContry({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
+      request.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -187,7 +188,7 @@ export default {
   //修改景点信息
   updateTicketAttractionsSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TourSite/Update', JSON.stringify(data), {
+      request.post(getNewStr + '/TourSite/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -205,7 +206,7 @@ export default {
   //删除景点信息
   deleteTicketAttractions({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TourSite/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/TourSite/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -223,7 +224,7 @@ export default {
   //初始化预定须知数据
   initPredeterminedInstructions({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/BookKnow/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/BookKnow/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -242,7 +243,7 @@ export default {
   //添加预定须知
   addPredeterminedInstructionsSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/BookKnow/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/BookKnow/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -260,7 +261,7 @@ export default {
   //修改预定须知
   updatePredeterminedInstructionsSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/BookKnow/Update', JSON.stringify(data), {
+      request.post(getNewStr + '/BookKnow/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -278,7 +279,7 @@ export default {
   //初始化交通信息
   initTrafficInformation({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Transport/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Transport/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -297,7 +298,7 @@ export default {
   //添加交通信息
   addTrafficInformationSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Transport/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/Transport/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -315,7 +316,7 @@ export default {
   //修改交通信息
   updateTrafficInformationSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Transport/Update', JSON.stringify(data), {
+      request.post(getNewStr + '/Transport/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -333,7 +334,7 @@ export default {
   //删除交通信息
   deleteTrafficInformation({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Transport/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/Transport/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -351,7 +352,7 @@ export default {
   //初始化票种类型
   initTicketType({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TicketType/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/TicketType/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -370,7 +371,7 @@ export default {
   //添加票种类型
   addTicketTypeSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TicketType/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/TicketType/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -388,7 +389,7 @@ export default {
   //修改票种类型
   updateTicketTypeSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TicketType/Update', JSON.stringify(data), {
+      request.post(getNewStr + '/TicketType/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -406,7 +407,7 @@ export default {
   //删除票种类型
   deleteTicketType({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TicketType/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/TicketType/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -424,7 +425,7 @@ export default {
   //初始化票种票价
   initTicketTypeTicketPrice({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TicketTypePrice/GetTicketTypePriceList', JSON.stringify(data), {
+      request.post(getNewStr + '/TicketTypePrice/GetTicketTypePriceList', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -443,7 +444,7 @@ export default {
   //添加票种票价
   addTicketTypeTicketPriceSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TicketTypePrice/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/TicketTypePrice/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -461,7 +462,7 @@ export default {
   //删除提交
   deleteTicketTypeTicketPriceSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TicketTypePrice/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/TicketTypePrice/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -479,7 +480,7 @@ export default {
   //查询商户订单
   initTicketQueryOrder({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TmOrder/GetOrderInfo', JSON.stringify(data), {
+      request.post(getNewStr + '/TmOrder/GetOrderInfo', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -527,7 +528,7 @@ export default {
   //申请展示首页
   applyShowHomePage({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TourSite/IsShowTop', JSON.stringify(data), {
+      request.post(getNewStr + '/TourSite/IsShowTop', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -545,7 +546,7 @@ export default {
   //确认订单
   ticketConfirmOrder({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/TmOrder/ReSureOrder',JSON.stringify(data),{
+      request.post(getNewStr + '/TmOrder/ReSureOrder',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -563,7 +564,7 @@ export default {
   //导览
   initTicketMap({commit},data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Site/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/Site/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -582,7 +583,7 @@ export default {
   //添加
   addTicketMap(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/Site/Insert',JSON.stringify(data),{
+      request.post(getNewStr+'/Site/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -600,7 +601,7 @@ export default {
   //删除
   deleteTicketMap(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/Site/Delete',JSON.stringify(data),{
+      request.post(getNewStr+'/Site/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -618,7 +619,7 @@ export default {
   //修改
   upDateTicketMap(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr+'/Site/Update',JSON.stringify(data),{
+      request.post(getNewStr+'/Site/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -636,7 +637,7 @@ export default {
   //搜索景点
   initSearchTicketAttractions(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/TourSite/GetTourSite', JSON.stringify(data), {
+      request.post(getNewStr + '/TourSite/GetTourSite', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

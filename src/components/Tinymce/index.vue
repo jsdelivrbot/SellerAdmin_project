@@ -25,7 +25,6 @@
         selector: '#mytextarea',
         language_url: 'http://hly.1000da.com.cn/assets/zh_CN.js',
         language: 'zh_CN',
-        images_upload_url:'',
         width: 500,
         height: 300,
         plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',

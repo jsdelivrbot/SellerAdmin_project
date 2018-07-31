@@ -1,7 +1,8 @@
 /**
  * Created by liuxiang on 18/05/03.
  */
-// import axios from 'axios'
+// import request from 'request'
+import request from '@/utils/request'
 
 import {getNewStr} from '@/assets/js/public'
 
@@ -10,7 +11,7 @@ export default {
   //初始化（查询）审核表
   initVMovieCheckTable({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Validate/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Validate/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -29,7 +30,7 @@ export default {
   //初始化（查询）微电影分类
   initVMovieSorting({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Type/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Type/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -47,7 +48,7 @@ export default {
   },
   childTypeData({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Type/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Type/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -65,7 +66,7 @@ export default {
   },
   childTypeData2({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Type/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Type/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -84,7 +85,7 @@ export default {
   //添加审核表
   addVMovieCheckTable(store, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Validate/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/Validate/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -103,7 +104,7 @@ export default {
   UploadnImgs(store, data) {
     //图片上传
     return new Promise((relove, reject) => {
-      axios.post('http://image.1000da.com.cn/PostImage/PostToService', JSON.stringify(data), {
+      request.post('http://image.1000da.com.cn/PostImage/PostToService', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -116,7 +117,7 @@ export default {
   //上传视频
   UploadVideo({commit},data){
     return new Promise((relove,reject)=>{
-      axios.post('http://image.1000da.com.cn/PostImage/VedioURL', JSON.stringify(data), {
+      request.post('http://image.1000da.com.cn/PostImage/VedioURL', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -136,7 +137,7 @@ export default {
   //删除审核表
   DeleteVMovieCheckTable(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Validate/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/Validate/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -155,7 +156,7 @@ export default {
   //修改审核表
   updateVMovieCheckTable(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Validate/Update', JSON.stringify(data), {
+      request.post(getNewStr + '/Validate/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -174,7 +175,7 @@ export default {
   //初始化（查询）微电影系列
   initVMovieSeries({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Series/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Series/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -193,7 +194,7 @@ export default {
   //添加微电影系列
   addVMovieSeries({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Series/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/Series/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -211,7 +212,7 @@ export default {
   //删除微电影系列
   DeleteVMovieSeries({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Series/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/Series/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -229,7 +230,7 @@ export default {
   //修改为电影系列
   updateVMovieSeries({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Series/Update', JSON.stringify(data), {
+      request.post(getNewStr + '/Series/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -248,7 +249,7 @@ export default {
   //初始化（查询）微电影视频系列
   initVMovieVideoSeries({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/FilmSeries/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/FilmSeries/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -267,7 +268,7 @@ export default {
   //添加视频系列
   addVMovieVideoSeries(store, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/FilmSeries/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/FilmSeries/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -286,7 +287,7 @@ export default {
   //修改微电影视频系列
   updateVMovieVideoSeries({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/FilmSeries/Update', JSON.stringify(data), {
+      request.post(getNewStr + '/FilmSeries/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -305,7 +306,7 @@ export default {
   //删除微电影系列
   DeleteVMovieVideoSeries({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/FilmSeries/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/FilmSeries/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -324,7 +325,7 @@ export default {
   //初始化（查询）微电影视频
   initVMovieVideo({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Vedio/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Vedio/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -344,7 +345,7 @@ export default {
   //删除微电影视频
   DeleteVMovieVideo(store, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Vedio/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/Vedio/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -363,7 +364,7 @@ export default {
   //修改为电影视频
   updateVMovieVideo(store, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Validate/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/Validate/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -383,7 +384,7 @@ export default {
   //初始化（查询）微电影微电影
   initVMovieMiniMovie({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Film/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Film/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -403,7 +404,7 @@ export default {
   //删除微电影微电影
   DeleteVMovieMiniVideo(store, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Film/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/Film/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -424,7 +425,7 @@ export default {
   //初始化（查询）微电影视频分类
     initVMovieVideoCategories({commit}, data) {
   return new Promise(function (relove, reject) {
-    axios.post(getNewStr + '/VedioType/Select', JSON.stringify(data), {
+    request.post(getNewStr + '/VedioType/Select', JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -444,7 +445,7 @@ export default {
   //初始化（查询）微电影视频
   initVMovieVideo({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Vedio/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Vedio/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -464,7 +465,7 @@ export default {
   //删除微电影视频
     DeleteVMovieVideo(store, data) {
   return new Promise(function (relove, reject) {
-    axios.post(getNewStr + '/Vedio/Delete', JSON.stringify(data), {
+    request.post(getNewStr + '/Vedio/Delete', JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -483,7 +484,7 @@ export default {
 /*  //修改为电影视频
     updateVMovieVideo(store, data) {
   return new Promise(function (relove, reject) {
-    axios.post(getNewStr + '/Vedio/Update', JSON.stringify(data), {
+    request.post(getNewStr + '/Vedio/Update', JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -504,7 +505,7 @@ export default {
   //初始化（查询）微电影系列分类
   initVMovieSeriesCategories({commit}, data) {
   return new Promise(function (relove, reject) {
-    axios.post(getNewStr + '/SeriesType/Select', JSON.stringify(data), {
+    request.post(getNewStr + '/SeriesType/Select', JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -524,7 +525,7 @@ export default {
   //添加视频系列
   addVMovieSeriesCategories(store, data) {
   return new Promise(function (relove, reject) {
-    axios.post(getNewStr + '/SeriesType/Insert', JSON.stringify(data), {
+    request.post(getNewStr + '/SeriesType/Insert', JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -543,7 +544,7 @@ export default {
   //删除微电影视频
     DeleteVMovieSeriesCategories(store, data) {
   return new Promise(function (relove, reject) {
-    axios.post(getNewStr + '/SeriesType/Delete', JSON.stringify(data), {
+    request.post(getNewStr + '/SeriesType/Delete', JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -562,7 +563,7 @@ export default {
   //修改为电影视频
     updateVMovieSeriesCategories(store, data) {
   return new Promise(function (relove, reject) {
-    axios.post(getNewStr + '/SeriesType/Update', JSON.stringify(data), {
+    request.post(getNewStr + '/SeriesType/Update', JSON.stringify(data), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -581,7 +582,7 @@ export default {
   //初始化（查询）微电影分类
   initVMovieSorting({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Type/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Type/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -601,7 +602,7 @@ export default {
   //查询微电影父分类
   initVMovieParentSorting({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Type/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Type/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

@@ -24,9 +24,10 @@ import Layout from '../views/layout/Layout';
  **/
 export const constantRouterMap = [
   { path: '/login',name:'Login', component: _import('login/index'), hidden: true },
+  { path: '/authredirect', component: _import('login/authredirect'), hidden: true },
   {path: '/404', component: () => import('@/views/404'), hidden: true},
   {path: '/demo', component: () => import('@/views/demo'), hidden: true},
-  { path: '/', component: _import('login/index'), hidden: true },
+  { path: '/', component: _import('login/index'), hidden: true,name:"Home" },
   /**
    *  首页
    **/

@@ -33,6 +33,7 @@
 
 <script>
 import { isvalidUsername } from '@/utils/validate'
+import { getToken, setToken, removeToken } from '@/utils/auth'
 
 export default {
   name: 'login',
@@ -76,6 +77,8 @@ export default {
             this.loading = false;
             switch (data.sm_ui_RoleID){
               case 2:
+//                setToken(data.token)
+                sessionStorage.setItem('token',data.token)
                 this.$router.push({ name:'dashboard' });
                 break;
               default:

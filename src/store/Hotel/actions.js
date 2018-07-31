@@ -1,11 +1,12 @@
-// import axios from 'axios'
+// import request from 'request'
 
 import {getNewStr} from '@/assets/js/public'
+import request from '@/utils/request'
 export default {
   //惠乐游酒店主题类别
   initHotelThemeType({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelThemeType/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelThemeType/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -23,7 +24,7 @@ export default {
   //查询惠乐游酒店推荐类型
   initHotelIntroduceType({commit},data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/IntroduceType/GetAll', JSON.stringify(data), {
+      request.post(getNewStr + '/IntroduceType/GetAll', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -42,7 +43,7 @@ export default {
   //酒店数据
   initMyHotelDetails({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/HotelWebPage/Detail', JSON.stringify(data), {
+      request.post(getNewStr + '/HotelWebPage/Detail', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -62,7 +63,7 @@ export default {
   //获取省
   initHotelProvinceData({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
+      request.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -79,7 +80,7 @@ export default {
   //获取市
   initHotelCityData({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
+      request.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -96,7 +97,7 @@ export default {
   //获取县
   initHotelCountyData({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
+      request.post(getNewStr + '/AreaFull/SelectProvice', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -113,7 +114,7 @@ export default {
   //添加酒店信息
   addHotelDetilsSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Hotel/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/Hotel/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -131,7 +132,7 @@ export default {
   //修改酒店数据
   updateHotelDetilsSubmit({commit}, data) {
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Hotel/Update', JSON.stringify(data), {
+      request.post(getNewStr + '/Hotel/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -149,7 +150,7 @@ export default {
 //查询酒店推荐类型
   initHotelQueryRecommend({commit},data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/HotelIntroduce/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/HotelIntroduce/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -168,7 +169,7 @@ export default {
   //添加酒店推荐类型
   AddHotelQueryRecommend(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/HotelIntroduce/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/HotelIntroduce/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -186,7 +187,7 @@ export default {
   //删除酒店推荐类型
   DeleteHotelQueryRecommend(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/HotelIntroduce/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/HotelIntroduce/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -204,7 +205,7 @@ export default {
   //初始化酒店图片信息
   initHotelImage({commit},data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/HotelImage/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/HotelImage/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -233,7 +234,7 @@ export default {
   //酒店图片类型
   initHotelImageType({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/ImageType/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/ImageType/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -261,7 +262,7 @@ export default {
   hotelUploadAdminImgs(store,data){
     //图片上传
     return new Promise((relove, reject) => {
-      axios.post('http://image.1000da.com.cn/PostImage/PostToService', JSON.stringify(data), {
+      request.post('http://image.1000da.com.cn/PostImage/PostToService', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -274,7 +275,7 @@ export default {
   //添加酒店图片
   AddHotelImage(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelImage/Insert',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelImage/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -291,7 +292,7 @@ export default {
   //初始化酒店政策
   initHotelPolicy({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelPolicy/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelPolicy/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -309,7 +310,7 @@ export default {
   //修改酒店图片
   UpdateHotelImage(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelImage/Update',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelImage/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -326,7 +327,7 @@ export default {
   //删除酒店图片
   DeleteHotelImage(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelImage/Delete',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelImage/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -343,7 +344,7 @@ export default {
   //添加酒店政策
   AddHotelPolicy(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelPolicy/Insert',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelPolicy/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -360,7 +361,7 @@ export default {
   //修改酒店政策
   UpdateHotelPolicy(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelPolicy/Update',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelPolicy/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -377,7 +378,7 @@ export default {
   //删除酒店政策
   DeleteHotelPolicy(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelPolicy/Delete',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelPolicy/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -394,7 +395,7 @@ export default {
   //初始化酒店主题
   initHotelTheme({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelTheme/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelTheme/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -412,7 +413,7 @@ export default {
   //添加酒店主题
   AddHotelTheme(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelTheme/Insert',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelTheme/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -429,7 +430,7 @@ export default {
   //删除酒店主题
   DeleteHotelTheme(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelTheme/Delete',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelTheme/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -446,7 +447,7 @@ export default {
   //初始化酒店图标
   initHotelIcon({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelSpecialImage/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelSpecialImage/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -464,7 +465,7 @@ export default {
   //初始化惠乐游图标库
   initHotelIconGallery({commit},data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Image/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Image/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -483,7 +484,7 @@ export default {
   //添加酒店图标
   AddHotelIcon(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/HotelSpecialImage/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/HotelSpecialImage/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -501,7 +502,7 @@ export default {
   //删除酒店图标
   DeleteHotelIcon(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/HotelSpecialImage/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/HotelSpecialImage/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -519,7 +520,7 @@ export default {
   //酒店设施服务
   initHotelFacilitiesServices({commit},data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/HardService/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/HardService/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -538,7 +539,7 @@ export default {
   //添加酒店设施服务
   AddHotelFacilitiesServices(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/HardService/Insert', JSON.stringify(data), {
+      request.post(getNewStr + '/HardService/Insert', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -556,7 +557,7 @@ export default {
   //修改酒店设施服务
   UpdateHotelFacilitiesServices(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/HardService/Update', JSON.stringify(data), {
+      request.post(getNewStr + '/HardService/Update', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -574,7 +575,7 @@ export default {
   //删除酒店设施服务
   DeleteHotelFacilitiesServices(store,data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/HardService/Delete', JSON.stringify(data), {
+      request.post(getNewStr + '/HardService/Delete', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -592,7 +593,7 @@ export default {
   //惠乐游酒店设施初始化
   initHotelFacilities({commit},data){
     return new Promise(function (relove, reject) {
-      axios.post(getNewStr + '/Hard/Select', JSON.stringify(data), {
+      request.post(getNewStr + '/Hard/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -611,7 +612,7 @@ export default {
   //初始化酒店设施服务设施
   initHotelFacilitiesServicesFacilities({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HardServiceHard/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/HardServiceHard/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -629,7 +630,7 @@ export default {
   //初始化房间
   initHotelRoom({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/Room/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/Room/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -647,7 +648,7 @@ export default {
   //添加房间
   AddHotelRoom(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/Room/Insert',JSON.stringify(data),{
+      request.post(getNewStr + '/Room/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -664,7 +665,7 @@ export default {
   //修改酒店房间
   UpdateHotelRoom(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/Room/Update',JSON.stringify(data),{
+      request.post(getNewStr + '/Room/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -681,7 +682,7 @@ export default {
   //删除酒店房间
   DeleteHotelRoom(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/Room/Delete',JSON.stringify(data),{
+      request.post(getNewStr + '/Room/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -698,7 +699,7 @@ export default {
   //惠乐游设施类型
   initHotelFacilitiesType({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HardType/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/HardType/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -716,7 +717,7 @@ export default {
   //选中设施类型获取对应设施
   initSearchFacilities({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/Hard/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/Hard/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -734,7 +735,7 @@ export default {
   //添加酒店设施服务设施
   AddHotelFacilitiesServicesFacilities(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HardServiceHard/Insert',JSON.stringify(data),{
+      request.post(getNewStr + '/HardServiceHard/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -751,7 +752,7 @@ export default {
   //删除酒店设施服务设施
   DeleteHotelFacilitiesServicesFacilities(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HardServiceHard/Delete',JSON.stringify(data),{
+      request.post(getNewStr + '/HardServiceHard/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -768,7 +769,7 @@ export default {
   //惠乐游房间设施类型
   initHotelRoomFacilitiesType({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomHardType/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomHardType/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -786,7 +787,7 @@ export default {
   //初始化房间产品
   initHotelRoomProduct({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomProductPrice/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomProductPrice/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -804,7 +805,7 @@ export default {
   //添加房间产品
   AddHotelRoomProduct(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomProductPrice/Insert',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomProductPrice/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -821,7 +822,7 @@ export default {
   //修改酒店房间产品
   UpdateHotelRoomProduct(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomProductPrice/Update',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomProductPrice/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -838,7 +839,7 @@ export default {
   //删除酒店房间产品
   DeleteHotelRoomProduct(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomProductPrice/Delete',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomProductPrice/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -855,7 +856,7 @@ export default {
   //初始化酒店房间房间设施
   initHotelRoomRoomFacilities({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomTypeHard/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomTypeHard/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -876,7 +877,7 @@ export default {
   //房间设施
   initRoomFacilities({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomHard/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomHard/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -894,7 +895,7 @@ export default {
   //添加房间房间设施
   AddHotelRoomRoomFacilities(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomTypeHard/Insert',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomTypeHard/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -911,7 +912,7 @@ export default {
   //修改房间房间设施
   UpdateHotelRoomRoomFacilities(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomTypeHard/Update',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomTypeHard/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -928,7 +929,7 @@ export default {
   //删除房间房间设施
   DeleteHotelRoomRoomFacilities(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomTypeHard/Delete',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomTypeHard/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -945,7 +946,7 @@ export default {
   //初始化酒店订单明细
   initHotelOrderDetails({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/OrderDetail/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/OrderDetail/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -963,7 +964,7 @@ export default {
   //酒店确认订单查询订单
   initHotelConfirmOrder({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelOrder/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelOrder/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -981,7 +982,7 @@ export default {
   //酒店确认订单
   ConfirmOrder(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/HotelOrder/OutOrder',JSON.stringify(data),{
+      request.post(getNewStr + '/HotelOrder/OutOrder',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -998,7 +999,7 @@ export default {
   //初始化房间实体
   initHotelRoomEntity({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomEntity/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomEntity/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -1016,7 +1017,7 @@ export default {
   //添加房间实体
   AddHotelRoomEntity(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomEntity/Insert',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomEntity/Insert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -1033,7 +1034,7 @@ export default {
   //修改房间实体
   UpdateHotelRoomEntity(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomEntity/Update',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomEntity/Update',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -1050,7 +1051,7 @@ export default {
   //删除房间实体
   DeleteHotelRoomEntity(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomEntity/Delete',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomEntity/Delete',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -1067,7 +1068,7 @@ export default {
   //初始化房间实体到生成房间
   initHotelRoomNumber({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomSeat/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomSeat/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -1085,7 +1086,7 @@ export default {
   //房间实体生成房间
   AddHotelRoomNumber(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomSeat/GenerateRoom',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomSeat/GenerateRoom',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -1102,7 +1103,7 @@ export default {
   //房间产品批量房间
   AddHotelLotRoomNumber(store,data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomSeat/BathGenerateRoom',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomSeat/BathGenerateRoom',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -1119,7 +1120,7 @@ export default {
   //初始化批量生成房间
   initHotelLotRoomNumber({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/RoomSeat/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomSeat/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -1137,7 +1138,7 @@ export default {
   //通过父类型查询子 类型
   initParentHotelQueryRecommend({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/IntroduceType/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/IntroduceType/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -1155,7 +1156,7 @@ export default {
   ////通过父类型查询子 下一级类型
   initShowChildHotelQueryRecommend({commit},data){
     return new Promise((relove, reject) => {
-      axios.post(getNewStr + '/IntroduceType/Select',JSON.stringify(data),{
+      request.post(getNewStr + '/IntroduceType/Select',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

@@ -133,6 +133,7 @@
             <el-input v-model="addOptions.data.vf_ss_UpdateTime" placeholder="更新时间"></el-input>
           </el-form-item>
           <el-form-item label="系列图片:" :label-width="formLabelWidth">
+            <span>图片不超过2M,且只上传一张图片</span>
             <Upload @getData="getData" :attrs="imageObj"></Upload>
             <div class="imgWap">
               <p v-for="item,index in ImageURL"
@@ -150,14 +151,6 @@
               </p>
             </div>
 
-
-
-            <!--<a href="javascript:;" class="file">-->
-              <!--系列图片上传-->
-              <!--<input type="file" name="" ref="upload" accept="image/*">-->
-            <!--</a>-->
-            <!--<img v-lazy="addOptions.data.vf_ss_SeriesImageURL" v-show="addOptions.data.vf_ss_SeriesImageURL"-->
-                 <!--style="width: 100px;height: 100px">-->
 
           </el-form-item>
         </el-form>
@@ -189,13 +182,32 @@
             <el-input v-model="VMovieSeriesUpdateObj.data.vf_ss_UpdateTime" placeholder="更新时间"></el-input>
           </el-form-item>
           <el-form-item label="系列图片:" :label-width="formLabelWidth">
-            <a href="javascript:;" class="file">
-              系列图片上传
-              <input type="file" name="" ref="upload1" accept="image/*">
-            </a>
-            <img v-lazy="VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL"
-                 v-show="VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL"
-                 style="width: 100px;height: 100px">
+            <span>图片不超过2M,且只上传一张图片</span>
+            <Upload @getData="getUpdateData" :attrs="imageObj"></Upload>
+            <div class="imgWap">
+              <p v-for="item,index in ImageURL1"
+                 style="display: inline-block;position: relative;margin-right: 70px">
+                <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+                <em>
+                  <el-radio v-model="updateRadioIndex" :label="index+1">替换</el-radio>
+                </em>
+                <img
+                  :src="item"
+                  width="280"
+                  height="125"
+                  v-show="ImageURL1.length"
+                >
+              </p>
+            </div>
+            <!---->
+            <!--<a href="javascript:;" class="file">-->
+              <!--系列图片上传-->
+              <!--<input type="file" name="" ref="upload1" accept="image/*">-->
+            <!--</a>-->
+            <!--<img v-lazy="VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL"-->
+                 <!--v-show="VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL"-->
+                 <!--style="width: 100px;height: 100px">-->
+
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -246,7 +258,7 @@
         ImageURL: [],
         //添加系列图片上传
         addSeriesImgUpload: '',
-        ImageURL1: [],
+        ImageURL1:[],
         //数据展示
         isLoading: false,
         //分页
@@ -414,81 +426,7 @@
           });
         this.addDialog = false;
       },
-      //上传图片
-      uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
-          var fd = new FormData();
-          fd.append("fileToUpload", file);
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
-          xhr.send(fd);
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-              if (xhr.responseText) {
-                var data = xhr.responseText;
-                relove(JSON.parse(data))
-              }
-            }else{
-//               if (xhr.responseText) {
-//                 var data = xhr.responseText;
-//                 reject(JSON.parse(data).resultcontent)
-//               }
-            }
-          }
-        })
-      },
-      //图片上传
-      uploadNode() {
-        this.addSeriesImgUpload = '';
-        this.updateSeriesImg = '';
-        setTimeout(() => {
-          //新增图片上传
-          if (this.$refs.addFilmImg) {
-            this.$refs.addFilmImg.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.addFilmImg.files.length; i++) {
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('UploadnImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.addFilmImg.files[i])
-                  .then(data => {
-                    this.addSeriesImgUpload = '';
-                    if (data) {
-                      this.addSeriesImgUpload= data.data;
-                      this.addOptions.data.vf_ss_SeriesImageURL=this.addSeriesImgUpload;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                // })
-              }
-            })
-          };
-          //修改图片上传
-          if (this.$refs.updateImg) {
-            this.$refs.updateImg.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.updateImg.files.length; i++) {
-                this.uploadToOSS(this.$refs.updateImg.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.updateSeriesImg=data.data;
-                      this.VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL=this.updateSeriesImg;
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-                // })
-              }
-            })
-          }
-        }, 30)
-      },
+
       //删除
       Delete(id) {
         let deleteOption = {
@@ -519,8 +457,8 @@
       },
       //修改
       Update(obj) {
-        this.ImageURL1 = [];
-        this.uploadNode();
+        this.ImageURL1 = obj.vf_ss_SeriesImageURL.split(",");
+
         this.updateDialog = true;
         this.$store.commit('setTranstionFalse');
         this.VMovieSeriesUpdateObj.data=obj;
@@ -528,6 +466,9 @@
       },
       //修改提交
       updateSubmit() {
+
+        this.VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL = '';
+        this.VMovieSeriesUpdateObj.data.vf_ss_SeriesImageURL = this.ImageURL1.join(',');
         this.$store.dispatch("updateVMovieSeries", this.VMovieSeriesUpdateObj)
           .then(
             (suc) => {

@@ -2,10 +2,10 @@
   <div id="wrap" class="clearfix">
     <div class="title clearfix" style="padding: 20px">
       <h1>租车公司基本信息</h1><br>
-      <el-button type="primary" v-show="isShow" @click="addButton" size="small">添加</el-button>
+      <el-button type="primary" v-show="true" @click="addButton" size="small" style="margin-right: 80px;">添加</el-button>
     </div>
 
-    <!--数据展示-->
+    <!--数据展示isShow-->
 
     <el-table
       :data="carCompaniesList"
@@ -75,10 +75,24 @@
         </el-form-item>
 
         <el-form-item label="公司图标:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">上传图标
-            <input type="file" name="" ref="upload" accept="image/*" multiple>
-          </a>
-          <img src="" alt="" v-lazy="item"  v-show="ImageURL.length" v-for="item in ImageURL" style="width: 100px;height: 100px">
+          <Upload @getData="getData" :attrs="imageObj"></Upload>
+          <div class="imgWap">
+            <p v-for="item,index in ImageURL"
+               style="display: inline-block;position: relative;margin-right: 70px">
+              <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
+              </em>
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="ImageURL.length"
+              >
+            </p>
+          </div>
+
+
         </el-form-item>
 
         <el-form-item label="公司简介:" :label-width="formLabelWidth">
@@ -94,7 +108,7 @@
       </div>
     </el-dialog>
 
-    <!--添加-->
+    <!--修改-->
     <el-dialog title="修改租车信息" :visible.sync="updateDialog">
       <el-form :model="updateOptions">
 
@@ -107,10 +121,27 @@
         </el-form-item>
 
         <el-form-item label="公司图标:" :label-width="formLabelWidth">
-          <a href="javascript:;" class="file">上传图标
-            <input type="file" name="" ref="upload1" accept="image/*" multiple>
-          </a>
-          <img src="" alt="" v-lazy="item"  v-show="ImageURL1.length" v-for="item in ImageURL1" style="width: 100px;height: 100px">
+
+          <Upload @getData="updateImage" :attrs="imageObj"></Upload>
+          <div class="imgWap">
+            <p v-for="item,index in ImageURL1"
+               style="display: inline-block;position: relative;margin-right: 70px">
+              <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="radioUpdateIndex" :label="index+1">替换</el-radio>
+              </em>
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="ImageURL1.length"
+              >
+            </p>
+          </div>
+
+
+
+
         </el-form-item>
 
         <el-form-item label="公司简介:" :label-width="formLabelWidth">
@@ -130,8 +161,12 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
+  import Upload from '@/components/Upload'
   export default{
     name: '',
+    components: {
+      Upload
+    },
     data(){
       return {
         updateOptions:{},
@@ -141,6 +176,9 @@
         updateDialog:false,
         agentID:'',
         isLoading:false,
+        radioIndex:0,
+        radioUpdateIndex:0,
+        imageObj: {accept: 'image/*'},
         ImageURL:[],
         ImageURL1:[],
         addOptions:{
@@ -168,91 +206,45 @@
       this.initData()
     },
     methods: {
-      //图片转二进制
-      uploadImg(file) {
-        return new Promise(function (relove, reject) {
-          lrz(file)
-          .then(data => {
-            relove(data.base64.split(',')[1])
-          })
+      //图片上传
+      getData(data) {
+        if (!this.radioIndex) {
+          this.ImageURL.push(data.data);
+        } else {
+          this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.radioIndex = '';
+        }
+      },
+      //修改图片
+      updateImage(data) {
+        if (!this.radioUpdateIndex) {
+          this.ImageURL1.push(data.data);
+        } else {
+          this.ImageURL1.splice(this.radioUpdateIndex - 1, 1, data.data);
+          this.radioUpdateIndex = '';
+        }
+      },
+      //删除修改对应图片
+      deleteImageURL(val) {
+        this.isNewUploaNode = false
+        this.ImageURL = this.ImageURL.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
         })
       },
-      //
-      uploadToOSS(file) {
-        return new Promise((relove,reject)=>{
-          var fd = new FormData();
-          fd.append("fileToUpload", file);
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", getNewStr+"/OSSFile/PostToOSS");
-          xhr.send(fd);
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-              if (xhr.responseText) {
-                var data = xhr.responseText
-                relove(JSON.parse(data))
-              }
-            }else{
-//               if (xhr.responseText) {
-//                 var data = xhr.responseText;
-//                 reject(JSON.parse(data).resultcontent)
-//               }
-            }
+      //删除修改对应图片
+      deleteUpdateImageURL(val) {
+        this.isNewUploaNode = false
+        this.ImageURL1 = this.ImageURL1.filter(v => {
+          if (v == val) {
+            return false
           }
+          return true
         })
       },
 
-      uploaNode() {
-        this.ImageURL = [];
-        this.ImageURL1 = [];
-        setTimeout(() => {
-          if (this.$refs.upload) {
-            this.$refs.upload.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('CarUploadAdminImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.upload.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.ImageURL = []
-                      this.ImageURL.push(data.data);
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-             //   })
-              }
-            })
-          }
-          if (this.$refs.upload1) {
-            this.$refs.upload1.addEventListener('change', data => {
-              for (var i = 0; i < this.$refs.upload1.files.length; i++) {
-                // this.uploadImg(this.$refs.upload1.files[i]).then(data => {
-                //   this.$store.dispatch('CarUploadAdminImgs', {
-                //     imageData: data
-                //   })
-                this.uploadToOSS(this.$refs.upload1.files[i])
-                  .then(data => {
-                    if (data) {
-                      this.ImageURL1 = []
-                      this.ImageURL1.push(data.data);
-                    } else {
-                      this.$notify({
-                        message: '图片地址不存在!',
-                        type: 'error'
-                      });
-                    }
-                  })
-               // })
-              }
-            })
-          }
-        }, 30)
-      },
       initData(){
         let options = {
           "loginUserID": "huileyou",
@@ -292,13 +284,12 @@
           }
         }
         this.ImageURL = [];
-        this.ImageURL1 = [];
         this.addDialog = true;
-        this.uploaNode();
         this.$store.commit('setTranstionFalse');
       },
       //添加提交
       addSubmit(){
+
         this.addOptions.data.cr_h_Logo = this.ImageURL.join(',');
         this.$store.dispatch('addCarHomeSubmit',this.addOptions)
           .then(suc => {
@@ -317,16 +308,18 @@
       },
       //修改
       Update(obj){
-        this.ImageURL = [];
-        this.ImageURL1 = [];
+
+
+      //  this.ImageURL1 = [];
         this.updateOptions = obj;
+        this.ImageURL1 = obj.cr_h_Logo.split(",");
         this.updateDialog = true;
-        this.uploaNode();
         this.$store.commit('setTranstionFalse');
       },
       //修改提交
       updateSubmit(){
-        this.updateOptions.cr_h_Logo = this.ImageURL1.join(',');
+
+
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -335,6 +328,7 @@
           "pcName": "",
           "data": this.updateOptions
         }
+        this.updateOptions.cr_h_Logo = this.ImageURL1.join(',');
         this.$store.dispatch('UpdateCarHomeSubmit',updateOptions)
         .then(suc => {
           this.$notify({
@@ -377,5 +371,17 @@
 
   .title > button {
     float: right;
+  }
+  .imgWap span {
+    position: absolute;
+    right: -15px;
+    top: -6px;
+  }
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
   }
 </style>

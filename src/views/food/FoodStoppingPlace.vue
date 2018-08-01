@@ -239,8 +239,14 @@
       },
       //添加
       add() {
-        for(let attr in this.addOptions){
-          this.addOptions[attr] = ''
+        for(let attr in this.addOptions.data){
+          if(typeof this.addOptions.data[attr]=='object'){
+            for(let attr1 in this.addOptions.data[attr]){
+              this.addOptions.data[attr][attr1] = ''
+            }
+          }else{
+            this.addOptions.data[attr] = ''
+          }
         }
         this.addOptions.data.fd_sc_SeatNo = "";
         this.addOptions.data.fd_sc_ShopID = "";

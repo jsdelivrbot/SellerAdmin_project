@@ -60,7 +60,7 @@
       <el-form :model="addOptions">
 
         <el-form-item label="主题类别:" :label-width="formLabelWidth">
-          <el-select v-model="addOptions.data.ht_tt_ThemeID" placeholder="请选择主题类别">
+          <el-select v-model="ht_tt_ThemeIDList" placeholder="请选择主题类别" multiple>
             <el-option
               v-for="item in hotelThemeTypeList"
               :key="item.ht_tt_ThemeID"
@@ -73,7 +73,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="addDialog = false">取 消</el-button>
-        <el-button type="primary" @click="addSubmit">确 定</el-button>
+        <el-button type="primary" @click="addSubmitSearch">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -90,6 +90,7 @@
         updateDialog:false,
         formLabelWidth:'120px',
         isLoading:false,
+        ht_tt_ThemeIDList:[],
         addOptions:{
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -97,7 +98,7 @@
           "operateUserName": "操作员名称",
           "pcName": "",
           "data": {
-            "ht_tt_ThemeID": "",//主题ID
+            "ht_tt_ThemeID": '',//主题ID
             "ht_ht_hotelID": "",//酒店编码
           }
         }
@@ -122,6 +123,12 @@
       this.initThemeType();
     },
     methods: {
+      //添加提交
+      addSubmitSearch(){
+//        for(var i=0;i<this.ht_tt_ThemeIDList.length;i++){
+//          this.addSubmit(this.ht_tt_ThemeIDList[i])
+//        }
+      },
       jump(obj){
         let hotelID=sessionStorage.getItem("hotelID")
         window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
@@ -159,9 +166,14 @@
           "rows": "5",//单页显示数量
         };
         this.isLoading = true;
+        this.ht_tt_ThemeIDList = [];
         this.$store.dispatch('initHotelTheme',options)
-          .then((total) => {
-            this.total = total
+          .then((data) => {
+            this.total = Number(data.totalrows);
+            var arr = data.data;
+            for(var i=0;i<arr.length;i++){
+              this.ht_tt_ThemeIDList.push(arr[i].ht_tt_ThemeID)
+            }
             this.isLoading  = false
           }, err => {
             this.$notify({
@@ -185,8 +197,9 @@
         this.addDialog = true;
       },
       //添加提交
-      addSubmit(){
+      addSubmitSearch(){
         this.addOptions.data.ht_ht_hotelID = this.hotelID;
+        this.addOptions.data.ht_tt_ThemeID = this.ht_tt_ThemeIDList.join(',');
         this.$store.dispatch('AddHotelTheme',this.addOptions)
           .then(suc => {
             this.$notify({

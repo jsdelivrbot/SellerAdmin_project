@@ -403,7 +403,7 @@ export default {
         var data = data.data;
         if(Number(data.resultcode)==200){
           commit('initHotelTheme',data.data);
-          relove(Number(data.totalrows))
+          relove(data)
         }else{
           reject(data.resultcontent)
         }
@@ -455,7 +455,7 @@ export default {
         var data = data.data;
         if(Number(data.resultcode)==200){
           commit('initHotelIcon',data.data)
-          relove(data.resultcontent)
+          relove(data.data)
         }else{
           reject(data.resultcontent)
         }

@@ -76,7 +76,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="设施:" :label-width="formLabelWidth" style="margin-bottom: 100px">
-          <el-select  placeholder="请选择设施" v-model="addOptions.data.ht_hsh_HardID">
+          <el-select  placeholder="请选择设施" multiple v-model="ht_hsh_HardIDList">
             <el-option
               v-for="item in searchFacilitiesList"
               :key="item.ht_hd_ID"
@@ -106,6 +106,7 @@
         updateDialog:false,
         formLabelWidth:'120px',
         facilitiesTypeID:'',
+        ht_hsh_HardIDList:[],
         addOptions:{
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -200,6 +201,7 @@
         this.isLoading  = true;
         this.$store.dispatch('initHotelFacilitiesServicesFacilities',options)
         .then((total) => {
+
             this.total = total
             this.isLoading  = false
         }, err => {
@@ -220,6 +222,7 @@
             this.addOptions.data[attr] = ''
           }
         }
+        this.ht_hsh_HardIDList = []
         this.facilitiesTypeID = ''
         let obj = this.addOptions.data
         for(var attr in obj){
@@ -231,6 +234,7 @@
       //添加提交
       addSubmit(){
         this.addOptions.data.ht_ht_hotelID = this.hotelID;
+        this.addOptions.data.ht_hsh_HardID = this.ht_hsh_HardIDList.join(',')
         this.$store.dispatch('AddHotelFacilitiesServicesFacilities',this.addOptions)
           .then(suc => {
             this.$notify({

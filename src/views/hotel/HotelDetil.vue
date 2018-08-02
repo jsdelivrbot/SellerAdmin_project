@@ -116,12 +116,12 @@
 
       <!--添加-->
 
-      <el-dialog title="添加酒店信息" :visible.sync="addHotelDetilsDialog">
+      <el-dialog title="添加酒店信息" :visible.sync="addHotelDetilsDialog" :close-on-click-modal="false">
         <el-form :model="addHotelDetilsObj">
 
-          <el-form-item label="供应商ID:" :label-width="formLabelWidth">
-            <el-input v-model="addHotelDetilsObj.sm_ai_AgentInfoID" disabled></el-input>
-          </el-form-item>
+          <!--<el-form-item label="供应商ID:" :label-width="formLabelWidth">-->
+            <!--<el-input v-model="addHotelDetilsObj.sm_ai_AgentInfoID" disabled></el-input>-->
+          <!--</el-form-item>-->
 
           <el-form-item label="酒店名称:" :label-width="formLabelWidth">
             <el-input v-model="addHotelDetilsObj.ht_ht_HotelName"></el-input>
@@ -240,12 +240,12 @@
 
       <!--修改-->
 
-      <el-dialog title="修改酒店信息" :visible.sync="updateHotelDetilsDialog">
+      <el-dialog title="修改酒店信息" :visible.sync="updateHotelDetilsDialog" :close-on-click-modal="false">
         <el-form :model="updateHotelDetilsObj">
 
-          <el-form-item label="供应商ID:" :label-width="formLabelWidth">
-            <el-input v-model="updateHotelDetilsObj.sm_ai_AgentInfoID" disabled></el-input>
-          </el-form-item>
+          <!--<el-form-item label="供应商ID:" :label-width="formLabelWidth">-->
+            <!--<el-input v-model="updateHotelDetilsObj.sm_ai_AgentInfoID" disabled></el-input>-->
+          <!--</el-form-item>-->
 
           <el-form-item label="酒店名称:" :label-width="formLabelWidth">
             <el-input v-model="updateHotelDetilsObj.ht_ht_HotelName"></el-input>
@@ -529,6 +529,10 @@
       //添加提交
       addHotelDetilsSubmit() {
 
+        let id = JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID
+        if(id){
+          this.addHotelDetilsObj.sm_ai_AgentInfoID = id;
+        }
         let insertHotelInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -587,8 +591,8 @@
         "areaPid": 3337
       };
       this.$store.dispatch('initHotelProvinceData', getAreaProvice)
-      let id = JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID
-      this.addHotelDetilsObj.sm_ai_AgentInfoID = id;
+
+
       this.initData()
     },
     mounted(){

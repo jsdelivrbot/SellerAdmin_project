@@ -176,7 +176,7 @@
         });
         return
       }
-      this.touristTraderID = JSON.parse(sessionStorage.getItem('admin')).sm_ai_AgentID;
+      this.touristTraderID = JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID;
       this.initData('',1)
     },
     methods: {
@@ -247,6 +247,7 @@
           "page":page?page:1,//页码编号
           "rows":"5",//单页显示数量
         };
+
         this.isLoading = true;
         this.$store.dispatch('initHotelConfirmOrder', options)
         .then((total) => {

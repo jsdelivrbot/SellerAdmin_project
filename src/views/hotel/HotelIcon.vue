@@ -49,7 +49,7 @@
       <el-form :model="addOptions">
 
         <el-form-item label="主题类别:" :label-width="formLabelWidth">
-          <el-select v-model="addOptions.data.ht_hi_ImageID" placeholder="请选择主题类别">
+          <el-select v-model="ht_hi_ImageIDList" multiple placeholder="请选择主题类别">
             <el-option
               v-for="item in hotelIconGalleryList"
               :key="item.ht_ie_ID"
@@ -79,6 +79,7 @@
         updateDialog:false,
         formLabelWidth:'120px',
         isLoading:false,
+        ht_hi_ImageIDList:[],
         addOptions:{
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -143,8 +144,12 @@
           "ht_hi_ImageID": "",//图标库ID
         };
         this.isLoading = true;
+        this.ht_hi_ImageIDList = []
         this.$store.dispatch('initHotelIcon',options)
-          .then(()=> {
+          .then((data)=> {
+            for(var i=0;i<data.length;i++){
+              this.ht_hi_ImageIDList.push(data[i].ht_hi_ImageID)
+            }
             this.isLoading  = false
           }, err => {
             this.$notify({
@@ -166,6 +171,7 @@
       //添加提交
       addSubmit(){
         this.addOptions.data.ht_hi_HotelID = this.hotelID;
+        this.addOptions.data.ht_hi_ImageID=this.ht_hi_ImageIDList.join(',')
         this.$store.dispatch('AddHotelIcon',this.addOptions)
           .then(suc => {
             this.$notify({

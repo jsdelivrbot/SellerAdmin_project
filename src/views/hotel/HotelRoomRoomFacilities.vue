@@ -92,7 +92,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="房间设施:" :label-width="formLabelWidth">
-          <el-select v-model="addOptions.data.ht_rth_RoomHardID" placeholder="请选择" >
+          <el-select v-model="ht_rth_RoomHardIDList" multiple placeholder="请选择" >
             <el-option
               v-for="item in roomFacilitiesList"
               :key="item.ht_rh_ID"
@@ -123,7 +123,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="房间设施:" :label-width="formLabelWidth">
-          <el-select v-model="updateHotelRoomRoomFacilitiesObj.ht_rth_RoomHardID" placeholder="请选择" >
+          <el-select v-model="updateHotelRoomRoomFacilitiesObj.ht_rth_RoomHardID"  placeholder="请选择" >
             <el-option
               v-for="item in roomFacilitiesList"
               :key="item.ht_rh_ID"
@@ -153,6 +153,7 @@
         updateDialog: false,
         formLabelWidth: '120px',
         RoomFacilitiesTypeID:'',
+        ht_rth_RoomHardIDList:[],
         addOptions:{
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -171,7 +172,6 @@
       'hotelRoomRoomFacilitiesList',
       'hotelRoomFacilitiesTypeList',
       'roomFacilitiesList',
-      'hotelID',
       'updateHotelRoomRoomFacilitiesObj'
     ]),
     created(){
@@ -185,6 +185,7 @@
         this.$router.push({name: 'HotelRoom'});
         return
       }
+      this.hotelID = sessionStorage.getItem('hotelID');
       this.roomID = id;
       this.initData(1);
       this.initFacilitiesType();
@@ -237,7 +238,7 @@
           "ht_rth_ID": "",//房间房间设施ID
           "ht_rth_RoomHardID": "",//房间设施
           "ht_rth_RoomID": this.roomID,//房间ID
-          "ht_ht_hotelID": "",//酒店ID
+          "ht_ht_hotelID": this.hotelID,//酒店ID
           "page":page?page:1,//页码编号
           "rows":"5",//单页显示数量
         };
@@ -267,6 +268,8 @@
             this.addOptions.data[attr] = ''
           }
         }
+        this.ht_rth_RoomHardIDList = [];
+        this.RoomFacilitiesTypeID = ''
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
       },
@@ -274,6 +277,7 @@
       addSubmit(){
         this.addOptions.data.ht_ht_hotelID = this.hotelID;
         this.addOptions.data.ht_rth_RoomID = this.roomID;
+        this.addOptions.data.ht_rth_RoomHardID = this.ht_rth_RoomHardIDList.join(',')
         this.$store.dispatch('AddHotelRoomRoomFacilities',this.addOptions)
           .then(suc => {
             this.$notify({

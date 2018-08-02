@@ -56,7 +56,7 @@
     </div>
 
     <!--添加酒店主题-->
-    <el-dialog title="添加酒店主题" :visible.sync="addDialog">
+    <el-dialog title="添加酒店主题" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
 
         <el-form-item label="主题类别:" :label-width="formLabelWidth">

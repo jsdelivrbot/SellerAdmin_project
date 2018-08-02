@@ -80,7 +80,7 @@
         </span>
       </el-dialog>
       <!--添加-->
-      <el-dialog title="添加店面菜肴图片" :visible.sync="addDialog">
+      <el-dialog title="添加店面菜肴图片" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="选择店面:" :label-width="formLabelWidth">
             <el-select v-model="storeId" placeholder="请选择产品" @change="changeProduct">
@@ -129,7 +129,7 @@
         </div>
       </el-dialog>
       <!--修改-->
-      <el-dialog title="修改店面菜肴图片" :visible.sync="updateDialog">
+      <el-dialog title="修改店面菜肴图片" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="updateObj">
           <el-form-item label="店面产品:" :label-width="formLabelWidth">
             <el-select v-model="updateObj.fd_gi_GoodID" placeholder="请选择房间">

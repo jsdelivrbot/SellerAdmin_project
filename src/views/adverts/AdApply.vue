@@ -99,7 +99,7 @@
           </el-table-column>
       </el-table>
       <!--添加-->
-      <el-dialog title="添加广告申请" :visible.sync="addDialog">
+      <el-dialog title="添加广告申请" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <!--<el-form-item label="申请广告编码:" :label-width="formLabelWidth">-->
             <!--<el-input v-model="addOptions.data.sm_aa_ID" :disabled="isOff"   placeholder="请输入申请广告编码" ></el-input>-->
@@ -206,7 +206,7 @@
         </div>
       </el-dialog>
       <!--修改-->
-      <el-dialog title="修改广告申请" :visible.sync="updateDialog">
+      <el-dialog title="修改广告申请" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="updateAdApplyObj">
           <el-form-item label="申请广告编码:" :label-width="formLabelWidth">
             <el-input v-model="updateAdApplyObj.sm_aa_ID" placeholder="请输入申请广告编码" :disabled="isOff"  ></el-input>

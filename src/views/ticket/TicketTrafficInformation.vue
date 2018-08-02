@@ -96,7 +96,7 @@
 
       <!--添加交通信息-->
 
-      <el-dialog title="添加交通信息" :visible.sync="addDialog">
+      <el-dialog title="添加交通信息" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
 
@@ -133,7 +133,7 @@
 
       <!--修改交通信息-->
 
-      <el-dialog title="修改交通信息" :visible.sync="updateDialog">
+      <el-dialog title="修改交通信息" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="updateTrafficInformationObj">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
 

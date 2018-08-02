@@ -27,18 +27,7 @@
               @select="handleSelect"
             ></el-autocomplete>
           </el-form-item>
-          <!--<el-form-item>-->
-          <!--<el-select v-model="value" placeholder="请选择产品">-->
-          <!--<el-option-->
-          <!--v-for="item in adminTradeGoodList"-->
-          <!--:key="item.ta_tg_ID"-->
-          <!--:label="item.ta_tg_Title"-->
-          <!--:value="item.ta_tg_ID">-->
-          <!--</el-option>-->
-          <!--</el-select>-->
-          <!--</el-form-item>-->
           <el-form-item>
-            <!--<el-button type="primary" @click="search">查询</el-button>-->
             <el-button type="primary" @click="addAdminQueryProductInformation" size="small">新增</el-button>
           </el-form-item>
         </el-form>
@@ -120,7 +109,7 @@
       </el-table>
     </div>
     <!--添加线路-->
-    <el-dialog title="添加线路" :visible.sync="addAdminQueryProductInformationDialog">
+    <el-dialog title="添加线路" :visible.sync="addAdminQueryProductInformationDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="产品名称:" :label-width="formLabelWidth">
           <el-autocomplete
@@ -145,7 +134,7 @@
     </el-dialog>
 
     <!--修改线路-->
-    <el-dialog title="修改线路" :visible.sync="updateAdminQueryProductInformationDialog">
+    <el-dialog title="修改线路" :visible.sync="updateAdminQueryProductInformationDialog" :close-on-click-modal="false">
       <el-form :model="updateAdminQueryProductInformationObj">
         <el-form-item label="产品名称:" :label-width="formLabelWidth">
           <el-autocomplete

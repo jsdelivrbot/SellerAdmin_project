@@ -80,7 +80,7 @@
     </div>
 
     <!--添加公司汽车-->
-    <el-dialog title="添加公司汽车" :visible.sync="addDialog">
+    <el-dialog title="添加公司汽车" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="门店:" :label-width="formLabelWidth">
           <el-select v-model="addOptions.data.cr_crs_StoreId" placeholder="请选择门店">
@@ -122,7 +122,7 @@
       </div>
     </el-dialog>
     <!--修改公司汽车-->
-    <el-dialog title="修改公司汽车" :visible.sync="updateDialog">
+    <el-dialog title="修改公司汽车" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateOptions">
         <el-form-item label="门店:" :label-width="formLabelWidth">
           <el-select v-model="updateOptions.cr_crs_StoreId" placeholder="请选择门店">

@@ -75,7 +75,7 @@
     </div>
 
     <!--添加酒店政策-->
-    <el-dialog title="添加酒店政策" :visible.sync="addDialog">
+    <el-dialog title="添加酒店政策" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="入住和离店:" :label-width="formLabelWidth">
           <el-input
@@ -117,7 +117,7 @@
     </el-dialog>
 
     <!--修改酒店图片-->
-    <el-dialog title="修改酒店政策" :visible.sync="updateDialog">
+    <el-dialog title="修改酒店政策" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateHotelPolicyObj">
         <el-form-item label="入住和离店:" :label-width="formLabelWidth">
           <el-input

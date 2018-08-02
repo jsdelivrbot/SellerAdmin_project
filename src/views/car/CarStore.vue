@@ -99,7 +99,7 @@
     </div>
 
     <!--添加租车门店-->
-    <el-dialog title="添加租车门店" :visible.sync="addDialog">
+    <el-dialog title="添加租车门店" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="门店名称:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.cr_crs_Name"></el-input>
@@ -138,7 +138,7 @@
     </el-dialog>
 
     <!--修改租车门店-->
-    <el-dialog title="修改租车门店" :visible.sync="updateDialog">
+    <el-dialog title="修改租车门店" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateOptions">
         <el-form-item label="门店名称:" :label-width="formLabelWidth">
           <el-input v-model="updateOptions.cr_crs_Name"></el-input>

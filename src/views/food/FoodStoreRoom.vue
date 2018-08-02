@@ -89,7 +89,7 @@
     </div>
 
     <!--添加-->
-    <el-dialog title="添加店面房间" :visible.sync="dialogFormVisible">
+    <el-dialog title="添加店面房间" :visible.sync="dialogFormVisible" :close-on-click-modal="false">
       <el-form :model="addOptions">
 
         <el-form-item label="店面名称" :label-width="formLabelWidth" style="width: 55%">
@@ -125,7 +125,7 @@
     </el-dialog>
 
     <!--修改-->
-    <el-dialog title="修改店面房间" :visible.sync="updateDialog">
+    <el-dialog title="修改店面房间" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateObj">
         <el-form-item label="房间名称" :label-width="formLabelWidth" style="width: 55%">
           <el-input v-model="updateObj.fd_sfr_RoomName" auto-complete="off"></el-input>

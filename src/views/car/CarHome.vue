@@ -63,7 +63,7 @@
     </el-table>
 
     <!--添加-->
-    <el-dialog title="添加租车信息" :visible.sync="addDialog">
+    <el-dialog title="添加租车信息" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
 
         <el-form-item label="供应商ID:" :label-width="formLabelWidth">
@@ -91,10 +91,7 @@
               >
             </p>
           </div>
-
-
         </el-form-item>
-
         <el-form-item label="公司简介:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.cr_h_Introduction" :rows="5" type="textarea"></el-input>
         </el-form-item>
@@ -109,7 +106,7 @@
     </el-dialog>
 
     <!--修改-->
-    <el-dialog title="修改租车信息" :visible.sync="updateDialog">
+    <el-dialog title="修改租车信息" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateOptions">
 
         <el-form-item label="供应商ID:" :label-width="formLabelWidth">

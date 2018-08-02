@@ -73,7 +73,7 @@
     </el-dialog>
 
     <!--添加酒店图片-->
-    <el-dialog title="添加酒店图片" :visible.sync="addDialog">
+    <el-dialog title="添加酒店图片" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="图片类型:" :label-width="formLabelWidth">
           <el-select v-model="addOptions.data.ht_hi_ImageTypeID" placeholder="请选择类型">
@@ -124,7 +124,7 @@
 
     <!--修改酒店图片-->
 
-    <el-dialog title="修改酒店图片" :visible.sync="updateDialog">
+    <el-dialog title="修改酒店图片" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateHotelImageObj">
         <el-form-item label="图片类型:" :label-width="formLabelWidth">
           <el-select v-model="updateHotelImageObj.ht_hi_ImageTypeID" placeholder="请选择类型">

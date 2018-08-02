@@ -64,7 +64,7 @@
       </div>
 
       <!--添加-->
-      <el-dialog title="添加酒店推荐类型" :visible.sync="addRecommendDialog">
+      <el-dialog title="添加酒店推荐类型" :visible.sync="addRecommendDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="推荐类型:" :label-width="formLabelWidth"   >
 

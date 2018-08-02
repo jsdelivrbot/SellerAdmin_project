@@ -103,7 +103,7 @@
     </div>
 
     <!--添加酒店房间实体-->
-    <el-dialog title="添加酒店房间实体" :visible.sync="addDialog">
+    <el-dialog title="添加酒店房间实体" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="房间门牌号:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ht_re_HouseNumber"></el-input>
@@ -138,7 +138,7 @@
     </el-dialog>
 
     <!--修改酒店房间实体-->
-    <el-dialog title="修改酒店房间实体" :visible.sync="updateDialog">
+    <el-dialog title="修改酒店房间实体" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateHotelRoomEntityObj">
         <el-form-item label="房间门牌号:" :label-width="formLabelWidth">
           <el-input v-model="updateHotelRoomEntityObj.ht_re_HouseNumber"></el-input>

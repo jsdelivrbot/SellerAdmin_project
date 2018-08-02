@@ -114,7 +114,7 @@
       </div>
 
       <!--添加线路费用说明-->
-      <el-dialog title="添加线路费用说明" :visible.sync="addDialog">
+      <el-dialog title="添加线路费用说明" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.data.ts_fi_Product_LineID" placeholder="请选择产品线路">
@@ -142,7 +142,7 @@
         </div>
       </el-dialog>
       <!--修改线路费用说明-->
-      <el-dialog title="修改线路费用说明" :visible.sync="updateDialog">
+      <el-dialog title="修改线路费用说明" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="updateAdminCostsOfObj">
           <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
             <el-select v-model="updateAdminCostsOfObj.ts_fi_Product_LineID" placeholder="请选择产品线路">

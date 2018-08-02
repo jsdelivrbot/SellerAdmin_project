@@ -63,7 +63,7 @@
       </el-pagination>
     </div>
     <!--添加酒店设施服务设施-->
-    <el-dialog title="添加酒店设施服务设施" :visible.sync="addDialog">
+    <el-dialog title="添加酒店设施服务设施" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="设施类型:" :label-width="formLabelWidth">
           <el-select placeholder="请选择设施类型" v-model="facilitiesTypeID" @change="changeFacilitiesType">

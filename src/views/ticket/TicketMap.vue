@@ -93,7 +93,7 @@
     </el-dialog>
 
     <!--修改-->
-    <el-dialog title="修改地图坐标信息" :visible.sync="updateDialog">
+    <el-dialog title="修改地图坐标信息" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateOptions">
 
         <el-form-item label="小景点名称:" :label-width="formLabelWidth">

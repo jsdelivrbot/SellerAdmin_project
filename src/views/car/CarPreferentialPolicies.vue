@@ -90,7 +90,7 @@
       </el-pagination>
     </div>
     <!--添加优惠政策-->
-    <el-dialog title="添加优惠政策" :visible.sync="addDialog">
+    <el-dialog title="添加优惠政策" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="优惠政策名称:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.cr_i_Name"></el-input>
@@ -130,7 +130,7 @@
     </el-dialog>
 
     <!--修改优惠政策-->
-    <el-dialog title="修改优惠政策" :visible.sync="updateDialog">
+    <el-dialog title="修改优惠政策" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateOptions">
         <el-form-item label="优惠政策名称:" :label-width="formLabelWidth">
           <el-input v-model="updateOptions.cr_i_Name"></el-input>

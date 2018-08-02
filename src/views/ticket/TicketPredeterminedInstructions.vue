@@ -143,7 +143,7 @@
 
       <!--添加预定须知-->
 
-      <el-dialog title="添加预定须知" :visible.sync="addDialog">
+      <el-dialog title="添加预定须知" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
 
@@ -183,7 +183,7 @@
         </div>
       </el-dialog>
       <!--修改预定须知-->
-      <el-dialog title="修改预定须知" :visible.sync="updateDialog">
+      <el-dialog title="修改预定须知" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="updatePredeterminedInstructionsObj">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
 

@@ -109,7 +109,7 @@
     </div>
 
     <!--添加汽车产品-->
-    <el-dialog title="添加汽车产品" :visible.sync="addDialog">
+    <el-dialog title="添加汽车产品" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="汽车名称:" :label-width="formLabelWidth">
           <el-autocomplete
@@ -142,7 +142,7 @@
     </el-dialog>
 
     <!--修改汽车产品-->
-    <el-dialog title="修改汽车产品" :visible.sync="updateDialog">
+    <el-dialog title="修改汽车产品" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateOptions">
         <el-form-item label="汽车名称:" :label-width="formLabelWidth">
           <el-autocomplete

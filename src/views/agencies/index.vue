@@ -145,7 +145,7 @@
       <!--</el-tabs>-->
     </div>
     <!--修改-->
-    <el-dialog title="修改供应商信息" :visible.sync="updateDialog">
+    <el-dialog title="修改供应商信息" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="obj">
         <el-form-item label="供应商编号:" :label-width="formLabelWidth">
           <el-input v-model="obj.sm_ai_ID" :disabled="isDisabled"></el-input>

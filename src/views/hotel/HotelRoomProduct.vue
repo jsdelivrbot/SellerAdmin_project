@@ -88,19 +88,6 @@
             type="primary"
             @click="toRoomEntity(scope.row)">前往房间实体
           </el-button>
-<!--<<<<<<< Updated upstream-->
-
-          <!--<el-button-->
-          <!--size="mini"-->
-          <!--type="primary"-->
-          <!--@click="toLotRoomNumber(scope.row.ht_rpp_ID)">前往批量生成房间数-->
-          <!--</el-button>-->
-<!--=======-->
-          <!--<el-button-->
-          <!--size="mini"-->
-          <!--type="primary"-->
-          <!--@click="toLotRoomNumber(scope.row.ht_rpp_ID)">前往批量生成房间数-->
-          <!--</el-button>-->
           <el-button
             type="success"
             size="mini"
@@ -122,7 +109,7 @@
       </el-pagination>
     </div>
     <!--添加酒店房间产品-->
-    <el-dialog title="添加酒店房间产品" :visible.sync="addDialog">
+    <el-dialog title="添加酒店房间产品" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="房间产品名称:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ht_rpp_Name"></el-input>
@@ -181,7 +168,7 @@
     </el-dialog>
 
     <!--修改酒店房间产品-->
-    <el-dialog title="修改酒店房间产品" :visible.sync="updateDialog">
+    <el-dialog title="修改酒店房间产品" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateHotelRoomProductObj">
         <el-form-item label="房间产品名称:" :label-width="formLabelWidth">
           <el-input v-model="updateHotelRoomProductObj.ht_rpp_Name"></el-input>

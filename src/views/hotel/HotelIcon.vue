@@ -45,7 +45,7 @@
     </el-table>
 
     <!--添加酒店图标-->
-    <el-dialog title="添加酒店图标" :visible.sync="addDialog">
+    <el-dialog title="添加酒店图标" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
 
         <el-form-item label="主题类别:" :label-width="formLabelWidth">

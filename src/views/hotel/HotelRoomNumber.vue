@@ -79,7 +79,7 @@
       </el-pagination>
     </div>
     <!--生成-->
-    <el-dialog title="生成房间" :visible.sync="addDialog">
+    <el-dialog title="生成房间" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="日期选择:" :label-width="formLabelWidth">
           <el-date-picker

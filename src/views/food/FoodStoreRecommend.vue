@@ -89,7 +89,7 @@
         </el-pagination>
       </div>
       <!--添加-->
-      <el-dialog title="添加店面推荐菜" :visible.sync="addDialog">
+      <el-dialog title="添加店面推荐菜" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
             <el-select v-model="storeId" placeholder="请选择店面" @change="changeProduct">

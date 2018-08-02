@@ -121,7 +121,7 @@
       </el-pagination>
     </div>
     <!--添加酒店房间-->
-    <el-dialog title="添加酒店房间" :visible.sync="addDialog">
+    <el-dialog title="添加酒店房间" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="房间名称:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ht_bt_RoomName"></el-input>

@@ -52,16 +52,6 @@
 
               <el-form-item label="系列图片:">
 
-                <!--<template slot-scope="scope">-->
-                  <!--<img-->
-                    <!--v-for="item,index in props.row.vf_ss_SeriesImageURL"-->
-                    <!--:src="item"-->
-                    <!--title="点击查看大图"-->
-                    <!--style="width:100px;cursor: pointer;margin-right: 10px;"-->
-                    <!--@click="clickImg(item)"-->
-                  <!--&gt;-->
-                <!--</template>-->
-
                 <img :src="props.row.vf_ss_SeriesImageURL" alt="" style="width: 100px;height: 50px">
               </el-form-item>
 
@@ -115,7 +105,7 @@
       </div>
 
       <!--添加-->
-      <el-dialog title="添加" :visible.sync="addDialog">
+      <el-dialog title="添加" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="系列名称:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.data.vf_ss_Name" placeholder="系列名称"></el-input>
@@ -161,7 +151,7 @@
       </el-dialog>
 
       <!--修改-->
-      <el-dialog title="修改" :visible.sync="updateDialog">
+      <el-dialog title="修改" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="VMovieSeriesUpdateObj">
           <el-form-item label="系列编号:" :label-width="formLabelWidth">
             <el-input v-model="VMovieSeriesUpdateObj.data.vf_ss_ID" placeholder="时长" :disabled="isDisabled"></el-input>

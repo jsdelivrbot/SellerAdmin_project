@@ -67,7 +67,7 @@
       </el-pagination>
     </div>
     <!--添加酒店设施服务-->
-    <el-dialog title="添加酒店设施服务" :visible.sync="addDialog">
+    <el-dialog title="添加酒店设施服务" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
         <el-form-item label="基本信息:" :label-width="formLabelWidth">
           <el-input
@@ -101,7 +101,7 @@
     </el-dialog>
 
     <!--修改酒店设施服务-->
-    <el-dialog title="修改酒店设施服务" :visible.sync="updateDialog">
+    <el-dialog title="修改酒店设施服务" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateHotelFacilitiesServicesObj">
         <el-form-item label="基本信息:" :label-width="formLabelWidth">
           <el-input

@@ -66,7 +66,7 @@
         </el-pagination>
       </div>
       <!--添加-->
-      <el-dialog title="添加停车场" :visible.sync="addDialog">
+      <el-dialog title="添加停车场" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form>
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.data.fd_sc_ShopID" placeholder="请选择店面名称">
@@ -89,7 +89,7 @@
         </div>
       </el-dialog>
       <!--修改-->
-      <el-dialog title="修改停车位" :visible.sync="updateDialog">
+      <el-dialog title="修改停车位" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="updateObj">
           <el-form-item label="停车位编码:" :label-width="formLabelWidth">
             <el-input v-model="updateObj.fd_sc_ID" :disabled="isOff"></el-input>

@@ -71,7 +71,7 @@
         </el-pagination>
       </div>
       <!--添加-->
-      <el-dialog title="添加店面每天可锁桌时间" :visible.sync="addDialog">
+      <el-dialog title="添加店面每天可锁桌时间" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.fd_clt_FrontID" placeholder="请选择店面">
@@ -101,7 +101,7 @@
         </div>
       </el-dialog>
       <!--修改-->
-      <el-dialog title="修改店面每天可锁桌时间" :visible.sync="updateDialog">
+      <el-dialog title="修改店面每天可锁桌时间" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="updateObj">
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
             <el-select v-model="updateObj.fd_clt_FrontID" placeholder="请选择店面">

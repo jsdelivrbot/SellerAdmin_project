@@ -82,7 +82,7 @@
         </el-pagination>
       </div>
       <!--添加-->
-      <el-dialog title="添加房间餐桌" :visible.sync="addDialog">
+      <el-dialog title="添加房间餐桌" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="请选择店面:" :label-width="formLabelWidth">
             <el-select v-model="storeId" placeholder="请选择店面" @change="changeRoom">
@@ -117,7 +117,7 @@
         </div>
       </el-dialog>
       <!--修改-->
-      <el-dialog title="修改房间餐桌" :visible.sync="updateDialog">
+      <el-dialog title="修改房间餐桌" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="updateObj">
           <el-form-item label="店面房间名称:" :label-width="formLabelWidth">
             <el-select v-model="updateObj.fd_rt_RoomID" placeholder="请选择房间">

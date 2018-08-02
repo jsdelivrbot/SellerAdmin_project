@@ -116,7 +116,7 @@
 
       <!--添加-->
 
-      <el-dialog title="添加酒店信息" :visible.sync="addHotelDetilsDialog">
+      <el-dialog title="添加酒店信息" :visible.sync="addHotelDetilsDialog" :close-on-click-modal="false">
         <el-form :model="addHotelDetilsObj">
 
           <el-form-item label="供应商ID:" :label-width="formLabelWidth">
@@ -240,7 +240,7 @@
 
       <!--修改-->
 
-      <el-dialog title="修改酒店信息" :visible.sync="updateHotelDetilsDialog">
+      <el-dialog title="修改酒店信息" :visible.sync="updateHotelDetilsDialog" :close-on-click-modal="false">
         <el-form :model="updateHotelDetilsObj">
 
           <el-form-item label="供应商ID:" :label-width="formLabelWidth">

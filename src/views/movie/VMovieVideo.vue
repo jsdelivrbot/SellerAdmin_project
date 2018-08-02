@@ -113,7 +113,7 @@
       </div>
 
       <!--修改-->
-      <el-dialog title="修改" :visible.sync="updateDialog">
+      <el-dialog title="修改" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="VMovieVideoUpdateObj">
 
           <el-form-item label="视频编号:" :label-width="formLabelWidth">

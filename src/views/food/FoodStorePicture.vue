@@ -75,7 +75,7 @@
         </span>
       </el-dialog>
       <!--添加-->
-      <el-dialog title="添加店面图片" :visible.sync="addDialog">
+      <el-dialog title="添加店面图片" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.fd_pi_StoreFront" placeholder="请选择店面">
@@ -116,7 +116,7 @@
         </div>
       </el-dialog>
       <!--修改-->
-      <el-dialog title="修改店面图片" :visible.sync="updateDialog">
+      <el-dialog title="修改店面图片" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="updateObj">
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
             <el-select v-model="updateObj.fd_pi_StoreFront" placeholder="请选择店面">

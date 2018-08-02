@@ -125,7 +125,7 @@
       </div>
 
       <!--添加-->
-      <el-dialog title="添加店面信息" :visible.sync="addDialog">
+      <el-dialog title="添加店面信息" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth" required>
             <el-select v-model="addOptions.fd_sf_TypeID" placeholder="请选择">
@@ -236,7 +236,7 @@
       </el-dialog>
 
       <!--修改-->
-      <el-dialog title="修改店面信息" :visible.sync="updateDialog">
+      <el-dialog title="修改店面信息" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="updateObj">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth" required>
             <el-select v-model="updateObj.fd_sf_TypeID" placeholder="请选择">

@@ -123,7 +123,7 @@
 
       <!--添加票种票价-->
 
-      <el-dialog title="添加票种票价" :visible.sync="addDialog">
+      <el-dialog title="添加票种票价" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="票种编号:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.tm_tt_ID" placeholder="如果没有数据先查询">

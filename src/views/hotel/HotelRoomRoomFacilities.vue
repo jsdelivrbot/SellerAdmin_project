@@ -78,7 +78,7 @@
     </div>
 
     <!--添加房间房间设施-->
-    <el-dialog title="添加房间设施" :visible.sync="addDialog">
+    <el-dialog title="添加房间设施" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
 
         <el-form-item label="房间设施类型:" :label-width="formLabelWidth">
@@ -109,7 +109,7 @@
     </el-dialog>
 
     <!--修改房间房间设施-->
-    <el-dialog title="修改房间设施" :visible.sync="updateDialog">
+    <el-dialog title="修改房间设施" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateHotelRoomRoomFacilitiesObj">
 
         <el-form-item label="房间设施类型:" :label-width="formLabelWidth">

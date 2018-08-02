@@ -78,13 +78,6 @@
         prop="ts_gs_Type"
         label="特色类型">
       </el-table-column>
-      <!--<el-table-column-->
-        <!--align="center"-->
-        <!--label="是否删除">-->
-        <!--<template slot-scope="scope">-->
-          <!--{{scope.row.ts_gs_IsDelete == 0 ? "未删除" : "已删除"}}-->
-        <!--</template>-->
-      <!--</el-table-column>-->
       <el-table-column
         align="center"
         label="备注">
@@ -120,7 +113,7 @@
       </el-table-column>
     </el-table>
     <!--添加产品特色-->
-    <el-dialog title="添加产品特色" :visible.sync="addAdminProductFeaturesBox">
+    <el-dialog title="添加产品特色" :visible.sync="addAdminProductFeaturesBox" :close-on-click-modal="false">
       <el-form :model="addAdminProductFeaturesObj">
         <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
           <el-select v-model="addAdminProductFeaturesObj.tsGsLinePrepareID" placeholder="请选择产品线路">
@@ -148,7 +141,7 @@
       </div>
     </el-dialog>
     <!--修改产品特色-->
-    <el-dialog title="修改产品特色" :visible.sync="updateAdminProductFeaturesBox">
+    <el-dialog title="修改产品特色" :visible.sync="updateAdminProductFeaturesBox" :close-on-click-modal="false">
       <el-form :model="updateAdminProductFeaturesObj">
         <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
           <el-select v-model="updateAdminProductFeaturesObj.ts_gs_LinePrepareID" placeholder="请选择产品线路">
@@ -179,7 +172,6 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
   export default {
     name: '',
     computed: mapGetters([

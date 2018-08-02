@@ -149,7 +149,7 @@
       </el-col>
 
       <!--添加产品线路价格-->
-      <el-dialog title="添加产品线路价格" :visible.sync="addAdminLinePriceDialog">
+      <el-dialog title="添加产品线路价格" :visible.sync="addAdminLinePriceDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.productLineID" placeholder="请选择产品线路" @change="addChangeLine">
@@ -201,7 +201,7 @@
       </el-dialog>
 
       <!--修改产品线路价格-->
-      <el-dialog title="修改产品线路价格" :visible.sync="updateAdminLinePriceDialog">
+      <el-dialog title="修改产品线路价格" :visible.sync="updateAdminLinePriceDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
             <el-select v-model="updateAdminLinePriceObj.ts_pp_ProduceTourID" placeholder="请选择产品线路" @change="changeLine">

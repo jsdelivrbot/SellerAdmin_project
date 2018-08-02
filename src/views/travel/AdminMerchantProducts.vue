@@ -907,7 +907,8 @@
         }
       },
       jump(obj){
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+'302','_blank')
+        sessionStorage.setItem('id',obj.ts_pt_GoodsListID)
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+obj.ts_pt_GoodsListID,'_blank')
       },
       //删除修改对应图片
       deleteUpdateImageURL(val){

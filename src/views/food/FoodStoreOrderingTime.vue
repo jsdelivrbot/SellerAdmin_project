@@ -94,7 +94,7 @@
         </el-pagination>
       </div>
       <!--添加-->
-      <el-dialog title="添加店面可订单时间" :visible.sync="addDialog">
+      <el-dialog title="添加店面可订单时间" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.storeID" placeholder="请选择店面">

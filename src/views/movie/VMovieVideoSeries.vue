@@ -293,6 +293,16 @@
       //添加
       Add() {
 
+
+        for(let attr in this.addOptions.data){
+          if(typeof this.addOptions.data[attr]=='object'){
+            for(let attr1 in this.addOptions.data[attr]){
+              this.addOptions.data[attr][attr1] = ''
+            }
+          }else{
+            this.addOptions.data[attr] = ''
+          }
+        }
         this.film();
         this.searchSeries();
         for(let i in this.addOptions.data){

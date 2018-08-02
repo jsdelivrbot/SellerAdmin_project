@@ -463,6 +463,15 @@
       },
       //添加
       Add(){
+        for(let attr in this.addOptions.data){
+          if(typeof this.addOptions.data[attr]=='object'){
+            for(let attr1 in this.addOptions.data[attr]){
+              this.addOptions.data[attr][attr1] = ''
+            }
+          }else{
+            this.addOptions.data[attr] = ''
+          }
+        }
         //清空上一次添加的数据
         let obj = this.addOptions.data;
         for(var i in obj){

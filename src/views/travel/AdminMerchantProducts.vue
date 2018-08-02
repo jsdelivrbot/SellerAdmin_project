@@ -907,7 +907,7 @@
         }
       },
       jump(obj){
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/admissionTicketMore','_blank')
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+'302','_blank')
       },
       //删除修改对应图片
       deleteUpdateImageURL(val){

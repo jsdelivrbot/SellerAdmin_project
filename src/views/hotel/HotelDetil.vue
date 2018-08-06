@@ -276,7 +276,7 @@
           </el-form-item>
 
           <el-form-item label="县:" :label-width="formLabelWidth">
-            <el-select v-model="updateHotelDetilsObj.ht_ht_ContryName" placeholder="请选择县">
+            <el-select v-model="updateHotelDetilsObj.ht_ht_ContryName" placeholder="请选择县" @change="changeUpdateContry">
               <el-option
                 v-for="item in countyHotelDataList"
                 :key="item.sm_af_AreaID"
@@ -490,24 +490,29 @@
       },
       //修改选中省
       changeUpdateProvice() {
-        if (this.updateHotelDetilsObj.ht_ht_ProviceName == '') {
-          this.updateHotelDetilsObj.ht_ht_ProviceName = this.updateHotelDetilsObj.ht_ht_ProviceId
-        }
+//        if (this.updateHotelDetilsObj.ht_ht_ProviceName == '') {
+          this.updateHotelDetilsObj.ht_ht_ProviceId  = this.updateHotelDetilsObj.ht_ht_ProviceName
+//        }
         let getAreaProvice = {
           "areaPid": this.updateHotelDetilsObj.ht_ht_ProviceName
         }
         this.$store.dispatch('initHotelCityData', getAreaProvice)
       },
+
       //修改市
       changeUpdateCity() {
-        if (this.updateHotelDetilsObj.ht_ht_CityName == '') {
-          this.updateHotelDetilsObj.ht_ht_CityName = this.updateHotelDetilsObj.ht_ht_CityId
-        }
+//        if (this.updateHotelDetilsObj.ht_ht_CityName == '') {
+          this.updateHotelDetilsObj.ht_ht_CityId = this.updateHotelDetilsObj.ht_ht_CityName
+//        }
         let getAreaProvice = {
           "areaPid": this.updateHotelDetilsObj.ht_ht_CityName
         }
         this.$store.dispatch('initHotelCountyData', getAreaProvice)
         .then()
+      },
+      //修改县
+      changeUpdateContry(){
+        this.updateHotelDetilsObj.ht_ht_ContryId = this.updateHotelDetilsObj.ht_ht_ContryName
       },
 
       //选择县
@@ -564,6 +569,14 @@
       //修改提交
       updateHotelDetilsSubmit() {
 
+
+//        this.updateHotelDetilsObj.ht_ht_CityId = this.updateHotelDetilsObj.ht_ht_CityName
+//        this.updateHotelDetilsObj.ht_ht_ProviceId = this.updateHotelDetilsObj.ht_ht_ProviceName
+//        console.log(this.updateHotelDetilsObj)
+//        return
+//        console.log(this.updateHotelDetilsObj.ht_ht_ContryName,this.updateHotelDetilsObj.ht_ht_CityName,this.updateHotelDetilsObj.ht_ht_ProviceName)
+//        console.log(this.updateHotelDetilsObj)
+//        return
         //修改提交数据
         let updateHotelInfo = {
           "loginUserID": "huileyou",

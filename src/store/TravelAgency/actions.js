@@ -2231,7 +2231,24 @@ export default {
             reject(data.resultcontent)
           }
         })
-
     })
   },
+  //获取产品类别
+  getProductCategory(store,data){
+    return new Promise((relove, reject) => {
+      request.post(getNewStr + '/GoodType/Select', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(data => {
+        var data = data.data;
+        if (Number(data.resultcode) == 200) {
+          relove(data.data)
+        } else {
+          reject(data.resultcontent)
+        }
+      })
+    })
+  }
 }

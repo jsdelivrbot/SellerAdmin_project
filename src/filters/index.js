@@ -240,7 +240,7 @@ export const getBreakfastType = val=>{
 export const getWafiType = val=>{
   switch (Number(val)) {
     case 0:
-      return '免费WAFI';
+      return '免费WIFI';
     case 1:
       return '免费有线';
     case 2:

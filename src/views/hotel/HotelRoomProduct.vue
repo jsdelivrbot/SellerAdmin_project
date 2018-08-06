@@ -38,7 +38,7 @@
             <el-form-item label="早餐:">
               <span>{{ props.row.ht_rpp_BreakfastType | getBreakfastType}}</span>
             </el-form-item>
-            <el-form-item label="WAFI:">
+            <el-form-item label="WIFI:">
               <span>{{ props.row.ht_rpp_WafiType | getWafiType}}</span>
             </el-form-item>
             <el-form-item label="取消类型:">
@@ -134,7 +134,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="WAFI:" :label-width="formLabelWidth">
+        <el-form-item label="WIFI:" :label-width="formLabelWidth">
           <el-select v-model="addOptions.data.ht_rpp_WafiType" placeholder="请选择">
             <el-option
               v-for="item in WAFIList"
@@ -193,7 +193,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="WAFI:" :label-width="formLabelWidth">
+        <el-form-item label="WIFI:" :label-width="formLabelWidth">
           <el-select v-model="updateHotelRoomProductObj.ht_rpp_WafiType" placeholder="请选择">
             <el-option
               v-for="item in WAFIList"
@@ -281,7 +281,7 @@
         //WAFI
         WAFIList: [
           {
-            name: '免费WAFI',
+            name: '免费WIFI',
             value: '0'
           },
           {

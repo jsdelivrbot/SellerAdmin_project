@@ -805,9 +805,9 @@
       },
       //修改洲
       changeUpdateGreat() {
-        if (this.updateTicketAttractionsObj.tm_ts_GreatName) {
+//        if (this.updateTicketAttractionsObj.tm_ts_GreatName) {
           this.updateTicketAttractionsObj.tm_ts_GreatID = this.updateTicketAttractionsObj.tm_ts_GreatName;
-        }
+//        }
         let getAreaProvice = {
           "areaPid": this.updateTicketAttractionsObj.tm_ts_GreatName
         }
@@ -824,9 +824,9 @@
       },
       //选择国家
       changeUpdateCountrie() {
-        if (this.updateTicketAttractionsObj.tm_ts_CountrieName != '') {
+//        if (this.updateTicketAttractionsObj.tm_ts_CountrieName != '') {
           this.updateTicketAttractionsObj.tm_ts_CountrieID = this.updateTicketAttractionsObj.tm_ts_CountrieName;
-        }
+//        }
         let getAreaProvice = {
           "areaPid": this.updateTicketAttractionsObj.tm_ts_CountrieName
         }
@@ -843,9 +843,9 @@
       },
       //修改选中省
       changeUpdateProvice() {
-        if (this.updateTicketAttractionsObj.tm_ts_ProviceName != '') {
+//        if (this.updateTicketAttractionsObj.tm_ts_ProviceName != '') {
           this.updateTicketAttractionsObj.tm_ts_ProviceID = this.updateTicketAttractionsObj.tm_ts_ProviceName;
-        }
+//        }
         let getAreaProvice = {
           "areaPid": this.updateTicketAttractionsObj.tm_ts_ProviceName
         }
@@ -862,9 +862,9 @@
       },
       //修改市
       changeUpdateCity() {
-        if (this.updateTicketAttractionsObj.tm_ts_CityName != '') {
+//        if (this.updateTicketAttractionsObj.tm_ts_CityName != '') {
           this.updateTicketAttractionsObj.tm_ts_CityID = this.updateTicketAttractionsObj.tm_ts_CityName;
-        }
+//        }
         let getAreaProvice = {
           "areaPid": this.updateTicketAttractionsObj.tm_ts_CityName
         }
@@ -949,8 +949,10 @@
       },
       //修改提交
       updateSubmit() {
-        if (this.updateTicketAttractionsObj.tm_ts_ContryName != '') {
+        if (!isNaN(this.updateTicketAttractionsObj.tm_ts_ContryName)) {
           this.updateTicketAttractionsObj.tm_ts_ContryID = this.updateTicketAttractionsObj.tm_ts_ContryName;
+        }else{
+
         }
         if (this.updateImageURL.length) {
           this.updateTicketAttractionsObj.tm_ts_ShowImage = this.updateImageURL.join(',');

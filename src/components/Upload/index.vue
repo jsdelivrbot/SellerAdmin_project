@@ -92,6 +92,7 @@
       //上传成功的事件
       fileSuccess (rootFile, file, message, chunk) {
         var obj = JSON.parse(message)
+
         this.$emit('getData',obj);
       },
     },

@@ -137,7 +137,7 @@
 
           <Upload @getData="updateVideo" :attrs="videoObj"></Upload>
 
-          <video :src="  this.updateObj.fd_sfr_VedioURL" v-show="  this.updateObj.fd_sfr_VedioURL" controls
+          <video :src="  this.updateObj.fd_sfr_VedioURL" v-show="this.updateObj.fd_sfr_VedioURL" controls
                  width="100"></video>
 
         </el-form-item>

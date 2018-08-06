@@ -64,6 +64,11 @@
               type="danger"
               @click="Delete(scope.row.fd_if_ID)">删除
             </el-button>
+            <el-button
+              type="success"
+              size="mini"
+              @click="jump(scope.row)">预览效果
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -157,6 +162,9 @@
       this.initData();
     },
     methods: {
+      jump(){
+
+      },
       //店面列表
       initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {

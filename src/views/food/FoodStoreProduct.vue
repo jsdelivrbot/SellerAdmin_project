@@ -54,7 +54,7 @@
           label="备注"
           align="center">
         </el-table-column>
-        <el-table-column label="操作" align="center" width="300">
+        <el-table-column label="操作" align="center" width="400">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -66,11 +66,18 @@
               type="danger"
               @click="Delete(scope.row.fd_sfp_ID)">删除
             </el-button>
+
             <el-button
               size="mini"
               type="success"
               @click="Apply(scope.row.fd_sfp_ID)">申请首页推荐美食
             </el-button>
+            <el-button
+              type="success"
+              size="mini"
+              @click="jump(scope.row)">预览效果
+            </el-button>
+
           </template>
         </el-table-column>
       </el-table>
@@ -177,6 +184,19 @@
       this.initData();
     },
     methods: {
+      jump(obj){
+
+        let status=sessionStorage.getItem('status')
+        if(status=='审核中'){
+          this.$notify({
+            title: '警告',
+            message: '审核中！请稍等。。。',
+            type: 'warning'
+          });
+        }else{
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/foodDetail/'+obj.fd_pi_StoreFront,'_blank')
+        }
+      },
       //店面列表
       initFoodStoreInformtion() {
         let selectStoreFrontpInfo = {

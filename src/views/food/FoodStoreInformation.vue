@@ -5,12 +5,12 @@
       <!--查询-->
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
-<!--          <el-form-item>
-            <span>店面名称筛选:</span>
-          </el-form-item>
-          <el-form-item>
-            <el-input v-model="roomName" size="small"></el-input>
-          </el-form-item>-->
+          <!--          <el-form-item>
+                      <span>店面名称筛选:</span>
+                    </el-form-item>
+                    <el-form-item>
+                      <el-input v-model="roomName" size="small"></el-input>
+                    </el-form-item>-->
           <el-form-item>
             <!--<el-button type="primary" @click="search" size="small">查询</el-button>-->
             <el-button type="primary" @click="add" size="small">添加</el-button>
@@ -69,7 +69,7 @@
                 <span>{{ props.row.fd_sf_HasWafi }}</span>
               </el-form-item>
               <!--<el-form-item label="供应商编码">-->
-                <!--<span>{{ props.row.fd_sf_TradeID }}</span>-->
+              <!--<span>{{ props.row.fd_sf_TradeID }}</span>-->
               <!--</el-form-item>-->
               <el-form-item label="提前多少分钟通知">
                 <span>{{ props.row.fd_sf_Minutes }}</span>
@@ -91,22 +91,23 @@
           label="审核状态"
           prop="fd_sf_PassStatus">
         </el-table-column>
-<!--        <el-table-column
-          label="联系电话"
-          prop="fd_sf_Phone">
-        </el-table-column>
-        <el-table-column
-          label="人均价格">
-          <template slot-scope="scope">
-            {{scope.row.fd_sf_AvgPrice}}元
-          </template>
-        </el-table-column>-->
+        <!--        <el-table-column
+                  label="联系电话"
+                  prop="fd_sf_Phone">
+                </el-table-column>
+                <el-table-column
+                  label="人均价格">
+                  <template slot-scope="scope">
+                    {{scope.row.fd_sf_AvgPrice}}元
+                  </template>
+                </el-table-column>-->
         <el-table-column
           label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="update(scope.row)">修改</el-button>
             <el-button size="mini" type="danger" @click="Delete(scope.row.fd_sf_ID)">删除</el-button>
             <el-button size="mini"  v-show="scope.row.fd_sf_PassStatus == '通过'" type="success" @click="recommendShop(scope.row.fd_sf_ID)">申请推荐店面</el-button>
+            <el-button size="mini" type="success" @click="jump(scope.row)">预览效果></el-button>
 
           </template>
         </el-table-column>
@@ -125,7 +126,7 @@
       </div>
 
       <!--添加-->
-      <el-dialog title="添加店面信息" :visible.sync="addDialog" :close-on-click-modal="false">
+      <el-dialog title="添加店面信息" :visible.sync="addDialog">
         <el-form :model="addOptions">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth" required>
             <el-select v-model="addOptions.fd_sf_TypeID" placeholder="请选择">
@@ -212,7 +213,7 @@
             </el-select>
           </el-form-item>
           <!--<el-form-item label="供应商编码:" :label-width="formLabelWidth" required>-->
-            <!--<el-input v-model="addOptions.fd_sf_TradeID"></el-input>-->
+          <!--<el-input v-model="addOptions.fd_sf_TradeID"></el-input>-->
           <!--</el-form-item>-->
           <el-form-item label="交通信息:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.fd_sf_TransInfo"></el-input>
@@ -236,7 +237,7 @@
       </el-dialog>
 
       <!--修改-->
-      <el-dialog title="修改店面信息" :visible.sync="updateDialog" :close-on-click-modal="false">
+      <el-dialog title="修改店面信息" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth" required>
             <el-select v-model="updateObj.fd_sf_TypeID" placeholder="请选择">
@@ -372,7 +373,7 @@
         },
         formLabelWidth: '120px',
         updateDialog: false,
-        times: ['08:40:00', '9:40:00'],
+        times: ['06:00:00', '23:00:00'],
         isWifi: [
           {
             value: 0,
@@ -398,6 +399,18 @@
       this.initStorefrontType();
     },
     methods: {
+      jump(obj){
+        sessionStorage.setItem("status",obj.fd_sf_PassStatus)
+        if(obj.fd_sf_PassStatus=='审核中'){
+          this.$notify({
+            title: '警告',
+            message: '审核中！请稍等。。。',
+            type: 'warning'
+          });
+        }else{
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/foodDetail/'+obj.fd_sf_ID,'_blank')
+        }
+      },
       //店面类型
       initStorefrontType(){
         let selectPropertyInfoType = {
@@ -445,40 +458,40 @@
         this.$store.dispatch('initFoodCity', getAreaProvice)
       },
       //初始化店面数据
-/*      initData(name, page) {
-        let selectStoreFrontInfo = {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",
-          "operateUserName": "",
-          "pcName": "",
-          //"fd_sf_ID": "2",//店面编号
-          //"fd_sf_TypeID": "4",//用餐类型
-          //"fd_sf_MansID": "31",//用餐人数编号
-          //"fd_sf_ProductName": "",//产品名称 like
-          //"fd_sf_Provice": "四川省",//省
-          //"fd_sf_City": "泸州市",//市
-          //"priceFrom": "21",//人均价格大于
-          //"priceTo":"50",//人均价格小于
-          //"fd_sf_Phone": "1",//联系电话
-          "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
-          // "openTimeFrom": "06:00",
-          //  "openTimeTo":"23:00",
-          "page": page?page:"1",
-          "rows":"5",
-        };
-        this.isLoading = true;
-        this.$store.dispatch('initFoodStoreInformtionAction', selectStoreFrontInfo)
-          .then(total => {
-            this.isLoading = false
-            this.total = total;
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
-      },*/
+      /*      initData(name, page) {
+       let selectStoreFrontInfo = {
+       "loginUserID": "huileyou",
+       "loginUserPass": "123",
+       "operateUserID": "",
+       "operateUserName": "",
+       "pcName": "",
+       //"fd_sf_ID": "2",//店面编号
+       //"fd_sf_TypeID": "4",//用餐类型
+       //"fd_sf_MansID": "31",//用餐人数编号
+       //"fd_sf_ProductName": "",//产品名称 like
+       //"fd_sf_Provice": "四川省",//省
+       //"fd_sf_City": "泸州市",//市
+       //"priceFrom": "21",//人均价格大于
+       //"priceTo":"50",//人均价格小于
+       //"fd_sf_Phone": "1",//联系电话
+       "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
+       // "openTimeFrom": "06:00",
+       //  "openTimeTo":"23:00",
+       "page": page?page:"1",
+       "rows":"5",
+       };
+       this.isLoading = true;
+       this.$store.dispatch('initFoodStoreInformtionAction', selectStoreFrontInfo)
+       .then(total => {
+       this.isLoading = false
+       this.total = total;
+       }, err => {
+       this.$notify({
+       message: err,
+       type: 'error'
+       });
+       })
+       },*/
       initData(name, page) {
         let selectStoreFrontInfo = {
           "loginUserID": "huileyou",
@@ -503,26 +516,26 @@
         };
         this.isLoading = true;
         this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontInfo)
-          .then(data => {
-            this.isLoading = false
-            this.total = Number(data.totalrows);
+        .then(data => {
+          this.isLoading = false
+          this.total = Number(data.totalrows);
 //            if(){};
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
-/*          .then(total => {
-            this.isLoading = false
-            this.total = total;
-//            if(){};
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })*/
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        })
+        /*          .then(total => {
+         this.isLoading = false
+         this.total = total;
+         //            if(){};
+         }, err => {
+         this.$notify({
+         message: err,
+         type: 'error'
+         });
+         })*/
       },
       //查询
       search() {
@@ -530,7 +543,7 @@
       },
       //添加
       add() {
-        for(let attr in this.addOptions){
+        for(var attr in this.addOptions){
           this.addOptions[attr] = ''
         }
         this.$store.commit('setTranstionFalse');
@@ -557,18 +570,18 @@
           return
         }
         this.$store.dispatch('addFoodStoreInformation', insertStoreFrontInfo)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData();
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+        .then(suc => {
+          this.$notify({
+            message: suc,
+            type: 'success'
+          });
+          this.initData();
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        })
         this.addDialog = false;
       },
       //修改
@@ -613,18 +626,18 @@
           }
         };
         this.$store.dispatch('updateFoodStoreInformtionSubmit', updateStoreFrontInfo)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData();
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+        .then(suc => {
+          this.$notify({
+            message: suc,
+            type: 'success'
+          });
+          this.initData();
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        })
         this.updateDialog = false;
       },
       //删除按钮
@@ -640,18 +653,18 @@
           }
         };
         this.$store.dispatch('deleteFoodStoreInformtion', deleteStoreFrontInfo)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData();
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+        .then(suc => {
+          this.$notify({
+            message: suc,
+            type: 'success'
+          });
+          this.initData();
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        })
       },
       //申请推荐店面
       recommendShop(id) {
@@ -666,18 +679,18 @@
           }
         };
         this.$store.dispatch('recommendShopSubmit', insertIntroduceShopInfo)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData();
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+        .then(suc => {
+          this.$notify({
+            message: suc,
+            type: 'success'
+          });
+          this.initData();
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        })
       },
 
     },

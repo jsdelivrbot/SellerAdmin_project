@@ -59,6 +59,11 @@
               type="danger"
               @click="Delete(scope.row.fd_pi_ID)">删除
             </el-button>
+            <el-button
+              type="success"
+              size="mini"
+              @click="jump(scope.row)">预览效果
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -218,7 +223,21 @@
       }
       this.initData();
     },
+    mounted(){
+    },
     methods: {
+      jump(obj){
+        let status=sessionStorage.getItem('status')
+        if(status=='审核中'){
+          this.$notify({
+            title: '警告',
+            message: '审核中！请稍等。。。',
+            type: 'warning'
+          });
+        }else{
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/foodDetail/'+obj.fd_pi_StoreFront,'_blank')
+        }
+      },
       //图片上传
       getData(data) {
         if (!this.radioIndex) {
@@ -314,6 +333,10 @@
       },
       //添加
       add() {
+        let uploader = document.querySelector('.uploader-list')
+        if(uploader){
+          uploader.querySelector('ul').innerHTML = ''
+        }
         for(let attr in this.addOptions){
           this.addOptions[attr] = ''
         }

@@ -30,7 +30,6 @@ Object.keys(filters).forEach((key) => {
 
 import '@/icons' // icon
 import '@/permission' // permission control
-console.log(uploader)
 Vue.use(uploader)
 // axios.interceptors.request.use(function (config) {  //配置发送请求的信息\
 //   // let token =  getToken()

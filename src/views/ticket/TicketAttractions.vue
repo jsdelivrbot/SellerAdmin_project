@@ -77,7 +77,7 @@
                 <span>{{ props.row.tm_ts_Address }}</span>
               </el-form-item>
               <el-form-item label="开放时间:">
-                <span>{{ props.row.tm_ts_Opentime }}</span>
+                <span v-html="props.row.tm_ts_Opentime"></span>
               </el-form-item>
               <el-form-item label="建议游玩时长:">
                 <span>{{ props.row.tm_ts_Time }}</span>
@@ -162,6 +162,7 @@
       <el-dialog
         title="添加景点信息"
         :visible.sync="addDialog"
+        width="60%"
         :close-on-click-modal="false"
         @close="closeDialog">
         <el-form :model="addOptions">
@@ -262,7 +263,8 @@
             <el-input v-model="addOptions.tm_ts_Address"></el-input>
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth" required>
-            <el-input v-model="addOptions.tm_ts_Opentime"></el-input>
+            <tinymce :height="300" v-model="html"></tinymce>
+            <!--<el-input v-model="addOptions.tm_ts_Opentime"></el-input>-->
           </el-form-item>
           <el-form-item label="建议游玩时长:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Time" placeholder="以小时为单位且为数字"></el-input>
@@ -327,6 +329,7 @@
       <el-dialog
         title="修改景点信息"
         :visible.sync="updateDialog"
+        width="60%"
         :close-on-click-modal="false"
         @close="closeDialog">
         <el-form :model="updateTicketAttractionsObj">
@@ -428,7 +431,8 @@
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Address"></el-input>
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth" required>
-            <el-input v-model="updateTicketAttractionsObj.tm_ts_Opentime"></el-input>
+            <tinymce :height="300" v-model="updateTicketAttractionsObj.tm_ts_Opentime"></tinymce>
+            <!--<el-input v-model="updateTicketAttractionsObj.tm_ts_Opentime"></el-input>-->
           </el-form-item>
           <el-form-item label="建议游玩时长:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Time" placeholder="以小时为单位且为数字"></el-input>
@@ -525,12 +529,13 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr, isNewPhone} from '@/assets/js/public'
+  import Tinymce from '@/components/NewTinymce'
   import Upload from '@/components/Upload'
-
   export default {
     name: '',
     components: {
-      Upload
+      Upload,
+      Tinymce
     },
     data() {
       return {
@@ -628,6 +633,7 @@
         imageObj: {accept: 'image/*'},
         radioIndex: '',
         addRadioIndex: 0,
+        html:'',
         imageArr: [],
       }
     },
@@ -890,6 +896,7 @@
       },
       //添加提交
       addSubmit() {
+        this.addOptions.tm_ts_Opentime = this.html
         this.addOptions.tm_ts_ShowImage = this.ImageURL.join(',')
         if (isNaN(this.addOptions.tm_ts_Time)) {
           this.$notify({

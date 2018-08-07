@@ -192,7 +192,7 @@
 
           </el-form-item>
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
-
+            <p>图片大小不能大于600KB</p>
             <Upload @getData="getData" :attrs="imageObj"></Upload>
 
             <div class="imgWap">
@@ -310,7 +310,7 @@
           </el-form-item>
 
           <el-form-item label="票种图片:" :label-width="formLabelWidth">
-
+            <p>图片大小不能大于600KB</p>
             <Upload @getData="updateImage" :attrs="imageObj"></Upload>
 
             <div class="imgWap">

@@ -2,6 +2,7 @@
   <div>
     <section id="wrap">
       <h1 class="userClass">产品线路价格信息</h1>
+
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
@@ -45,13 +46,14 @@
           </el-form-item>
         </el-form>
       </el-col>
-
+      <span style="font-size: 12px;margin:40px 0 0 30px ;color: #f60;display: block">点击全选生成座位</span>
       <!--数据展示-->
       <el-table
         :data="adminLinePriceList"
         v-loading="isLoading"
         @selection-change="handleSelectionChange"
         style="width: 100%">
+
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
@@ -140,7 +142,7 @@
         </el-table-column>
       </el-table>
 
-      <el-col :span="24" class="formSearch">
+      <el-col :span="24" class="formSearch" v-show="adminLinePriceList.length">
         <el-form :inline="true">
           <el-form-item>
             <el-button type="primary" @click="buildSeat">生成座位</el-button>
@@ -171,16 +173,16 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="成人数:" :label-width="formLabelWidth">
+          <el-form-item label="可销售成人数:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.manNo" placeholder="请输入成人数"></el-input>
           </el-form-item>
-          <el-form-item label="儿童数:" :label-width="formLabelWidth">
+          <el-form-item label="可销售儿童数:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.childNo" placeholder="请输入儿童数"></el-input>
           </el-form-item>
-          <el-form-item label="儿童价:" :label-width="formLabelWidth">
+          <el-form-item label="可销售儿童价:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.childPrice" placeholder="请输入儿童数"></el-input>
           </el-form-item>
-          <el-form-item label="全票价:" :label-width="formLabelWidth">
+          <el-form-item label="可销售全票价:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.fullPrice" placeholder="请输入全票价"></el-input>
           </el-form-item>
           <el-form-item label="日期范围:" :label-width="formLabelWidth">
@@ -223,16 +225,16 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="成人数:" :label-width="formLabelWidth">
+          <el-form-item label="可销售成人数:" :label-width="formLabelWidth">
             <el-input v-model="updateAdminLinePriceObj.ts_pp_Person" placeholder="请输入成人数"></el-input>
           </el-form-item>
-          <el-form-item label="儿童数:" :label-width="formLabelWidth">
+          <el-form-item label="可销售儿童数:" :label-width="formLabelWidth">
             <el-input v-model="updateAdminLinePriceObj.ts_pp_Child" placeholder="请输入儿童数"></el-input>
           </el-form-item>
-          <el-form-item label="儿童价:" :label-width="formLabelWidth">
+          <el-form-item label="可销售儿童价:" :label-width="formLabelWidth">
             <el-input v-model="updateAdminLinePriceObj.ts_pp_ChildPrice" placeholder="请输入儿童数"></el-input>
           </el-form-item>
-          <el-form-item label="全票价:" :label-width="formLabelWidth">
+          <el-form-item label="可销售全票价:" :label-width="formLabelWidth">
             <el-input v-model="updateAdminLinePriceObj.ts_pp_Price" placeholder="请输入全票价"></el-input>
           </el-form-item>
           <el-form-item label="选择日期:" :label-width="formLabelWidth">
@@ -487,8 +489,12 @@
       },
       //添加
       addAdminLinePrice(){
+//        "loginUserID": "huileyou",
+//          "loginUserPass": "123",
         for(let attr in this.addOptions){
-          this.addOptions[attr] = ''
+          if(attr!='loginUserID'&&attr!='loginUserPass'){
+            this.addOptions[attr] = ''
+          }
         }
         this.$store.commit('setTranstionFalse');
         this.addAdminLinePriceDialog = true;

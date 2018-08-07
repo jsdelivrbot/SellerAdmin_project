@@ -109,7 +109,7 @@
           <el-input v-model="addOptions.data.ht_re_HouseNumber"></el-input>
         </el-form-item>
         <el-form-item label="房间图片上传:" :label-width="formLabelWidth">
-
+          <p>图片大小不能大于600KB</p>
           <Upload @getData="getData" :attrs="imageObj"></Upload>
 
           <div class="imgWap">
@@ -144,7 +144,7 @@
           <el-input v-model="updateHotelRoomEntityObj.ht_re_HouseNumber"></el-input>
         </el-form-item>
         <el-form-item label="房间图片上传:" :label-width="formLabelWidth">
-
+          <p>图片大小不能大于600KB</p>
           <Upload @getData="updateImage" :attrs="imageObj"></Upload>
 
           <div class="imgWap">

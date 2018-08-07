@@ -149,7 +149,7 @@
                  @close="closeDialog">
         <el-form :model="addOptions">
           <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.data.ts_pt_Product_LineID" placeholder="请选择产品线路">
+            <el-select v-model="addData.ts_pt_Product_LineID" placeholder="请选择产品线路">
               <el-option
                 v-for="item in adminProductLine"
                 :key="item.ts_pt_ID"
@@ -159,10 +159,10 @@
             </el-select>
           </el-form-item>
           <el-form-item label="日程名称:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.data.ts_pt_Name" placeholder="请输入日程名称"></el-input>
+            <el-input v-model="addData.ts_pt_Name" placeholder="请输入日程名称"></el-input>
           </el-form-item>
           <el-form-item label="展示图片:" :label-width="formLabelWidth">
-
+            <p>图片大小不能大于600KB</p>
             <Upload @getData="getData" :attrs="imageObj"></Upload>
 
             <div class="imgWap">
@@ -182,7 +182,7 @@
 
           </el-form-item>
           <el-form-item label="活动图片:" :label-width="formLabelWidth">
-
+            <p>图片大小不能大于600KB</p>
             <Upload @getData="getActiveData" :attrs="imageObj"></Upload>
 
             <div class="imgWap">
@@ -211,7 +211,7 @@
           </el-form-item>
 
           <el-form-item label="第几天日程:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.data.ts_pt_Day" placeholder="请选择">
+            <el-select v-model="addData.ts_pt_Day" placeholder="请选择">
               <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -219,14 +219,14 @@
                 :value="item.value">
               </el-option>
             </el-select>
-            <!--<el-input v-model="addOptions.data.ts_pt_Day" placeholder="请输入第几天日程"></el-input>-->
+            <!--<el-input v-model="addData.ts_pt_Day" placeholder="请输入第几天日程"></el-input>-->
           </el-form-item>
           <el-form-item label="产品描述:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.data.ts_pt_Describe" placeholder="请输入产品描述" type="textarea"
+            <el-input v-model="addData.ts_pt_Describe" placeholder="请输入产品描述" type="textarea"
                       :autosize="{ minRows: 6, maxRows: 10}"></el-input>
           </el-form-item>
           <el-form-item label="备注:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.data.ts_pt_Remark" placeholder="请输入内容" type="textarea"
+            <el-input v-model="addData.ts_pt_Remark" placeholder="请输入内容" type="textarea"
                       :autosize="{ minRows: 6, maxRows: 10}"></el-input>
           </el-form-item>
         </el-form>
@@ -374,6 +374,14 @@
         addAdminLinePrepareDialog: false,
         updateAdminLinePrepareDialog: false,
         updateAdminLinePrepareObj: {},
+        addData:{
+          "ts_pt_Product_LineID": "",
+          "ts_pt_Name": "",
+          "ts_pt_Day": "",
+          "ts_pt_Remark": "",
+          ts_pt_Describe: '',
+          ts_pt_ShowImage: '',
+        },
         addOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -383,12 +391,6 @@
           activityContent: [],
           activityImage: [],
           "data": {
-            "ts_pt_Product_LineID": "",
-            "ts_pt_Name": "",
-            "ts_pt_Day": "",
-            "ts_pt_Remark": "",
-            ts_pt_Describe: '',
-            ts_pt_ShowImage: '',
           }
         },
         imageObj: {accept: 'image/*'},
@@ -609,7 +611,7 @@
       },
       //选中产品
       handleSelect(item) {
-//        this.addOptions.data.ts_pt_Product_LineID = item.id;
+//        this.addData.ts_pt_Product_LineID = item.id;
         this.updateAdminLinePrepareObj.ts_pt_Product_LineID = item.id;
         this.userName = item.value;
         let options = {
@@ -712,26 +714,25 @@
         }
         this.ImageURL = [];
         this.ImageURL1 = [];
-        let obj = this.addOptions.data;
         this.addOptions.activityContent = [];
         this.addOptions.activityImage = [];
-        for (var attr in obj) {
-          obj[attr] = ''
-        }
         this.$store.commit('setTranstionFalse');
         this.addAdminLinePrepareDialog = true;
       },
       //添加提交
       addAdminLinePrepareSubmit() {
+        this.addOptions.data = this.addData;
+//        console.log(this.addOptions)
+//        return
         this.addOptions.activityImage = this.ImageURL2;
-        this.addOptions.data.ts_pt_ShowImage = this.ImageURL.join(',');
+        this.addData.ts_pt_ShowImage = this.ImageURL.join(',');
         this.$store.dispatch('AddAdminLinePrepare', this.addOptions)
           .then(() => {
             this.$notify({
               message: '添加成功!',
               type: 'success'
             });
-            this.initData(this.addOptions.data.ts_pt_Product_LineID)
+            this.initData(this.addData.ts_pt_Product_LineID)
           }, err => {
             this.$notify({
               message: err,
@@ -818,6 +819,7 @@
         })
       }
       let timeID = this.$route.query.timeID;
+      console.log(timeID)
       if (timeID) {
         this.initData(timeID)
       }

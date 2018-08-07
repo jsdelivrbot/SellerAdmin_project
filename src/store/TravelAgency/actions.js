@@ -327,7 +327,11 @@ export default {
             var resulte = data.data;
             let value = resulte.data;
             for (var i = 0; i < value.length; i++) {
-              value[i].ta_tg_ShowImages = value[i].ta_tg_ShowImage.split(',')
+              if(value[i].ta_tg_ShowImage){
+                value[i].ta_tg_ShowImages = value[i].ta_tg_ShowImage.split(',')
+              }else{
+                value[i].ta_tg_ShowImages = []
+              }
             }
             commit('initAdminTradeGoodList', resulte.data);
             relove(resulte)

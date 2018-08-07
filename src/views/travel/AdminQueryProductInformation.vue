@@ -254,7 +254,7 @@
     },
     created(){
 
-      let lineID = this.$route.query.lineID;
+      let lineID = sessionStorage.getItem('id')
       if (lineID) {
         this.initData(lineID)
       }

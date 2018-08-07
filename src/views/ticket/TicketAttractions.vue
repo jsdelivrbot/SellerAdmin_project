@@ -233,7 +233,7 @@
 
           <el-form-item label="展示图片:" :label-width="formLabelWidth">
 
-
+            <p>图片大小不能大于600KB</p>
             <Upload @getData="getData" :attrs="imageObj"></Upload>
 
             <div class="imgWap">
@@ -401,7 +401,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="展示图片:" :label-width="formLabelWidth">
-
+            <p>图片大小不能大于600KB</p>
             <Upload @getData="updateImage" :attrs="imageObj"></Upload>
 
             <div class="imgWap">
@@ -903,6 +903,8 @@
       //添加提交
       addSubmit() {
         this.addOptions.tm_ts_ShowImage = this.ImageURL.join(',')
+//        console.log(JSON.stringify(this.addOptions))
+//        return
         if (isNaN(this.addOptions.tm_ts_Time)) {
           this.$notify({
             message: '建议游玩时长，请输入数字',

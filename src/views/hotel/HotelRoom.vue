@@ -439,6 +439,10 @@
         this.initData(this.roomName,1)
       },
       Add(){
+        let uploader = document.querySelector('.uploader-list')
+        if(uploader){
+          uploader.querySelector('ul').innerHTML = ''
+        }
         for(let attr in this.addOptions.data){
           if(typeof this.addOptions.data[attr]=='object'){
             for(let attr1 in this.addOptions.data[attr]){

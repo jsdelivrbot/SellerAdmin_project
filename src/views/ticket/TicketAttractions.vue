@@ -263,7 +263,7 @@
             <el-input v-model="addOptions.tm_ts_Address"></el-input>
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth" required>
-            <tinymce :height="300" v-model="html"></tinymce>
+            <tinymce :height="300" v-model="addOptions.tm_ts_Opentime"></tinymce>
             <!--<el-input v-model="addOptions.tm_ts_Opentime"></el-input>-->
           </el-form-item>
           <el-form-item label="建议游玩时长:" :label-width="formLabelWidth" required>
@@ -431,7 +431,9 @@
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Address"></el-input>
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth" required>
+
             <tinymce :height="300" v-model="updateTicketAttractionsObj.tm_ts_Opentime"></tinymce>
+
             <!--<el-input v-model="updateTicketAttractionsObj.tm_ts_Opentime"></el-input>-->
           </el-form-item>
           <el-form-item label="建议游玩时长:" :label-width="formLabelWidth" required>
@@ -879,6 +881,10 @@
       },
       //添加
       Add() {
+        let uploader = document.querySelector('.uploader-list')
+        if(uploader){
+          uploader.querySelector('ul').innerHTML = ''
+        }
         for(let attr in this.addOptions){
           this.addOptions[attr] = ''
         }
@@ -896,7 +902,6 @@
       },
       //添加提交
       addSubmit() {
-        this.addOptions.tm_ts_Opentime = this.html
         this.addOptions.tm_ts_ShowImage = this.ImageURL.join(',')
         if (isNaN(this.addOptions.tm_ts_Time)) {
           this.$notify({

@@ -73,6 +73,7 @@
                 <el-button v-popover:popover1 size="mini">移入查看</el-button>
               </el-form-item>
               <el-form-item label="发票说明:">
+
                 <el-popover
                   ref="popover1"
                   placement="top-start"
@@ -167,14 +168,17 @@
           <el-form-item label="温馨提示:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_bk_HappyNotice" type="textarea"></el-input>
           </el-form-item>
-          <el-form-item label="发票说明:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_bk_TicketSay" type="textarea"></el-input>
+          <el-form-item label="发票说明:" :label-width="formLabelWidth" >
+            <tinymce :height="300" v-model="addOptions.tm_bk_TicketSay" ></tinymce>
+            <!--<el-input v-model="addOptions.tm_bk_TicketSay" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="退改规则:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_bk_ReturnRule" type="textarea"></el-input>
+            <tinymce :height="300" v-model="addOptions.tm_bk_ReturnRule" ></tinymce>
+            <!--<el-input v-model="addOptions.tm_bk_ReturnRule" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊信息:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_bk_SpecialMessage" type="textarea"></el-input>
+            <tinymce :height="300" v-model="addOptions.tm_bk_SpecialMessage" ></tinymce>
+            <!--<el-input v-model="addOptions.tm_bk_SpecialMessage" type="textarea"></el-input>-->
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -228,8 +232,12 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-
+  import Tinymce from '@/components/NewTinymce'
   export default {
+    name: '',
+    components: {
+      Tinymce
+    },
     computed: mapGetters([
       'predeterminedInstructionsList',
       'updatePredeterminedInstructionsObj',

@@ -449,6 +449,10 @@
 
       //添加
       Add() {
+        let uploader = document.querySelector('.uploader-list')
+        if(uploader){
+          uploader.querySelector('ul').innerHTML = ''
+        }
         for(let attr in this.addOptions){
           this.addOptions[attr] = ''
         }

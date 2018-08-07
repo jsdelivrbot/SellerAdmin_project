@@ -959,8 +959,16 @@
         }
       },
       jump(obj){
-        sessionStorage.setItem('id', obj.ts_pt_GoodsListID)
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + obj.ts_pt_GoodsListID, '_blank')
+        sessionStorage.setItem('id', obj.ta_tg_ID)
+        if(obj.ta_tg_ID){
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + obj.ta_tg_ID, '_blank')
+        }else{
+          this.$notify({
+            title: '警告',
+            message: '产品编号为空。。。',
+            type: 'warning'})
+        }
+
       },
       //删除修改对应图片
       deleteUpdateImageURL(val){

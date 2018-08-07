@@ -261,8 +261,16 @@
     },
     methods: {
       jump(obj){
-       sessionStorage.setItem('id',obj.ts_pt_GoodsListID)
-       window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+obj.ts_pt_GoodsListID,'_blank')
+
+        if(obj.ts_pt_GoodsListID){
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + obj.ts_pt_GoodsListID, '_blank')
+        }else{
+          this.$notify({
+            title: '警告',
+            message: '产品编号为空。。。',
+            type: 'warning'})
+        }
+
       },
       toMerch(){
         sessionStorage.setItem('index',0);

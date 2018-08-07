@@ -248,6 +248,7 @@
     },
     methods: {
       jump(obj){
+        console.log(obj)
         let ID =sessionStorage.getItem('id')
         window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+ID,'_blank')
       },

@@ -20,33 +20,23 @@
         <el-tab-pane label="产品线路价格" name="产品线路价格">
           <adminLinePrice></adminLinePrice>
         </el-tab-pane>
-        <!--<el-tab-pane label="产品线路特色" name="产品线路特色">-->
-          <!--<adminProductFeatures></adminProductFeatures>-->
-        <!--</el-tab-pane>-->
         <el-tab-pane label="线路日程" name="线路日程">
           <adminLinePrepare></adminLinePrepare>
         </el-tab-pane>
-        <!--<el-tab-pane label="费用说明" name="费用说明">-->
-          <!--<adminCostsOf></adminCostsOf>-->
-        <!--</el-tab-pane>-->
       </el-tabs>
     </div>
   </div>
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import AdminProductFeatures from './AdminProductFeatures'
   import AdminLinePrepare from './AdminLinePrepare'
-  import AdminCostsOf from './AdminCostsOf'
   //产品线路价格
   import AdminLinePrice from './AdminLinePrice'
   import AdminRouteDepartureCity from './AdminRouteDepartureCity'
 
   export default {
     components: {
-      AdminProductFeatures,
       AdminLinePrepare,
-      AdminCostsOf,
       AdminLinePrice,
       AdminRouteDepartureCity
     },

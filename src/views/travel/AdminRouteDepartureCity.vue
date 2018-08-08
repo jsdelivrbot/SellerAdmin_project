@@ -51,9 +51,9 @@
           prop="ts_cc_LineID">
         </el-table-column>
         <!--<el-table-column-->
-          <!--label="城市编号"-->
-          <!--align="center"-->
-          <!--prop="ts_cc_Code">-->
+        <!--label="城市编号"-->
+        <!--align="center"-->
+        <!--prop="ts_cc_Code">-->
         <!--</el-table-column>-->
         <el-table-column
           label="城市名称"
@@ -105,7 +105,7 @@
             </el-select>
           </el-form-item>
           <!--<el-form-item label="城市编码:" :label-width="formLabelWidth">-->
-            <!--<el-input v-model="addOptions.data.ts_cc_Code" placeholder="请输入城市编码"></el-input>-->
+          <!--<el-input v-model="addOptions.data.ts_cc_Code" placeholder="请输入城市编码"></el-input>-->
           <!--</el-form-item>-->
           <el-form-item label="城市:" :label-width="formLabelWidth">
             <el-select v-model="provice" placeholder="请选择省份" @change="changeProvice">
@@ -146,7 +146,7 @@
             </el-select>
           </el-form-item>
           <!--<el-form-item label="城市编码:" :label-width="formLabelWidth">-->
-            <!--<el-input v-model="updateAdminRouteDepartureCityObj.ts_cc_Code" placeholder="请输入城市编码"></el-input>-->
+          <!--<el-input v-model="updateAdminRouteDepartureCityObj.ts_cc_Code" placeholder="请输入城市编码"></el-input>-->
           <!--</el-form-item>-->
           <el-form-item label="城市:" :label-width="formLabelWidth">
             <el-select v-model="provice" placeholder="请选择省份" @change="changeProvice">
@@ -177,23 +177,24 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  export default{
+
+  export default {
     name: '',
-    data(){
+    data() {
       return {
-        provice:'',
+        provice: '',
         GoodId: '',
-        total:0,
+        total: 0,
         LineID: '',
         userName: '',
-        departureCityID:'',
+        departureCityID: '',
         isLoading: false,
         userSearchID: '',
         formLabelWidth: '120px',
-        createTimeData:'',
-        addDialog:false,
-        updateDialog:false,
-        addOptions:{
+        createTimeData: '',
+        addDialog: false,
+        updateDialog: false,
+        addOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
@@ -215,51 +216,51 @@
       'proviceList',
       'cityList'
     ]),
-    created(){
+    created() {
       //初始化省
       let sCity = {
         "areaPid": 3337
       };
-      this.$store.dispatch('initProvice',sCity)
-      if(this.adminLineScheduleManagementId){
+      this.$store.dispatch('initProvice', sCity)
+      if (this.adminLineScheduleManagementId) {
         let options = {
-          "loginUserID":"huileyou",
-          "loginUserPass":"123",
-          "lineID":this.adminLineScheduleManagementId
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "lineID": this.adminLineScheduleManagementId
         }
-        this.$store.dispatch('initDepartureCity',options)
+        this.$store.dispatch('initDepartureCity', options)
       }
-      if(this.adminLineScheduleManagementId){
+      if (this.adminLineScheduleManagementId) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "lineID":this.adminLineScheduleManagementId,
-          page:1,
-          rows:5
+          "lineID": this.adminLineScheduleManagementId,
+          page: 1,
+          rows: 5
         };
-        this.$store.dispatch('initAdminRouteDepartureCity',options)
-        .then(total=>{
-          this.total = total;
-        })
+        this.$store.dispatch('initAdminRouteDepartureCity', options)
+          .then(total => {
+            this.total = total;
+          })
       }
     },
     methods: {
-      jump(obj){
-        let ID =sessionStorage.getItem('id')
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+ID,'_blank')
+      jump(obj) {
+        let ID = sessionStorage.getItem('id')
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + ID, '_blank')
       },
       //选中省
-      changeProvice(){
+      changeProvice() {
         let searchCity = {
           "areaPid": this.provice
         }
-        this.$store.dispatch('initCityList',searchCity)
+        this.$store.dispatch('initCityList', searchCity)
       },
       //分页
-      handleCurrentChange(num){
+      handleCurrentChange(num) {
         this.initData(num)
       },
       //选中产品
@@ -285,7 +286,7 @@
             "operateUserID": "",
             "operateUserName": "",
             "tradeID": obj.sm_ui_ID ? obj.sm_ui_ID : '',
-            goodTitle:name?name:'',
+            goodTitle: name ? name : '',
             "userID": "",
             "pcName": "",
             "ID": '',
@@ -294,19 +295,19 @@
             "rows": 100
           };
           this.$store.dispatch('initAdminTradeGoodList', options)
-          .then((data) => {
-            relove(data)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+            .then((data) => {
+              relove(data)
+            }, err => {
+              this.$notify({
+                message: err,
+                type: 'error'
+              });
+            })
         })
       },
       querySearchAsync(queryString, cb) {
         this.loadAll(1, queryString).then(data => {
-          var  data = data.data;
+          var data = data.data;
           data = data.map(item => {
             return {
               id: item.ta_tg_ID,
@@ -320,32 +321,32 @@
           }, 10);
         })
       },
-      initData(page,lineID){
+      initData(page, lineID) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          page:page?page:1,
-          rows:5,
-          "lineID":lineID?lineID:''
+          page: page ? page : 1,
+          rows: 5,
+          "lineID": lineID ? lineID : ''
         }
-        this.$store.dispatch('initAdminRouteDepartureCity',options)
-        .then(total=>{
-          this.total = total;
-          },err=>{
+        this.$store.dispatch('initAdminRouteDepartureCity', options)
+          .then(total => {
+            this.total = total;
+          }, err => {
             this.$notify({
               message: err,
               type: 'error'
             });
-        })
+          })
       },
       //查询
-      search(){
-        if(this.userSearchID){
-          this.initData(1,this.userSearchID)
-        }else{
+      search() {
+        if (this.userSearchID) {
+          this.initData(1, this.userSearchID)
+        } else {
           this.$notify({
             message: '请选择筛选条件!',
             type: 'error'
@@ -353,14 +354,14 @@
         }
       },
       //添加
-      addAdminRouteDepartureCity(){
+      addAdminRouteDepartureCity() {
 
-        for(let attr in this.addOptions.data){
-          if(typeof this.addOptions.data[attr]=='object'){
-            for(let attr1 in this.addOptions.data[attr]){
+        for (let attr in this.addOptions.data) {
+          if (typeof this.addOptions.data[attr] == 'object') {
+            for (let attr1 in this.addOptions.data[attr]) {
               this.addOptions.data[attr][attr1] = ''
             }
-          }else{
+          } else {
             this.addOptions.data[attr] = ''
           }
         }
@@ -370,30 +371,30 @@
         this.addDialog = true;
       },
       //添加提交
-      addAdminRouteDepartureCitySubmit(){
-        this.$store.dispatch('AddAdminRouteDepartureCity',this.addOptions)
-        .then(() => {
-          this.$notify({
-            message: '添加成功!',
-            type: 'success'
+      addAdminRouteDepartureCitySubmit() {
+        this.$store.dispatch('AddAdminRouteDepartureCity', this.addOptions)
+          .then(() => {
+            this.$notify({
+              message: '添加成功!',
+              type: 'success'
+            });
+            this.initData(1, this.addOptions.data.ts_cc_LineID)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(1,this.addOptions.data.ts_cc_LineID)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.addDialog = false;
       },
       //修改
-      updateAdminRouteDepartureCity(id){
+      updateAdminRouteDepartureCity(id) {
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
-        this.$store.commit('initUpdateAdminRouteDepartureCityObj',id)
+        this.$store.commit('initUpdateAdminRouteDepartureCityObj', id)
       },
       //修改提交
-      updateAdminRouteDepartureCitySubmit(){
+      updateAdminRouteDepartureCitySubmit() {
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -407,23 +408,23 @@
             "ts_cc_Name": this.updateAdminRouteDepartureCityObj.ts_cc_Name,
           }
         };
-        this.$store.dispatch('UpdateAdminRouteDepartureCity',updateOptions)
-        .then(() => {
-          this.$notify({
-            message: '修改成功!',
-            type: 'success'
+        this.$store.dispatch('UpdateAdminRouteDepartureCity', updateOptions)
+          .then(() => {
+            this.$notify({
+              message: '修改成功!',
+              type: 'success'
+            });
+            this.initData(1, this.updateAdminRouteDepartureCityObj.ts_cc_LineID)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(1,this.updateAdminRouteDepartureCityObj.ts_cc_LineID)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.updateDialog = false;
       },
       //删除
-      deleteAdminRouteDepartureCity(id){
+      deleteAdminRouteDepartureCity(id) {
         let deleteOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -432,19 +433,19 @@
           "pcName": "",
           "ID": id
         };
-        this.$store.dispatch('DeleteAdminRouteDepartureCity',deleteOptions)
-        .then(() => {
-          this.$notify({
-            message: '删除成功!',
-            type: 'success'
+        this.$store.dispatch('DeleteAdminRouteDepartureCity', deleteOptions)
+          .then(() => {
+            this.$notify({
+              message: '删除成功!',
+              type: 'success'
+            });
+            this.initData(1, this.userSearchID)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(1,this.userSearchID)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
       }
     },
   }

@@ -18,7 +18,6 @@ export default {
 
     food:"Food Management",
     foodStoreInformation:'Food Store Information',
-    foodStorePicture:"Food Store Picture",
     foodStoreRecommend:'Food Store Recommend',
     foodStoreProduct:'Food Store Product',
     foodStoreProductPicture:'Food Store Product Picture',

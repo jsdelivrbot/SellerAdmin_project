@@ -35,7 +35,6 @@ export default {
 
     food:"美食后台管理",
     foodStoreInformation:'美食店面信息',
-    foodStorePicture:"美食店面图片",
     foodStoreRecommend:'美食推荐菜',
     foodStoreProduct:"美食店面菜肴",
     foodStoreProductPicture:'美食店面菜肴图片',

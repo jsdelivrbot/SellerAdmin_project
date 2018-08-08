@@ -248,17 +248,13 @@
       }
     },
     methods: {
-<<<<<<< HEAD
-      jump(obj){
-        console.log(obj)
-        let ID =sessionStorage.getItem('id')
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+ID,'_blank')
-=======
+
       jump(obj) {
+        console.log(obj)
         let ID = sessionStorage.getItem('id')
         window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + ID, '_blank')
->>>>>>> 9afc5d48ba0c1788f8e2c5ea48c160ac0920213d
       },
+
       //选中省
       changeProvice() {
         let searchCity = {

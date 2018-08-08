@@ -961,7 +961,7 @@
       },
       jump(obj){
         sessionStorage.setItem('id', obj.ta_tg_ID)
-<<<<<<< HEAD
+
         if(obj.ta_tg_ID){
           window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + obj.ta_tg_ID, '_blank')
         }else{
@@ -971,9 +971,9 @@
             type: 'warning'})
         }
 
-=======
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + obj.ta_tg_ID, '_blank')
->>>>>>> 9afc5d48ba0c1788f8e2c5ea48c160ac0920213d
+
+
+
       },
       //删除修改对应图片
       deleteUpdateImageURL(val){

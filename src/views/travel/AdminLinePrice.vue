@@ -185,7 +185,7 @@
           <el-form-item label="可销售全票价:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.fullPrice" placeholder="请输入全票价"></el-input>
           </el-form-item>
-          <el-form-item label="日期范围:" :label-width="formLabelWidth">
+          <el-form-item label="可销售日期范围:" :label-width="formLabelWidth">
             <el-date-picker
               v-model="createTimeData"
               type="daterange"
@@ -237,7 +237,7 @@
           <el-form-item label="可销售全票价:" :label-width="formLabelWidth">
             <el-input v-model="updateAdminLinePriceObj.ts_pp_Price" placeholder="请输入全票价"></el-input>
           </el-form-item>
-          <el-form-item label="选择日期:" :label-width="formLabelWidth">
+          <el-form-item label="可销售日期:" :label-width="formLabelWidth">
             <el-date-picker
               type="date"
               v-model="updateAdminLinePriceObj.ts_pp_Date"
@@ -265,6 +265,7 @@
   import {mapGetters} from 'vuex'
   export default{
     name: '',
+    props:['id'],
     data(){
       return {
         GoodId: '',
@@ -300,7 +301,6 @@
       'adminTradeGoodList',
       'adminProductLine',
       'adminQueryProductList',
-      'adminLineScheduleManagementId',
       'departureCityList',
       'adminLinePriceList',
       'adminRouteDepartureCity',
@@ -313,6 +313,7 @@
       let sCity = {
         "areaPid": 3337
       };
+      this.adminLineScheduleManagementId = this.id
       this.$store.dispatch('initProvice',sCity)
       if(this.adminLineScheduleManagementId){
         let options = {
@@ -321,6 +322,9 @@
           "lineID":this.adminLineScheduleManagementId
         }
         this.$store.dispatch('initDepartureCity',options)
+        .then(()=>{
+          this.initData(this.id)
+        })
       }
     },
     methods: {

@@ -15,13 +15,13 @@
       <h1>产品线路管理</h1>
       <el-tabs v-model="activeName" @tab-click="tab">
         <el-tab-pane label="产品线路出发城市" name="产品线路出发城市">
-          <adminRouteDepartureCity></adminRouteDepartureCity>
+          <adminRouteDepartureCity :id="id"></adminRouteDepartureCity>
         </el-tab-pane>
         <el-tab-pane label="产品线路价格" name="产品线路价格">
-          <adminLinePrice></adminLinePrice>
+          <adminLinePrice :id="id"></adminLinePrice>
         </el-tab-pane>
         <el-tab-pane label="线路日程" name="线路日程">
-          <adminLinePrepare></adminLinePrepare>
+          <adminLinePrepare :id="id"></adminLinePrepare>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -105,10 +105,12 @@
         },
         isOff:true,
         name:'产品线路城市',
-        activeName: '产品线路出发城市'
+        activeName: '产品线路出发城市',
+        id:''
       }
     },
     created(){
+      this.id = this.$route.params.id
 
       // sessionStorage.setItem('index',2)
       // sessionStorage.getItem(index)

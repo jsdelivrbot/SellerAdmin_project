@@ -264,7 +264,12 @@ export default {
           var data = data.data;
           if (Number(data.resultcode) == 200) {
             for (var i = 0; i < data.data.length; i++) {
-              data.data[i].ts_pt_ShowImage = data.data[i].ts_pt_ShowImage.split(',')
+              if(data.data[i].ts_pt_ShowImage){
+                data.data[i].ts_pt_ShowImage = data.data[i].ts_pt_ShowImage.split(',')
+              }else{
+                data.data[i].ts_pt_ShowImage = []
+              }
+
             }
             commit('initAdminLinePrepare', data.data);
             relove()

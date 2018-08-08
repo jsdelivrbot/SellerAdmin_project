@@ -112,7 +112,7 @@
         <el-form :model="addOptions">
 
           <el-form-item label="请选择视频:" :label-width="formLabelWidth">
-            <span>视频不超过600M</span>
+            <span>单个视频不超过600M</span>
             <Upload @getData="passVideo" :attrs="videoObj"></Upload>
 
           </el-form-item>
@@ -139,7 +139,7 @@
 
           <el-form-item label="首页大图:" :label-width="formLabelWidth">
 
-            <span>图片不超过2M,且只上传一张图片</span>
+            <span>图片不超过600KB,且只上传一张图片</span>
             <Upload @getData="getData" :attrs="imageObj"></Upload>
             <div class="imgWap">
               <p v-for="item,index in ImageURL"
@@ -160,7 +160,7 @@
           </el-form-item>
 
           <el-form-item label="视频图片:" :label-width="formLabelWidth">
-            <span>图片不超过2M,且只上传一张图片</span>
+            <span>图片不超过600KB,且只上传一张图片</span>
 
             <Upload @getData="getDataOne" :attrs="imageObj"></Upload>
 
@@ -228,7 +228,7 @@
 
           <el-form-item label="首页大图:" :label-width="formLabelWidth">
 
-            <span>图片不超过2M,且只上传一张图片</span>
+            <span>图片不超过600KB,且只上传一张图片</span>
             <Upload @getData="getUpdateData" :attrs="imageObj"></Upload>
             <div class="imgWap">
               <p v-for="item,index in ImageUpdateURL"
@@ -250,7 +250,7 @@
 
           </el-form-item>
           <el-form-item label="视频图片:" :label-width="formLabelWidth">
-            <span>图片不超过2M,且只上传一张图片</span>
+            <span>图片不超过600KB,且只上传一张图片</span>
 
             <Upload @getData="getUpdateDataOne" :attrs="imageObj"></Upload>
 

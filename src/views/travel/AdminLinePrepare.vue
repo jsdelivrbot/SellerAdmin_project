@@ -352,6 +352,7 @@
 
   export default {
     name: '',
+    props:['id'],
     components: {
       Upload
     },
@@ -818,11 +819,7 @@
           value: i
         })
       }
-      let timeID = this.$route.query.timeID;
-      console.log(timeID)
-      if (timeID) {
-        this.initData(timeID)
-      }
+      this.initData(this.id)
     },
     mounted() {
       this.searchInitData();

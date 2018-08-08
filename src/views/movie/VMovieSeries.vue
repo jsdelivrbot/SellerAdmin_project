@@ -123,7 +123,7 @@
             <el-input v-model="addOptions.data.vf_ss_UpdateTime" placeholder="更新时间"></el-input>
           </el-form-item>
           <el-form-item label="系列图片:" :label-width="formLabelWidth">
-            <span>图片不超过2M,且只上传一张图片</span>
+            <span>图片不超过600KB,且只上传一张图片</span>
             <Upload @getData="getData" :attrs="imageObj"></Upload>
             <div class="imgWap">
               <p v-for="item,index in ImageURL"
@@ -172,7 +172,7 @@
             <el-input v-model="VMovieSeriesUpdateObj.data.vf_ss_UpdateTime" placeholder="更新时间"></el-input>
           </el-form-item>
           <el-form-item label="系列图片:" :label-width="formLabelWidth">
-            <span>图片不超过2M,且只上传一张图片</span>
+            <span>图片不超过600KB,且只上传一张图片</span>
             <Upload @getData="getUpdateData" :attrs="imageObj"></Upload>
             <div class="imgWap">
               <p v-for="item,index in ImageURL1"

@@ -42,18 +42,56 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="线路编号">
+              <el-form-item label="线路编号:">
                 <span>{{ props.row.ts_pt_ID }}</span>
               </el-form-item>
-              <el-form-item label="产品编号">
+              <el-form-item label="产品编号:">
                 <span>{{ props.row.ts_pt_GoodsListID }}</span>
               </el-form-item>
-              <el-form-item label="行程名称">
+              <el-form-item label="行程名称:">
                 <span>{{ props.row.ts_pt_Name }}</span>
               </el-form-item>
-              <el-form-item label="是否删除">
-                <span>{{ props.row.ts_pt_IsDelete == 0 ? "未删除" : "已删除" }}</span>
+              <el-form-item label="出发时间:">
+                <span>{{ props.row.ts_pl_GoTime }}</span>
               </el-form-item>
+              <el-form-item label="行程天数:">
+                <span>{{ props.row.ts_pl_LineDays }}</span>
+              </el-form-item>
+              <el-form-item label="预定需知:">
+                <div v-html="props.row.ts_pl_GroupCity"></div>
+              </el-form-item>
+              <el-form-item label="退改政策:">
+                <div v-html="props.row.ts_pt_ReturnRule"></div>
+              </el-form-item>
+              <el-form-item label="推荐理由:">
+                <div v-html="props.row.ts_pt_IntroReason"></div>
+              </el-form-item>
+              <el-form-item label="产品线路介绍:">
+                <div v-html="props.row.ts_pt_Describe"></div>
+              </el-form-item>
+
+              <el-form-item label="费用包含:">
+                <div v-html="props.row.ts_pt_FeeIn"></div>
+              </el-form-item>
+              <el-form-item label="费用不包含:">
+                <div v-html="props.row.ts_pt_FeeNotIn"></div>
+              </el-form-item>
+              <el-form-item label="行程明细:">
+                <div v-html="props.row.ts_pt_LineDetail"></div>
+              </el-form-item>
+              <el-form-item label="违约责任:">
+                <div v-html="props.row.ts_pt_LimitDuty"></div>
+              </el-form-item>
+              <el-form-item label="特殊限制:">
+                <div v-html="props.row.ts_pt_SpecialLimit"></div>
+              </el-form-item>
+              <el-form-item label="安全限制:">
+                <div v-html="props.row.ts_pt_SafetyLimit"></div>
+              </el-form-item>
+
+              <!--<el-form-item label="是否删除">-->
+                <!--<span>{{ props.row.ts_pt_IsDelete == 0 ? "未删除" : "已删除" }}</span>-->
+              <!--</el-form-item>-->
               <el-form-item label="备注">
                 <span>{{ props.row.ts_pt_Remark }}</span>
               </el-form-item>
@@ -78,7 +116,7 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
-              @click="updateAdminQueryProductInformation(scope.row.ts_pt_ID)">修改
+              @click="updateAdminQueryProductInformation(scope.row)">修改
             </el-button>
             <el-button
               size="mini"
@@ -109,18 +147,91 @@
       </el-table>
     </div>
     <!--添加线路-->
-    <el-dialog title="添加线路" :visible.sync="addAdminQueryProductInformationDialog" :close-on-click-modal="false">
+    <el-dialog title="添加线路" :visible.sync="addAdminQueryProductInformationDialog" :close-on-click-modal="false" width="70%">
       <el-form :model="addOptions">
-        <el-form-item label="产品名称:" :label-width="formLabelWidth">
-          <el-autocomplete
-            v-model="userName"
-            :fetch-suggestions="querySearchAsync"
-            placeholder="请选择产品"
-            @select="handleSelect"
-          ></el-autocomplete>
-        </el-form-item>
         <el-form-item label="线路名称:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ts_pt_Name" placeholder="请输入线路名称"></el-input>
+        </el-form-item>
+        <el-form-item label="出发时间:" :label-width="formLabelWidth">
+          <el-time-select
+            v-model="addOptions.data.ts_pl_GoTime"
+            :picker-options="{
+                start: '05:30',
+                step: '00:10',
+                end: '18:30'
+              }"
+            placeholder="选择时间">
+          </el-time-select>
+        </el-form-item>
+        <el-form-item label="行程天数:" :label-width="formLabelWidth">
+          <el-autocomplete
+            class="inline-input"
+            v-model="addOptions.data.ts_pl_LineDays"
+            :fetch-suggestions="querySearch"
+            placeholder="请输入行程天数"
+          ></el-autocomplete>
+
+        </el-form-item>
+        <el-form-item label="成团地点:" :label-width="formLabelWidth">
+          <el-select v-model="addOptions.data.ts_pl_GroupCity" placeholder="请选择省份">
+            <el-option
+              v-for="item in proviceList"
+              :key="item.sm_af_AreaID"
+              :label="item.sm_af_AreaName"
+              :value="item.sm_af_AreaID">
+            </el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="展示图片:" :label-width="formLabelWidth" required>
+          <p>单张图片大小不能大于600KB</p>
+          <Upload @getData="getData" :attrs="imageObj"></Upload>
+          <div class="imgWap">
+            <p v-for="item,index in ImageURL" style="display: inline-block;position: relative">
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="ImageURL.length"
+              >
+              <span style="color: #f60" @click="deleteImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="addRadioIndex" :label="index+1">替换</el-radio>
+              </em>
+            </p>
+          </div>
+        </el-form-item>
+
+        <el-form-item label="预订须知:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="addOptions.data.ts_pt_BookKnow" ></tinymce>
+        </el-form-item>
+        <el-form-item label="退改政策:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="addOptions.data.ts_pt_ReturnRule" ></tinymce>
+        </el-form-item>
+        <el-form-item label="推荐理由:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="addOptions.data.ts_pt_IntroReason" ></tinymce>
+        </el-form-item>
+        <el-form-item label="产品线路介绍:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="addOptions.data.ts_pt_Describe" ></tinymce>
+        </el-form-item>
+        <el-form-item label="费用包含:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="addOptions.data.ts_pt_FeeIn" ></tinymce>
+        </el-form-item>
+
+        <el-form-item label="费用不包含:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="addOptions.data.ts_pt_FeeNotIn" ></tinymce>
+        </el-form-item>
+        <el-form-item label="行程明细:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="addOptions.data.ts_pt_LineDetail" ></tinymce>
+        </el-form-item>
+        <el-form-item label="违约责任:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="addOptions.data.ts_pt_LimitDuty" ></tinymce>
+        </el-form-item>
+        <el-form-item label="特殊限制:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="addOptions.data.ts_pt_SpecialLimit" ></tinymce>
+        </el-form-item>
+        <el-form-item label="安全限制:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="addOptions.data.ts_pt_SafetyLimit" ></tinymce>
         </el-form-item>
         <el-form-item label="备注:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ts_pt_Remark" placeholder="请输入内容" type="textarea"
@@ -134,19 +245,106 @@
     </el-dialog>
 
     <!--修改线路-->
-    <el-dialog title="修改线路" :visible.sync="updateAdminQueryProductInformationDialog" :close-on-click-modal="false">
+    <el-dialog title="修改线路" :visible.sync="updateAdminQueryProductInformationDialog" :close-on-click-modal="false" width="70%">
       <el-form :model="updateAdminQueryProductInformationObj">
-        <el-form-item label="产品名称:" :label-width="formLabelWidth">
-          <el-autocomplete
-            v-model="userName"
-            :fetch-suggestions="querySearchAsync"
-            placeholder="请选择产品"
-            @select="handleSelect"
-          ></el-autocomplete>
-        </el-form-item>
+        <!--<el-form-item label="产品名称:" :label-width="formLabelWidth">-->
+          <!--<el-autocomplete-->
+            <!--v-model="userName"-->
+            <!--:fetch-suggestions="querySearchAsync"-->
+            <!--placeholder="请选择产品"-->
+            <!--@select="handleSelect"-->
+          <!--&gt;</el-autocomplete>-->
+        <!--</el-form-item>-->
         <el-form-item label="线路名称:" :label-width="formLabelWidth">
           <el-input v-model="updateAdminQueryProductInformationObj.ts_pt_Name" placeholder="请输入线路名称"></el-input>
         </el-form-item>
+
+
+        <el-form-item label="出发时间:" :label-width="formLabelWidth">
+          <el-time-select
+            v-model="updateAdminQueryProductInformationObj.ts_pl_GoTime"
+            :picker-options="{
+                start: '05:30',
+                step: '00:10',
+                end: '18:30'
+              }"
+            placeholder="选择时间">
+          </el-time-select>
+        </el-form-item>
+        <el-form-item label="行程天数:" :label-width="formLabelWidth">
+          <el-autocomplete
+            class="inline-input"
+            v-model="updateAdminQueryProductInformationObj.ts_pl_LineDays"
+            :fetch-suggestions="querySearch"
+            placeholder="请输入行程天数"
+          ></el-autocomplete>
+
+        </el-form-item>
+        <el-form-item label="成团地点:" :label-width="formLabelWidth">
+          <el-select v-model="updateAdminQueryProductInformationObj.ts_pl_GroupCity" placeholder="请选择省份">
+            <el-option
+              v-for="item in proviceList"
+              :key="item.sm_af_AreaID"
+              :label="item.sm_af_AreaName"
+              :value="item.sm_af_AreaID">
+            </el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="展示图片:" :label-width="formLabelWidth">
+          <p>单张图片大小不能大于600KB</p>
+          <Upload @getData="updateImage" :attrs="imageObj"></Upload>
+
+          <div class="imgWap">
+            <p v-for="item,index in updateImageURL"
+               style="display: inline-block;position: relative;margin-right: 70px">
+              <span style="color: #f60" @click="deleteUpdateImageURL(item)">X</span>
+              <em>
+                <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
+              </em>
+              <img
+                :src="item"
+                width="280"
+                height="125"
+                v-show="updateImageURL.length"
+              >
+            </p>
+          </div>
+
+        </el-form-item>
+
+        <el-form-item label="预订须知:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_BookKnow" ></tinymce>
+        </el-form-item>
+        <el-form-item label="退改政策:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_ReturnRule" ></tinymce>
+        </el-form-item>
+        <el-form-item label="推荐理由:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_IntroReason" ></tinymce>
+        </el-form-item>
+        <el-form-item label="产品线路介绍:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_Describe" ></tinymce>
+        </el-form-item>
+        <el-form-item label="费用包含:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_FeeIn" ></tinymce>
+        </el-form-item>
+
+        <el-form-item label="费用不包含:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_FeeNotIn" ></tinymce>
+        </el-form-item>
+        <el-form-item label="行程明细:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_LineDetail" ></tinymce>
+        </el-form-item>
+        <el-form-item label="违约责任:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_LimitDuty" ></tinymce>
+        </el-form-item>
+        <el-form-item label="特殊限制:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_SpecialLimit" ></tinymce>
+        </el-form-item>
+        <el-form-item label="安全限制:" :label-width="formLabelWidth">
+          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_SafetyLimit" ></tinymce>
+        </el-form-item>
+
         <el-form-item label="备注:" :label-width="formLabelWidth">
           <el-input v-model="updateAdminQueryProductInformationObj.ts_pt_Remark" placeholder="请输入内容" type="textarea"
                     :autosize="{ minRows: 6, maxRows: 10}"></el-input>
@@ -161,17 +359,29 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
+  import Upload from '@/components/Upload'
+  import Tinymce from '@/components/NewTinymce'
 
   export default {
     computed: mapGetters([
       'adminProductLine',
       'adminTradeGoodList',
-      'updateAdminQueryProductInformationObj',
-      'adminProductLineManagementId'
+      'adminProductLineManagementId',
+      'proviceList',
     ]),
     name: '',
+    components: {
+      Upload,
+      Tinymce
+    },
     data() {
       return {
+        ImageURL:[],
+        updateImageURL:[],
+        isNewUploaNode:true,
+        radioIndex: '',
+        addRadioIndex:0,
+        imageObj: {accept: 'image/*'},
         data: [{
           label: '商家产品',
           children: [{
@@ -245,21 +455,85 @@
           "operateUserName": "",
           "pcName": "",
           "data": {
-            "ts_pt_GoodsListID": "",
-            "ts_pt_Name": "",
-            "ts_pt_Remark": ""
+            "ts_pt_GoodsListID": "",//产品编号 已有
+            "ts_pt_GoodName": "",//产品名称
+            "ts_pt_Name": "",//线路名称 已有
+            "ts_pl_GoTime": "",//出发时间
+            "ts_pl_LineDays": "",//行程天数
+            "ts_pl_GroupCity": "",//成团地点
+            "ts_pl_IsDefault": "1",//是否默认行程
+            "ts_pt_Images": "",//线路图片
+            "ts_pt_BookKnow": "",//预定需知      富文本格式
+            "ts_pt_ReturnRule": "",//退改政策     富文本格式
+            "ts_pt_IntroReason": "",//推荐理由       富文本格式
+            "ts_pt_Describe": "",//产品线路介绍          富文本格式
+            "ts_pt_FeeIn": "",//费用包含               富文本格式
+            "ts_pt_FeeNotIn": "",//费用不包含        富文本格式
+            "ts_pt_LineDetail": "",//行程明细       富文本格式
+            "ts_pt_LimitDuty": "",//违约责任      富文本格式
+            "ts_pt_SpecialLimit": "",//特殊限制      富文本格式
+            "ts_pt_SafetyLimit": "",//安全限制     富文本格式
+            "ts_pt_Remark": "",//描述 已有
           }
-        }
+        },
+        restaurantsDay:[],
+        updateAdminQueryProductInformationObj:{},
+        id:''
       }
     },
     created(){
-
-      let lineID = sessionStorage.getItem('id')
-      if (lineID) {
-        this.initData(lineID)
+      //生成选中行程天数
+      for(var i=0;i<10;i++){
+        this.restaurantsDay.push({value:(i+1)+''})
       }
+      //初始化省
+      let sCity = {
+        "areaPid": 3337
+      };
+      this.id = this.$route.params.id
+      this.$store.dispatch('initProvice', sCity)
+      this.initData(this.$route.params.id)
     },
     methods: {
+      //修改图片
+      updateImage(data) {
+        if (!this.radioIndex) {
+          this.updateImageURL.push(data.data);
+        } else {
+          this.updateImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.radioIndex = '';
+        }
+      },
+      //图片上传
+      getData(data) {
+        if (!this.addRadioIndex) {
+          this.ImageURL.push(data.data);
+        } else {
+          this.ImageURL.splice(this.radioIndex - 1, 1, data.data);
+          this.addRadioIndex = '';
+        }
+      },
+      //删除对应图片
+      deleteImageURL(val){
+        this.isUploaNode = false;
+        this.ImageURL = this.ImageURL.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
+      querySearch(queryString, cb) {
+        var restaurants = this.restaurantsDay;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+      },
+      createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
       jump(obj){
        sessionStorage.setItem('id',obj.ts_pt_GoodsListID)
        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+obj.ts_pt_GoodsListID,'_blank')
@@ -327,7 +601,7 @@
           loginUserID: 'huileyou',
           loginUserPass: 123,
           isDelete: 0,
-          goodID: options ? options : ''
+          goodID: this.id
         };
         this.isLoading = true;
         this.$store.dispatch('initAdminProductLine', GetProductLine)
@@ -376,7 +650,11 @@
       },
       //添加提交
       addAdminQueryProductInformationSubmit() {
-        this.addOptions.data.ts_pt_GoodsListID = this.value;
+        this.addOptions.data.ts_pt_GoodsListID = this.$route.params.id;
+        if(this.ImageURL.length){
+          this.addOptions.data.ts_pt_Images = this.ImageURL.join(',')
+        }
+        this.addOptions.data.ts_pl_IsDefault = '1';
         this.$store.dispatch('AddAdminQueryProductInformationSubmit', this.addOptions)
         .then(() => {
           this.$notify({
@@ -393,10 +671,12 @@
         this.addAdminQueryProductInformationDialog = false;
       },
       //修改
-      updateAdminQueryProductInformation(id) {
+      updateAdminQueryProductInformation(obj) {
+        obj.ts_pl_LineDays = obj.ts_pl_LineDays+''
+        this.updateAdminQueryProductInformationObj = obj
         this.updateAdminQueryProductInformationDialog = true;
         this.$store.commit('setTranstionFalse');
-        this.$store.commit('initUpdateAdminQueryProductInformationObj', id);
+//        this.$store.commit('initUpdateAdminQueryProductInformationObj', id);
       },
       //修改提交
       updateAdminQueryProductInformationSubmit() {
@@ -408,11 +688,33 @@
           "pcName": "",
           "data": {
             "ts_pt_ID": this.updateAdminQueryProductInformationObj.ts_pt_ID,
-            "ts_pt_GoodsListID": this.updateAdminQueryProductInformationObj.ts_pt_GoodsListID,
+            "ts_pt_GoodsListID": this.$route.params.id,
             "ts_pt_Name": this.updateAdminQueryProductInformationObj.ts_pt_Name,
-            "ts_pt_Remark": this.updateAdminQueryProductInformationObj.ts_pt_Remark
+            "ts_pt_Remark": this.updateAdminQueryProductInformationObj.ts_pt_Remark,
+
+            "ts_pl_GoTime": this.updateAdminQueryProductInformationObj.ts_pl_GoTime,//出发时间
+            "ts_pl_LineDays":this.updateAdminQueryProductInformationObj.ts_pl_LineDays,//行程天数
+            "ts_pl_GroupCity": this.updateAdminQueryProductInformationObj.ts_pl_GroupCity,//成团地点
+            "ts_pl_IsDefault": this.updateAdminQueryProductInformationObj.ts_pl_IsDefault,//是否默认行程
+            "ts_pt_IsDelete": this.updateAdminQueryProductInformationObj.ts_pt_IsDelete,//是否删除（0否，1是）
+            "ts_pt_IsIntroLine": this.updateAdminQueryProductInformationObj.ts_pt_IsIntroLine,//
+            "ts_pt_Images": "",//线路图片
+            "ts_pt_BookKnow": this.updateAdminQueryProductInformationObj.ts_pt_BookKnow,//预定需知      富文本格式
+            "ts_pt_ReturnRule": this.updateAdminQueryProductInformationObj.ts_pt_ReturnRule,//退改政策     富文本格式
+            "ts_pt_IntroReason": this.updateAdminQueryProductInformationObj.ts_pt_IntroReason,//推荐理由       富文本格式
+            "ts_pt_Describe": this.updateAdminQueryProductInformationObj.ts_pt_Describe,//产品线路介绍          富文本格式
+            "ts_pt_FeeIn": this.updateAdminQueryProductInformationObj.ts_pt_FeeIn,//费用包含               富文本格式
+            "ts_pt_FeeNotIn": this.updateAdminQueryProductInformationObj.ts_pt_FeeNotIn,//费用不包含        富文本格式
+            "ts_pt_LineDetail": this.updateAdminQueryProductInformationObj.ts_pt_LineDetail,//行程明细       富文本格式
+            "ts_pt_LimitDuty": this.updateAdminQueryProductInformationObj.ts_pt_LimitDuty,//违约责任      富文本格式
+            "ts_pt_SpecialLimit": this.updateAdminQueryProductInformationObj.ts_pt_SpecialLimit,//特殊限制      富文本格式
+            "ts_pt_SafetyLimit": this.updateAdminQueryProductInformationObj.ts_pt_SafetyLimit,//安全限制     富文本格式
           }
         };
+        if(this.updateImageURL.length){
+          updateOptions.data.ts_pt_Images = this.updateImageURL.join(',')
+        }
+        console.log(updateOptions)
         this.$store.dispatch('UpdateAdminQueryProductInformation', updateOptions)
         .then(() => {
           this.$notify({
@@ -463,9 +765,9 @@
       },
       //点击跳转到线路日程管理
       queryProductInformationDetail(id) {
-        this.$store.commit('adminLineScheduleManagementId', id);
+//        this.$store.commit('adminLineScheduleManagementId', id);
         // this.$router.push({name: 'AdminQueryProductInformationList'})
-        this.$router.push({path: '/travel/adminQueryProductInformationList'})
+        this.$router.push({name: 'AdminQueryProductInformationList',params:{id}})
         sessionStorage.setItem('index', '2')
       }
     },
@@ -474,5 +776,18 @@
     }
   }
 </script>
-<style>
+<style scoped>
+  .imgWap span {
+    position: absolute;
+    right: -15px;
+    top: -6px;
+  }
+
+  .imgWap em {
+    position: absolute;
+    right: -55px;
+    top: 30px;
+    font-style: normal;
+    color: #42b983;
+  }
 </style>

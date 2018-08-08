@@ -85,19 +85,19 @@ export const constantRouterMap = [
         path: 'adminMerchantProducts',
         name: 'AdminMerchantProducts',
         component: () => import('@/views/travel/AdminMerchantProducts'),
-        meta: {title: 'adminMerchantProducts', icon: 'table'}
+        meta: {title: 'adminMerchantProducts'}
       },
       {
-        path: 'adminQueryProductInformation',
-        name: 'adminQueryProductInformation',
+        path: 'adminQueryProductInformation/:id',
+        name: 'AdminQueryProductInformation',
         hidden: true,
         alwaysShow: true,
         component: () => import('@/views/travel/AdminQueryProductInformation'),
         meta: {title: 'productLine', icon: 'table'}
       },
       {
-        path: 'adminQueryProductInformationList',
-        name: 'adminQueryProductInformationList',
+        path: 'adminQueryProductInformationList/:id',
+        name: 'AdminQueryProductInformationList',
         hidden: true,
         alwaysShow: true,
         component: () => import('@/views/travel/AdminQueryProductInformationList'),

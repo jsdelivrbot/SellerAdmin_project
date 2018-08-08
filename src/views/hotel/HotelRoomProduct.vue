@@ -254,6 +254,10 @@
             name: '三床',
             value: '3'
           },
+          {
+            name: '多床',
+            value: '4'
+          },
         ],
         //早餐类型
         BreakfastTypeList: [
@@ -276,6 +280,10 @@
           {
             name: '四早',
             value: '4'
+          },
+          {
+            name: '多早',
+            value: '5'
           },
         ],
         //WAFI

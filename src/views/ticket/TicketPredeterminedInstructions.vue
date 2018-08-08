@@ -29,82 +29,81 @@
                 <span>{{ props.row.tm_bk_ID }}</span>
               </el-form-item>
               <el-form-item label="开放时间:">
-                <el-popover
-                  ref="popover1"
-                  placement="top-start"
-                  title="开放时间"
-                  width="500"
-                  trigger="hover"
-                  :content="props.row.tm_bk_OpenTime">
-                </el-popover>
-                <el-button v-popover:popover1 size="mini">移入查看</el-button>
+                <div v-html="props.row.tm_bk_OpenTime"></div>
+                <!--<el-popover-->
+                  <!--ref="popover1"-->
+                  <!--placement="top-start"-->
+                  <!--title="开放时间"-->
+                  <!--trigger="hover"-->
+                  <!--:content="props.row.tm_bk_OpenTime">-->
+                <!--</el-popover>-->
+                <!--<el-button v-popover:popover1 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="特殊人群政策:">
-                <el-popover
-                  ref="popover1"
-                  placement="top-start"
-                  title="特殊人群政策"
-                  width="500"
-                  trigger="hover"
-                  :content="props.row.tm_bk_SpecialPolicy">
-                </el-popover>
-                <el-button v-popover:popover1 size="mini">移入查看</el-button>
+                <div v-html="props.row.tm_bk_SpecialPolicy"></div>
+                <!--<el-popover-->
+                  <!--ref="popover2"-->
+                  <!--placement="top-start"-->
+                  <!--title="特殊人群政策"-->
+                  <!--trigger="hover"-->
+                  <!--:content="props.row.tm_bk_SpecialPolicy">-->
+                <!--</el-popover>-->
+                <!--<el-button v-popover:popover2 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="预订提醒:">
-                <el-popover
-                  ref="popover1"
-                  placement="top-start"
-                  title="预订提醒"
-                  width="500"
-                  trigger="hover"
-                  :content="props.row.tm_bk_Remind">
-                </el-popover>
-                <el-button v-popover:popover1 size="mini">移入查看</el-button>
+                <div v-html="props.row.tm_bk_Remind"></div>
+                <!--<el-popover-->
+                  <!--ref="popover3"-->
+                  <!--placement="top-start"-->
+                  <!--title="预订提醒"-->
+                  <!--trigger="hover"-->
+                  <!--:content="props.row.tm_bk_Remind">-->
+                <!--</el-popover>-->
+                <!--<el-button v-popover:popover3 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="温馨提示:">
-                <el-popover
-                  ref="popover1"
-                  placement="top-start"
-                  title="温馨提示"
-                  width="500"
-                  trigger="hover"
-                  :content="props.row.tm_bk_HappyNotice">
-                </el-popover>
-                <el-button v-popover:popover1 size="mini">移入查看</el-button>
+                <div v-html="props.row.tm_bk_HappyNotice"></div>
+                <!--<el-popover-->
+                  <!--ref="popover4"-->
+                  <!--placement="top-start"-->
+                  <!--title="温馨提示"-->
+                  <!--trigger="hover"-->
+                  <!--:content="props.row.tm_bk_HappyNotice">-->
+                <!--</el-popover>-->
+                <!--<el-button v-popover:popover4 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="发票说明:">
-
-                <el-popover
-                  ref="popover1"
-                  placement="top-start"
-                  title="发票说明"
-                  width="500"
-                  trigger="hover"
-                  :content="props.row.tm_bk_TicketSay">
-                </el-popover>
-                <el-button v-popover:popover1 size="mini">移入查看</el-button>
+                <div v-html="props.row.tm_bk_TicketSay"></div>
+                <!--<el-popover-->
+                  <!--ref="popover5"-->
+                  <!--placement="top-start"-->
+                  <!--title="发票说明"-->
+                  <!--trigger="hover"-->
+                  <!--:content="props.row.tm_bk_TicketSay">-->
+                <!--</el-popover>-->
+                <!--<el-button v-popover:popover5 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="退改规则:">
-                <el-popover
-                  ref="popover1"
-                  placement="top-start"
-                  title="退改规则"
-                  width="500"
-                  trigger="hover"
-                  :content="props.row.tm_bk_ReturnRule">
-                </el-popover>
-                <el-button v-popover:popover1 size="mini">移入查看</el-button>
+                <div v-html="props.row.tm_bk_ReturnRule"></div>
+                <!--<el-popover-->
+                  <!--ref="popover6"-->
+                  <!--placement="top-start"-->
+                  <!--title="退改规则"-->
+                  <!--trigger="hover"-->
+                  <!--:content="props.row.tm_bk_ReturnRule">-->
+                <!--</el-popover>-->
+                <!--<el-button v-popover:popover6 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="特殊信息:">
-                <el-popover
-                  ref="popover1"
-                  placement="top-start"
-                  title="特殊信息"
-                  width="500"
-                  trigger="hover"
-                  :content="props.row.tm_bk_SpecialMessage">
-                </el-popover>
-                <el-button v-popover:popover1 size="mini">移入查看</el-button>
+                <div v-html="props.row.tm_bk_SpecialMessage"></div>
+                <!--<el-popover-->
+                  <!--ref="popover7"-->
+                  <!--placement="top-start"-->
+                  <!--title="特殊信息"-->
+                  <!--trigger="hover"-->
+                  <!--:content="props.row.tm_bk_SpecialMessage">-->
+                <!--</el-popover>-->
+                <!--<el-button v-popover:popover7 size="mini">移入查看</el-button>-->
               </el-form-item>
             </el-form>
           </template>
@@ -116,15 +115,15 @@
         <el-table-column
           label="开放时间">
           <template slot-scope="scope">
-            <el-popover
-              ref="popover1"
-              placement="top-start"
-              title="开放时间"
-              width="500"
-              trigger="hover"
-              :content="scope.row.tm_bk_OpenTime">
-            </el-popover>
-            <el-button v-popover:popover1 size="mini">移入查看</el-button>
+            <div v-html="scope.row.tm_bk_OpenTime"></div>
+            <!--<el-popover-->
+              <!--ref="popover8"-->
+              <!--placement="top-start"-->
+              <!--title="开放时间"-->
+              <!--trigger="hover"-->
+              <!--:content="scope.row.tm_bk_OpenTime">-->
+            <!--</el-popover>-->
+            <!--<el-button v-popover:popover8 size="mini">移入查看</el-button>-->
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center">
@@ -144,7 +143,7 @@
 
       <!--添加预定须知-->
 
-      <el-dialog title="添加预定须知" :visible.sync="addDialog" :close-on-click-modal="false">
+      <el-dialog title="添加预定须知" :visible.sync="addDialog" :close-on-click-modal="false" width="60%">
         <el-form :model="addOptions">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
 
@@ -157,16 +156,20 @@
 
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>
+            <tinymce :height="300" v-model="addOptions.tm_bk_OpenTime" ></tinymce>
+            <!--<el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊人群政策:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_bk_SpecialPolicy" type="textarea"></el-input>
+            <tinymce :height="300" v-model="addOptions.tm_bk_SpecialPolicy" ></tinymce>
+            <!--<el-input v-model="addOptions.tm_bk_SpecialPolicy" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="预订提醒:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>
+            <tinymce :height="300" v-model="addOptions.tm_bk_Remind" ></tinymce>
+            <!--<el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="温馨提示:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_bk_HappyNotice" type="textarea"></el-input>
+            <tinymce :height="300" v-model="addOptions.tm_bk_HappyNotice" ></tinymce>
+            <!--<el-input v-model="addOptions.tm_bk_HappyNotice" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="发票说明:" :label-width="formLabelWidth" >
             <tinymce :height="300" v-model="addOptions.tm_bk_TicketSay" ></tinymce>
@@ -187,7 +190,7 @@
         </div>
       </el-dialog>
       <!--修改预定须知-->
-      <el-dialog title="修改预定须知" :visible.sync="updateDialog" :close-on-click-modal="false">
+      <el-dialog title="修改预定须知" :visible.sync="updateDialog" :close-on-click-modal="false" width="60%">
         <el-form :model="updatePredeterminedInstructionsObj">
           <el-form-item label="景点名称:" :label-width="formLabelWidth">
 
@@ -200,25 +203,32 @@
 
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth">
-            <el-input v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" type="textarea"></el-input>
+            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" ></tinymce>
+            <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊人群政策:" :label-width="formLabelWidth">
-            <el-input v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialPolicy" type="textarea"></el-input>
+            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialPolicy" ></tinymce>
+            <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialPolicy" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="预订提醒:" :label-width="formLabelWidth">
-            <el-input v-model="updatePredeterminedInstructionsObj.tm_bk_Remind" type="textarea"></el-input>
+            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_Remind" ></tinymce>
+            <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="温馨提示:" :label-width="formLabelWidth">
-            <el-input v-model="updatePredeterminedInstructionsObj.tm_bk_HappyNotice" type="textarea"></el-input>
+            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_HappyNotice" ></tinymce>
+            <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_HappyNotice" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="发票说明:" :label-width="formLabelWidth">
-            <el-input v-model="updatePredeterminedInstructionsObj.tm_bk_TicketSay" type="textarea"></el-input>
+            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_TicketSay" ></tinymce>
+            <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_TicketSay" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="退改规则:" :label-width="formLabelWidth">
-            <el-input v-model="updatePredeterminedInstructionsObj.tm_bk_ReturnRule" type="textarea"></el-input>
+            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_ReturnRule" ></tinymce>
+            <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_ReturnRule" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊信息:" :label-width="formLabelWidth">
-            <el-input v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialMessage" type="textarea"></el-input>
+            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialMessage" ></tinymce>
+            <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialMessage" type="textarea"></el-input>-->
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">

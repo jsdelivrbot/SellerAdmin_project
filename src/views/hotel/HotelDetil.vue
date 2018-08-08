@@ -209,15 +209,15 @@
 
 
 
-          <el-form-item label="创建时间:" :label-width="formLabelWidth">
-            <div class="block">
-              <el-date-picker
-                v-model="addHotelDetilsObj.ht_ht_CreateTime"
-                type="date"
-                placeholder="选择日期">
-              </el-date-picker>
-            </div>
-          </el-form-item>
+          <!--<el-form-item label="创建时间:" :label-width="formLabelWidth">-->
+            <!--<div class="block">-->
+              <!--<el-date-picker-->
+                <!--v-model="addHotelDetilsObj.ht_ht_CreateTime"-->
+                <!--type="date"-->
+                <!--placeholder="选择日期">-->
+              <!--</el-date-picker>-->
+            <!--</div>-->
+          <!--</el-form-item>-->
 
           <el-form-item label="温馨提示:" :label-width="formLabelWidth">
             <el-input v-model="addHotelDetilsObj.ht_ht_HappyNotice" type="textarea"></el-input>

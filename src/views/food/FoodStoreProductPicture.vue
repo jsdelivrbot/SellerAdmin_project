@@ -103,7 +103,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="产品图片:" :label-width="formLabelWidth">
-            <p>图片大小不能大于600KB</p>
+            <p>单张图片不能大于600KB</p>
             <Upload @getData="getData" :attrs="imageObj"></Upload>
             <div class="imgWap">
               <p v-for="item,index in ImageURL"
@@ -142,7 +142,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="产品图片:" :label-width="formLabelWidth">
-            <p>图片大小不能大于600KB</p>
+            <p>单张图片不能大于600KB</p>
             <Upload @getData="getUpdateData" :attrs="imageObj"></Upload>
             <div class="imgWap">
               <p v-for="item,index in ImageURL1"

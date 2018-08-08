@@ -136,6 +136,20 @@ export const getLongOut = val=>{
       return '未知';
   }
 }
+export const getNewLongOut = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '国内跟团';
+    case 1:
+      return '周边跟团';
+    case 2:
+      return '出境长线';
+    case 3:
+      return '出境短线';
+    default:
+      return '未知';
+  }
+}
 
 export const getSex = val =>{
   switch (Number(val)) {

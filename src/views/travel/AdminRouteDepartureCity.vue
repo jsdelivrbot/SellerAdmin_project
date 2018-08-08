@@ -180,6 +180,7 @@
 
   export default {
     name: '',
+    props:['id'],
     data() {
       return {
         provice: '',
@@ -211,7 +212,6 @@
     computed: mapGetters([
       'adminProductLine',
       'adminRouteDepartureCity',
-      'adminLineScheduleManagementId',
       'updateAdminRouteDepartureCityObj',
       'proviceList',
       'cityList'
@@ -222,6 +222,7 @@
         "areaPid": 3337
       };
       this.$store.dispatch('initProvice', sCity)
+      this.adminLineScheduleManagementId = this.id;
       if (this.adminLineScheduleManagementId) {
         let options = {
           "loginUserID": "huileyou",

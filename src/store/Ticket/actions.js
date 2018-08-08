@@ -64,7 +64,13 @@ export default {
             //     data.data[i].showTopLabel = '取消展示在首页'
             //   }
             // }
-            commit('initTicketAttractions', data.data);
+            let resulte = data.data;
+            for(var i=0;i<resulte.length;i++){
+              if(resulte[i].tm_ts_Opentime){
+                resulte[i].tm_ts_Opentime = unescape(resulte[i].tm_ts_Opentime)
+              }
+            }
+            commit('initTicketAttractions', resulte);
             relove(Number(data.totalrows));
           } else {
             reject(data.resultcontent)

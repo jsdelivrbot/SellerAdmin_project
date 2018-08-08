@@ -56,6 +56,24 @@ export default {
         })
     })
   },
+  initThreeMeals({commit}, data) {
+    return new Promise(function (relove, reject) {
+      request.post(getNewStr + '/Property/Select', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data => {
+          var data = data.data;
+          if (Number(data.resultcode == 200)) {
+            commit('initThreeMeals', data.data);
+            relove()
+          } else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
   //省
   initFoodProcince({commit}, data) {
     return new Promise(function (relove, reject) {
@@ -124,7 +142,6 @@ export default {
           var data = data.data;
           if (Number(data.resultcode == 200)) {
             commit('initFoodStoreInformtion', data.data);
-            // relove(Number(data.totalrows))
             relove(data)
           } else {
             reject(data.resultcontent)

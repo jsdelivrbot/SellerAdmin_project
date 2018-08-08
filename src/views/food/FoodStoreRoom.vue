@@ -112,7 +112,7 @@
         </el-form-item>
 
         <el-form-item label="上传视频:" :label-width="formLabelWidth">
-
+          <p>图片大小不能大于600M</p>
           <Upload @getData="addVideo" :attrs="videoObj"></Upload>
 
         </el-form-item>
@@ -134,7 +134,7 @@
           <el-input v-model="updateObj.fd_sfr_BookMoney" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="上传视频:" :label-width="formLabelWidth">
-
+          <p>图片大小不能大于600Mb</p>
           <Upload @getData="updateVideo" :attrs="videoObj"></Upload>
 
           <video :src="  this.updateObj.fd_sfr_VedioURL" v-show="this.updateObj.fd_sfr_VedioURL" controls

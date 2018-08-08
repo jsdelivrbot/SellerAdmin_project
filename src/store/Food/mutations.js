@@ -7,7 +7,29 @@ export default {
     }
   },
   initFoodStoreInformtion(state, data) {
+    for (let i = 0; i < data.length; i++) {
+      data[i].timeList = [];
+      data[i].eatList = [];
+      data[i].typeList = [];
+      data[i].imgList = [];
+      for (let j = 0; j < data[i].canLockTimeList.length; j++) {
+        data[i].timeList.push(data[i].canLockTimeList[j].fd_clt_CanSellTime);
+      }
+      for (let j = 0; j < data[i].eatTypeList.length; j++) {
+        data[i].eatList.push(data[i].eatTypeList[j].propertyName);
+      }
+      for (let j = 0; j < data[i].foodTypeList.length; j++) {
+        data[i].typeList.push(data[i].foodTypeList[j].propertyName);
+      }
+      for (let j = 0; j < data[i].imageList.length; j++) {
+        data[i].imgList.push(data[i].imageList[j].fd_pi_ImageUrl);
+      }
+      console.log(data[i])
+    }
     state.foodStoreInformtionList = data;
+  },
+  initThreeMeals(state, data) {
+    state.threeMealsList = data;
   },
   initFoodStoreInformtionAction(state, data) {
     state.foodStoreInformtionList1 = data;

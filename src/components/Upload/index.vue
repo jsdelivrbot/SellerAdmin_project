@@ -69,6 +69,7 @@
             if(size>600000){
               alert("上传的视频不能大于600M!")
               file.ignored = true
+              this.$emit('getFile',file);
               return
             }
             break;

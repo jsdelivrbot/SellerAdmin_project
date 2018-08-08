@@ -57,7 +57,7 @@
         </el-form-item>
 
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
-          <span>图片不超过2M</span>
+          <p>图片大小不能大于600KB</p>
           <Upload @getData="getData" :attrs="imageObj"></Upload>
           <div class="imgWap">
             <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right:30px;">
@@ -116,7 +116,7 @@
           <el-input v-model="updateOptions.data.tm_se_Remark" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="小景点图片:" :label-width="formLabelWidth">
-          <span>图片不超过2M</span>
+          <p>图片大小不能大于600KB</p>
           <Upload @getData="updateImage" :attrs="imageObj"></Upload>
           <div class="imgWap">
             <p v-for="item,index in updateImageURL" style="display: inline-block;position: relative;margin-right:30px;">

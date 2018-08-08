@@ -56,6 +56,16 @@
             size="mini"
             @click="jump(scope.row)">预览效果
           </el-button>
+          <el-button
+            type="success"
+            size="mini"
+            @click="jump(scope.row.ht_hi_ID)">上移
+          </el-button>
+          <el-button
+            type="success"
+            size="mini"
+            @click="DownData(scope.row.ht_hi_ID)">下移
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -87,7 +97,7 @@
         </el-form-item>
 
         <el-form-item label="图片上传:" :label-width="formLabelWidth">
-
+          <p>图片大小不能大于600KB</p>
           <Upload @getData="getData" :attrs="imageObj"></Upload>
 
           <div class="imgWap">
@@ -137,6 +147,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="图片上传:" :label-width="formLabelWidth">
+          <p>图片大小不能大于600KB</p>
           <Upload @getData="updateImage" :attrs="imageObj"></Upload>
           <div class="imgWap">
             <p v-for="item,index in ImageURL1"
@@ -203,6 +214,10 @@
             "ht_hi_Remark": "",//备注
           }
         },
+        options:{
+          UpDataId:'',
+          DownDataId:''
+        },
         imageObj: {accept: 'image/*'},
         radioIndex: 0,
         updateRadioIndex: 0,
@@ -229,6 +244,36 @@
       this.initImageType();
     },
     methods: {
+      //下移
+      DownData(id){
+        //获取下一个
+        let ID = this.getIndex(id,2);
+        if(ID){
+          this.options.UpDataId = id;
+          this.options.DownDataId = ID;
+          this.$store.dispatch('initDownData',this.options)
+          .then(()=>{
+            this.initData()
+          })
+        }
+        console.log(id,ID)
+      },
+      getIndex(id,num){
+        for(var i=0;i<this.hotelImageList.length;i++){
+          if(this.hotelImageList[i].ht_hi_ID==id){
+            if(num==1){
+              return this.hotelImageList[i-1].ht_hi_ID
+            }else{
+              return this.hotelImageList[i+1].ht_hi_ID
+            }
+          }
+        }
+//        return this.hotelImageList.filter((item,index)=>{
+//          if(item.ht_hi_ID==id){
+//            return true
+//          }
+//        })
+      },
       //图片上传
       getData(data) {
         if (!this.radioIndex) {

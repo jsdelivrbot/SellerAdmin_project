@@ -311,12 +311,6 @@ export const constantRouterMap = [
         meta: {title: 'foodStoreInformation'}
       },
       {
-        path: 'foodStorePicture',
-        name: 'FoodStorePicture',
-        component: () => import('@/views/food/FoodStorePicture'),
-        meta: {title: 'foodStorePicture'}
-      },
-      {
         path: 'foodStoreProduct',
         name: 'FoodStoreProduct',
         component: () => import('@/views/food/FoodStoreProduct'),

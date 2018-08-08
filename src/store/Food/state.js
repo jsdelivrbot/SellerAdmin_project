@@ -8,6 +8,8 @@ export default {
 
   storefrontTypeList: [],//店面类型
 
+  threeMealsList: [],//三餐
+
   foodProcinceList: [], // 省
 
   foodCityList: [],//市

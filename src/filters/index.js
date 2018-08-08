@@ -281,7 +281,7 @@ export const getAdApplyPass = val=>{
     case 1:
       return '通过';
     case 2:
-      return '不通过';
+      return '未通过';
     default:
       return '未知';
   }
@@ -450,5 +450,25 @@ export const getIsPass = val=>{
       return '已审核';
     default:
       return '其他';
+  }
+}
+
+//审核状态
+export const getWeek = val=>{
+  switch (Number(val)) {
+    case 1:
+      return '星期一';
+    case 2:
+      return '星期二';
+    case 3:
+      return '星期三';
+    case 4:
+      return '星期四';
+    case 5:
+      return '星期五';
+    case 6:
+      return '星期六';
+    case 7:
+      return '星期日';
   }
 }

@@ -188,10 +188,11 @@
       </el-table-column>
     </el-table>
     <!--分页-->
-    <div class="block" style="float: right;">
+    <div class="block" style="float: right;padding: 30px 0 80px 0">
       <el-pagination
         @current-change="handleCurrentChange"
         :page-size="5"
+        background
         layout="total, prev, pager, next"
         :total="total"
         v-show="total"
@@ -314,7 +315,7 @@
           <el-input v-model="addData.ts_tg_lowestPrice" placeholder="请输入推荐价格" class="tg_Title"></el-input>
         </el-form-item>
         <el-form-item label="展示图片:" :label-width="formLabelWidth" required>
-
+          <p>图片大小不能大于600KB</p>
           <Upload @getData="getData" :attrs="imageObj"></Upload>
           <div class="imgWap">
             <p v-for="item,index in ImageURL" style="display: inline-block;position: relative">
@@ -343,7 +344,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="跟团类型:" :label-width="formLabelWidth">
+        <el-form-item label="跟团类型:" :label-width="formLabelWidth" required>
           <el-select v-model="addData.ts_tg_LongOut" placeholder="请选择跟团类型">
             <el-option
               label="国内跟团 "
@@ -363,7 +364,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="产品类型:" :label-width="formLabelWidth">
+        <el-form-item label="产品类型:" :label-width="formLabelWidth" required>
           <el-select v-model="addData.ts_tg_Type" placeholder="请选择产品类型">
             <el-option
               label="跟团游 "
@@ -504,7 +505,7 @@
         </el-form-item>
 
         <el-form-item label="展示图片:" :label-width="formLabelWidth">
-
+          <p>图片大小不能大于600KB</p>
           <Upload @getData="updateImage" :attrs="imageObj"></Upload>
 
           <div class="imgWap">
@@ -960,6 +961,7 @@
       },
       jump(obj){
         sessionStorage.setItem('id', obj.ta_tg_ID)
+<<<<<<< HEAD
         if(obj.ta_tg_ID){
           window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + obj.ta_tg_ID, '_blank')
         }else{
@@ -969,6 +971,9 @@
             type: 'warning'})
         }
 
+=======
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + obj.ta_tg_ID, '_blank')
+>>>>>>> 9afc5d48ba0c1788f8e2c5ea48c160ac0920213d
       },
       //删除修改对应图片
       deleteUpdateImageURL(val){
@@ -1759,7 +1764,6 @@
       //修改
       updateAdminMerchantProducts(obj){
         this.updateAdminMerchantProductsObj = obj;
-
         this.$store.commit('setTranstionFalse');
         setTimeout(() => {
           this.updateImageURL = this.updateAdminMerchantProductsObj.ta_tg_ShowImages

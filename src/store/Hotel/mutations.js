@@ -90,7 +90,12 @@ export default {
   },
   initHotelRoom(state, data) {
     for (let i = 0; i < data.length; i++) {
-      data[i].ht_bt_ImagePath = data[i].ht_bt_ImagePath.split(',')
+      if(data[i].ht_bt_ImagePath){
+        data[i].ht_bt_ImagePath = data[i].ht_bt_ImagePath.split(',')
+      }else{
+        data[i].ht_bt_ImagePath = []
+      }
+
     }
     state.hotelRoomList = data;
   },

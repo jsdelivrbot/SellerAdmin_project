@@ -486,3 +486,28 @@ export const getWeek = val=>{
       return '星期日';
   }
 }
+
+export const applyState = val => {
+  switch (Number(val)) {
+    case 0:
+      return '未申请';
+    case 1:
+      return '申请中';
+    case 2:
+      return '申请成功';
+    case 3:
+      return '申请失败';
+  }
+}
+
+export const washRoomState = val => {
+  switch (Number(val)) {
+    case 0:
+      return '无';
+    case 1:
+      return '有';
+  }
+}
+
+
+

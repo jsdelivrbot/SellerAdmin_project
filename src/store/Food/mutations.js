@@ -16,15 +16,14 @@ export default {
         data[i].timeList.push(data[i].canLockTimeList[j].fd_clt_CanSellTime);
       }
       for (let j = 0; j < data[i].eatTypeList.length; j++) {
-        data[i].eatList.push(data[i].eatTypeList[j].propertyName);
+        data[i].eatList.push(data[i].eatTypeList[j].fd_fp_PropertyID);
       }
       for (let j = 0; j < data[i].foodTypeList.length; j++) {
-        data[i].typeList.push(data[i].foodTypeList[j].propertyName);
+        data[i].typeList.push(data[i].foodTypeList[j].fd_fp_PropertyID);
       }
       for (let j = 0; j < data[i].imageList.length; j++) {
         data[i].imgList.push(data[i].imageList[j].fd_pi_ImageUrl);
       }
-      console.log(data[i])
     }
     state.foodStoreInformtionList = data;
   },
@@ -47,9 +46,21 @@ export default {
     state.foodCityList = data;
   },
   initFoodStoreRoom(state, data) {
+    for (let i = 0; i < data.length; i++) {
+      data[i].imgData = [];
+      for (let j = 0; j < data[i].imageList.length; j++) {
+        data[i].imgData.push(data[i].imageList[j].fd_ri_Image)
+      }
+    }
     state.foodStoreRoomList = data;
   },
   initFoodStoreProduct(state, data) {
+    for (let i = 0; i < data.length; i++) {
+      data[i].imgData = [];
+      for (let j = 0; j < data[i].imageList.length; j++) {
+        data[i].imgData.push(data[i].imageList[j].fd_gi_GoodImage)
+      }
+    }
     state.foodStoreProductList = data;
   },
   initFoodProductPicture(state, data) {
@@ -78,6 +89,9 @@ export default {
   },
   initFoodRoomPicture(state, data) {
     state.foodRoomPictureList = data;
+  },
+  initRoomType(state, data) {
+    state.roomTypeList = data;
   }
 }
 

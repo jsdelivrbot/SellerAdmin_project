@@ -311,15 +311,11 @@ export const constantRouterMap = [
         meta: {title: 'foodStoreInformation'}
       },
       {
-        path: 'foodStoreProduct',
+        path: 'foodStoreProduct/:id',
         name: 'FoodStoreProduct',
+        hidden: true,
         component: () => import('@/views/food/FoodStoreProduct'),
         meta: {title: 'foodStoreProduct'}
-      },{
-        path: 'foodStoreProductPicture',
-        name: 'FoodStoreProductPicture',
-        component: () => import('@/views/food/FoodStoreProductPicture'),
-        meta: {title: 'foodStoreProductPicture'}
       },
       {
         path: 'foodStoreRecommend',
@@ -329,28 +325,19 @@ export const constantRouterMap = [
       },
 
       {
-        path: 'foodStoreRoom',
+        path: 'foodStoreRoom/:id',
         name: 'FoodStoreRoom',
+        hidden:true,
         component: () => import('@/views/food/FoodStoreRoom'),
         meta: {title: 'foodStoreRoom'}
-      }, {
-        path: 'foodRoomPicture',
-          name: 'FoodRoomPicture',
-        component: () => import('@/views/food/FoodRoomPicture'),
-        meta: {title: 'foodRoomPicture'}
-      }, {
+      },
+      {
         path: 'foodStoreRoomTabel',
         name: 'FoodStoreRoomTabel',
         component: () => import('@/views/food/FoodStoreRoomTabel'),
         meta: {title: 'foodStoreRoomTabel'}
       },
-
       {
-        path: 'foodStoreTableTime',
-        name: 'FoodStoreTableTime',
-        component: () => import('@/views/food/FoodStoreTableTime'),
-        meta: {title: 'foodStoreTableTime'}
-      }, {
         path: 'foodStoreOrderingTime',
         name: 'FoodStoreOrderingTime',
         component: () => import('@/views/food/FoodStoreOrderingTime'),

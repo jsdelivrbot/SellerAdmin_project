@@ -96,6 +96,9 @@
               <el-form-item label="店面简介">
                 <span>{{ props.row.fd_sf_Introduce }}</span>
               </el-form-item>
+              <el-form-item label="推荐店铺审核状态">
+                <span>{{props.row.fd_sf_ApplayState | applyState}}</span>
+              </el-form-item>
             </el-form>
           </template>
         </el-table-column>
@@ -109,17 +112,8 @@
             {{scope.row.fd_sf_PassStatus}}
           </template>
         </el-table-column>
-        <!--        <el-table-column
-                  label="联系电话"
-                  prop="fd_sf_Phone">
-                </el-table-column>
-                <el-table-column
-                  label="人均价格">
-                  <template slot-scope="scope">
-                    {{scope.row.fd_sf_AvgPrice}}元
-                  </template>
-                </el-table-column>-->
         <el-table-column
+          width="700"
           label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="update(scope.row)">修改</el-button>
@@ -127,11 +121,9 @@
             <el-button size="mini" v-show="scope.row.fd_sf_PassStatus == '通过'" type="success"
                        @click="recommendShop(scope.row.fd_sf_ID)">申请推荐店面
             </el-button>
+            <el-button size="mini" type="primary" @click="goThisProduct(scope.row.fd_sf_ID)">前往店面产品</el-button>
+            <el-button size="mini" type="primary" @click="goThisRoom(scope.row.fd_sf_ID)">店面房间</el-button>
             <el-button size="mini" type="success" @click="jump(scope.row)">预览效果></el-button>
-            <el-button size="mini" v-show="scope.row.fd_sf_PassStatus == '通过'" type="success"
-                       @click="recommendShop(scope.row.fd_sf_ID)">申请推荐店面
-            </el-button>
-
           </template>
         </el-table-column>
       </el-table>
@@ -201,7 +193,6 @@
               </p>
             </div>
           </el-form-item>
-
           <el-form-item label="可锁桌时间:" :label-width="formLabelWidth" required>
             <el-select v-model="canLockTime" multiple placeholder="请选择">
               <el-option
@@ -212,8 +203,6 @@
               </el-option>
             </el-select>
           </el-form-item>
-
-
           <el-form-item label="地址描述:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.fd_sf_Address"></el-input>
           </el-form-item>
@@ -322,7 +311,7 @@
       <el-dialog title="修改店面信息" :visible.sync="updateDialog">
         <el-form :model="updateObj">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth" required>
-            <el-select v-model="updateType" multiple placeholder="请选择">
+            <el-select v-model="updateObj.typeList" multiple placeholder="请选择">
               <el-option
                 v-for="item in storefrontTypeList"
                 :key="item.propertyID"
@@ -332,7 +321,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="店面经营类别:" :label-width="formLabelWidth" required>
-            <el-select v-model="updateEat" multiple placeholder="请选择">
+            <el-select v-model="updateObj.eatList" multiple placeholder="请选择">
               <el-option
                 v-for="item in threeMealsList"
                 :key="item.propertyID"
@@ -372,10 +361,8 @@
               </p>
             </div>
           </el-form-item>
-
-
           <el-form-item label="可锁桌时间:" :label-width="formLabelWidth" required>
-            <el-select v-model="updateTime" multiple placeholder="请选择">
+            <el-select v-model="updateObj.timeList" multiple placeholder="请选择">
               <el-option
                 v-for="item in timeList"
                 :key="item"
@@ -486,7 +473,6 @@
     },
     computed: mapGetters([
       'foodStoreInformtionList',
-//      'foodStoreInformtionList1',
       'numberOfMealsList',
       'storefrontTypeList',
       'foodProcinceList',
@@ -573,8 +559,6 @@
         isNewUploaNode: true,
         updateImage: [],
         updateRadioIndex: 0,
-        updateType: [],
-        updateEat: [],
         timeList: [
           "00:00",
           "01:00",
@@ -602,7 +586,6 @@
           "23:00"
         ],
         canLockTime: [],
-        updateTime: [],
       }
     },
     created() {
@@ -614,6 +597,9 @@
       this.initThreeMeals();
     },
     methods: {
+      goThisRoom(id) {
+        this.$router.push({name: 'FoodStoreRoom', params: {id: id}})
+      },
       selectWeek() {
         if (this.addOptions.fd_sf_WorkDayFrom >= this.addOptions.fd_sf_WorkDayTo) {
           this.addOptions.fd_sf_WorkDayFrom = '';
@@ -624,8 +610,6 @@
           })
           return
         }
-
-
       },
       //修改店面图片
       updateData(data) {
@@ -636,7 +620,6 @@
           this.updateRadioIndex = '';
         }
       },
-
       deleteUpdateImageURL(val) {
         this.isNewUploaNode = false
         this.updateImage = this.updateImage.filter(v => {
@@ -755,18 +738,7 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          //"fd_sf_ID": "2",//店面编号
-          //"fd_sf_TypeID": "4",//用餐类型
-          //"fd_sf_MansID": "31",//用餐人数编号
-          //"fd_sf_ProductName": "",//产品名称 like
-          //"fd_sf_Provice": "四川省",//省
-          //"fd_sf_City": "泸州市",//市
-          //"priceFrom": "21",//人均价格大于
-          //"priceTo":"50",//人均价格小于
-          //"fd_sf_Phone": "1",//联系电话
           "fd_sf_TradeID": this.userInfo.sm_ui_ID,//供应商编码
-          // "openTimeFrom": "06:00",
-          //  "openTimeTo":"23:00",
           "page": page ? page : "1",
           "rows": "5",
         };
@@ -788,6 +760,10 @@
       },
       //添加
       add() {
+        let uploader = document.querySelector('.uploader-list')
+        if(uploader){
+          uploader.querySelector('ul').innerHTML = ''
+        }
         for (var attr in this.addOptions) {
           this.addOptions[attr] = ''
         }
@@ -812,7 +788,6 @@
           "fd_sf_CategoryID": this.fd_sf_CategoryID,
           "fd_sf_Images": this.addImage,
           "canLockTime": this.canLockTime,//可锁桌时间
-
         };
         if (isNaN(this.addOptions.fd_sf_Lng) || isNaN(this.addOptions.fd_sf_Lat)) {
           this.$notify({
@@ -840,6 +815,7 @@
       update(rowData) {
         let arr = [];
         this.updateObj = rowData;
+        this.updateImage = this.updateObj.imgList;
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
       },
@@ -859,10 +835,10 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "fd_sf_TypeID": this.updateType,
-          "fd_sf_CategoryID": this.updateEat,
+          "fd_sf_TypeID": this.updateObj.typeList,
+          "fd_sf_CategoryID": this.updateObj.eatList,
           "fd_sf_Images": this.updateImage,
-          "canLockTime": this.timeList,
+          "canLockTime": this.updateObj.timeList,
           "data": {
             "fd_sf_ID": this.updateObj.fd_sf_ID,//店面编号
             "fd_sf_MansID": this.updateObj.fd_sf_MansID,//用餐人数编号
@@ -952,10 +928,14 @@
           }, err => {
             this.$notify({
               message: err,
-              type: 'error'
+              type: 'info'
             });
           })
       },
+      //店面产品
+      goThisProduct(id) {
+        this.$router.push({name: 'FoodStoreProduct', params: {id: id}})
+      }
 
     },
 

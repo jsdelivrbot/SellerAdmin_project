@@ -18,6 +18,7 @@ export default {
   foodStoreConfirnOrderList: state => state.foodStoreConfirnOrderList,
   foodStoreProductPictureList: state => state.foodStoreProductPictureList,
   foodStoppingPlaceList: state => state.foodStoppingPlaceList,
+  roomTypeList: state => state.roomTypeList,
 
 
 }

@@ -4,6 +4,7 @@
 
 import {getNewStr} from '@/assets/js/public'
 import request from '@/utils/request'
+
 export default {
   //美食房间图片上传
   foodUploadAdminImgs(store, data) {
@@ -787,19 +788,19 @@ export default {
 
 
   //查询停车场
-  initFoodStoppingPlace({commit},data){
+  initFoodStoppingPlace({commit}, data) {
     return new Promise(
-      (relove,reject)=>{
+      (relove, reject) => {
         request.post(getNewStr + '/StopCar/Select', JSON.stringify(data), {
-          headers:{'Content-Type': 'application/x-www-form-urlencoded'}
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         })
-          .then(data=>{
+          .then(data => {
             var data = data.data;
-            if(Number(data.resultcode)==200){
+            if (Number(data.resultcode) == 200) {
               relove(Number(data.totalrows));
-              commit('initFoodStoppingPlace',data.data)
+              commit('initFoodStoppingPlace', data.data)
             }
-            else{
+            else {
               reject(data.resultcontent)
             }
           })
@@ -807,49 +808,50 @@ export default {
     )
   },
 //添加停车场
-  addFoodStoppingPlace({commit},data){
-    return new Promise((relove,reject)=>{
-      request.post(getNewStr + '/StopCar/Insert',JSON.stringify(data),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
-        .then(data=>{
+  addFoodStoppingPlace({commit}, data) {
+    return new Promise((relove, reject) => {
+      request.post(getNewStr + '/StopCar/Insert', JSON.stringify(data), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+        .then(data => {
           var data = data.data;
-          if(Number(data.resultcode==200)){
+          if (Number(data.resultcode == 200)) {
             relove(data.resultcontent);
           }
-          else{
+          else {
             reject(data.resultcontent);
           }
         });
     });
   },
 //删除停车场
-  deleteFoodStoppingPlace({commit},data){
-    return new Promise((relove,reject)=>{
-      request.post(getNewStr + '/StopCar/Delete',JSON.stringify(data),{headers:{'Content-Type':'application/x-www-form-urlencoded'}})
-        .then(data=>{
+  deleteFoodStoppingPlace({commit}, data) {
+    return new Promise((relove, reject) => {
+      request.post(getNewStr + '/StopCar/Delete', JSON.stringify(data), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+        .then(data => {
           var data = data.data;
 
           if (Number(data.resultcode) == 200) {
             relove(data.resultcontent);
           }
-          else{
+          else {
             reject(data.resultcontent);
           }
         })
     })
   },
 //修改停车场
-  updateFoodStoppingPlace({commit},data){
-    return new Promise((relove,reject)=>{
-      request.post(getNewStr + '/StopCar/Update',JSON.stringify(data),{
-        headers:{'Content-Type':'application/x-www-form-urlencoded'
+  updateFoodStoppingPlace({commit}, data) {
+    return new Promise((relove, reject) => {
+      request.post(getNewStr + '/StopCar/Update', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
       })
-        .then((data)=>{
+        .then((data) => {
           var data = data.data;
-          if(Number(data.resultcode==200)){
+          if (Number(data.resultcode == 200)) {
             relove(data.resultcontent)
           }
-          else{
+          else {
             reject(data.resultcontent)
           }
         });
@@ -876,19 +878,19 @@ export default {
     })
   },
   //确认订单
-  foodOrderOk({commit},data){
-    return new Promise((relove,reject)=>{
-      request.post(getNewStr + '/Order/SureOrderInfo',JSON.stringify(data),{
-        headers:{
-          'Content-Type':'application/x-www-form-urlencoded'
+  foodOrderOk({commit}, data) {
+    return new Promise((relove, reject) => {
+      request.post(getNewStr + '/Order/SureOrderInfo', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
       })
-        .then(data=>{
+        .then(data => {
           var data = data.data;
-          if(Number(data.resultcode==200)){
+          if (Number(data.resultcode == 200)) {
             relove(data.resultcontent);
           }
-          else{
+          else {
             reject(data.resultcontent);
           }
         });
@@ -1021,6 +1023,26 @@ export default {
           var data = data.data;
           if (Number(data.resultcode) == 200) {
             relove(data.resultcontent)
+          }
+          else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
+  //房间类型
+  initRoomType({commit}, data) {
+    return new Promise(function (relove, reject) {
+      axios.post(getNewStr + '/Property/Select', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data=>{
+          var data = data.data;
+          if (Number(data.resultcode) == 200) {
+            commit('initRoomType',data.data);
+            relove()
           }
           else {
             reject(data.resultcontent)

@@ -15,11 +15,11 @@
           label="店面名称"
           align="center">
         </el-table-column>
-        <!--<el-table-column-->
-        <!--prop="fd_sfp_ID"-->
-        <!--label="美食编号"-->
-        <!--align="center">-->
-        <!--</el-table-column>-->
+        <el-table-column
+          prop="fd_py_Name"
+          label="美食菜系"
+          align="center">
+        </el-table-column>
         <el-table-column
           prop="fd_sfp_Name"
           label="美食名称"
@@ -38,7 +38,7 @@
             <img
               :src="item" alt=""
               v-for="item,index in scope.row.imgData"
-              width="100%"
+              height="50"
             >
           </template>
         </el-table-column>
@@ -99,6 +99,16 @@
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="菜系:" :label-width="formLabelWidth">
+            <el-select v-model="addOptions.fd_sfp_FoodTypeID" placeholder="请选择">
+              <el-option
+                v-for="item in cuisineList"
+                :key="item.propertyID"
+                :label="item.propertyName"
+                :value="item.propertyID">
               </el-option>
             </el-select>
           </el-form-item>
@@ -166,6 +176,16 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item label="菜系:" :label-width="formLabelWidth">
+            <el-select v-model="updateObj.fd_sfp_FoodTypeID" placeholder="请选择">
+              <el-option
+                v-for="item in cuisineList"
+                :key="item.propertyID"
+                :label="item.propertyName"
+                :value="item.propertyID">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="价格:" :label-width="formLabelWidth">
             <el-input v-model="updateObj.fd_sfp_Price"></el-input>
           </el-form-item>
@@ -190,7 +210,8 @@
       Upload
     },
     computed: mapGetters([
-      'foodStoreProductList'
+      'foodStoreProductList',
+      'cuisineList'
     ]),
     data() {
       return {
@@ -202,6 +223,7 @@
           "fd_sfp_Price": "",//价格
           "fd_sfp_MeatVeg": "",//0素菜 1荤菜
           "fd_sfp_Remark": "",//备注
+          "fd_sfp_FoodTypeID": "",//菜系
         },
         formLabelWidth: '120px',
         total: 0,
@@ -230,8 +252,21 @@
       this.productId = this.$route.params.id;
       this.userInfo = JSON.parse(sessionStorage.getItem('admin'))
       this.initData();
+      this.initCuisine();
     },
     methods: {
+      initCuisine() {
+        let selectPropertyInfo = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "token": "",
+          "fd_py_ParentID": "1",//父编码 为0是查询顶级属性 1美食类型[菜系]  父编码为75房间区域      80经营类型[早中晚]
+        }
+        this.$store.dispatch('initCuisine', selectPropertyInfo)
+      },
       jump(obj) {
         let status = sessionStorage.getItem('status')
         if (status == '审核中') {
@@ -315,7 +350,6 @@
       //修改
       update(rowData) {
         this.updateObj = rowData;
-        console.log(this.updateObj)
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
       },
@@ -336,6 +370,7 @@
             "fd_sfp_MeatVeg": this.updateObj.fd_sfp_MeatVeg,//0素菜 1荤菜
             "fd_sfp_Price": this.updateObj.fd_sfp_Price,//价格
             "fd_sfp_Remark": this.updateObj.fd_sfp_Remark,//备注
+            "fd_sfp_FoodTypeID": this.updateObj.fd_sfp_FoodTypeID
           }
         };
         this.$store.dispatch('updateFoodStoreProduct', updateStoreFrontProductInfo)

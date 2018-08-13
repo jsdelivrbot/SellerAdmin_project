@@ -92,6 +92,9 @@ export default {
   },
   initRoomType(state, data) {
     state.roomTypeList = data;
+  },
+  initCuisine(state,data) {
+    state.cuisineList = data;
   }
 }
 

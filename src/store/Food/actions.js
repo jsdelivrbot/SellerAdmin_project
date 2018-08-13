@@ -1050,5 +1050,25 @@ export default {
         })
     })
   },
+  //菜系
+  initCuisine({commit}, data) {
+    return new Promise(function (relove, reject) {
+      axios.post(getNewStr + '/Property/Select', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data=>{
+          var data = data.data;
+          if (Number(data.resultcode) == 200) {
+            commit('initCuisine',data.data);
+            relove()
+          }
+          else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
 }
 

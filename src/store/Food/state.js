@@ -40,4 +40,6 @@ export default {
 
   roomTypeList: [],//房间类型
 
+  cuisineList: [],//菜系
+
 }

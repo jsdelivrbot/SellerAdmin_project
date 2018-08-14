@@ -5,6 +5,8 @@ export default {
     documentation: 'Documentation',
     guide: 'Guide',
     travel:'Travel',
+    AdminQueryUserOrder: 'Admin Query User Order',
+
 
     ticket:'Ticket',
     ticketAttractions:'Ticket Attractions',
@@ -26,7 +28,6 @@ export default {
     foodStoppingPlace:"Food Stopping Place",
     foodStoreConfirmOrder:'Food Store Confirm Order',
     hotelFacilitiesServicesFacilities:'Hotel Facilities Services Facilities',
-
     hotel:'Hotel',
     ticketMap:'Ticket Map',
     hotelDetail:'Hotel Detail',

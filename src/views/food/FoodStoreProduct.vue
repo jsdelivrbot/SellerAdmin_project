@@ -266,6 +266,12 @@
           "fd_py_ParentID": "1",//父编码 为0是查询顶级属性 1美食类型[菜系]  父编码为75房间区域      80经营类型[早中晚]
         }
         this.$store.dispatch('initCuisine', selectPropertyInfo)
+          .then(()=>{},err=>{
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
+          })
       },
       jump(obj) {
         let status = sessionStorage.getItem('status')

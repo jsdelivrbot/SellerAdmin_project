@@ -364,7 +364,7 @@ export default {
   //查询商户订单
   initQueryUserOrder({commit}, data) {
     return new Promise(function (relove, reject) {
-      request.post(getNewStr + '/TravelOrder/GetOrderInfo', JSON.stringify(data), {
+      request.post(getNewStr + '/TravelOrder/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -383,7 +383,7 @@ export default {
   //查询用户订单
   initSearchUserOrder({commit}, data) {
     return new Promise(function (relove, reject) {
-      request.post(getNewStr + '/TravelOrder/GetOrderInfo', JSON.stringify(data), {
+      request.post(getNewStr + '/TravelOrder/Select', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -2259,5 +2259,23 @@ export default {
         }
       })
     })
-  }
+  },
+  //确认订单
+  orderTrSubmit(store,data){
+    return new Promise((relove, reject) => {
+      request.post(getNewStr + '/TravelOrder/OutOrder', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data => {
+          var data = data.data;
+          if (Number(data.resultcode) == 200) {
+            relove(data.resultcontent)
+          } else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
 }

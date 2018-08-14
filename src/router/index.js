@@ -102,9 +102,17 @@ export const constantRouterMap = [
         alwaysShow: true,
         component: () => import('@/views/travel/AdminQueryProductInformationList'),
         meta: {title: 'ProductLineManagement', icon: 'table'}
-      }
+      },
+      {
+        path: 'adminQueryUserOrder',
+        name: 'AdminQueryUserOrder',
+        alwaysShow: true,
+        component: () => import('@/views/travel/AdminQueryUserOrder'),
+        meta: {title: 'AdminQueryUserOrder'}
+      },
     ]
   },
+
   /**
    *  门票
    **/

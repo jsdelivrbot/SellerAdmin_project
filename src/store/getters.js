@@ -37,6 +37,7 @@ const getters = {
   updateAdminLinePriceObj: state => state.travelAgency.updateAdminLinePriceObj,
   adminLinePrepare: state => state.travelAgency.adminLinePrepare,
   // ticketAttractionsList:state=>state.ticket.ticketAttractionsList,
+  queryUserOrderList: state => state.travelAgency.queryUserOrderList,
 //  ToggleDevice:state=>state.ticket.ToggleDevice,
 
   myHotelDetailsList: state => state.hotel.myHotelDetailsList,

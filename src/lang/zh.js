@@ -64,7 +64,7 @@ export default {
     carPreferentialPolicies:'租车优惠政策管理',
     carProduct:'租车汽车产品管理',
     carStore:'租车门店管理',
-
+    AdminQueryUserOrder: '旅行社订单',
     documentation: '文档',
     guide: '引导页',
     VendorInformation:'供应商信息',

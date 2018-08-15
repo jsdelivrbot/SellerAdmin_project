@@ -21,13 +21,13 @@
               <span>{{ props.row.fd_sfr_RoomName }}</span>
             </el-form-item>
             <el-form-item label="房间桌数">
-              <span>{{ props.row.fd_sfr_TablesCount }}</span>
+              <span>{{ props.row.fd_sfr_TablesCount }}桌</span>
             </el-form-item>
             <el-form-item label="预定金额(元)">
-              <span>{{ props.row.fd_sfr_BookMoney }}</span>
+              <span>{{ props.row.fd_sfr_BookMoney }} 元</span>
             </el-form-item>
             <el-form-item label="最低消费(元)">
-              <span>{{ props.row.fd_sfr_LowestCost }}</span>
+              <span>{{ props.row.fd_sfr_LowestCost }} 元</span>
             </el-form-item>
             <el-form-item label="房间区域名称">
               <span>{{ props.row.fd_py_Name }}</span>
@@ -44,7 +44,8 @@
               >
             </el-form-item>
             <el-form-item label="房间视频">
-              <video :src="props.row.fd_sfr_VedioURL" height="240" controls="controls"></video>
+              <video :src="props.row.fd_sfr_VedioURL" v-show="props.row.fd_sfr_VedioURL" height="240"
+                     controls="controls"></video>
             </el-form-item>
           </el-form>
         </template>
@@ -106,7 +107,7 @@
         </el-form-item>
 
         <el-form-item label="区域名称" :label-width="formLabelWidth" style="width: 55%">
-          <el-select v-model="addOptions.fd_sfr_RegionID" placeholder="请选择">
+          <el-select v-model="addOptions.fd_sfr_RegionID" placeholder="请选择" @change="changeRoomType">
             <el-option
               v-for="item in roomTypeList"
               :key="item.propertyID"
@@ -116,7 +117,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="房间桌数(桌)" :label-width="formLabelWidth" style="width: 55%">
+        <el-form-item label="房间桌数(桌)" :label-width="formLabelWidth" v-show="showTabel" style="width: 55%">
           <el-input v-model="addOptions.fd_sfr_TablesCount" auto-complete="off" placeholder="请输入数字"></el-input>
         </el-form-item>
 
@@ -151,7 +152,7 @@
         </el-form-item>
 
         <el-form-item label="上传视频:" :label-width="formLabelWidth">
-          <p>单个视频不能大于600KB</p>
+          <p>视频大小不能大于600MB</p>
           <Upload @getData="addVideo" :attrs="videoObj"></Upload>
           <video
             :src="this.addOptions.fd_sfr_VedioURL"
@@ -185,7 +186,7 @@
         </el-form-item>
 
         <el-form-item label="区域名称" :label-width="formLabelWidth" style="width: 55%">
-          <el-select v-model="updateObj.fd_sfr_RegionID" placeholder="请选择">
+          <el-select v-model="updateObj.fd_sfr_RegionID" placeholder="请选择" @change="updateChangeRoomType">
             <el-option
               v-for="item in roomTypeList"
               :key="item.propertyID"
@@ -195,7 +196,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="房间桌数(桌)" :label-width="formLabelWidth" style="width: 55%">
+        <el-form-item label="房间桌数(桌)" :label-width="formLabelWidth" v-show="showUpdateTabel" style="width: 55%">
           <el-input v-model="updateObj.fd_sfr_TablesCount" auto-complete="off" placeholder="请输入数字"></el-input>
         </el-form-item>
 
@@ -230,7 +231,7 @@
         </el-form-item>
 
         <el-form-item label="上传视频:" :label-width="formLabelWidth">
-          <p>单个视频大小不能大于600Mb</p>
+          <p>视频大小不能大于600MB</p>
           <Upload @getData="updateVideo" :attrs="videoObj"></Upload>
 
           <video :src="  this.updateObj.fd_sfr_VedioURL" v-show="this.updateObj.fd_sfr_VedioURL" controls
@@ -273,6 +274,7 @@
           "fd_sfr_TablesCount": "",//房间桌数
           "fd_sfr_WashRoom": "",//有无单独卫生间（0无 1有）
         },
+        showTabel: true,
         hoveToilet: [
           {
             value: 0,
@@ -300,6 +302,7 @@
         addRadioIndex: 0,
         isNewUploaNode: true,
         updateRadioIndex: 0,
+        showUpdateTabel: true,
       }
     },
     created() {
@@ -320,6 +323,13 @@
           "fd_py_ParentID": "75",//父编码 为0是查询顶级属性 1美食类型[菜系]  父编码为75房间区域      80经营类型[早中晚]
         };
         this.$store.dispatch('initRoomType', selectPropertyInfo)
+          .then(() => {
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
+          })
       },
       addVideo(data) {
         this.addOptions.fd_sfr_VedioURL = data.data;
@@ -381,8 +391,20 @@
         this.$store.commit('setTranstionFalse');
       },
 
+      changeRoomType() {
+
+        if (this.addOptions.fd_sfr_RegionID == 78) {
+          this.showTabel = false;
+        } else {
+          this.showTabel = true;
+        }
+      },
+
       //新增提交
       addSubmit() {
+        if (this.addOptions.fd_sfr_RegionID == 78) {
+          this.addOptions.fd_sfr_TablesCount = 1;
+        }
         let addStoreRoom = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -412,7 +434,21 @@
         this.updateObj = rowData;
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
+        if (this.updateObj.fd_sfr_RegionID == 78) {
+          this.showUpdateTabel = false;
+        } else {
+          this.showUpdateTabel = true;
+        }
       },
+
+      updateChangeRoomType(){
+        if (this.updateObj.fd_sfr_RegionID == 78) {
+          this.showUpdateTabel = false;
+        } else {
+          this.showUpdateTabel = true;
+        }
+      },
+
       //修改提交
       updateSubmit() {
         let updateStoreFrontRoomInfo = {
@@ -422,7 +458,7 @@
           "operateUserName": "",
           "pcName": "",
           "images": this.updateObj.imgData,
-          "data":this.updateObj
+          "data": this.updateObj
         };
         this.$store.dispatch('updateFoodStoreRoom', updateStoreFrontRoomInfo)
           .then(suc => {
@@ -451,8 +487,8 @@
             "fd_sfr_ID": id ? id : '',//店面房间编号
           }
         };
-        this.$store.dispatch('deleteFoodStoreRoom', deleteStoreRoom).then(
-          suc => {
+        this.$store.dispatch('deleteFoodStoreRoom', deleteStoreRoom)
+          .then(suc => {
             this.$notify({
               message: suc,
               type: 'success'

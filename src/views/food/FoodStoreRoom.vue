@@ -434,16 +434,13 @@
         this.updateObj = rowData;
         this.$store.commit('setTranstionFalse');
         this.updateDialog = true;
-        if (this.updateObj.fd_sfr_RegionID == 78) {
-          this.showUpdateTabel = false;
-        } else {
-          this.showUpdateTabel = true;
-        }
+        this.updateChangeRoomType();
       },
 
       updateChangeRoomType(){
         if (this.updateObj.fd_sfr_RegionID == 78) {
           this.showUpdateTabel = false;
+          this.updateObj.fd_sfr_TablesCount = 1;
         } else {
           this.showUpdateTabel = true;
         }
@@ -451,6 +448,7 @@
 
       //修改提交
       updateSubmit() {
+
         let updateStoreFrontRoomInfo = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",

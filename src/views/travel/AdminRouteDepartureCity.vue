@@ -92,7 +92,7 @@
       </div>
 
       <!--添加产品线路出发城市-->
-      <el-dialog title="添加出发城市" :visible.sync="addDialog" :close-on-click-modal="false">
+      <el-dialog title="添加出发城市" :visible.sync="addDialog" :close-on-click-modal="false" width="1200px">
         <el-form :model="addOptions">
           <!--<el-form-item label="请选择产品线路:" :label-width="formLabelWidth">-->
             <!--<el-select v-model="addOptions.data.ts_cc_LineID" placeholder="请选择产品线路">-->

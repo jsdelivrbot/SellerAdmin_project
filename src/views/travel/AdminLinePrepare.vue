@@ -122,7 +122,7 @@
 
       <!--修改线路日程-->
       <el-dialog title="修改线路日程" :visible.sync="updateAdminLinePrepareDialog" :close-on-click-modal="false"
-                 @close="closeDialog" width="70%">
+                 @close="closeDialog" width="1200px">
         <el-form :model="updateAdminLinePrepareObj">
           <el-form-item label="日程名称:" :label-width="formLabelWidth">
             <el-input v-model="updateAdminLinePrepareObj.ts_pt_Name" placeholder="请输入日程名称"></el-input>

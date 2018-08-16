@@ -150,7 +150,7 @@
       </el-table>
     </div>
     <!--添加线路-->
-    <el-dialog title="添加线路" :visible.sync="addAdminQueryProductInformationDialog" :close-on-click-modal="false" width="70%">
+    <el-dialog title="添加线路" :visible.sync="addAdminQueryProductInformationDialog" :close-on-click-modal="false" width="1200px">
       <el-form :model="addOptions">
         <el-form-item label="线路名称:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ts_pt_Name" placeholder="请输入线路名称"></el-input>

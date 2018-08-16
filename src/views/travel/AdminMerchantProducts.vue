@@ -203,7 +203,7 @@
 
     </div>
     <!--添加产品-->
-    <el-dialog title="添加产品" :visible.sync="addDialog" width="1200px" :close-on-click-modal="false" @close="closeDialog">
+    <el-dialog title="添加产品" :visible.sync="addDialog" width="1150px" :close-on-click-modal="false" @close="closeDialog">
       <el-form :model="addOptions">
 
         <el-form-item label="产品标题:" :label-width="formLabelWidth" required>

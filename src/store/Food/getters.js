@@ -20,6 +20,7 @@ export default {
   foodStoppingPlaceList: state => state.foodStoppingPlaceList,
   roomTypeList: state => state.roomTypeList,
   cuisineList: state => state.cuisineList,
+  selectPropertyInfoList: state => state.selectPropertyInfoList,
 
 
 }

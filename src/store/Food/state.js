@@ -42,4 +42,6 @@ export default {
 
   cuisineList: [],//菜系
 
+  selectPropertyInfoList: [],//用餐类型
+
 }

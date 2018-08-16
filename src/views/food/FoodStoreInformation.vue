@@ -30,10 +30,10 @@
                 <span>{{ props.row.fd_sf_ID }}</span>
               </el-form-item>
               <el-form-item label="店面用餐类型">
-                <span v-for="item,index in props.row.typeList">{{ item + ' ,' }}</span>
+                <span v-for="item,index in props.row.eatTypeList">{{ item.propertyName + ' ,' }}</span>
               </el-form-item>
               <el-form-item label="店面经营类别">
-                <span v-for="item,index in props.row.eatList">{{ item + ' ,' }}</span>
+                <span v-for="item,index in props.row.foodTypeList">{{ item.propertyName + ' ,' }}</span>
               </el-form-item>
               <el-form-item label="店面图片">
                 <img
@@ -45,8 +45,8 @@
               <el-form-item label="用餐人数">
                 <span>{{ props.row.fd_py_MansName }}</span>
               </el-form-item>
-              <el-form-item label="可订餐时间">
-                <span v-for="item,index in props.row.timeList">{{ item + ' ,' }}</span>
+              <el-form-item label="可订餐类型">
+                <span v-for="item,index in props.row.canLockTimeList">{{ item.propertyName + ' ,' }}</span>
               </el-form-item>
               <el-form-item label="店面名称">
                 <span>{{ props.row.fd_sf_ProductName }}</span>
@@ -193,13 +193,13 @@
               </p>
             </div>
           </el-form-item>
-          <el-form-item label="可锁桌时间:" :label-width="formLabelWidth" required>
+          <el-form-item label="可订餐类型:" :label-width="formLabelWidth" required>
             <el-select v-model="canLockTime" multiple placeholder="请选择">
               <el-option
-                v-for="item in timeList"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selectPropertyInfoList"
+                :key="item.propertyID"
+                :label="item.propertyName"
+                :value="item.propertyID">
               </el-option>
             </el-select>
           </el-form-item>
@@ -361,13 +361,13 @@
               </p>
             </div>
           </el-form-item>
-          <el-form-item label="可锁桌时间:" :label-width="formLabelWidth" required>
+          <el-form-item label="可订餐类型:" :label-width="formLabelWidth" required>
             <el-select v-model="updateObj.timeList" multiple placeholder="请选择">
               <el-option
-                v-for="item in timeList"
-                :key="item"
-                :label="item"
-                :value="item">
+                v-for="item in selectPropertyInfoList"
+                :key="item.propertyID"
+                :label="item.propertyName"
+                :value="item.propertyID">
               </el-option>
             </el-select>
           </el-form-item>
@@ -477,7 +477,8 @@
       'storefrontTypeList',
       'foodProcinceList',
       'foodCityList',
-      'threeMealsList'
+      'threeMealsList',
+      'selectPropertyInfoList'
     ]),
     data() {
       return {
@@ -559,32 +560,6 @@
         isNewUploaNode: true,
         updateImage: [],
         updateRadioIndex: 0,
-        timeList: [
-          "00:00",
-          "01:00",
-          "02:00",
-          "03:00",
-          "04:00",
-          "05:00",
-          "06:00",
-          "07:00",
-          "08:00",
-          "09:00",
-          "10:00",
-          "11:00",
-          "12:00",
-          "13:00",
-          "14:00",
-          "15:00",
-          "16:00",
-          "17:00",
-          "18:00",
-          "19:00",
-          "20:00",
-          "21:00",
-          "22:00",
-          "23:00"
-        ],
         canLockTime: [],
       }
     },
@@ -595,8 +570,28 @@
       this.initNumberOfMeals();
       this.initStorefrontType();
       this.initThreeMeals();
+      this.initSelectPropertyInfo();
     },
     methods: {
+      initSelectPropertyInfo() {
+        let selectPropertyInfo = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "token": "",
+          "fd_py_ParentID": "86",//父编码 为0是查询顶级属性 1美食类型[菜系]  父编码为75房间区域      80经营类型[早中晚]
+        };
+        this.$store.dispatch('initSelectPropertyInfo', selectPropertyInfo)
+          .then(() => {
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
+          })
+      },
       goThisRoom(id) {
         this.$router.push({name: 'FoodStoreRoom', params: {id: id}})
       },
@@ -761,7 +756,7 @@
       //添加
       add() {
         let uploader = document.querySelector('.uploader-list')
-        if(uploader){
+        if (uploader) {
           uploader.querySelector('ul').innerHTML = ''
         }
         for (var attr in this.addOptions) {

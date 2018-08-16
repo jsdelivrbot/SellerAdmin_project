@@ -13,7 +13,7 @@ export default {
       data[i].typeList = [];
       data[i].imgList = [];
       for (let j = 0; j < data[i].canLockTimeList.length; j++) {
-        data[i].timeList.push(data[i].canLockTimeList[j].fd_clt_CanSellTime);
+        data[i].timeList.push(data[i].canLockTimeList[j].fd_fp_PropertyID);
       }
       for (let j = 0; j < data[i].eatTypeList.length; j++) {
         data[i].eatList.push(data[i].eatTypeList[j].fd_fp_PropertyID);
@@ -95,6 +95,9 @@ export default {
   },
   initCuisine(state,data) {
     state.cuisineList = data;
+  },
+  initSelectPropertyInfo(state, data) {
+    state.selectPropertyInfoList = data;
   }
 }
 

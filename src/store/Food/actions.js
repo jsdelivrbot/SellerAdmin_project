@@ -1070,5 +1070,25 @@ export default {
         })
     })
   },
+  //用餐类型
+  initSelectPropertyInfo({commit}, data) {
+    return new Promise(function (relove, reject) {
+      axios.post(getNewStr + '/Property/Select', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(data=>{
+          var data = data.data;
+          if (Number(data.resultcode) == 200) {
+            commit('initSelectPropertyInfo',data.data);
+            relove()
+          }
+          else {
+            reject(data.resultcontent)
+          }
+        })
+    })
+  },
 }
 

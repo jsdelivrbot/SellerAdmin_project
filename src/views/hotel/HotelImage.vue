@@ -59,7 +59,7 @@
           <el-button
             type="success"
             size="mini"
-            @click="jump(scope.row.ht_hi_ID)">上移
+            @click="UpData(scope.row.ht_hi_ID)">上移
           </el-button>
           <el-button
             type="success"
@@ -215,6 +215,11 @@
           }
         },
         options:{
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "操作员编码",
+          "operateUserName": "操作员名称",
+          "pcName": "",
           UpDataId:'',
           DownDataId:''
         },
@@ -244,6 +249,19 @@
       this.initImageType();
     },
     methods: {
+      //上移
+      UpData(id){
+        //获取下一个
+        let ID = this.getIndex(id,1);
+        if(ID){
+          this.options.UpDataId = id;
+          this.options.DownDataId = ID;
+          this.$store.dispatch('initDownData',this.options)
+          .then(()=>{
+            this.initData()
+          })
+        }
+      },
       //下移
       DownData(id){
         //获取下一个
@@ -256,14 +274,15 @@
             this.initData()
           })
         }
-        console.log(id,ID)
       },
       getIndex(id,num){
         for(var i=0;i<this.hotelImageList.length;i++){
           if(this.hotelImageList[i].ht_hi_ID==id){
             if(num==1){
+              //上移
               return this.hotelImageList[i-1].ht_hi_ID
             }else{
+              //下移
               return this.hotelImageList[i+1].ht_hi_ID
             }
           }

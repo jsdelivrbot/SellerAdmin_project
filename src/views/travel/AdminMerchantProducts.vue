@@ -193,7 +193,7 @@
     <div class="block" style="float: right;padding: 30px 0 80px 0">
       <el-pagination
         @current-change="handleCurrentChange"
-        :page-size="5"
+        :page-size="10"
         background
         layout="total, prev, pager, next"
         :total="total"
@@ -251,7 +251,7 @@
           <p>单张图片大小不能大于600KB</p>
           <Upload @getData="getData" :attrs="imageObj"></Upload>
           <div class="imgWap">
-            <p v-for="item,index in ImageURL" style="display: inline-block;position: relative">
+            <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 70px">
               <img
                 :src="item"
                 width="280"
@@ -342,7 +342,7 @@
 
 
         <el-form-item label="所属省:" :label-width="formLabelWidth">
-          <el-select v-model="updateAdminMerchantProductsObj.ts_tg_Provice" placeholder="请选择省份" @change="changeProvice">
+          <el-select v-model="updateAdminMerchantProductsObj.ts_tg_Provice" placeholder="请选择省份" @change="changeUpdateProvice">
             <el-option
               v-for="item in proviceList"
               :key="item.sm_af_AreaName"
@@ -641,10 +641,10 @@
     ]),
     created(){
 //      //初始化省
-//      let sCity = {
-//        "areaPid": 3337
-//      };
-//      this.$store.dispatch('initProvice', sCity)
+      let sCity = {
+        "areaPid": 3337
+      };
+      this.$store.dispatch('initProvice', sCity)
       let obj = JSON.parse(sessionStorage.getItem('admin'));
       this.userObj = obj;
       this.productsID = obj.sm_ui_ID
@@ -763,6 +763,22 @@
 //        this.addData.ts_tg_Provice = obj.sm_af_AreaName
         let searchCity = {
           "areaPid": this.value
+        }
+        this.$store.dispatch('initCityList', searchCity)
+      },
+      //选中省
+      changeUpdateProvice(item){
+        this.obj = this.proviceList.filter(v => {
+          if (v.sm_af_AreaID == item) {
+            return true;
+          }
+          return false;
+        })[0]
+//        this.updateAdminMerchantProductsObj.ts_tg_Provice = this.obj.sm_af_AreaName
+
+//        this.addData.ts_tg_Provice = obj.sm_af_AreaName
+        let searchCity = {
+          "areaPid": this.updateAdminMerchantProductsObj.ts_tg_Provice
         }
         this.$store.dispatch('initCityList', searchCity)
       },
@@ -906,17 +922,11 @@
       },
       //修改
       updateAdminMerchantProducts(obj){
-        for(var attr in obj){
-          obj[attr] =  obj[attr]+''
-        }
+        obj.ts_tg_LongOut = obj.ts_tg_LongOut+'';
+        obj.ts_tg_Type = obj.ts_tg_Type+''
         this.updateAdminMerchantProductsObj = obj;
-        this.$store.commit('setTranstionFalse');
-        setTimeout(() => {
           this.updateImageURL = this.updateAdminMerchantProductsObj.ta_tg_ShowImages
           this.updateDialog = true;
-        }, 30)
-
-
       },
       //修改提交
       updateSubmit(){
@@ -980,6 +990,7 @@
       //点击跳转到产品线路管理
       productLineManagement(id){
         this.$store.commit('adminProductLineManagementId', id);
+        sessionStorage.setItem('MerchanID',id)
         this.$router.push({name: 'AdminQueryProductInformation',params:{id}})
         sessionStorage.setItem('index', '1')
       }

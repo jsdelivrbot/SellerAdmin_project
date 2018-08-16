@@ -62,10 +62,10 @@
         </el-table-column>
         <el-table-column label="操作" width="300" align="center">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              @click="updateAdminRouteDepartureCity(scope.row.ts_cc_ID)">修改
-            </el-button>
+            <!--<el-button-->
+              <!--size="mini"-->
+              <!--@click="updateAdminRouteDepartureCity(scope.row.ts_cc_ID)">修改-->
+            <!--</el-button>-->
             <el-button
               size="mini"
               type="danger"
@@ -94,16 +94,16 @@
       <!--添加产品线路出发城市-->
       <el-dialog title="添加出发城市" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
-          <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.data.ts_cc_LineID" placeholder="请选择产品线路">
-              <el-option
-                v-for="item in adminProductLine"
-                :key="item.ts_pt_ID"
-                :label="item.ts_pt_Name"
-                :value="item.ts_pt_ID">
-              </el-option>
-            </el-select>
-          </el-form-item>
+          <!--<el-form-item label="请选择产品线路:" :label-width="formLabelWidth">-->
+            <!--<el-select v-model="addOptions.data.ts_cc_LineID" placeholder="请选择产品线路">-->
+              <!--<el-option-->
+                <!--v-for="item in adminProductLine"-->
+                <!--:key="item.ts_pt_ID"-->
+                <!--:label="item.ts_pt_Name"-->
+                <!--:value="item.ts_pt_ID">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
           <!--<el-form-item label="城市编码:" :label-width="formLabelWidth">-->
           <!--<el-input v-model="addOptions.data.ts_cc_Code" placeholder="请输入城市编码"></el-input>-->
           <!--</el-form-item>-->
@@ -135,16 +135,16 @@
       <!--修改产品线路出发城市-->
       <el-dialog title="修改出发城市" :visible.sync="updateDialog" :close-on-click-modal="false">
         <el-form :model="updateAdminRouteDepartureCityObj">
-          <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
-            <el-select v-model="updateAdminRouteDepartureCityObj.ts_cc_LineID" placeholder="请选择产品线路">
-              <el-option
-                v-for="item in adminProductLine"
-                :key="item.ts_pt_ID"
-                :label="item.ts_pt_Name"
-                :value="item.ts_pt_ID">
-              </el-option>
-            </el-select>
-          </el-form-item>
+          <!--<el-form-item label="请选择产品线路:" :label-width="formLabelWidth">-->
+            <!--<el-select v-model="updateAdminRouteDepartureCityObj.ts_cc_LineID" placeholder="请选择产品线路">-->
+              <!--<el-option-->
+                <!--v-for="item in adminProductLine"-->
+                <!--:key="item.ts_pt_ID"-->
+                <!--:label="item.ts_pt_Name"-->
+                <!--:value="item.ts_pt_ID">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
           <!--<el-form-item label="城市编码:" :label-width="formLabelWidth">-->
           <!--<el-input v-model="updateAdminRouteDepartureCityObj.ts_cc_Code" placeholder="请输入城市编码"></el-input>-->
           <!--</el-form-item>-->
@@ -195,6 +195,7 @@
         createTimeData: '',
         addDialog: false,
         updateDialog: false,
+        MerchanID:'',
         addOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -223,6 +224,7 @@
       };
       this.$store.dispatch('initProvice', sCity)
       this.adminLineScheduleManagementId = this.id;
+      this.MerchanID = sessionStorage.getItem('MerchanID')
       if (this.adminLineScheduleManagementId) {
         let options = {
           "loginUserID": "huileyou",
@@ -251,11 +253,10 @@
     methods: {
 
       jump(obj) {
-        console.log(obj)
-        let ID = sessionStorage.getItem('id')
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + ID, '_blank')
+        if(this.MerchanID){
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + this.MerchanID, '_blank')
+        }
       },
-
       //选中省
       changeProvice() {
         let searchCity = {
@@ -376,6 +377,7 @@
       },
       //添加提交
       addAdminRouteDepartureCitySubmit() {
+        this.addOptions.data.ts_cc_LineID = this.adminLineScheduleManagementId
         this.$store.dispatch('AddAdminRouteDepartureCity', this.addOptions)
           .then(() => {
             this.$notify({
@@ -407,7 +409,7 @@
           "pcName": "",
           "data": {
             "ts_cc_ID": this.updateAdminRouteDepartureCityObj.ts_cc_ID,
-            "ts_cc_LineID": this.updateAdminRouteDepartureCityObj.ts_cc_LineID,
+            "ts_cc_LineID": this.adminLineScheduleManagementId,
             "ts_cc_Code": this.updateAdminRouteDepartureCityObj.ts_cc_Code,
             "ts_cc_Name": this.updateAdminRouteDepartureCityObj.ts_cc_Name,
           }

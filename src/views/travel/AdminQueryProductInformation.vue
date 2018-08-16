@@ -57,6 +57,9 @@
               <el-form-item label="行程天数:">
                 <span>{{ props.row.ts_pl_LineDays }}</span>
               </el-form-item>
+              <el-form-item label="成团地点:">
+                <span>{{ props.row.provice+ props.row.city}}</span>
+              </el-form-item>
               <el-form-item label="预定需知:">
                 <div v-html="props.row.ts_pl_GroupCity"></div>
               </el-form-item>
@@ -157,8 +160,8 @@
             v-model="addOptions.data.ts_pl_GoTime"
             :picker-options="{
                 start: '05:30',
-                step: '00:10',
-                end: '18:30'
+                step: '00:05',
+                end: '23:30'
               }"
             placeholder="选择时间">
           </el-time-select>
@@ -173,9 +176,18 @@
 
         </el-form-item>
         <el-form-item label="成团地点:" :label-width="formLabelWidth">
-          <el-select v-model="addOptions.data.ts_pl_GroupCity" placeholder="请选择省份">
+          <el-select placeholder="请选择省份" @change="changeProvice" v-model="addOptions.data.ts_pl_GroupProvice">
             <el-option
               v-for="item in proviceList"
+              :key="item.sm_af_AreaID"
+              :label="item.sm_af_AreaName"
+              :value="item.sm_af_AreaID">
+            </el-option>
+          </el-select>
+
+          <el-select v-model="addOptions.data.ts_pl_GroupCity" placeholder="请选择市">
+            <el-option
+              v-for="item in cityList"
               :key="item.sm_af_AreaID"
               :label="item.sm_af_AreaName"
               :value="item.sm_af_AreaID">
@@ -184,6 +196,7 @@
         </el-form-item>
 
         <el-form-item label="展示图片:" :label-width="formLabelWidth" required>
+          <p style="font-weight: bold;color: #f60">App中使用的图片格式</p>
           <p>单张图片大小不能大于600KB</p>
           <Upload @getData="getData" :attrs="imageObj"></Upload>
           <div class="imgWap">
@@ -281,7 +294,7 @@
 
         </el-form-item>
         <el-form-item label="成团地点:" :label-width="formLabelWidth">
-          <el-select v-model="updateAdminQueryProductInformationObj.ts_pl_GroupCity" placeholder="请选择省份">
+          <el-select  v-model="updateAdminQueryProductInformationObj.provice" placeholder="请选择省份" @change="updateChangeProvice">
             <el-option
               v-for="item in proviceList"
               :key="item.sm_af_AreaID"
@@ -289,9 +302,20 @@
               :value="item.sm_af_AreaID">
             </el-option>
           </el-select>
+
+          <el-select v-model="updateAdminQueryProductInformationObj.city" placeholder="请选择市" @change="updateCity">
+            <el-option
+              v-for="item in cityList"
+              :key="item.sm_af_AreaID"
+              :label="item.sm_af_AreaName"
+              :value="item.sm_af_AreaID">
+            </el-option>
+          </el-select>
+
         </el-form-item>
 
         <el-form-item label="展示图片:" :label-width="formLabelWidth">
+          <p style="font-weight: bold;color: #f60">App中使用的图片格式</p>
           <p>单张图片大小不能大于600KB</p>
           <Upload @getData="updateImage" :attrs="imageObj"></Upload>
 
@@ -368,6 +392,7 @@
       'adminTradeGoodList',
       'adminProductLineManagementId',
       'proviceList',
+      'cityList'
     ]),
     name: '',
     components: {
@@ -376,6 +401,7 @@
     },
     data() {
       return {
+        ProviceID:'',
         ImageURL:[],
         updateImageURL:[],
         isNewUploaNode:true,
@@ -478,7 +504,8 @@
         },
         restaurantsDay:[],
         updateAdminQueryProductInformationObj:{},
-        id:''
+        id:'',
+        num:0
       }
     },
     created(){
@@ -495,6 +522,25 @@
       this.initData(this.$route.params.id)
     },
     methods: {
+      //选中省
+      changeProvice(item){
+
+        let searchCity = {
+          "areaPid": this.addOptions.data.ts_pl_GroupProvice
+        }
+        this.$store.dispatch('initCityList', searchCity)
+      },
+      //修改选中省
+      updateChangeProvice(item){
+        this.updateAdminQueryProductInformationObj.ts_pl_GroupProvice = this.updateAdminQueryProductInformationObj.provice
+        let searchCity = {
+          "areaPid": this.updateAdminQueryProductInformationObj.provice
+        }
+        this.$store.dispatch('initCityList', searchCity)
+      },
+      updateCity(){
+        this.updateAdminQueryProductInformationObj.ts_pl_GroupCity = this.updateAdminQueryProductInformationObj.city;
+      },
       //修改图片
       updateImage(data) {
         if (!this.radioIndex) {
@@ -683,11 +729,16 @@
         obj.ts_pl_LineDays = obj.ts_pl_LineDays+''
         this.updateAdminQueryProductInformationObj = obj
         this.updateAdminQueryProductInformationDialog = true;
-        this.$store.commit('setTranstionFalse');
 //        this.$store.commit('initUpdateAdminQueryProductInformationObj', id);
       },
       //修改提交
       updateAdminQueryProductInformationSubmit() {
+//        if(isNaN(this.updateAdminQueryProductInformationObj.provice)){
+//          this.updateAdminQueryProductInformationObj.ts_pl_GroupProvice = this.updateAdminQueryProductInformationObj.provice
+//        }
+//        if(isNaN(this.updateAdminQueryProductInformationObj.city)){
+//          this.updateAdminQueryProductInformationObj.ts_pl_GroupCity = this.updateAdminQueryProductInformationObj.city
+//        }
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -702,6 +753,7 @@
 
             "ts_pl_GoTime": this.updateAdminQueryProductInformationObj.ts_pl_GoTime,//出发时间
             "ts_pl_LineDays":this.updateAdminQueryProductInformationObj.ts_pl_LineDays,//行程天数
+            "ts_pl_GroupProvice":this.updateAdminQueryProductInformationObj.ts_pl_GroupProvice,//成团地点所属省
             "ts_pl_GroupCity": this.updateAdminQueryProductInformationObj.ts_pl_GroupCity,//成团地点
             "ts_pl_IsDefault": this.updateAdminQueryProductInformationObj.ts_pl_IsDefault,//是否默认行程
             "ts_pt_IsDelete": this.updateAdminQueryProductInformationObj.ts_pt_IsDelete,//是否删除（0否，1是）
@@ -719,10 +771,10 @@
             "ts_pt_SafetyLimit": this.updateAdminQueryProductInformationObj.ts_pt_SafetyLimit,//安全限制     富文本格式
           }
         };
+//        return
         if(this.updateImageURL.length){
           updateOptions.data.ts_pt_Images = this.updateImageURL.join(',')
         }
-        console.log(updateOptions)
         this.$store.dispatch('UpdateAdminQueryProductInformation', updateOptions)
         .then(() => {
           this.$notify({

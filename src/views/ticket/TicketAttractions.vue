@@ -69,15 +69,16 @@
                 <!--<img :src="item.tm_ti_Content" style="height: 100px;">-->
                 <!--</li>-->
                 <!--</ul>-->
-
-
-                <span>{{ props.row.tm_ts_Detailedintroduction }}</span>
+                <div v-html="props.row.tm_ts_Detailedintroduction"></div>
               </el-form-item>
               <el-form-item label="详细地址:">
                 <span>{{ props.row.tm_ts_Address }}</span>
               </el-form-item>
+              <!--<el-form-item label="景点开放时间:">-->
+                <!--<span>{{props.row.tm_ts_Opentime2}}</span>-->
+              <!--</el-form-item>-->
               <el-form-item label="开放时间:">
-                <span v-html="props.row.tm_ts_Opentime"></span>
+                <span>{{props.row.tm_ts_Opentime}}</span>
               </el-form-item>
               <el-form-item label="建议游玩时长:">
                 <span>{{ props.row.tm_ts_Time }}</span>
@@ -257,15 +258,19 @@
             <el-input v-model="addOptions.tm_ts_Introduce"></el-input>
           </el-form-item>
           <el-form-item label="详细介绍:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.tm_ts_Detailedintroduction" type="textarea"></el-input>
+            <tinymce :height="300" v-model="addOptions.tm_ts_Detailedintroduction"></tinymce>
+            <!--<el-input v-model="addOptions.tm_ts_Detailedintroduction" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="详细地址:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Address"></el-input>
           </el-form-item>
-          <el-form-item label="开放时间:" :label-width="formLabelWidth" required>
-            <tinymce :height="300" v-model="addOptions.tm_ts_Opentime"></tinymce>
-            <!--<el-input v-model="addOptions.tm_ts_Opentime"></el-input>-->
+          <el-form-item label="开放时间(简单设置):" :label-width="formLabelWidth" required>
+            <el-input v-model="addOptions.tm_ts_Opentime"></el-input>
           </el-form-item>
+          <!--<el-form-item label="开放时间:" :label-width="formLabelWidth" required>-->
+            <!--<tinymce :height="300" v-model="addOptions.tm_ts_Opentime"></tinymce>-->
+            <!--&lt;!&ndash;<el-input v-model="addOptions.tm_ts_Opentime"></el-input>&ndash;&gt;-->
+          <!--</el-form-item>-->
           <el-form-item label="建议游玩时长:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.tm_ts_Time" placeholder="以小时为单位且为数字"></el-input>
           </el-form-item>
@@ -425,16 +430,20 @@
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Introduce"></el-input>
           </el-form-item>
           <el-form-item label="详细介绍:" :label-width="formLabelWidth">
-            <el-input v-model="updateTicketAttractionsObj.tm_ts_Detailedintroduction" type="textarea"></el-input>
+            <tinymce :height="300" v-model="updateTicketAttractionsObj.tm_ts_Detailedintroduction"></tinymce>
+            <!--<el-input v-model="updateTicketAttractionsObj.tm_ts_Detailedintroduction" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="详细地址:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Address"></el-input>
           </el-form-item>
-          <el-form-item label="开放时间:" :label-width="formLabelWidth" required>
+          <!--<el-form-item label="开放时间:" :label-width="formLabelWidth" required>-->
 
-            <tinymce :height="300" v-model="updateTicketAttractionsObj.tm_ts_Opentime"></tinymce>
+            <!--<tinymce :height="300" v-model="updateTicketAttractionsObj.tm_ts_Opentime"></tinymce>-->
 
-            <!--<el-input v-model="updateTicketAttractionsObj.tm_ts_Opentime"></el-input>-->
+            <!--&lt;!&ndash;<el-input v-model="updateTicketAttractionsObj.tm_ts_Opentime"></el-input>&ndash;&gt;-->
+          <!--</el-form-item>-->
+          <el-form-item label="开放时间(简单设置):" :label-width="formLabelWidth" required>
+            <el-input v-model="updateTicketAttractionsObj.tm_ts_Opentime"></el-input>
           </el-form-item>
           <el-form-item label="建议游玩时长:" :label-width="formLabelWidth" required>
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Time" placeholder="以小时为单位且为数字"></el-input>
@@ -570,6 +579,7 @@
           "tm_ts_Detailedintroduction": "",//详细介绍
           "tm_ts_Address": "",//详细地址
           "tm_ts_Opentime": "",//开放时间
+          tm_ts_Opentime2:'',
           "tm_ts_Time": "",//建议游玩时间（以小时为单位）
           "tm_ts_Phone": "",//联系电话号码
           "tm_ts_Longitude": "",//经度
@@ -637,6 +647,7 @@
         addRadioIndex: 0,
         html:'',
         imageArr: [],
+        num:1
       }
     },
     computed: mapGetters([
@@ -758,6 +769,7 @@
       },
       //分页
       handleCurrentChange(num) {
+        this.num = num;
         this.initData('', num)
       },
       initData(name, page) {
@@ -998,7 +1010,7 @@
               message: suc,
               type: 'success'
             });
-            this.initData('', 1);
+            this.initData('', this.num);
           }, err => {
             this.$notify({
               message: err,
@@ -1022,7 +1034,7 @@
               message: suc,
               type: 'success'
             });
-            this.initData('', 1);
+            this.initData('', this.num);
           }, err => {
             this.$notify({
               message: err,

@@ -123,10 +123,10 @@
         <!--</el-table-column>-->
         <el-table-column label="操作" width="300" align="center">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              @click="updateAdminLinePrice(scope.row.ts_pp_ID)">修改
-            </el-button>
+            <!--<el-button-->
+            <!--size="mini"-->
+            <!--@click="updateAdminLinePrice(scope.row.ts_pp_ID)">修改-->
+            <!--</el-button>-->
             <el-button
               size="mini"
               type="danger"
@@ -153,16 +153,16 @@
       <!--添加产品线路价格-->
       <el-dialog title="添加产品线路价格" :visible.sync="addAdminLinePriceDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
-          <el-form-item label="请选择产品线路:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.productLineID" placeholder="请选择产品线路" @change="addChangeLine">
-              <el-option
-                v-for="item in adminProductLine"
-                :key="item.ts_pt_ID"
-                :label="item.ts_pt_Name"
-                :value="item.ts_pt_ID">
-              </el-option>
-            </el-select>
-          </el-form-item>
+          <!--<el-form-item label="请选择产品线路:" :label-width="formLabelWidth">-->
+          <!--<el-select v-model="addOptions.productLineID" placeholder="请选择产品线路" @change="addChangeLine">-->
+          <!--<el-option-->
+          <!--v-for="item in adminProductLine"-->
+          <!--:key="item.ts_pt_ID"-->
+          <!--:label="item.ts_pt_Name"-->
+          <!--:value="item.ts_pt_ID">-->
+          <!--</el-option>-->
+          <!--</el-select>-->
+          <!--</el-form-item>-->
           <el-form-item label="请选择出发城市:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.city" placeholder="请选择出发城市">
               <el-option
@@ -180,7 +180,7 @@
             <el-input v-model="addOptions.childNo" placeholder="请输入儿童数"></el-input>
           </el-form-item>
           <el-form-item label="可销售儿童价:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.childPrice" placeholder="请输入儿童数"></el-input>
+            <el-input v-model="addOptions.childPrice" placeholder="请输入儿童价"></el-input>
           </el-form-item>
           <el-form-item label="可销售全票价:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.fullPrice" placeholder="请输入全票价"></el-input>
@@ -232,7 +232,7 @@
             <el-input v-model="updateAdminLinePriceObj.ts_pp_Child" placeholder="请输入儿童数"></el-input>
           </el-form-item>
           <el-form-item label="可销售儿童价:" :label-width="formLabelWidth">
-            <el-input v-model="updateAdminLinePriceObj.ts_pp_ChildPrice" placeholder="请输入儿童数"></el-input>
+            <el-input v-model="updateAdminLinePriceObj.ts_pp_ChildPrice" placeholder="请输入儿童价"></el-input>
           </el-form-item>
           <el-form-item label="可销售全票价:" :label-width="formLabelWidth">
             <el-input v-model="updateAdminLinePriceObj.ts_pp_Price" placeholder="请输入全票价"></el-input>
@@ -265,32 +265,32 @@
   import {mapGetters} from 'vuex'
   export default{
     name: '',
-    props:['id'],
+    props: ['id'],
     data(){
       return {
         GoodId: '',
         LineID: '',
         userName: '',
-        departureCityID:'',
+        departureCityID: '',
         isLoading: false,
         userSearchID: '',
         formLabelWidth: '120px',
-        createTimeData:'',
-        addAdminLinePriceDialog:false,
-        updateAdminLinePriceDialog:false,
-        multipleSelection:[],
-        provice:'',//省份
-        addOptions:{
+        createTimeData: '',
+        addAdminLinePriceDialog: false,
+        updateAdminLinePriceDialog: false,
+        multipleSelection: [],
+        provice: '',//省份
+        addOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "productLineID":'',
-          "manNo":'',//成人数
-          "childNo":'',//儿童数
+          "productLineID": '',
+          "manNo": '',//成人数
+          "childNo": '',//儿童数
           "city": "",//城市
-          "fullPrice":'',//全票价
+          "fullPrice": '',//全票价
           "childPrice": '',
           "createFrom": "",
           "createTo": "",
@@ -314,23 +314,25 @@
         "areaPid": 3337
       };
       this.adminLineScheduleManagementId = this.id
-      this.$store.dispatch('initProvice',sCity)
-      if(this.adminLineScheduleManagementId){
+      this.$store.dispatch('initProvice', sCity)
+      if (this.adminLineScheduleManagementId) {
         let options = {
-          "loginUserID":"huileyou",
-          "loginUserPass":"123",
-          "lineID":this.adminLineScheduleManagementId
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "lineID": this.adminLineScheduleManagementId
         }
-        this.$store.dispatch('initDepartureCity',options)
-        .then(()=>{
+        this.$store.dispatch('initDepartureCity', options)
+        .then(() => {
           this.initData(this.id)
         })
       }
     },
     methods: {
       jump(obj){
-        let ID =sessionStorage.getItem('id')
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/'+ID,'_blank')
+        let MerchanID = sessionStorage.getItem('MerchanID')
+        if(MerchanID)  {
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + MerchanID, '_blank')
+        }
       },
       //删除
       deleteAdminLinePrice(id){
@@ -342,8 +344,8 @@
           "pcName": "",
           "ppID": id
         }
-        this.$store.dispatch('DeleteAdminLinePrice',options)
-        .then(()=>{
+        this.$store.dispatch('DeleteAdminLinePrice', options)
+        .then(() => {
           this.initData(this.adminLineScheduleManagementId)
         })
       },
@@ -369,7 +371,7 @@
             "operateUserID": "",
             "operateUserName": "",
             "tradeID": obj.sm_ui_ID ? obj.sm_ui_ID : '',
-            goodTitle:name?name:'',
+            goodTitle: name ? name : '',
             "userID": "",
             "pcName": "",
             "ID": '',
@@ -390,7 +392,7 @@
       },
       querySearchAsync(queryString, cb) {
         this.loadAll(1, queryString).then(data => {
-          var  data = data.data
+          var data = data.data
           data = data.map(item => {
             return {
               id: item.ta_tg_ID,
@@ -411,12 +413,12 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "lineID":this.addOptions.productLineID,
-          page:1,
-          rows:5
+          "lineID": this.addOptions.productLineID,
+          page: 1,
+          rows: 5
         };
-        this.$store.dispatch('initAdminRouteDepartureCity',options)
-        .then(total=>{
+        this.$store.dispatch('initAdminRouteDepartureCity', options)
+        .then(total => {
           this.total = total;
         })
       },
@@ -428,12 +430,12 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "lineID":this.userSearchID,
-          page:1,
-          rows:5
+          "lineID": this.userSearchID,
+          page: 1,
+          rows: 5
         };
-        this.$store.dispatch('initAdminRouteDepartureCity',options)
-        .then(total=>{
+        this.$store.dispatch('initAdminRouteDepartureCity', options)
+        .then(total => {
           this.total = total;
         })
       },
@@ -442,7 +444,7 @@
         let searchCity = {
           "areaPid": this.provice
         }
-        this.$store.dispatch('initCityList',searchCity)
+        this.$store.dispatch('initCityList', searchCity)
       },
       //选中的行
       handleSelectionChange(val){
@@ -457,33 +459,35 @@
           "pcName": "",
           "productPriceID": ''
         };
-        for(var i=0;i<this.multipleSelection.length;i++){
+        for (var i = 0; i < this.multipleSelection.length; i++) {
           options.productPriceID = this.multipleSelection[i].ts_pp_ID;
-          await this.$store.dispatch('initBuildSeat',options)
+          await this.$store.dispatch('initBuildSeat', options)
         }
       },
       //生成座位
       buildSeat(){
-       this.searchBuildSeat().then(()=>{
-         this.$notify({
-           message: '生成成功',
-           type: 'success'
-         });
-       })
+        this.isLoading = true
+        this.searchBuildSeat().then(() => {
+          this.isLoading = false;
+          this.$notify({
+            message: '生成成功',
+            type: 'success'
+          });
+        })
       },
       initData(lineID){
         let searchOptions = {
-          "loginUserID":"huileyou",
-          "loginUserPass":"123",
-          "operateUserID":"",
-          "operateUserName":"",
-          "pcName":"",
-          "lineID":lineID?lineID:this.userSearchID,
-          "city":this.departureCityID?this.departureCityID:''
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "lineID": lineID ? lineID : this.userSearchID,
+          "city": this.departureCityID ? this.departureCityID : ''
         }
         this.isLoading = true
-        this.$store.dispatch('initAdminLinePrice',searchOptions)
-        .then(()=>{
+        this.$store.dispatch('initAdminLinePrice', searchOptions)
+        .then(() => {
           this.isLoading = false
         })
       },
@@ -495,8 +499,8 @@
       addAdminLinePrice(){
 //        "loginUserID": "huileyou",
 //          "loginUserPass": "123",
-        for(let attr in this.addOptions){
-          if(attr!='loginUserID'&&attr!='loginUserPass'){
+        for (let attr in this.addOptions) {
+          if (attr != 'loginUserID' && attr != 'loginUserPass') {
             this.addOptions[attr] = ''
           }
         }
@@ -507,7 +511,8 @@
       addAdminLinePriceSubmit(){
         this.addOptions.createFrom = this.createTimeData[0];
         this.addOptions.createTo = this.createTimeData[1]
-        this.$store.dispatch('AddAdminLinePriceSubmit',this.addOptions)
+        this.addOptions.productLineID = this.adminLineScheduleManagementId
+        this.$store.dispatch('AddAdminLinePriceSubmit', this.addOptions)
         .then(() => {
           this.$notify({
             message: '添加成功!',
@@ -525,7 +530,7 @@
       //修改
       updateAdminLinePrice(id){
         this.$store.commit('setTranstionFalse');
-        this.$store.commit('initUpdateAdminLinePriceObj',id)
+        this.$store.commit('initUpdateAdminLinePriceObj', id)
         this.updateAdminLinePriceDialog = true;
       },
       //修改提交

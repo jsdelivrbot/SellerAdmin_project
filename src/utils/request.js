@@ -8,7 +8,7 @@ const qs = require('qs');
 const service = axios.create({
   // baseURL: process.env.BASE_API, // api的base_url
 
-  timeout: 20000, // 请求超时时间
+  timeout: 50000, // 请求超时时间
 })
 
 // service.defaults.headers.common['Authorization'] = getToken();

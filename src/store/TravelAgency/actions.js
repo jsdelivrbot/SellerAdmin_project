@@ -817,7 +817,7 @@ export default {
         .then(data => {
           var data = data.data;
           if (Number(data.resultcode) == 200) {
-            relove();
+            relove(data.resultcontent);
           } else {
             reject(data.resultcontent);
           }
@@ -1639,7 +1639,7 @@ export default {
           var data = data.data;
           if (Number(data.resultcode) == 200) {
             commit('initAdminRouteDepartureCity', data.data)
-            relove(Number(data.totalrows))
+            relove(data)
           } else {
             reject(data.resultcontent)
           }

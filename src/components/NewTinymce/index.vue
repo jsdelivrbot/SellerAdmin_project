@@ -72,6 +72,7 @@ export default {
         language: 'zh_CN',
         height: this.height,
         body_class: 'panel-body ',
+        autoresize_min_height:300,
         object_resizing: false,
         toolbar: this.toolbar.length > 0 ? this.toolbar : toolbar,
         menubar: this.menubar,

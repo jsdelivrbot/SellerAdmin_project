@@ -12,8 +12,14 @@
           <!--<el-breadcrumb-item>{{name}}</el-breadcrumb-item>-->
         <!--</el-breadcrumb>-->
       <!--</div>-->
-      <h1>产品线路管理</h1>
-      <el-tabs v-model="activeName" @tab-click="tab">
+      <h1>当前线路:{{LineName}}</h1>
+      <el-tabs v-model="activeName" @tab-click="tab" >
+        <el-tab-pane label="预订须知" name="预订须知">
+          <adminBookingInstructions :id="id"></adminBookingInstructions>
+        </el-tab-pane>
+        <el-tab-pane label="费用说明" name="费用说明">
+          <adminCostDescription :id="id"></adminCostDescription>
+        </el-tab-pane>
         <el-tab-pane label="产品线路出发城市" name="产品线路出发城市">
           <adminRouteDepartureCity :id="id"></adminRouteDepartureCity>
         </el-tab-pane>
@@ -23,6 +29,7 @@
         <el-tab-pane label="线路日程" name="线路日程">
           <adminLinePrepare :id="id"></adminLinePrepare>
         </el-tab-pane>
+
       </el-tabs>
     </div>
   </div>
@@ -33,12 +40,16 @@
   //产品线路价格
   import AdminLinePrice from './AdminLinePrice'
   import AdminRouteDepartureCity from './AdminRouteDepartureCity'
+  import AdminBookingInstructions from './AdminBookingInstructions'//预订须知
+  import AdminCostDescription from './AdminCostDescription'//费用说明
 
   export default {
     components: {
       AdminLinePrepare,
       AdminLinePrice,
-      AdminRouteDepartureCity
+      AdminRouteDepartureCity,
+      AdminCostDescription,
+      AdminBookingInstructions
     },
     name: '',
     computed: mapGetters([
@@ -46,6 +57,7 @@
     ]),
     data() {
       return {
+        LineName:'',
         data: [{
           label: '商家产品',
           children: [{
@@ -105,7 +117,7 @@
         },
         isOff:true,
         name:'产品线路城市',
-        activeName: '产品线路出发城市',
+        activeName: '预订须知',
         id:''
       }
     },
@@ -114,7 +126,7 @@
 
       // sessionStorage.setItem('index',2)
       // sessionStorage.getItem(index)
-      let name = this.$route.query.name;
+      let name = sessionStorage.getItem('AdminQueryProductInformationListName')
       if (name) {
         this.activeName = name;
       }
@@ -126,6 +138,7 @@
       },
       tab(){
         this.name = this.activeName
+        sessionStorage.setItem('AdminQueryProductInformationListName',this.activeName)
       },
       initData() {
       },
@@ -133,6 +146,9 @@
         this.initData()
       }
     },
+    mounted(){
+      this.LineName = JSON.parse(sessionStorage.getItem('lineObj')).ts_pt_Name
+    }
   }
 </script>
 <style scoped>

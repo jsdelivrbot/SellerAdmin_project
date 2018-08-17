@@ -124,7 +124,7 @@
               <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
             <!--</el-form-item>-->
 
-            <el-form-item label="展示图片地址:">
+            <el-form-item label="产品图片地址:">
               <img v-for="item,index in props.row.ta_tg_ShowImages" :src="item" alt="" :key="index" width="300"
                    height="150">
 
@@ -247,7 +247,7 @@
         <el-form-item label="推荐价格:" :label-width="formLabelWidth">
           <el-input v-model="addData.ts_tg_lowestPrice" placeholder="请输入推荐价格" class="tg_Title"></el-input>
         </el-form-item>
-        <el-form-item label="展示图片:" :label-width="formLabelWidth" required>
+        <el-form-item label="产品图片:" :label-width="formLabelWidth" required>
           <p>单张图片大小不能大于600KB</p>
           <Upload @getData="getData" :attrs="imageObj"></Upload>
           <div class="imgWap">
@@ -379,7 +379,7 @@
           <!--&lt;!&ndash;<el-input v-model="updateAdminMerchantProductsObj.ts_tg_GroupSite" placeholder="请输入成团地点"></el-input>&ndash;&gt;-->
         <!--</el-form-item>-->
 
-        <el-form-item label="展示图片:" :label-width="formLabelWidth">
+        <el-form-item label="产品图片:" :label-width="formLabelWidth">
           <p>单张图片大小不能大于600KB</p>
           <Upload @getData="updateImage" :attrs="imageObj"></Upload>
 

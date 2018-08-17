@@ -5,43 +5,43 @@
 
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
-          <el-form-item>
-            <span>产品线路价格筛选:</span>
-          </el-form-item>
-          <el-form-item>
-            <el-autocomplete
-              style="width: 250px"
-              v-model="userName"
-              :fetch-suggestions="querySearchAsync"
-              placeholder="请选择产品"
-              size="small"
-              @select="handleSelect"
-            ></el-autocomplete>
-          </el-form-item>
-          <el-form-item>
-            <el-select v-model="userSearchID" placeholder="请选择产品线路" @change="changeLine" size="small">
-              <el-option
-                v-for="item in adminProductLine"
-                :key="item.ts_pt_ID"
-                :label="item.ts_pt_Name"
-                :value="item.ts_pt_ID">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-select v-model="departureCityID" placeholder="请选择出发城市" size="small">
-              <el-option
-                v-for="item in adminRouteDepartureCity"
-                :key="item.ts_cc_Name"
-                :label="item.ts_cc_Name"
-                :value="item.ts_cc_Name">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="search" size="small">查询</el-button>
-          </el-form-item>
-          <el-form-item>
+          <!--<el-form-item>-->
+            <!--<span>产品线路价格筛选:</span>-->
+          <!--</el-form-item>-->
+          <!--<el-form-item>-->
+            <!--<el-autocomplete-->
+              <!--style="width: 250px"-->
+              <!--v-model="userName"-->
+              <!--:fetch-suggestions="querySearchAsync"-->
+              <!--placeholder="请选择产品"-->
+              <!--size="small"-->
+              <!--@select="handleSelect"-->
+            <!--&gt;</el-autocomplete>-->
+          <!--</el-form-item>-->
+          <!--<el-form-item>-->
+            <!--<el-select v-model="userSearchID" placeholder="请选择产品线路" @change="changeLine" size="small">-->
+              <!--<el-option-->
+                <!--v-for="item in adminProductLine"-->
+                <!--:key="item.ts_pt_ID"-->
+                <!--:label="item.ts_pt_Name"-->
+                <!--:value="item.ts_pt_ID">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
+          <!--<el-form-item>-->
+            <!--<el-select v-model="departureCityID" placeholder="请选择出发城市" size="small">-->
+              <!--<el-option-->
+                <!--v-for="item in adminRouteDepartureCity"-->
+                <!--:key="item.ts_cc_Name"-->
+                <!--:label="item.ts_cc_Name"-->
+                <!--:value="item.ts_cc_Name">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
+          <!--<el-form-item>-->
+            <!--<el-button type="primary" @click="search" size="small">查询</el-button>-->
+          <!--</el-form-item>-->
+          <el-form-item style="float: right;padding-right: 30px">
             <el-button type="primary" @click="addAdminLinePrice" size="small">新增</el-button>
           </el-form-item>
         </el-form>
@@ -67,12 +67,12 @@
                 <span>{{ props.row.ts_pp_TradeGoodID }}</span>
               </el-form-item>
               <el-form-item label="出发城市:">
-                <span>{{ props.row.ts_pp_FromPlace }}</span>
+                <span>{{ props.row.cityName }}</span>
               </el-form-item>
               <el-form-item label="出发日期:">
                 <span>{{ props.row.ts_pp_Date }}</span>
               </el-form-item>
-              <el-form-item label="标题:">
+              <el-form-item label="线路名称:">
                 <!--<span>{{ props.row.ta_tg_Describe }}</span>-->
                 <el-popover
                   ref="popover1"
@@ -109,14 +109,14 @@
         >
         </el-table-column>
         <el-table-column
-          label="线路编号"
+          label="线路名称"
           align="center"
-          prop="ts_pp_ProduceTourID">
+          prop="ts_pp_LineName">
         </el-table-column>
         <el-table-column
           label="出发城市"
           align="center"
-          prop="ts_pp_FromPlace">
+          prop="cityName">
         </el-table-column>
 
 
@@ -151,7 +151,7 @@
       </el-col>
 
       <!--添加产品线路价格-->
-      <el-dialog title="添加产品线路价格" :visible.sync="addAdminLinePriceDialog" :close-on-click-modal="false" width="1200px">
+      <el-dialog title="添加产品线路价格" :visible.sync="addAdminLinePriceDialog" :close-on-click-modal="false" width="70%">
         <el-form :model="addOptions">
           <!--<el-form-item label="请选择产品线路:" :label-width="formLabelWidth">-->
           <!--<el-select v-model="addOptions.productLineID" placeholder="请选择产品线路" @change="addChangeLine">-->
@@ -163,27 +163,37 @@
           <!--</el-option>-->
           <!--</el-select>-->
           <!--</el-form-item>-->
-          <el-form-item label="请选择出发城市:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.city" placeholder="请选择出发城市">
-              <el-option
-                v-for="item in adminRouteDepartureCity"
-                :key="item.ts_cc_Name"
-                :label="item.ts_cc_Name"
-                :value="item.ts_cc_Name">
-              </el-option>
-            </el-select>
+          <el-form-item label="请筛选出发城市:" :label-width="formLabelWidth">
+            <!--<el-select v-model="addOptions.city" placeholder="请选择出发城市" filterable>-->
+              <!--<el-option-->
+                <!--v-for="item in adminRouteDepartureCity"-->
+                <!--:key="item.ts_cc_Name"-->
+                <!--:label="item.ts_cc_Name"-->
+                <!--:value="item.ts_cc_Name">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+
+            <el-autocomplete
+              style="width: 250px"
+              v-model="cityName"
+              size="small"
+              :fetch-suggestions="querySearchCityAsync"
+              placeholder="请输入城市"
+              @select="handleCitySelect"
+            ></el-autocomplete>
+
           </el-form-item>
-          <el-form-item label="可销售成人数:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.manNo" placeholder="请输入成人数"></el-input>
+          <el-form-item label="可销售成人票数:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.manNo" placeholder="请输入成人票数"></el-input>
           </el-form-item>
-          <el-form-item label="可销售儿童数:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.childNo" placeholder="请输入儿童数"></el-input>
+          <el-form-item label="可销售成人票价:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.fullPrice" placeholder="请输入成人票价"></el-input>
           </el-form-item>
-          <el-form-item label="可销售儿童价:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.childPrice" placeholder="请输入儿童价"></el-input>
+          <el-form-item label="可销售儿童票数:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.childNo" placeholder="请输入儿童票数"></el-input>
           </el-form-item>
-          <el-form-item label="可销售全票价:" :label-width="formLabelWidth">
-            <el-input v-model="addOptions.fullPrice" placeholder="请输入全票价"></el-input>
+          <el-form-item label="可销售儿童票价:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.childPrice" placeholder="请输入儿童票价"></el-input>
           </el-form-item>
           <el-form-item label="可销售日期范围:" :label-width="formLabelWidth">
             <el-date-picker
@@ -215,28 +225,38 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="请选择出发城市:" :label-width="formLabelWidth">
-            <el-select v-model="updateAdminLinePriceObj.ts_pp_FromPlace" placeholder="请选择出发城市">
-              <el-option
-                v-for="item in adminRouteDepartureCity"
-                :key="item.ts_cc_Name"
-                :label="item.ts_cc_Name"
-                :value="item.ts_cc_Name">
-              </el-option>
-            </el-select>
+          <el-form-item label="请筛选出发城市:" :label-width="formLabelWidth">
+            <!--<el-select v-model="updateAdminLinePriceObj.ts_pp_FromPlace" placeholder="请选择出发城市" filterable>-->
+              <!--<el-option-->
+                <!--v-for="item in adminRouteDepartureCity"-->
+                <!--:key="item.ts_cc_Name"-->
+                <!--:label="item.ts_cc_Name"-->
+                <!--:value="item.ts_cc_Name">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+
+            <el-autocomplete
+              style="width: 250px"
+              v-model="cityName"
+              size="small"
+              :fetch-suggestions="querySearchCityAsync"
+              placeholder="请输入城市"
+              @select="handleCitySelect"
+            ></el-autocomplete>
           </el-form-item>
-          <el-form-item label="可销售成人数:" :label-width="formLabelWidth">
-            <el-input v-model="updateAdminLinePriceObj.ts_pp_Person" placeholder="请输入成人数"></el-input>
+          <el-form-item label="可销售成人票数:" :label-width="formLabelWidth">
+            <el-input v-model="updateAdminLinePriceObj.ts_pp_Person" placeholder="请输入成人票数"></el-input>
           </el-form-item>
-          <el-form-item label="可销售儿童数:" :label-width="formLabelWidth">
-            <el-input v-model="updateAdminLinePriceObj.ts_pp_Child" placeholder="请输入儿童数"></el-input>
+          <el-form-item label="可销售成人票价:" :label-width="formLabelWidth">
+            <el-input v-model="updateAdminLinePriceObj.ts_pp_Price" placeholder="请输入成人票价"></el-input>
           </el-form-item>
-          <el-form-item label="可销售儿童价:" :label-width="formLabelWidth">
-            <el-input v-model="updateAdminLinePriceObj.ts_pp_ChildPrice" placeholder="请输入儿童价"></el-input>
+          <el-form-item label="可销售儿童票数:" :label-width="formLabelWidth">
+            <el-input v-model="updateAdminLinePriceObj.ts_pp_Child" placeholder="请输入儿童票数"></el-input>
           </el-form-item>
-          <el-form-item label="可销售全票价:" :label-width="formLabelWidth">
-            <el-input v-model="updateAdminLinePriceObj.ts_pp_Price" placeholder="请输入全票价"></el-input>
+          <el-form-item label="可销售儿童票价:" :label-width="formLabelWidth">
+            <el-input v-model="updateAdminLinePriceObj.ts_pp_ChildPrice" placeholder="请输入儿童票价"></el-input>
           </el-form-item>
+
           <el-form-item label="可销售日期:" :label-width="formLabelWidth">
             <el-date-picker
               type="date"
@@ -268,6 +288,7 @@
     props: ['id'],
     data(){
       return {
+        cityName:'',
         GoodId: '',
         LineID: '',
         userName: '',
@@ -309,6 +330,7 @@
       'updateAdminLinePriceObj'
     ]),
     created(){
+      sessionStorage.setItem('AdminQueryProductInformationListName','产品线路价格')
       //初始化省
       let sCity = {
         "areaPid": 3337
@@ -328,6 +350,11 @@
       }
     },
     methods: {
+      //选中出发城市
+      handleCitySelect(obj){
+        this.addOptions.city = obj.id;
+        this.updateAdminLinePriceObj.ts_pp_FromPlace = obj.id
+      },
       jump(obj){
         let MerchanID = sessionStorage.getItem('MerchanID')
         if(MerchanID)  {
@@ -397,6 +424,46 @@
             return {
               id: item.ta_tg_ID,
               value: item.ta_tg_Title
+            }
+          })
+          this.restaurants = data;
+          clearTimeout(this.timeout);
+          this.timeout = setTimeout(() => {
+            cb(this.restaurants);
+          }, 10);
+        })
+      },
+      loadCityAll(page,name) {
+        return new Promise((relove, reject) => {
+          let options = {
+            "loginUserID": "huileyou",
+            "loginUserPass": "123",
+            "operateUserID": "",
+            "operateUserName": "",
+            "pcName": "",
+            page: page ? page : 1,
+            rows: 5,
+            ts_cc_Name:name?name:'',
+            "lineID": this.id
+          }
+          this.$store.dispatch('initAdminRouteDepartureCity', options)
+          .then(data => {
+            relove(data)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
+        })
+      },
+      querySearchCityAsync(queryString, cb) {
+        this.loadCityAll(1, queryString).then(data => {
+          var data = data.data
+          data = data.map(item => {
+            return {
+              id: item.ts_cc_Code,
+              value: item.ts_cc_Name
             }
           })
           this.restaurants = data;

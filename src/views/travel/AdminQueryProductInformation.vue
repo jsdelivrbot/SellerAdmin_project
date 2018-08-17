@@ -60,12 +60,12 @@
               <el-form-item label="成团地点:">
                 <span>{{ props.row.provice+ props.row.city}}</span>
               </el-form-item>
-              <el-form-item label="预定需知:">
-                <div v-html="props.row.ts_pl_GroupCity"></div>
-              </el-form-item>
-              <el-form-item label="退改政策:">
-                <div v-html="props.row.ts_pt_ReturnRule"></div>
-              </el-form-item>
+              <!--<el-form-item label="预定需知:">-->
+                <!--<div v-html="props.row.ts_pt_BookKnow"></div>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="退改政策:">-->
+                <!--<div v-html="props.row.ts_pt_ReturnRule"></div>-->
+              <!--</el-form-item>-->
               <el-form-item label="推荐理由:">
                 <div v-html="props.row.ts_pt_IntroReason"></div>
               </el-form-item>
@@ -73,24 +73,24 @@
                 <div v-html="props.row.ts_pt_Describe"></div>
               </el-form-item>
 
-              <el-form-item label="费用包含:">
-                <div v-html="props.row.ts_pt_FeeIn"></div>
-              </el-form-item>
-              <el-form-item label="费用不包含:">
-                <div v-html="props.row.ts_pt_FeeNotIn"></div>
-              </el-form-item>
+              <!--<el-form-item label="费用包含:">-->
+                <!--<div v-html="props.row.ts_pt_FeeIn"></div>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="费用不包含:">-->
+                <!--<div v-html="props.row.ts_pt_FeeNotIn"></div>-->
+              <!--</el-form-item>-->
               <el-form-item label="行程明细:">
                 <div v-html="props.row.ts_pt_LineDetail"></div>
               </el-form-item>
-              <el-form-item label="违约责任:">
-                <div v-html="props.row.ts_pt_LimitDuty"></div>
-              </el-form-item>
-              <el-form-item label="特殊限制:">
-                <div v-html="props.row.ts_pt_SpecialLimit"></div>
-              </el-form-item>
-              <el-form-item label="安全限制:">
-                <div v-html="props.row.ts_pt_SafetyLimit"></div>
-              </el-form-item>
+              <!--<el-form-item label="违约责任:">-->
+                <!--<div v-html="props.row.ts_pt_LimitDuty"></div>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="特殊限制:">-->
+                <!--<div v-html="props.row.ts_pt_SpecialLimit"></div>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="安全限制:">-->
+                <!--<div v-html="props.row.ts_pt_SafetyLimit"></div>-->
+              <!--</el-form-item>-->
 
               <!--<el-form-item label="是否删除">-->
                 <!--<span>{{ props.row.ts_pt_IsDelete == 0 ? "未删除" : "已删除" }}</span>-->
@@ -128,7 +128,7 @@
             </el-button>
             <el-button
               size="mini"
-              @click="queryProductInformationDetail(scope.row.ts_pt_ID)"
+              @click="queryProductInformationDetail(scope.row)"
             >
               产品线路详情
             </el-button>
@@ -215,37 +215,37 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="预订须知:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="addOptions.data.ts_pt_BookKnow" ></tinymce>
-        </el-form-item>
-        <el-form-item label="退改政策:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="addOptions.data.ts_pt_ReturnRule" ></tinymce>
-        </el-form-item>
+        <!--<el-form-item label="预订须知:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="addOptions.data.ts_pt_BookKnow" ></tinymce>-->
+        <!--</el-form-item>-->
+        <!--<el-form-item label="退改政策:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="addOptions.data.ts_pt_ReturnRule" ></tinymce>-->
+        <!--</el-form-item>-->
         <el-form-item label="推荐理由:" :label-width="formLabelWidth">
           <tinymce :height="300" v-model="addOptions.data.ts_pt_IntroReason" ></tinymce>
         </el-form-item>
         <el-form-item label="产品线路介绍:" :label-width="formLabelWidth">
           <tinymce :height="300" v-model="addOptions.data.ts_pt_Describe" ></tinymce>
         </el-form-item>
-        <el-form-item label="费用包含:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="addOptions.data.ts_pt_FeeIn" ></tinymce>
-        </el-form-item>
+        <!--<el-form-item label="费用包含:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="addOptions.data.ts_pt_FeeIn" ></tinymce>-->
+        <!--</el-form-item>-->
 
-        <el-form-item label="费用不包含:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="addOptions.data.ts_pt_FeeNotIn" ></tinymce>
-        </el-form-item>
+        <!--<el-form-item label="费用不包含:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="addOptions.data.ts_pt_FeeNotIn" ></tinymce>-->
+        <!--</el-form-item>-->
         <el-form-item label="行程明细:" :label-width="formLabelWidth">
           <tinymce :height="300" v-model="addOptions.data.ts_pt_LineDetail" ></tinymce>
         </el-form-item>
-        <el-form-item label="违约责任:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="addOptions.data.ts_pt_LimitDuty" ></tinymce>
-        </el-form-item>
-        <el-form-item label="特殊限制:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="addOptions.data.ts_pt_SpecialLimit" ></tinymce>
-        </el-form-item>
-        <el-form-item label="安全限制:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="addOptions.data.ts_pt_SafetyLimit" ></tinymce>
-        </el-form-item>
+        <!--<el-form-item label="违约责任:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="addOptions.data.ts_pt_LimitDuty" ></tinymce>-->
+        <!--</el-form-item>-->
+        <!--<el-form-item label="特殊限制:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="addOptions.data.ts_pt_SpecialLimit" ></tinymce>-->
+        <!--</el-form-item>-->
+        <!--<el-form-item label="安全限制:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="addOptions.data.ts_pt_SafetyLimit" ></tinymce>-->
+        <!--</el-form-item>-->
         <el-form-item label="备注:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ts_pt_Remark" placeholder="请输入内容" type="textarea"
                     :autosize="{ minRows: 6, maxRows: 10}"></el-input>
@@ -337,37 +337,37 @@
 
         </el-form-item>
 
-        <el-form-item label="预订须知:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_BookKnow" ></tinymce>
-        </el-form-item>
-        <el-form-item label="退改政策:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_ReturnRule" ></tinymce>
-        </el-form-item>
+        <!--<el-form-item label="预订须知:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_BookKnow" ></tinymce>-->
+        <!--</el-form-item>-->
+        <!--<el-form-item label="退改政策:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_ReturnRule" ></tinymce>-->
+        <!--</el-form-item>-->
         <el-form-item label="推荐理由:" :label-width="formLabelWidth">
           <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_IntroReason" ></tinymce>
         </el-form-item>
         <el-form-item label="产品线路介绍:" :label-width="formLabelWidth">
           <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_Describe" ></tinymce>
         </el-form-item>
-        <el-form-item label="费用包含:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_FeeIn" ></tinymce>
-        </el-form-item>
+        <!--<el-form-item label="费用包含:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_FeeIn" ></tinymce>-->
+        <!--</el-form-item>-->
 
-        <el-form-item label="费用不包含:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_FeeNotIn" ></tinymce>
-        </el-form-item>
+        <!--<el-form-item label="费用不包含:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_FeeNotIn" ></tinymce>-->
+        <!--</el-form-item>-->
         <el-form-item label="行程明细:" :label-width="formLabelWidth">
           <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_LineDetail" ></tinymce>
         </el-form-item>
-        <el-form-item label="违约责任:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_LimitDuty" ></tinymce>
-        </el-form-item>
-        <el-form-item label="特殊限制:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_SpecialLimit" ></tinymce>
-        </el-form-item>
-        <el-form-item label="安全限制:" :label-width="formLabelWidth">
-          <tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_SafetyLimit" ></tinymce>
-        </el-form-item>
+        <!--<el-form-item label="违约责任:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_LimitDuty" ></tinymce>-->
+        <!--</el-form-item>-->
+        <!--<el-form-item label="特殊限制:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_SpecialLimit" ></tinymce>-->
+        <!--</el-form-item>-->
+        <!--<el-form-item label="安全限制:" :label-width="formLabelWidth">-->
+          <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_SafetyLimit" ></tinymce>-->
+        <!--</el-form-item>-->
 
         <el-form-item label="备注:" :label-width="formLabelWidth">
           <el-input v-model="updateAdminQueryProductInformationObj.ts_pt_Remark" placeholder="请输入内容" type="textarea"
@@ -715,7 +715,8 @@
             message: '添加成功!',
             type: 'success'
           });
-          this.initData(this.value)
+          window.location.reload()
+//          this.initData(this.value)
         }, err => {
           this.$notify({
             message: err,
@@ -824,10 +825,11 @@
         sessionStorage.setItem('index', '3')
       },
       //点击跳转到线路日程管理
-      queryProductInformationDetail(id) {
+      queryProductInformationDetail(obj) {
 //        this.$store.commit('adminLineScheduleManagementId', id);
-        // this.$router.push({name: 'AdminQueryProductInformationList'})
-        this.$router.push({name: 'AdminQueryProductInformationList',params:{id}})
+        // this.$router.push({name: 'AdminQueryProductInformationList'})ts_pt_Name
+        sessionStorage.setItem('lineObj',JSON.stringify(obj))
+        this.$router.push({name: 'AdminQueryProductInformationList',params:{id:obj.ts_pt_ID}})
         sessionStorage.setItem('index', '2')
       }
     },

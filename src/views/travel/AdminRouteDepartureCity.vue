@@ -4,33 +4,33 @@
       <h1 class="userClass">产品线路出发城市</h1>
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
-          <el-form-item>
-            <span>线路出发城市筛选:</span>
-          </el-form-item>
-          <el-form-item>
-            <el-autocomplete
-              style="width: 250px"
-              v-model="userName"
-              size="small"
-              :fetch-suggestions="querySearchAsync"
-              placeholder="请选择产品"
-              @select="handleSelect"
-            ></el-autocomplete>
-          </el-form-item>
-          <el-form-item>
-            <el-select v-model="userSearchID" placeholder="请选择产品线路" size="small">
-              <el-option
-                v-for="item in adminProductLine"
-                :key="item.ts_pt_ID"
-                :label="item.ts_pt_Name"
-                :value="item.ts_pt_ID">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="search" size="small">查询</el-button>
-          </el-form-item>
-          <el-form-item>
+          <!--<el-form-item>-->
+            <!--<span>线路出发城市筛选:</span>-->
+          <!--</el-form-item>-->
+          <!--<el-form-item>-->
+            <!--<el-autocomplete-->
+              <!--style="width: 250px"-->
+              <!--v-model="userName"-->
+              <!--size="small"-->
+              <!--:fetch-suggestions="querySearchAsync"-->
+              <!--placeholder="请选择产品"-->
+              <!--@select="handleSelect"-->
+            <!--&gt;</el-autocomplete>-->
+          <!--</el-form-item>-->
+          <!--<el-form-item>-->
+            <!--<el-select v-model="userSearchID" placeholder="请选择产品线路" size="small">-->
+              <!--<el-option-->
+                <!--v-for="item in adminProductLine"-->
+                <!--:key="item.ts_pt_ID"-->
+                <!--:label="item.ts_pt_Name"-->
+                <!--:value="item.ts_pt_ID">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
+          <!--<el-form-item>-->
+            <!--<el-button type="primary" @click="search" size="small">查询</el-button>-->
+          <!--</el-form-item>-->
+          <el-form-item style="float: right;padding-right: 30px">
             <el-button type="primary" @click="addAdminRouteDepartureCity" size="small">新增</el-button>
           </el-form-item>
         </el-form>
@@ -92,7 +92,7 @@
       </div>
 
       <!--添加产品线路出发城市-->
-      <el-dialog title="添加出发城市" :visible.sync="addDialog" :close-on-click-modal="false" width="1200px">
+      <el-dialog title="添加出发城市" :visible.sync="addDialog" :close-on-click-modal="false" width="70%">
         <el-form :model="addOptions">
           <!--<el-form-item label="请选择产品线路:" :label-width="formLabelWidth">-->
             <!--<el-select v-model="addOptions.data.ts_cc_LineID" placeholder="请选择产品线路">-->
@@ -116,12 +116,12 @@
                 :value="item.sm_af_AreaID">
               </el-option>
             </el-select>
-            <el-select v-model="addOptions.data.ts_cc_Name" placeholder="请选择市">
+            <el-select v-model="addOptions.data.ts_cc_Code" placeholder="请选择市">
               <el-option
                 v-for="item in cityList"
                 :key="item.sm_af_AreaID"
                 :label="item.sm_af_AreaName"
-                :value="item.sm_af_AreaName">
+                :value="item.sm_af_AreaID">
               </el-option>
             </el-select>
           </el-form-item>
@@ -133,7 +133,7 @@
       </el-dialog>
 
       <!--修改产品线路出发城市-->
-      <el-dialog title="修改出发城市" :visible.sync="updateDialog" :close-on-click-modal="false">
+      <el-dialog title="修改出发城市" :visible.sync="updateDialog" :close-on-click-modal="false" width="70%">
         <el-form :model="updateAdminRouteDepartureCityObj">
           <!--<el-form-item label="请选择产品线路:" :label-width="formLabelWidth">-->
             <!--<el-select v-model="updateAdminRouteDepartureCityObj.ts_cc_LineID" placeholder="请选择产品线路">-->
@@ -157,12 +157,12 @@
                 :value="item.sm_af_AreaID">
               </el-option>
             </el-select>
-            <el-select v-model="updateAdminRouteDepartureCityObj.ts_cc_Name" placeholder="请选择市">
+            <el-select v-model="updateAdminRouteDepartureCityObj.ts_cc_Code" placeholder="请选择市">
               <el-option
                 v-for="item in cityList"
                 :key="item.sm_af_AreaID"
                 :label="item.sm_af_AreaName"
-                :value="item.sm_af_AreaName">
+                :value="item.sm_af_AreaID">
               </el-option>
             </el-select>
           </el-form-item>
@@ -204,8 +204,8 @@
           "pcName": "",
           "data": {
             "ts_cc_LineID": '',
-//            "ts_cc_Code": '',
-            "ts_cc_Name": ""
+            "ts_cc_Code": '',
+//            "ts_cc_Name": ""
           }
         }
       }
@@ -218,6 +218,7 @@
       'cityList'
     ]),
     created() {
+      sessionStorage.setItem('AdminQueryProductInformationListName','产品线路出发城市')
       //初始化省
       let sCity = {
         "areaPid": 3337
@@ -245,8 +246,8 @@
           rows: 5
         };
         this.$store.dispatch('initAdminRouteDepartureCity', options)
-          .then(total => {
-            this.total = total;
+          .then(data => {
+            this.total = Number(data.totalrows);
           })
       }
     },
@@ -270,7 +271,6 @@
       },
       //选中产品
       handleSelect(item) {
-        console.log(item)
 //        this.addOptions.ts_pt_Product_LineID = item.id;
 //        this.updateAdminLinePrepareObj.ts_pt_Product_LineID = item.id;
         this.userName = item.value;
@@ -338,8 +338,9 @@
           "lineID": lineID ? lineID : ''
         }
         this.$store.dispatch('initAdminRouteDepartureCity', options)
-          .then(total => {
-            this.total = total;
+          .then(data => {
+            console.log(data)
+            this.total = Number(data.totalrows);
           }, err => {
             this.$notify({
               message: err,

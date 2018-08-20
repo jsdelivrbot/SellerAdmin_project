@@ -687,7 +687,6 @@
       },
       jump(obj){
         sessionStorage.setItem('id', obj.ta_tg_ID)
-
         if(obj.ta_tg_ID){
           window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + obj.ta_tg_ID, '_blank')
         }else{
@@ -696,10 +695,6 @@
             message: '产品编号为空。。。',
             type: 'warning'})
         }
-
-
-
-
       },
       //删除修改对应图片
       deleteUpdateImageURL(val){
@@ -729,10 +724,15 @@
           this.updateDialog = false
       },
       cacheForm(){
-        this.ImageURL = [],
+        console.log(1)
+          this.ImageURL = [],
           this.updateImageURL = [],
           this.addDialog = false,
           this.updateDialog = false
+        let uploader = document.querySelector('.uploader-list')
+        if(uploader){
+          uploader.querySelector('ul').innerHTML = ''
+        }
       },
       //查询很多
       selectInitData(id, ParentID){
@@ -747,9 +747,6 @@
         }
         return this.$store.dispatch('initSelectInitAllData', options)
       },
-
-
-
       //选中省
       changeProvice(item){
         this.obj = this.proviceList.filter(v => {
@@ -759,7 +756,6 @@
           return false;
         })[0]
 //        this.updateAdminMerchantProductsObj.ts_tg_Provice = this.obj.sm_af_AreaName
-
 //        this.addData.ts_tg_Provice = obj.sm_af_AreaName
         let searchCity = {
           "areaPid": this.value
@@ -775,7 +771,6 @@
           return false;
         })[0]
 //        this.updateAdminMerchantProductsObj.ts_tg_Provice = this.obj.sm_af_AreaName
-
 //        this.addData.ts_tg_Provice = obj.sm_af_AreaName
         let searchCity = {
           "areaPid": this.updateAdminMerchantProductsObj.ts_tg_Provice

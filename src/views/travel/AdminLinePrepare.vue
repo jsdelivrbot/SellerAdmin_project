@@ -511,13 +511,16 @@
       },
       //删除
       deleteAdminLinePrepare(id) {
+        console.log(id)
         let deleteOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "ID": id
+          "data": {
+            "ts_pt_ID": id,
+          }
         };
         this.$store.dispatch('DeleteAdminLinePrepare', deleteOptions)
         .then(() => {
@@ -525,7 +528,7 @@
             message: '删除成功!',
             type: 'success'
           });
-          this.initData()
+          this.initData(id)
         }, err => {
           this.$notify({
             message: err,

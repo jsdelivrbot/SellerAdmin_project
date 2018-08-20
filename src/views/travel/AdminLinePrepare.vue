@@ -511,7 +511,6 @@
       },
       //删除
       deleteAdminLinePrepare(id) {
-        console.log(id)
         let deleteOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -522,13 +521,14 @@
             "ts_pt_ID": id,
           }
         };
+
         this.$store.dispatch('DeleteAdminLinePrepare', deleteOptions)
         .then(() => {
           this.$notify({
             message: '删除成功!',
             type: 'success'
           });
-          this.initData(id)
+          this.initData(this.id)
         }, err => {
           this.$notify({
             message: err,
@@ -544,7 +544,11 @@
       }
     },
     created() {
-      sessionStorage.setItem('AdminQueryProductInformationListName','线路日程')
+      let AdminQueryProductInformationListName =sessionStorage.getItem('AdminQueryProductInformationListName')
+      if(AdminQueryProductInformationListName!=='预订须知'){
+        sessionStorage.setItem('AdminQueryProductInformationListName','线路日程')
+      }
+
       for (var i = 1; i < 21; i++) {
         this.options.push({
           value: i

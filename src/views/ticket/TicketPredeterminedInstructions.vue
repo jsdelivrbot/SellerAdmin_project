@@ -390,7 +390,8 @@
               message: suc,
               type: 'success'
             });
-            this.initData(this.addOptions.tm_bk_TourSiteID)
+            window.location.reload()
+//            this.initData(this.addOptions.tm_bk_TourSiteID)
           }, err => {
             this.$notify({
               message: err,

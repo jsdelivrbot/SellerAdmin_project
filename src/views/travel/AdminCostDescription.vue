@@ -70,7 +70,7 @@
       <el-dialog title="添加费用说明" :visible.sync="addDialog" :close-on-click-modal="false" width="60%">
         <el-form :model="addOptions">
           <el-form-item label="退改政策:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_ReturnRule"></tinymce>
+            <tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_ReturnRule" ref="tm"></tinymce>
             <!--<el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="费用包含:" :label-width="formLabelWidth">
@@ -159,7 +159,10 @@
         this.lineObj = JSON.parse(lineObj);
         this.initData(this.lineObj)
       }
-      sessionStorage.setItem('AdminQueryProductInformationListName','费用说明')
+      let AdminQueryProductInformationListName =sessionStorage.getItem('AdminQueryProductInformationListName')
+      if(AdminQueryProductInformationListName!=='预订须知'){
+        sessionStorage.setItem('AdminQueryProductInformationListName','费用说明')
+      }
 
     },
     methods: {
@@ -180,6 +183,8 @@
         for(let attr in this.addOptions.data){
           this.addOptions.data[attr]= ''
         }
+        console.log(this.$refs)
+        this.$refs.tinymce.setContent('')
         this.addDialog = true
       },
       initData(obj){

@@ -123,7 +123,7 @@
             </el-button>
             <el-button size="mini" type="primary" @click="goThisProduct(scope.row.fd_sf_ID)">前往店面产品</el-button>
             <el-button size="mini" type="primary" @click="goThisRoom(scope.row.fd_sf_ID)">店面房间</el-button>
-            <el-button size="mini" type="success" @click="jump(scope.row)">预览效果></el-button>
+            <el-button size="mini" type="success" @click="jump(scope.row)">预览效果</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -759,8 +759,13 @@
         if (uploader) {
           uploader.querySelector('ul').innerHTML = ''
         }
-        for (var attr in this.addOptions) {
-          this.addOptions[attr] = ''
+//        for (var attr in this.addOptions) {
+//          this.addOptions[attr] = ''
+//        }
+        for (let attr in this.addOptions) {
+          if(attr!='loginUserID'&&attr!='loginUserPass'){
+            this.addOptions[attr] = ''
+          }
         }
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;

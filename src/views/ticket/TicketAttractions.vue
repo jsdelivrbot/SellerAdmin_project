@@ -954,7 +954,8 @@
               message: suc,
               type: 'success'
             });
-            this.initData();
+            window.location.reload()
+//            this.initData();
           }, err => {
             this.$notify({
               message: err,

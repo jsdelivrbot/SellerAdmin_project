@@ -333,7 +333,10 @@
       'updateAdminLinePriceObj'
     ]),
     created(){
-      sessionStorage.setItem('AdminQueryProductInformationListName','产品线路价格')
+      let AdminQueryProductInformationListName =sessionStorage.getItem('AdminQueryProductInformationListName')
+      if(AdminQueryProductInformationListName!=='预订须知'){
+        sessionStorage.setItem('AdminQueryProductInformationListName','产品线路价格')
+      }
       //初始化省
       let sCity = {
         "areaPid": 3337

@@ -195,7 +195,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="展示图片:" :label-width="formLabelWidth" required>
+        <el-form-item label="线路图片展示:" :label-width="formLabelWidth" required>
           <p style="font-weight: bold;color: #f60">App中使用的图片格式</p>
           <p>单张图片大小不能大于600KB</p>
           <Upload @getData="getData" :attrs="imageObj"></Upload>
@@ -252,7 +252,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addAdminQueryProductInformationDialog = false">取 消</el-button>
+        <el-button @click="cacheForm">取 消</el-button>
+        <!--<el-button @click="addAdminQueryProductInformationDialog = false">取 消</el-button>-->
         <el-button type="primary" @click="addAdminQueryProductInformationSubmit">确 定</el-button>
       </div>
     </el-dialog>
@@ -474,6 +475,7 @@
         updateAdminQueryProductInformationDialog: false,//修改弹窗
         value: '',
         formLabelWidth: '120px',
+        // addOptions:{},
         addOptions: {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -522,6 +524,18 @@
       this.initData(this.$route.params.id)
     },
     methods: {
+
+      cacheForm(){
+
+
+          window.location.reload()
+          this.addData=this.addOptions,
+          this.ImageURL = [],
+          this.addAdminQueryProductInformationDialog = false
+
+      },
+
+
       //选中省
       changeProvice(item){
 

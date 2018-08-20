@@ -208,7 +208,9 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addAdminLinePriceDialog = false">取 消</el-button>
+          <el-button @click="cacheForm">取 消</el-button>
+
+          <!--<el-button @click="addAdminLinePriceDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="addAdminLinePriceSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -351,6 +353,13 @@
       }
     },
     methods: {
+
+
+      cacheForm() {
+        this.addAdminLinePriceDialog = false
+        window.location.reload()
+      },
+
       //选中出发城市
       handleCitySelect(obj){
         this.addOptions.city = obj.id;

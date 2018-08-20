@@ -127,7 +127,9 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addDialog = false">取 消</el-button>
+          <el-button @click="cacheForm">取 消</el-button>
+
+          <!--<el-button @click="addDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="addAdminRouteDepartureCitySubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -252,6 +254,10 @@
       }
     },
     methods: {
+      cacheForm() {
+        this.addDialog = false
+        window.location.reload()
+      },
 
       jump(obj) {
         if(this.MerchanID){

@@ -330,7 +330,7 @@
         this.addDialog = false
       },
       cacheForm() {
-        this.updateAdminLinePrepareDialog = false
+
         this.addDialog = false
         window.location.reload()
       },

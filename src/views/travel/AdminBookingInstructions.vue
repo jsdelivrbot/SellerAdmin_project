@@ -98,7 +98,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="addDialog = false">取 消</el-button>
+          <el-button @click="cacheForm">取 消</el-button>
+          <!--<el-button @click="addDialog = false">取 消</el-button>-->
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -156,21 +157,22 @@
         addDialog: false,
         formLabelWidth: '120px',
         isLoading: false,
+        addData:{},
         addOptions: {
           "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",
-          "operateUserName": "",
-          "pcName": "",
-          "token": "",
-          "data": {
+            "loginUserPass": "123",
+            "operateUserID": "",
+            "operateUserName": "",
+            "pcName": "",
+            "token": "",
+            "data": {
             ts_pt_GoodsListID:'',
-            "ts_pt_ID": "",//线路编号
-            "ts_pt_BookKnow": "",//预定需知      富文本格式
-            ts_pt_SafetyLimit: '',//特殊限制
-            ts_pt_SpecialLimit: '',//安全提示
-            ts_pt_PayWay: '',//付款方式
-            ts_pt_LimitDuty:'',//违约责任
+              ts_pt_ID: "",//线路编号
+              ts_pt_BookKnow :"",//预定需知      富文本格式
+              ts_pt_SafetyLimit: '',//特殊限制
+              ts_pt_SpecialLimit: '',//安全提示
+              ts_pt_PayWay: '',//付款方式
+              ts_pt_LimitDuty:'',//违约责任
           }
         },
         updateOptions:{},
@@ -192,8 +194,16 @@
           window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + MerchanID, '_blank')
         }
       },
+      cacheForm(){
+
+         window.location.reload()
+          this.ImageURL = [],
+          this.addDialog = false
+
+      },
       //添加
       addAdminBookingInstructions(){
+
         for(let attr in this.addOptions.data){
           this.addOptions.data[attr]= ''
         }

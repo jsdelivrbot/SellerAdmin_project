@@ -595,21 +595,21 @@
           ts_tg_Property: ''
         },
         addOptions: {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",
-          "operateUserName": "",
-          "pcName": "",
-          "feeIn": [],
-          "feeNotIn": [],
-          "bookKnow": [],
-          "backRule": [],
-          "stayRecom": [],
-          "tourSiteRecom": [],
-          buyReason: [],
-          goodIntroduce: [],
-          data:{}
-        },
+        "loginUserID": "huileyou",
+        "loginUserPass": "123",
+        "operateUserID": "",
+        "operateUserName": "",
+        "pcName": "",
+        "feeIn": [],
+        "feeNotIn": [],
+        "bookKnow": [],
+        "backRule": [],
+        "stayRecom": [],
+        "tourSiteRecom": [],
+        buyReason: [],
+        goodIntroduce: [],
+        data:{}
+      },
         updateFeeInfoListContentObj: {},
         feeNotInListContent: '',
         addFeeInNotListDialog: false,
@@ -724,15 +724,13 @@
           this.updateDialog = false
       },
       cacheForm(){
-        console.log(1)
+
+          window.location.reload()
           this.ImageURL = [],
           this.updateImageURL = [],
           this.addDialog = false,
           this.updateDialog = false
-        let uploader = document.querySelector('.uploader-list')
-        if(uploader){
-          uploader.querySelector('ul').innerHTML = ''
-        }
+
       },
       //查询很多
       selectInitData(id, ParentID){

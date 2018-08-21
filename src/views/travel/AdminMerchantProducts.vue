@@ -11,6 +11,9 @@
           <el-button type="primary" @click="search" size="small">查询</el-button>
           <el-button type="primary" @click="addAdminMerchantProducts" size="small">新增</el-button>
         </el-form-item>
+        <el-form-item>
+          <span style="color: #f60">提示:添加一条之后，需要添加下一条,请刷新页面重置富文本信息!</span>
+        </el-form-item>
       </el-form>
     </el-col>
 
@@ -297,6 +300,10 @@
             </el-option>
           </el-select>
         </el-form-item>
+        <!--<el-form-item label="测试:" :label-width="formLabelWidth">-->
+          <!--<editor v-model="content"/>-->
+        <!--</el-form-item>-->
+
         <el-form-item label="产品类型:" :label-width="formLabelWidth" required>
           <el-select v-model="addData.ts_tg_Type" placeholder="请选择产品类型">
             <el-option
@@ -465,10 +472,12 @@
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
   import Upload from '@/components/Upload'
+  import Editor from '@/components/Editor'
   export default{
     name: '',
     components: {
-      Upload
+      Upload,
+      Editor
     },
     data(){
       return {
@@ -628,7 +637,8 @@
         imageObj: {accept: 'image/*'},
         radioIndex: '',
         addRadioIndex: 0,
-        productCategoryList: []
+        productCategoryList: [],
+        content:''
       }
     },
     computed: mapGetters([
@@ -652,6 +662,9 @@
       this.getProductCategory()
     },
     methods: {
+      handleChange(){
+        console.log(html, text)
+      },
       getProductCategory(){
         let options = {
           "loginUserID": "huileyou",
@@ -876,17 +889,24 @@
         if(uploader){
           uploader.querySelector('ul').innerHTML = ''
         }
+        let text = document.querySelector('.w-e-text')
+        if(text){
+          text.innerHTML = ''
+        }
         for (let attr in this.addOptions) {
           if(attr!='loginUserID'&&attr!='loginUserPass'){
             this.addOptions[attr] = ''
           }
         }
+        this.content = ''
         this.ImageURL = [];
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
       },
       //添加提交
       addSubmit(){
+        console.log(this.content)
+        return
         this.addData.ta_tg_ShowImage = this.ImageURL.join(',');
         this.addOptions.buyReason = this.buyReason;
         this.addOptions.feeIn = this.feeInfoList;
@@ -904,8 +924,7 @@
             message: '添加成功!',
             type: 'success'
           });
-          location.replace(window.location.href)
-//          window.location.reload();
+          window.location.reload();
 //          this.initData(this.productsID, 1);
         }, err => {
           this.$notify({

@@ -166,7 +166,7 @@
             "pcName": "",
             "token": "",
             "data": {
-            ts_pt_GoodsListID:'',
+              ts_pt_GoodsListID:'',
               ts_pt_ID: "",//线路编号
               ts_pt_BookKnow :"",//预定需知      富文本格式
               ts_pt_SafetyLimit: '',//特殊限制
@@ -240,8 +240,8 @@
             message: '修改成功!',
             type: 'success'
           });
-          window.location.reload()
-//          this.initData(this.lineObj)
+//          window.location.reload()
+          this.initData(this.lineObj)
         }, err => {
           this.$notify({
             message: err,

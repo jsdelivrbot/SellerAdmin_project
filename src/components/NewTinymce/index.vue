@@ -93,7 +93,7 @@ export default {
           _this.hasInit = true
           editor.on('NodeChange Change KeyUp SetContent', () => {
             this.hasChange = true
-            this.$emit('input', escape(editor.getContent({format: 'html'})))
+            this.$emit('input', escape(editor.getContent({format: 'raw'})))
           })
         },
         setup(editor) {
@@ -167,7 +167,7 @@ export default {
       window.tinymce.get(this.tinymceId).setContent(value)
     },
     getContent() {
-      escape(window.tinymce.get(this.tinymceId).getContent({format: 'html'}))
+      escape(window.tinymce.get(this.tinymceId).getContent({format: 'raw'}))
     },
     imageSuccessCBK(arr) {
       const _this = this

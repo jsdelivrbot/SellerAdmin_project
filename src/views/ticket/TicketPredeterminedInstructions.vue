@@ -370,10 +370,10 @@
       },
 
       Add() {
-        for(let attr in this.addOptions){
-          this.addOptions[attr] = ''
-        }
-        this.$store.commit('setTranstionFalse');
+//        for(let attr in this.addOptions){
+//          this.addOptions[attr] = ''
+//        }
+//        this.$store.commit('setTranstionFalse');
         this.addDialog = true;
 //        this.addOptions.tm_bk_TourSiteID = this.ticketAttractionsValue;
       },
@@ -390,7 +390,7 @@
               message: suc,
               type: 'success'
             });
-//            window.location.reload
+//            window.location.reload()
 
             this.initData(this.addOptions.tm_bk_TourSiteID)
           }, err => {

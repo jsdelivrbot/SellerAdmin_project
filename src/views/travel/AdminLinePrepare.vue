@@ -135,7 +135,8 @@
             <el-input v-model="addData.ts_pt_Day" placeholder="请输入第几天行程"></el-input>
           </el-form-item>
           <el-form-item label="线路日程详情:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="addData.ts_pt_Content"></tinymce>
+            <editor v-model="addData.ts_pt_Content"></editor>
+            <!--<tinymce :height="300" v-model="addData.ts_pt_Content"></tinymce>-->
           </el-form-item>
           <el-form-item label="活动图片:" :label-width="formLabelWidth" required>
             <p>单张图片大小不能大于600KB</p>
@@ -179,7 +180,8 @@
             <el-input v-model="updateAdminLinePrepareObj.ts_pt_Name" placeholder="请输入日程名称"></el-input>
           </el-form-item>
           <el-form-item label="线路日程详情:" :label-width="formLabelWidth">
-            <tinymce :height="1000" v-model="updateAdminLinePrepareObj.ts_pt_Content"></tinymce>
+            <editor v-model="updateAdminLinePrepareObj.ts_pt_Content"></editor>
+            <!--<tinymce :height="1000" v-model="updateAdminLinePrepareObj.ts_pt_Content"></tinymce>-->
           </el-form-item>
           <el-form-item label="展示图片:" :label-width="formLabelWidth">
             <p>单张图片大小不能大于600KB</p>

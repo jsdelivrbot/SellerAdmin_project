@@ -324,7 +324,9 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="cacheForm">取 消</el-button>
+          <!--<el-button @click="cacheForm">取 消</el-button>-->
+          <el-button @click="addDialog = false">取 消</el-button>
+
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -498,7 +500,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="cacheForm">取 消</el-button>
+          <!--<el-button @click="cacheForm">取 消</el-button>-->
+          <el-button @click="updateDialog = false">取 消</el-button>
           <el-button type="primary" @click="updateSubmit">确 定</el-button>
         </div>
       </el-dialog>

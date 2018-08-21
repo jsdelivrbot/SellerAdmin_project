@@ -156,31 +156,38 @@
 
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="addOptions.tm_bk_OpenTime" ></tinymce>
+            <editor v-model="addOptions.tm_bk_OpenTime"></editor>
+            <!--<tinymce :height="300" v-model="addOptions.tm_bk_OpenTime" ></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊人群政策:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="addOptions.tm_bk_SpecialPolicy" ></tinymce>
+            <editor v-model="addOptions.tm_bk_SpecialPolicy"></editor>
+            <!--<tinymce :height="300" v-model="addOptions.tm_bk_SpecialPolicy" ></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_SpecialPolicy" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="预订提醒:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="addOptions.tm_bk_Remind" ></tinymce>
+            <editor v-model="addOptions.tm_bk_Remind"></editor>
+            <!--<tinymce :height="300" v-model="addOptions.tm_bk_Remind" ></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="温馨提示:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="addOptions.tm_bk_HappyNotice" ></tinymce>
+            <editor v-model="addOptions.tm_bk_HappyNotice"></editor>
+            <!--<tinymce :height="300" v-model="addOptions.tm_bk_HappyNotice" ></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_HappyNotice" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="发票说明:" :label-width="formLabelWidth" >
-            <tinymce :height="300" v-model="addOptions.tm_bk_TicketSay" ></tinymce>
+            <editor v-model="addOptions.tm_bk_TicketSay"></editor>
+            <!--<tinymce :height="300" v-model="addOptions.tm_bk_TicketSay" ></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_TicketSay" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="退改规则:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="addOptions.tm_bk_ReturnRule" ></tinymce>
+            <editor v-model="addOptions.tm_bk_ReturnRule"></editor>
+            <!--<tinymce :height="300" v-model="addOptions.tm_bk_ReturnRule" ></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_ReturnRule" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊信息:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="addOptions.tm_bk_SpecialMessage" ></tinymce>
+            <editor v-model="addOptions.tm_bk_SpecialMessage"></editor>
+            <!--<tinymce :height="300" v-model="addOptions.tm_bk_SpecialMessage" ></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_SpecialMessage" type="textarea"></el-input>-->
           </el-form-item>
         </el-form>
@@ -203,31 +210,38 @@
 
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" ></tinymce>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime"></editor>
+            <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊人群政策:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialPolicy" ></tinymce>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialPolicy"></editor>
+            <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialPolicy" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialPolicy" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="预订提醒:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_Remind" ></tinymce>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_Remind"></editor>
+            <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_Remind" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="温馨提示:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_HappyNotice" ></tinymce>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_HappyNotice"></editor>
+            <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_HappyNotice" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_HappyNotice" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="发票说明:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_TicketSay" ></tinymce>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_TicketSay"></editor>
+            <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_TicketSay" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_TicketSay" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="退改规则:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_ReturnRule" ></tinymce>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_ReturnRule"></editor>
+            <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_ReturnRule" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_ReturnRule" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊信息:" :label-width="formLabelWidth">
-            <tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialMessage" ></tinymce>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialMessage"></editor>
+            <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialMessage" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialMessage" type="textarea"></el-input>-->
           </el-form-item>
         </el-form>
@@ -242,11 +256,14 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import Tinymce from '@/components/NewTinymce'
+  // import Tinymce from '@/components/NewTinymce'
+  import Editor from '@/components/Editor'
+
   export default {
     name: '',
     components: {
-      Tinymce
+      // Tinymce
+      Editor
     },
     computed: mapGetters([
       'predeterminedInstructionsList',
@@ -370,10 +387,12 @@
       },
 
       Add() {
-//        for(let attr in this.addOptions){
-//          this.addOptions[attr] = ''
-//        }
-//        this.$store.commit('setTranstionFalse');
+        let textArr = document.querySelectorAll('.w-e-text')
+        if (textArr && textArr.length) {
+          for (var i = 0; i < textArr.length; i++) {
+            textArr[i].innerHTML = ''
+          }
+        }
         this.addDialog = true;
 //        this.addOptions.tm_bk_TourSiteID = this.ticketAttractionsValue;
       },

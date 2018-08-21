@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div>
     <div id="wrap" class="clearfix">
       <h1 class="userClass">微电影系列分类</h1>

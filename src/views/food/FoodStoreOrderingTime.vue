@@ -273,8 +273,10 @@
       addSubmit() {
         this.addOptions.dateFrom = this.addTime[0];
         this.addOptions.dateTo = this.addTime[1];
+        this.isLoading = true;
         this.$store.dispatch('addFoodStoreOrderingTime', this.addOptions)
           .then(suc => {
+            this.isLoading = false;
             this.$notify({
               message: suc,
               type: 'success'

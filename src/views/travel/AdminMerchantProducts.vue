@@ -265,18 +265,18 @@
             </p>
           </div>
         </el-form-item>
-        <el-form-item label="是否展示首页:" :label-width="formLabelWidth">
-          <el-select v-model="addData.ts_tg_Special" placeholder="请选择是否精选">
-            <el-option
-              label="展示"
-              value="1">
-            </el-option>
-            <el-option
-              label="不展示"
-              value="0">
-            </el-option>
-          </el-select>
-        </el-form-item>
+        <!--<el-form-item label="是否展示首页:" :label-width="formLabelWidth">-->
+          <!--<el-select v-model="addData.ts_tg_Special" placeholder="请选择是否精选">-->
+            <!--<el-option-->
+              <!--label="展示"-->
+              <!--value="1">-->
+            <!--</el-option>-->
+            <!--<el-option-->
+              <!--label="不展示"-->
+              <!--value="0">-->
+            <!--</el-option>-->
+          <!--</el-select>-->
+        <!--</el-form-item>-->
         <el-form-item label="跟团类型:" :label-width="formLabelWidth" required>
           <el-select v-model="addData.ts_tg_LongOut" placeholder="请选择跟团类型">
             <el-option
@@ -904,7 +904,9 @@
             message: '添加成功!',
             type: 'success'
           });
-          this.initData(this.productsID, 1);
+          location.replace(window.location.href)
+//          window.location.reload();
+//          this.initData(this.productsID, 1);
         }, err => {
           this.$notify({
             message: err,

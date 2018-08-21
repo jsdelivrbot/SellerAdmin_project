@@ -183,8 +183,6 @@
         for(let attr in this.addOptions.data){
           this.addOptions.data[attr]= ''
         }
-        console.log(this.$refs)
-        this.$refs.tinymce.setContent('')
         this.addDialog = true
       },
       initData(obj){

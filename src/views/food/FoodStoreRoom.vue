@@ -23,8 +23,11 @@
             <el-form-item label="房间桌数">
               <span>{{ props.row.fd_sfr_TablesCount }}桌</span>
             </el-form-item>
-            <el-form-item label="预定金额(元)">
+            <el-form-item label="订金(元)">
               <span>{{ props.row.fd_sfr_BookMoney }} 元</span>
+            </el-form-item>
+            <el-form-item label="房间费用(元)">
+              <span>{{ props.row.fd_sfr_RoomMoney }} 元</span>
             </el-form-item>
             <el-form-item label="最低消费(元)">
               <span>{{ props.row.fd_sfr_LowestCost }} 元</span>
@@ -98,8 +101,12 @@
           <el-input v-model="addOptions.fd_sfr_RoomName" auto-complete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="预定价格(元)" :label-width="formLabelWidth" style="width: 55%">
+        <el-form-item label="订金(元)" :label-width="formLabelWidth" style="width: 55%">
           <el-input v-model="addOptions.fd_sfr_BookMoney" auto-complete="off" placeholder="请输入数字"></el-input>
+        </el-form-item>
+
+        <el-form-item label="房间费用(元)" :label-width="formLabelWidth" style="width: 55%">
+          <el-input v-model="addOptions.fd_sfr_RoomMoney" auto-complete="off" placeholder="请输入数字"></el-input>
         </el-form-item>
 
         <el-form-item label="最低消费(元)" :label-width="formLabelWidth" style="width: 55%">
@@ -177,8 +184,12 @@
           <el-input v-model="updateObj.fd_sfr_RoomName" auto-complete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="预定价格(元)" :label-width="formLabelWidth" style="width: 55%">
+        <el-form-item label="订金(元)" :label-width="formLabelWidth" style="width: 55%">
           <el-input v-model="updateObj.fd_sfr_BookMoney" auto-complete="off"></el-input>
+        </el-form-item>
+
+        <el-form-item label="预定价格(元)" :label-width="formLabelWidth" style="width: 55%">
+          <el-input v-model="updateObj.fd_sfr_RoomMoney" auto-complete="off"></el-input>
         </el-form-item>
 
         <el-form-item label="最低消费(元)" :label-width="formLabelWidth" style="width: 55%">
@@ -269,6 +280,7 @@
           "fd_sfr_RegionID": "",//区域编码  【76  77】包间桌数用户输入 78[桌数固定为1]
           "fd_sfr_RoomName": "",//房间名称
           "fd_sfr_BookMoney": "",//预定价格
+          "fd_sfr_RoomMoney":"",//房间费用
           "fd_sfr_VedioURL": "",//包间视频地址
           "fd_sfr_LowestCost": "",//最低消费
           "fd_sfr_TablesCount": "",//房间桌数

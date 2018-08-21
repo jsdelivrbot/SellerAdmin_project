@@ -819,7 +819,6 @@
       },
       //选择洲
       changeGreat() {
-
         let getAreaProvice = {
           "areaPid": this.addOptions.tm_ts_GreatID
         };
@@ -893,6 +892,41 @@
         }
         this.$store.dispatch('initTicketContry', getAreaProvice)
           .then()
+      },
+
+      //国家
+      initUpdateCountrie(id) {
+        let getAreaProvice = {
+          "areaPid": id
+        }
+        return this.$store.dispatch('initTicketCountrie', getAreaProvice)
+      },
+      //省
+      initUpdateProvice(id) {
+        let getAreaProvice = {
+          "areaPid": id
+        }
+        return this.$store.dispatch('initTicketProvice', getAreaProvice)
+      },
+      //市
+      initUpdateCity(id) {
+        let getAreaProvice = {
+          "areaPid": id
+        }
+        return this.$store.dispatch('initTicketCity', getAreaProvice)
+      },
+//      //县
+      initUpdateContry(id) {
+        let getAreaProvice = {
+          "areaPid": id
+        }
+        return this.$store.dispatch('initTicketContry', getAreaProvice)
+      },
+      async arrInit(obj){
+        await this.initUpdateCountrie(obj.tm_ts_GreatID)
+        await this.initUpdateProvice(obj.tm_ts_CountrieID)
+        await this.initUpdateCity(obj.tm_ts_ProviceID)
+        await this.initUpdateContry(obj.tm_ts_CityID)
       },
       //添加
       Add() {
@@ -969,12 +1003,15 @@
       },
 //      修改
       update(obj) {
-        this.updateTicketAttractionsObj = obj;
-        setTimeout(() => {
+//        console.log(obj)
+//        return
+        this.isLoading = true;
+        this.arrInit(obj).then(()=>{
+          this.isLoading = false;
+          this.updateTicketAttractionsObj = obj;
           this.updateImageURL = obj.tm_ts_ShowImage
           this.updateDialog = true;
-        }, 30)
-
+        })
 //        this.$store.commit('updateTicketAttractions', id);
       },
       //修改提交

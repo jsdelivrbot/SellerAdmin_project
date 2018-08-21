@@ -31,10 +31,10 @@
             </el-form-item>
             <el-form-item label="产品标题:">
               <!--<el-popover-->
-                <!--ref="popover1"-->
-                <!--placement="top-start"-->
-                <!--trigger="hover"-->
-                <!--:content="props.row.ta_tg_Title">-->
+              <!--ref="popover1"-->
+              <!--placement="top-start"-->
+              <!--trigger="hover"-->
+              <!--:content="props.row.ta_tg_Title">-->
               <!--</el-popover>-->
               <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
               <span>{{props.row.ta_tg_Title}}</span>
@@ -46,85 +46,85 @@
             <!--<span>{{ props.row.ts_tg_Country }}</span>-->
             <!--</el-form-item>-->
             <el-form-item label="所属省市:">
-              <span>{{ props.row.ts_tg_Provice+props.row.ts_tg_City}}</span>
+              <span>{{ props.row.ts_tg_Provice + props.row.ts_tg_City}}</span>
             </el-form-item>
             <el-form-item label="产品类型:">
               <span>{{ props.row.ts_tg_Type | getTrandeType}}</span>
             </el-form-item>
             <!--<el-form-item label="产品描述:">-->
-              <!--<el-popover-->
-                <!--ref="popover1"-->
-                <!--placement="top-start"-->
-                <!--trigger="hover"-->
-                <!--:content="props.row.ta_tg_Describe">-->
-              <!--</el-popover>-->
-              <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
+            <!--<el-popover-->
+            <!--ref="popover1"-->
+            <!--placement="top-start"-->
+            <!--trigger="hover"-->
+            <!--:content="props.row.ta_tg_Describe">-->
+            <!--</el-popover>-->
+            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
             <!--</el-form-item>-->
             <!--<el-form-item label="成团地点:">-->
-              <!--<span>{{ props.row.ts_tg_GroupSite }}</span>-->
+            <!--<span>{{ props.row.ts_tg_GroupSite }}</span>-->
             <!--</el-form-item>-->
             <!--<el-form-item label="费用包含:">-->
-              <!--<el-popover-->
-                <!--ref="popover1"-->
-                <!--placement="top-start"-->
-                <!--trigger="hover"-->
-              <!--&gt;-->
-                <!--<p v-for="item,index in props.row.feeIn" style="padding: 20px;width: 500px">-->
-                  <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-              <!--</el-popover>-->
-              <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
+            <!--<el-popover-->
+            <!--ref="popover1"-->
+            <!--placement="top-start"-->
+            <!--trigger="hover"-->
+            <!--&gt;-->
+            <!--<p v-for="item,index in props.row.feeIn" style="padding: 20px;width: 500px">-->
+            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
+            <!--</el-popover>-->
+            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
             <!--</el-form-item>-->
             <!--<el-form-item label="费用不包含:">-->
-              <!--<el-popover-->
-                <!--ref="popover1"-->
-                <!--placement="top-start"-->
-                <!--trigger="hover">-->
-                <!--<p v-for="item,index in props.row.feeNotIn" style="padding: 20px;width: 500px">-->
-                  <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-              <!--</el-popover>-->
-              <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
+            <!--<el-popover-->
+            <!--ref="popover1"-->
+            <!--placement="top-start"-->
+            <!--trigger="hover">-->
+            <!--<p v-for="item,index in props.row.feeNotIn" style="padding: 20px;width: 500px">-->
+            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
+            <!--</el-popover>-->
+            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
 
             <!--</el-form-item>-->
             <!--<el-form-item label="推荐理由:">-->
-              <!--<el-popover-->
-                <!--ref="popover1"-->
-                <!--placement="top-start"-->
-                <!--trigger="hover">-->
-                <!--<p v-for="item,index in props.row.buyReason" style="padding: 20px;width: 500px">-->
-                  <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-              <!--</el-popover>-->
-              <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
+            <!--<el-popover-->
+            <!--ref="popover1"-->
+            <!--placement="top-start"-->
+            <!--trigger="hover">-->
+            <!--<p v-for="item,index in props.row.buyReason" style="padding: 20px;width: 500px">-->
+            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
+            <!--</el-popover>-->
+            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
             <!--</el-form-item>-->
             <!--<el-form-item label="产品介绍:">-->
-              <!--<el-popover-->
-                <!--ref="popover1"-->
-                <!--placement="top-start"-->
-                <!--trigger="hover">-->
-                <!--<p v-for="item,index in props.row.goodIntroduce" style="padding: 20px;width: 500px">-->
-                  <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-              <!--</el-popover>-->
-              <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
+            <!--<el-popover-->
+            <!--ref="popover1"-->
+            <!--placement="top-start"-->
+            <!--trigger="hover">-->
+            <!--<p v-for="item,index in props.row.goodIntroduce" style="padding: 20px;width: 500px">-->
+            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
+            <!--</el-popover>-->
+            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
             <!--</el-form-item>-->
             <!--<el-form-item label="预订须知:">-->
-              <!--<el-popover-->
-                <!--ref="popover1"-->
-                <!--placement="top-start"-->
-                <!--trigger="hover"-->
-              <!--&gt;-->
-                <!--<p v-for="item,index in props.row.bookKnow" style="padding: 20px;width: 500px">-->
-                  <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-              <!--</el-popover>-->
-              <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
+            <!--<el-popover-->
+            <!--ref="popover1"-->
+            <!--placement="top-start"-->
+            <!--trigger="hover"-->
+            <!--&gt;-->
+            <!--<p v-for="item,index in props.row.bookKnow" style="padding: 20px;width: 500px">-->
+            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
+            <!--</el-popover>-->
+            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
             <!--</el-form-item>-->
             <!--<el-form-item label="退订政策:">-->
-              <!--<el-popover-->
-                <!--ref="popover1"-->
-                <!--placement="top-start"-->
-                <!--trigger="hover">-->
-                <!--<p v-for="item,index in props.row.backRule" style="padding: 20px;width: 500px">-->
-                  <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-              <!--</el-popover>-->
-              <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
+            <!--<el-popover-->
+            <!--ref="popover1"-->
+            <!--placement="top-start"-->
+            <!--trigger="hover">-->
+            <!--<p v-for="item,index in props.row.backRule" style="padding: 20px;width: 500px">-->
+            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
+            <!--</el-popover>-->
+            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
             <!--</el-form-item>-->
 
             <el-form-item label="产品图片地址:">
@@ -137,10 +137,10 @@
             </el-form-item>
             <el-form-item label="备注:">
               <!--<el-popover-->
-                <!--ref="popover1"-->
-                <!--placement="top-start"-->
-                <!--trigger="hover"-->
-                <!--:content="props.row.ta_tg_Remark">-->
+              <!--ref="popover1"-->
+              <!--placement="top-start"-->
+              <!--trigger="hover"-->
+              <!--:content="props.row.ta_tg_Remark">-->
               <!--</el-popover>-->
               <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
               <span>{{props.row.ta_tg_Remark}}</span>
@@ -149,7 +149,7 @@
             <!--<span>{{ props.row.ts_tg_ShowTop==0?"否":"是" }}</span>-->
             <!--</el-form-item>-->
             <!--<el-form-item label="是否精选:">-->
-              <!--<span>{{ props.row.ts_tg_Special==0?"非精选":"精选" }}</span>-->
+            <!--<span>{{ props.row.ts_tg_Special==0?"非精选":"精选" }}</span>-->
             <!--</el-form-item>-->
             <el-form-item label="跟团类型:">
               <span>{{ props.row.ts_tg_LongOut | getNewLongOut }}</span>
@@ -224,7 +224,7 @@
         </el-form-item>
 
         <!--<el-form-item label="产品描述:" :label-width="formLabelWidth" required>-->
-          <!--<el-input v-model="addData.ta_tg_Describe" placeholder="请输入产品描述" class="tg_Title"></el-input>-->
+        <!--<el-input v-model="addData.ta_tg_Describe" placeholder="请输入产品描述" class="tg_Title"></el-input>-->
         <!--</el-form-item>-->
 
         <el-form-item label="所属省:" :label-width="formLabelWidth" required>
@@ -269,16 +269,16 @@
           </div>
         </el-form-item>
         <!--<el-form-item label="是否展示首页:" :label-width="formLabelWidth">-->
-          <!--<el-select v-model="addData.ts_tg_Special" placeholder="请选择是否精选">-->
-            <!--<el-option-->
-              <!--label="展示"-->
-              <!--value="1">-->
-            <!--</el-option>-->
-            <!--<el-option-->
-              <!--label="不展示"-->
-              <!--value="0">-->
-            <!--</el-option>-->
-          <!--</el-select>-->
+        <!--<el-select v-model="addData.ts_tg_Special" placeholder="请选择是否精选">-->
+        <!--<el-option-->
+        <!--label="展示"-->
+        <!--value="1">-->
+        <!--</el-option>-->
+        <!--<el-option-->
+        <!--label="不展示"-->
+        <!--value="0">-->
+        <!--</el-option>-->
+        <!--</el-select>-->
         <!--</el-form-item>-->
         <el-form-item label="跟团类型:" :label-width="formLabelWidth" required>
           <el-select v-model="addData.ts_tg_LongOut" placeholder="请选择跟团类型">
@@ -301,7 +301,7 @@
           </el-select>
         </el-form-item>
         <!--<el-form-item label="测试:" :label-width="formLabelWidth">-->
-          <!--<editor v-model="content"/>-->
+        <!--<editor v-model="content"/>-->
         <!--</el-form-item>-->
 
         <el-form-item label="产品类型:" :label-width="formLabelWidth" required>
@@ -333,7 +333,8 @@
     <el-dialog title="修改产品" :visible.sync="updateDialog" width="60%" :close-on-click-modal="false" @close="closeDialog">
       <el-form :model="updateAdminMerchantProductsObj">
         <el-form-item label="产品标题:" :label-width="formLabelWidth" required>
-          <el-input v-model="updateAdminMerchantProductsObj.ta_tg_Title" placeholder="请输入产品标题" class="tg_Title"></el-input>
+          <el-input v-model="updateAdminMerchantProductsObj.ta_tg_Title" placeholder="请输入产品标题"
+                    class="tg_Title"></el-input>
         </el-form-item>
 
         <el-form-item label="产品类别:" :label-width="formLabelWidth" required>
@@ -349,7 +350,8 @@
 
 
         <el-form-item label="所属省:" :label-width="formLabelWidth">
-          <el-select v-model="updateAdminMerchantProductsObj.ts_tg_Provice" placeholder="请选择省份" @change="changeUpdateProvice">
+          <el-select v-model="updateAdminMerchantProductsObj.ts_tg_Provice" placeholder="请选择省份"
+                     @change="changeUpdateProvice">
             <el-option
               v-for="item in proviceList"
               :key="item.sm_af_AreaName"
@@ -369,21 +371,21 @@
           </el-select>
         </el-form-item>
         <!--<el-form-item label="产品描述:" :label-width="formLabelWidth">-->
-          <!--<el-input v-model="updateAdminMerchantProductsObj.ta_tg_Describe" placeholder="请输入产品描述"></el-input>-->
+        <!--<el-input v-model="updateAdminMerchantProductsObj.ta_tg_Describe" placeholder="请输入产品描述"></el-input>-->
         <!--</el-form-item>-->
         <el-form-item label="推荐价格:" :label-width="formLabelWidth">
           <el-input v-model="updateAdminMerchantProductsObj.ts_tg_lowestPrice" placeholder="请输入推荐价格"></el-input>
         </el-form-item>
         <!--<el-form-item label="成团地点:" :label-width="formLabelWidth">-->
-          <!--<el-select v-model="updateAdminMerchantProductsObj.ts_tg_GroupSite" placeholder="请选择省份">-->
-            <!--<el-option-->
-              <!--v-for="item in proviceList"-->
-              <!--:key="item.sm_af_AreaName"-->
-              <!--:label="item.sm_af_AreaName"-->
-              <!--:value="item.sm_af_AreaName">-->
-            <!--</el-option>-->
-          <!--</el-select>-->
-          <!--&lt;!&ndash;<el-input v-model="updateAdminMerchantProductsObj.ts_tg_GroupSite" placeholder="请输入成团地点"></el-input>&ndash;&gt;-->
+        <!--<el-select v-model="updateAdminMerchantProductsObj.ts_tg_GroupSite" placeholder="请选择省份">-->
+        <!--<el-option-->
+        <!--v-for="item in proviceList"-->
+        <!--:key="item.sm_af_AreaName"-->
+        <!--:label="item.sm_af_AreaName"-->
+        <!--:value="item.sm_af_AreaName">-->
+        <!--</el-option>-->
+        <!--</el-select>-->
+        <!--&lt;!&ndash;<el-input v-model="updateAdminMerchantProductsObj.ts_tg_GroupSite" placeholder="请输入成团地点"></el-input>&ndash;&gt;-->
         <!--</el-form-item>-->
 
         <el-form-item label="产品图片:" :label-width="formLabelWidth">
@@ -408,16 +410,16 @@
         </el-form-item>
 
         <!--<el-form-item label="是否精选:" :label-width="formLabelWidth">-->
-          <!--<el-select v-model="updateAdminMerchantProductsObj.ts_tg_Special" placeholder="请选择是否精选">-->
-            <!--<el-option-->
-              <!--label="展示"-->
-              <!--value="1">-->
-            <!--</el-option>-->
-            <!--<el-option-->
-              <!--label="不展示"-->
-              <!--value="0">-->
-            <!--</el-option>-->
-          <!--</el-select>-->
+        <!--<el-select v-model="updateAdminMerchantProductsObj.ts_tg_Special" placeholder="请选择是否精选">-->
+        <!--<el-option-->
+        <!--label="展示"-->
+        <!--value="1">-->
+        <!--</el-option>-->
+        <!--<el-option-->
+        <!--label="不展示"-->
+        <!--value="0">-->
+        <!--</el-option>-->
+        <!--</el-select>-->
         <!--</el-form-item>-->
         <el-form-item label="跟团类型:" :label-width="formLabelWidth">
           <el-select v-model="updateAdminMerchantProductsObj.ts_tg_LongOut" placeholder="请选择跟团类型">
@@ -464,7 +466,6 @@
     </el-dialog>
 
 
-
   </section>
 </template>
 <script>
@@ -473,13 +474,14 @@
   import {getNewStr} from '@/assets/js/public'
   import Upload from '@/components/Upload'
   import Editor from '@/components/Editor'
-  export default{
+
+  export default {
     name: '',
     components: {
       Upload,
       Editor
     },
-    data(){
+    data() {
       return {
         radioIndex: '',
         isShow: false,
@@ -494,7 +496,7 @@
           type: undefined,
           sort: '+id'
         },
-        obj:{},
+        obj: {},
         title: '',
         recommendedReasonContent: '',//添加推荐理由内容
         goodIntroduceContent: '',
@@ -583,7 +585,7 @@
         buyReason: [],
         goodIntroduce: [],
         updateAdminMerchantProductsObj: {},
-        addData:{
+        addData: {
           ts_tg_lowestPrice: '',
           ta_tg_TradeName: '',
 //            "ta_tg_ID": "",
@@ -604,21 +606,21 @@
           ts_tg_Property: ''
         },
         addOptions: {
-        "loginUserID": "huileyou",
-        "loginUserPass": "123",
-        "operateUserID": "",
-        "operateUserName": "",
-        "pcName": "",
-        "feeIn": [],
-        "feeNotIn": [],
-        "bookKnow": [],
-        "backRule": [],
-        "stayRecom": [],
-        "tourSiteRecom": [],
-        buyReason: [],
-        goodIntroduce: [],
-        data:{}
-      },
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "feeIn": [],
+          "feeNotIn": [],
+          "bookKnow": [],
+          "backRule": [],
+          "stayRecom": [],
+          "tourSiteRecom": [],
+          buyReason: [],
+          goodIntroduce: [],
+          data: {}
+        },
         updateFeeInfoListContentObj: {},
         feeNotInListContent: '',
         addFeeInNotListDialog: false,
@@ -638,7 +640,7 @@
         radioIndex: '',
         addRadioIndex: 0,
         productCategoryList: [],
-        content:''
+        content: ''
       }
     },
     computed: mapGetters([
@@ -649,7 +651,7 @@
       'proviceList',
       'cityList'
     ]),
-    created(){
+    created() {
 //      //初始化省
       let sCity = {
         "areaPid": 3337
@@ -662,10 +664,10 @@
       this.getProductCategory()
     },
     methods: {
-      handleChange(){
+      handleChange() {
         console.log(html, text)
       },
-      getProductCategory(){
+      getProductCategory() {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -676,9 +678,9 @@
           "ts_gi_ParentID": 8//父编码为8是类别
         }
         this.$store.dispatch('getProductCategory', options)
-        .then(data => {
-          this.productCategoryList = data;
-        })
+          .then(data => {
+            this.productCategoryList = data;
+          })
       },
       //修改图片
       updateImage(data) {
@@ -698,19 +700,20 @@
           this.addRadioIndex = '';
         }
       },
-      jump(obj){
+      jump(obj) {
         sessionStorage.setItem('id', obj.ta_tg_ID)
-        if(obj.ta_tg_ID){
+        if (obj.ta_tg_ID) {
           window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + obj.ta_tg_ID, '_blank')
-        }else{
+        } else {
           this.$notify({
             title: '警告',
             message: '产品编号为空。。。',
-            type: 'warning'})
+            type: 'warning'
+          })
         }
       },
       //删除修改对应图片
-      deleteUpdateImageURL(val){
+      deleteUpdateImageURL(val) {
         this.isNewUploaNode = false
         this.updateImageURL = this.updateImageURL.filter(v => {
           if (v == val) {
@@ -720,7 +723,7 @@
         })
       },
       //删除对应图片
-      deleteImageURL(val){
+      deleteImageURL(val) {
         this.isUploaNode = false;
         this.ImageURL = this.ImageURL.filter(v => {
           if (v == val) {
@@ -730,23 +733,23 @@
         })
       },
 
-      closeDialog(){
+      closeDialog() {
         this.ImageURL = []
         this.updateImageURL = [];
         this.addDialog = false,
           this.updateDialog = false
       },
-      cacheForm(){
+      cacheForm() {
 
-          window.location.reload()
-          this.ImageURL = [],
+        window.location.reload()
+        this.ImageURL = [],
           this.updateImageURL = [],
           this.addDialog = false,
           this.updateDialog = false
 
       },
       //查询很多
-      selectInitData(id, ParentID){
+      selectInitData(id, ParentID) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -759,7 +762,7 @@
         return this.$store.dispatch('initSelectInitAllData', options)
       },
       //选中省
-      changeProvice(item){
+      changeProvice(item) {
         this.obj = this.proviceList.filter(v => {
           if (v.sm_af_AreaID == item) {
             return true;
@@ -774,22 +777,20 @@
         this.$store.dispatch('initCityList', searchCity)
       },
       //选中省
-      changeUpdateProvice(item){
+      changeUpdateProvice(item) {
         this.obj = this.proviceList.filter(v => {
           if (v.sm_af_AreaID == item) {
             return true;
           }
           return false;
         })[0]
-//        this.updateAdminMerchantProductsObj.ts_tg_Provice = this.obj.sm_af_AreaName
-//        this.addData.ts_tg_Provice = obj.sm_af_AreaName
         let searchCity = {
           "areaPid": this.updateAdminMerchantProductsObj.ts_tg_Provice
         }
         this.$store.dispatch('initCityList', searchCity)
       },
       //选中商家
-      handleSelect(item){
+      handleSelect(item) {
         this.userName = item.value;
         this.productsID = item.id;
         this.updateAdminMerchantProductsObj.ta_tg_TradeID = item.id;
@@ -812,14 +813,14 @@
           };
           //旅行社商户查询
           this.$store.dispatch('AdminBusinessInformationSearch', GetAdminBusinessInformationList)
-          .then(data => {
-            relove(data)
-          }, err => {
-            this.$message({
-              message: err,
-              type: 'error'
-            });
-          })
+            .then(data => {
+              relove(data)
+            }, err => {
+              this.$message({
+                message: err,
+                type: 'error'
+              });
+            })
         })
       },
       querySearchAsync(queryString, cb) {
@@ -838,7 +839,7 @@
         })
       },
       //初始化数据
-      initData(id, page, title){
+      initData(id, page, title) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -858,37 +859,41 @@
         }
         this.isLoading = true;
         this.$store.dispatch('initAdminTradeGoodList', options)
-        .then((data) => {
-          this.total = data.totalRows;
-          this.isLoading = false;
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then((data) => {
+            this.total = data.totalRows;
+            this.isLoading = false;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //查询
-      search(){
+      search() {
         this.initData(this.productsID, 1, this.title)
       },
       //查询初始化数据
-      searchInitData(){
+      searchInitData() {
         this.initData(this.productsID)
       },
 
       //分页
-      handleCurrentChange(num){
+      handleCurrentChange(num) {
         this.num = num;
         this.initData(this.productsID, num);
       },
 
       //添加
-      addAdminMerchantProducts(){
+      addAdminMerchantProducts() {
         for (let attr in this.addData) {
-          if(attr!='loginUserID'&&attr!='loginUserPass'){
+          if (attr != 'loginUserID' && attr != 'loginUserPass') {
             this.addData[attr] = ''
           }
+        }
+        let uploader = document.querySelector('.uploader-list')
+        if (uploader) {
+          uploader.querySelector('ul').innerHTML = ''
         }
         this.content = ''
         this.ImageURL = [];
@@ -896,9 +901,7 @@
         this.addDialog = true;
       },
       //添加提交
-      addSubmit(){
-        console.log(this.content)
-        return
+      addSubmit() {
         this.addData.ta_tg_ShowImage = this.ImageURL.join(',');
         this.addOptions.buyReason = this.buyReason;
         this.addOptions.feeIn = this.feeInfoList;
@@ -911,33 +914,58 @@
         this.addOptions.data = this.addData
 //        this.addData.ta_tg_TradeName = this.userObj.sm_ai_GoodName
         this.$store.dispatch('AddAdminMerchantProducts', this.addOptions)
-        .then(() => {
-          this.$notify({
-            message: '添加成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '添加成功!',
+              type: 'success'
+            });
+            this.initData(this.productsID, 1);
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          window.location.reload();
-//          this.initData(this.productsID, 1);
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.addDialog = false;
       },
+
+      //省
+      initUpdateCity(name) {
+        let obj = this.proviceList.filter(v => {
+          if (v.sm_af_AreaName == name) {
+            return true;
+          }
+          return false;
+        })[0]
+        let searchCity = {
+          "areaPid": obj.sm_af_AreaID
+        }
+        return this.$store.dispatch('initCityList', searchCity)
+      },
+
       //修改
-      updateAdminMerchantProducts(obj){
-        obj.ts_tg_LongOut = obj.ts_tg_LongOut+'';
-        obj.ts_tg_Type = obj.ts_tg_Type+''
-        this.updateAdminMerchantProductsObj = obj;
-          this.updateImageURL = this.updateAdminMerchantProductsObj.ta_tg_ShowImages
-          this.updateDialog = true;
+      updateAdminMerchantProducts(obj) {
+        this.isLoading = true;
+        this.initUpdateCity(obj.ts_tg_Provice)
+          .then(() => {
+            this.isLoading = false;
+            obj.ts_tg_LongOut = obj.ts_tg_LongOut + '';
+            obj.ts_tg_Type = obj.ts_tg_Type + ''
+            this.updateAdminMerchantProductsObj = obj;
+            this.updateImageURL = this.updateAdminMerchantProductsObj.ta_tg_ShowImages
+            this.updateDialog = true;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
+          })
+
       },
       //修改提交
-      updateSubmit(){
-        if(isNaN(this.updateAdminMerchantProductsObj.ts_tg_Property)){
-          this.updateAdminMerchantProductsObj.ts_tg_Property =  this.updateAdminMerchantProductsObj.propertyName
+      updateSubmit() {
+        if (isNaN(this.updateAdminMerchantProductsObj.ts_tg_Property)) {
+          this.updateAdminMerchantProductsObj.ts_tg_Property = this.updateAdminMerchantProductsObj.propertyName
         }
         this.updateAdminMerchantProductsObj.ts_tg_Provice = this.obj.sm_af_AreaName
         let updateOptions = {
@@ -948,27 +976,27 @@
           "pcName": "",
           "data": this.updateAdminMerchantProductsObj
         };
-        if(this.updateImageURL.length){
+        if (this.updateImageURL.length) {
           this.updateAdminMerchantProductsObj.ta_tg_ShowImage = this.updateImageURL.join(',')
         }
 
         this.$store.dispatch('UpdateAdminMerchantProducts', updateOptions)
-        .then(() => {
-          this.$notify({
-            message: '修改成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '修改成功!',
+              type: 'success'
+            });
+            this.initData(this.productsID, 1);
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.productsID, 1);
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.updateDialog = false;
       },
       //删除
-      DeleteAdminMerchantProducts(id){
+      DeleteAdminMerchantProducts(id) {
         let deleteOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -980,31 +1008,31 @@
           }
         }
         this.$store.dispatch('DeleteAdminMerchantProducts', deleteOptions)
-        .then(() => {
-          this.$notify({
-            message: '删除成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '删除成功!',
+              type: 'success'
+            });
+            this.initData(this.productsID, 1);
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.productsID, 1);
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
       },
       //点击跳转到产品线路管理
-      productLineManagement(id){
+      productLineManagement(id) {
         this.$store.commit('adminProductLineManagementId', id);
-        sessionStorage.setItem('MerchanID',id)
-        this.$router.push({name: 'AdminQueryProductInformation',params:{id}})
+        sessionStorage.setItem('MerchanID', id)
+        this.$router.push({name: 'AdminQueryProductInformation', params: {id}})
         sessionStorage.setItem('index', '1')
       }
     },
-    mounted(){
+    mounted() {
       this.searchInitData();
     },
-    updated(){
+    updated() {
     },
 
   }

@@ -724,7 +724,7 @@
         let getAreaProvice = {
           "areaPid": id
         };
-        this.$store.dispatch('initFoodCity', getAreaProvice)
+        return this.$store.dispatch('initFoodCity', getAreaProvice)
       },
       initData(name, page) {
         let selectStoreFrontInfo = {
@@ -759,9 +759,6 @@
         if (uploader) {
           uploader.querySelector('ul').innerHTML = ''
         }
-//        for (var attr in this.addOptions) {
-//          this.addOptions[attr] = ''
-//        }
         for (let attr in this.addOptions) {
           if(attr!='loginUserID'&&attr!='loginUserPass'){
             this.addOptions[attr] = ''
@@ -813,11 +810,21 @@
       },
       //修改
       update(rowData) {
-        let arr = [];
-        this.updateObj = rowData;
-        this.updateImage = this.updateObj.imgList;
-        this.$store.commit('setTranstionFalse');
-        this.updateDialog = true;
+        this.isLoading = true;
+        this.changeCity(rowData.proviceID)
+          .then(()=>{
+            this.isLoading = false;
+            let arr = [];
+            this.updateObj = rowData;
+            this.updateImage = this.updateObj.imgList;
+            this.$store.commit('setTranstionFalse');
+            this.updateDialog = true;
+          },err=>{
+            this.$notify({
+              message: err,
+              type: error
+            })
+          })
       },
       //修改提交
       updateSubmit() {

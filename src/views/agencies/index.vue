@@ -1,8 +1,6 @@
 <template>
   <div>
     <div id="wrap" class="clearfix">
-      <!--<el-tabs v-model="activeIndex" style="padding: 20px">-->
-      <!--<el-tab-pane :label="item" :name="index+''" v-for="item,index in menus" :key="index">-->
       <h1 class="userClass">供应商信息</h1>
       <!--数据展示-->
       <el-table
@@ -16,39 +14,17 @@
               <el-form-item label="供应商编号:">
                 <span>{{ props.row.sm_ai_ID }}</span>
               </el-form-item>
-              <!--<el-form-item label="供应商商户号:">-->
-              <!--<span>{{ props.row.agentInfo.sm_ai_AgentID }}</span>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="供应商名称:">-->
-              <!--<span>{{ props.row.agentInfo.sm_ai_Name }}</span>-->
-              <!--</el-form-item>-->
               <el-form-item label="合作类型:">
                 <span>{{ props.row.sm_ai_PPropertyID | getPProperType }}</span>
               </el-form-item>
               <el-form-item label="供应商手机号码:">
                 <span>{{ props.row.sm_ai_Telephone }}</span>
               </el-form-item>
-              <!--<el-form-item label="性别:">-->
-              <!--<span>{{ props.row.sm_ai_Sex | getSex }}</span>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="固定电话:">-->
-              <!--<span>{{ props.row.sm_ai_FixPhoneAreaCode + "-" + props.row.agentInfo.sm_ai_FixPhoneContryCode}}</span>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="QQ:">-->
-              <!--<span>{{ props.row.sm_ai_QQ }}</span>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="传真:">-->
-              <!--<span>{{ props.row.sm_ai_FaxNo}}</span>-->
-              <!--</el-form-item>-->
-              <!--<el-form-item label="电子邮箱:">-->
-              <!--<span>{{ props.row.sm_ai_Email}}</span>-->
-              <!--</el-form-item>-->
+
               <el-form-item label="公司名称:">
                 <span>{{ props.row.sm_ai_GoodName}}</span>
               </el-form-item>
-              <!--<el-form-item label="获许经营范围:">-->
-              <!--<span v-for="item in props.row.agentInfoScopeList" style="margin-right: 10px">{{item.sm_ts_Name}}</span>-->
-              <!--</el-form-item>-->
+
               <el-form-item label="公司地址:">
                 <span>{{ props.row.sm_ai_Address}}</span>
               </el-form-item>
@@ -64,10 +40,6 @@
               <el-form-item label="结算币种:">
                 <span>{{ props.row.sm_ai_BalanceCurrencyName}}</span>
               </el-form-item>
-              <!--<el-form-item label="合作类型:">-->
-              <!--<span v-for="item in props.row.agentInfoTypeList" style="margin-right: 10px">{{item.sm_cp_PartnerTypeName}}</span>-->
-              <!--</el-form-item>-->
-
               <el-form-item label="优势产品说明:">
                 <span>{{ props.row.sm_ai_GoodIntroduce}}</span>
               </el-form-item>
@@ -110,10 +82,6 @@
           label="供应商编号"
           prop="sm_ai_ID">
         </el-table-column>
-        <!--<el-table-column-->
-        <!--label="供应商名称"-->
-        <!--prop="agentInfo.sm_ai_Name">-->
-        <!--</el-table-column>-->
         <el-table-column
           label="审核状态"
         >
@@ -130,8 +98,8 @@
             <el-button
               size="mini"
               type="primary"
-              v-show="scope.row.sm_ai_IsPass!=1"
               @click="updateAdminUserInfo(scope.row)">修改
+              <!--v-show="scope.row.sm_ai_IsPass!=1"-->
             </el-button>
             <el-button
               size="mini"
@@ -141,8 +109,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <!--</el-tab-pane>-->
-      <!--</el-tabs>-->
     </div>
     <!--修改-->
     <el-dialog title="修改供应商信息" :visible.sync="updateDialog" :close-on-click-modal="false">
@@ -175,8 +141,7 @@
           万元
         </el-form-item>
         <el-form-item label="公司规模:" :label-width="formLabelWidth">
-          <el-select v-model="obj.sm_ai_CompanyPersons"
-                     @focus="changeCompanyType">
+          <el-select v-model="obj.sm_ai_CompanyPersons">
             <el-option
               v-for="item in changeCompanyTypeList"
               :key="item.ts_jb_ID "
@@ -186,8 +151,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="结算币种:" :label-width="formLabelWidth">
-          <el-select v-model="obj.sm_ai_BalanceCurrencyName"
-                     @focus="changeMoneyType">
+          <el-select v-model="obj.sm_ai_BalanceCurrencyName">
             <el-option
               v-for="item in changeMineyTypeList"
               :key="item.ts_jb_ID"
@@ -197,8 +161,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="选择省:" :label-width="formLabelWidth">
-          <el-select v-model="obj.sm_ai_Provice"
-                     @focus="changeProvince">
+          <el-select v-model="obj.sm_ai_Provice" @change="changeProvince">
             <el-option
               v-for="item in provinceDataList"
               :key="item.sm_af_AreaID"
@@ -208,8 +171,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="选择市:" :label-width="formLabelWidth">
-          <el-select v-model="obj.sm_ai_City"
-                     @focus="changeCity">
+          <el-select v-model="obj.sm_ai_City" @change="changeCity">
             <el-option
               v-for="item in cityDataList"
               :key="item.sm_af_AreaID"
@@ -219,8 +181,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="选择县:" :label-width="formLabelWidth">
-          <el-select v-model="obj.sm_ai_County"
-                     @focus="changeCounty">
+          <el-select v-model="obj.sm_ai_County">
             <el-option
               v-for="item in countyDataList"
               :key="item.sm_af_AreaID"
@@ -230,7 +191,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="合作类型:" :label-width="formLabelWidth">
-          <el-select v-model="obj.sm_ai_PPropertyID" @focus="changeCooperationTypeL">
+          <el-select v-model="obj.sm_ai_PPropertyID" @change="changeType">
             <el-option
               v-for="item in changeCooperationTypecList"
               :key="item.sm_cp_ID"
@@ -472,9 +433,13 @@
       this.changeCompanyType();
       this.changeMoneyType();
       this.changeCooperationTypeL();
+      this.initProvince();
     },
 
     methods: {
+      changeType(id){
+
+      },
       //查看
       viewLook(id) {
         let options = {
@@ -567,7 +532,8 @@
                 //   })
               }
             })
-          };
+          }
+          ;
           if (this.$refs.upload2) {
             this.$refs.upload2.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload2.files.length; i++) {
@@ -590,46 +556,34 @@
                 //   })
               }
             })
-          };
+          }
+          ;
         }, 30)
       },
-
-//选择省
-      changeProvince(v) {
+      initProvince() {
         let getAreaProvice = {
           "areaPid": 3337
         };
         this.$store.dispatch('initProvinceData', getAreaProvice)
       },
-
-      //选择市
-      changeCity() {
-        if (!this.obj.sm_ai_Provice) {
-          this.$notify({
-            message: '请先选择省!!',
-            type: 'error'
-          });
-          return
-        }
+//选择省
+      changeProvince(id) {
         let getCity = {
-          "areaPid": this.obj.sm_ai_Provice ? this.obj.sm_ai_Provice : ''
+          "areaPid": id ? id : ''
         };
-        this.$store.dispatch('initCityData', getCity)
+        return this.$store.dispatch('initCityData', getCity)
       },
 
-      //选择县
-      changeCounty() {
-        if (!this.obj.sm_ai_Provice && !this.obj.sm_ai_City) {
-          this.$notify({
-            message: '请先选择省和市!!',
-            type: 'error'
-          });
-          return
-        }
+      //选择市
+      changeCity(id) {
         let getCounty = {
-          "areaPid": this.obj.sm_ai_City ? this.obj.sm_ai_City : ''
+          "areaPid": id ? id : ''
         };
-        this.$store.dispatch('initCountyData', getCounty)
+        return this.$store.dispatch('initCountyData', getCounty)
+      },
+      async arrInit(obj) {
+        await this.changeProvince(obj.sm_ai_Provice)
+        await this.changeCity(obj.sm_ai_City)
       },
       //公司规模
       changeCompanyType() {
@@ -668,14 +622,17 @@
           "sm_cp_Name": "",
           "sm_cp_IsDelete": 0
         };
-        return this.$store.dispatch('initChangeCooperationType', selectCooperationType)
+        this.$store.dispatch('initChangeCooperationType', selectCooperationType)
       },
       //修改
       updateAdminUserInfo(obj) {
-        this.obj = obj;
-        this.updateDialog = true;
-        this.$store.commit('setTranstionFalse');
-        this.uploaNode()
+        this.arrInit(obj)
+          .then(() => {
+            this.obj = obj;
+            this.updateDialog = true;
+            this.$store.commit('setTranstionFalse');
+            this.uploaNode()
+          },err=>{})
       },
 //      修改提交
       updateAdminUserInfoSubmit() {

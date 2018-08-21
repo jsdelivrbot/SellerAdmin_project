@@ -70,21 +70,24 @@
       <el-dialog title="添加费用说明" :visible.sync="addDialog" :close-on-click-modal="false" width="60%">
         <el-form :model="addOptions">
           <el-form-item label="退改政策:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_ReturnRule" ref="tm"></tinymce>
+            <editor v-model="addOptions.data.ts_pt_ReturnRule"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_ReturnRule" ref="tm"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="费用包含:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_FeeIn"></tinymce>
+            <editor v-model="addOptions.data.ts_pt_FeeIn"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_FeeIn"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_SpecialPolicy" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="费用不包含:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_FeeNotIn"></tinymce>
+            <editor v-model="addOptions.data.ts_pt_FeeNotIn"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_FeeNotIn"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="cacheForm">取 消</el-button>
-          <!--<el-button @click="addDialog = false">取 消</el-button>-->
+          <!--<el-button @click="cacheForm">取 消</el-button>-->
+          <el-button @click="addDialog = false">取 消</el-button>
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -94,15 +97,18 @@
       <el-dialog title="修改费用说明" :visible.sync="updateDialog" :close-on-click-modal="false" width="60%">
         <el-form :model="updateOptions">
           <el-form-item label="退改政策:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_ReturnRule"></tinymce>
+            <editor v-model="updateOptions.ts_pt_ReturnRule"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_ReturnRule"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="费用包含:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_FeeIn"></tinymce>
+            <editor v-model="updateOptions.ts_pt_FeeIn"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_FeeIn"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_SpecialPolicy" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="费用不包含:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_FeeNotIn"></tinymce>
+            <editor v-model="updateOptions.ts_pt_FeeNotIn"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_FeeNotIn"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
         </el-form>
@@ -117,12 +123,14 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import Tinymce from '@/components/NewTinymce'
+  import Editor from '@/components/Editor'
+  // import Tinymce from '@/components/NewTinymce'
   export default{
     name: '',
     props: ['id'],
     components: {
-      Tinymce
+      // Tinymce
+      Editor
     },
     computed: mapGetters([
       'adminProductLine'
@@ -183,6 +191,13 @@
         for(let attr in this.addOptions.data){
           this.addOptions.data[attr]= ''
         }
+        let textArr = document.querySelectorAll('.w-e-text')
+        if (textArr && textArr.length) {
+          for (var i = 0; i < textArr.length; i++) {
+            textArr[i].innerHTML = ''
+          }
+        }
+
         this.addDialog = true
       },
       initData(obj){

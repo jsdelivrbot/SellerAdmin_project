@@ -161,8 +161,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="cacheForm">取 消</el-button>
-          <!--<el-button @click="updateAdminLinePrepareDialog = false">取 消</el-button>-->
+          <!--<el-button @click="cacheForm">取 消</el-button>-->
+          <el-button @click=" addDialog = false">取 消</el-button>
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -207,8 +207,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="cacheForm">取 消</el-button>
-          <!--<el-button @click="updateAdminLinePrepareDialog = false">取 消</el-button>-->
+          <!--<el-button @click="cacheForm">取 消</el-button>-->
+          <el-button @click="updateAdminLinePrepareDialog = false">取 消</el-button>
           <el-button type="primary" @click="updateAdminLinePrepareSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -218,15 +218,17 @@
 <script>
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
-  import Tinymce from '@/components/NewTinymce'
+  // import Tinymce from '@/components/NewTinymce'
+  import Editor from '@/components/Editor'
   import Upload from '@/components/Upload'
 
   export default {
     name: '',
     props: ['id'],
     components: {
-      Tinymce,
-      Upload
+      // Tinymce,
+      Upload,
+      Editor
     },
     data() {
       return {
@@ -444,6 +446,12 @@
       addAdminLinePrepare(){
         for (var attr in this.addData) {
           this.addData[attr] = ''
+        }
+        let textArr = document.querySelectorAll('.w-e-text')
+        if (textArr && textArr.length) {
+          for (var i = 0; i < textArr.length; i++) {
+            textArr[i].innerHTML = ''
+          }
         }
         this.addDialog = true;
       },

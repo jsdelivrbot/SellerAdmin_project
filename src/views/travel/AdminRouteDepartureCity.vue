@@ -127,9 +127,9 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="cacheForm">取 消</el-button>
+          <!--<el-button @click="cacheForm">取 消</el-button>-->
 
-          <!--<el-button @click="addDialog = false">取 消</el-button>-->
+          <el-button @click="addDialog = false">取 消</el-button>
           <el-button type="primary" @click="addAdminRouteDepartureCitySubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -381,7 +381,11 @@
           }
         }
 
-
+        // for (let attr in this.addData) {
+        //   if(attr!='loginUserID'&&attr!='loginUserPass'){
+        //     this.addData[attr] = ''
+        //   }
+        // }
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
       },

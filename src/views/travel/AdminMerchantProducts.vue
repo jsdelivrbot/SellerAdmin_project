@@ -322,8 +322,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="cacheForm">取 消</el-button>
-        <!--<el-button @click="addAdminMerchantProductsDialog = false">取 消</el-button>-->
+        <!--<el-button @click="cacheForm">取 消</el-button>-->
+        <el-button @click="addAdminMerchantProductsDialog = false">取 消</el-button>
         <el-button type="primary" @click="addSubmit">确 定</el-button>
       </div>
     </el-dialog>
@@ -457,8 +457,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="cacheForm">取 消</el-button>
-        <!--<el-button @click="updateAdminMerchantProductsDialog = false">取 消</el-button>-->
+        <!--<el-button @click="cacheForm">取 消</el-button>-->
+        <el-button @click="updateAdminMerchantProductsDialog = false">取 消</el-button>
         <el-button type="primary" @click="updateSubmit">确 定</el-button>
       </div>
     </el-dialog>
@@ -885,17 +885,9 @@
 
       //添加
       addAdminMerchantProducts(){
-        let uploader = document.querySelector('.uploader-list')
-        if(uploader){
-          uploader.querySelector('ul').innerHTML = ''
-        }
-        let text = document.querySelector('.w-e-text')
-        if(text){
-          text.innerHTML = ''
-        }
-        for (let attr in this.addOptions) {
+        for (let attr in this.addData) {
           if(attr!='loginUserID'&&attr!='loginUserPass'){
-            this.addOptions[attr] = ''
+            this.addData[attr] = ''
           }
         }
         this.content = ''

@@ -77,29 +77,34 @@
       <el-dialog title="添加预定须知" :visible.sync="addDialog" :close-on-click-modal="false" width="60%">
         <el-form :model="addOptions">
           <el-form-item label="出行须知:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_BookKnow"></tinymce>
+            <editor v-model="addOptions.data.ts_pt_BookKnow"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_BookKnow"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊限制:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_SpecialLimit"></tinymce>
+            <editor v-model="addOptions.data.ts_pt_SpecialLimit"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_SpecialLimit"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_SpecialPolicy" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="付款方式:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_PayWay"></tinymce>
+            <editor v-model="addOptions.data.ts_pt_PayWay"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_PayWay"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="违约责任:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_LimitDuty"></tinymce>
+            <editor v-model="addOptions.data.ts_pt_LimitDuty"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_LimitDuty"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="安全提示:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_SafetyLimit"></tinymce>
+            <editor v-model="addOptions.data.ts_pt_SafetyLimit"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="addOptions.data.ts_pt_SafetyLimit"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_HappyNotice" type="textarea"></el-input>-->
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="cacheForm">取 消</el-button>
-          <!--<el-button @click="addDialog = false">取 消</el-button>-->
+          <!--<el-button @click="cacheForm">取 消</el-button>-->
+          <el-button @click="addDialog = false">取 消</el-button>
           <el-button type="primary" @click="addSubmit">确 定</el-button>
         </div>
       </el-dialog>
@@ -109,23 +114,28 @@
       <el-dialog title="修改预定须知" :visible.sync="updateDialog" :close-on-click-modal="false" width="60%">
         <el-form :model="updateOptions">
           <el-form-item label="出行须知:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_BookKnow"></tinymce>
+            <editor v-model="updateOptions.ts_pt_BookKnow"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_BookKnow"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊限制:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_SpecialLimit"></tinymce>
+            <editor v-model="updateOptions.ts_pt_SpecialLimit"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_SpecialLimit"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_SpecialPolicy" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="付款方式:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_PayWay"></tinymce>
+            <editor v-model="updateOptions.ts_pt_PayWay"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_PayWay"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="违约责任:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_LimitDuty"></tinymce>
+            <editor v-model="updateOptions.ts_pt_LimitDuty"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_LimitDuty"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="安全提示:" :label-width="formLabelWidth">
-            <tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_SafetyLimit"></tinymce>
+            <editor v-model="updateOptions.ts_pt_SafetyLimit"></editor>
+            <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_SafetyLimit"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_HappyNotice" type="textarea"></el-input>-->
           </el-form-item>
         </el-form>
@@ -140,12 +150,14 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import Tinymce from '@/components/NewTinymce'
+  // import Tinymce from '@/components/NewTinymce'
+  import Editor from '@/components/Editor'
   export default{
     name: '',
     props: ['id'],
     components: {
-      Tinymce
+      // Tinymce
+      Editor
     },
     computed: mapGetters([
       'adminProductLine'
@@ -207,6 +219,13 @@
         for(let attr in this.addOptions.data){
           this.addOptions.data[attr]= ''
         }
+        let textArr = document.querySelectorAll('.w-e-text')
+        if (textArr && textArr.length) {
+          for (var i = 0; i < textArr.length; i++) {
+            textArr[i].innerHTML = ''
+          }
+        }
+
         this.addDialog = true
       },
       initData(obj){

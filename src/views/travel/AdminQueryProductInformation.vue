@@ -58,7 +58,7 @@
                 <span>{{ props.row.ts_pl_LineDays }}</span>
               </el-form-item>
               <el-form-item label="成团地点:">
-                <span>{{ props.row.provice+ props.row.city}}</span>
+                <span>{{ props.row.provice + props.row.city}}</span>
               </el-form-item>
               <!--<el-form-item label="预定需知:">-->
               <!--<div v-html="props.row.ts_pt_BookKnow"></div>-->
@@ -397,6 +397,7 @@
   import {mapGetters} from 'vuex'
   import Upload from '@/components/Upload'
   import Editor from '@/components/Editor'
+
   export default {
     computed: mapGetters([
       'adminProductLine',
@@ -520,7 +521,7 @@
         num: 0
       }
     },
-    created(){
+    created() {
       //生成选中行程天数
       for (var i = 0; i < 10; i++) {
         this.restaurantsDay.push({value: (i + 1) + ''})
@@ -535,7 +536,7 @@
     },
     methods: {
 
-      cacheForm(){
+      cacheForm() {
 
 
         window.location.reload()
@@ -547,7 +548,7 @@
 
 
       //选中省
-      changeProvice(item){
+      changeProvice(item) {
 
         let searchCity = {
           "areaPid": this.addOptions.data.ts_pl_GroupProvice
@@ -555,14 +556,14 @@
         this.$store.dispatch('initCityList', searchCity)
       },
       //修改选中省
-      updateChangeProvice(item){
+      updateChangeProvice(item) {
         this.updateAdminQueryProductInformationObj.ts_pl_GroupProvice = this.updateAdminQueryProductInformationObj.provice
         let searchCity = {
           "areaPid": this.updateAdminQueryProductInformationObj.provice
         }
         this.$store.dispatch('initCityList', searchCity)
       },
-      updateCity(){
+      updateCity() {
         this.updateAdminQueryProductInformationObj.ts_pl_GroupCity = this.updateAdminQueryProductInformationObj.city;
       },
       //修改图片
@@ -584,7 +585,7 @@
         }
       },
       //删除对应图片
-      deleteImageURL(val){
+      deleteImageURL(val) {
         this.isUploaNode = false;
         this.ImageURL = this.ImageURL.filter(v => {
           if (v == val) {
@@ -604,7 +605,7 @@
           return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
         };
       },
-      jump(obj){
+      jump(obj) {
 
         if (obj.ts_pt_GoodsListID) {
           window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + obj.ts_pt_GoodsListID, '_blank')
@@ -617,7 +618,7 @@
         }
 
       },
-      toMerch(){
+      toMerch() {
         sessionStorage.setItem('index', 0);
         this.$router.push({name: 'AdminMerchantProducts'})
       },
@@ -648,14 +649,14 @@
             "rows": 20
           };
           this.$store.dispatch('initAdminTradeGoodList', options)
-          .then((data) => {
-            relove(data)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+            .then((data) => {
+              relove(data)
+            }, err => {
+              this.$notify({
+                message: err,
+                type: 'error'
+              });
+            })
         })
       },
       querySearchAsync(queryString, cb) {
@@ -684,14 +685,14 @@
         };
         this.isLoading = true;
         this.$store.dispatch('initAdminProductLine', GetProductLine)
-        .then(() => {
-          this.isLoading = false;
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(() => {
+            this.isLoading = false;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //查询
       search() {
@@ -739,36 +740,46 @@
         }
         this.addOptions.data.ts_pl_IsDefault = '1';
         this.$store.dispatch('AddAdminQueryProductInformationSubmit', this.addOptions)
-        .then(() => {
-          this.$notify({
-            message: '添加成功!',
-            type: 'success'
-          });
-          window.location.reload()
+          .then(() => {
+            this.$notify({
+              message: '添加成功!',
+              type: 'success'
+            });
+            window.location.reload()
 //          this.initData(this.value)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-        });
         this.addAdminQueryProductInformationDialog = false;
+      },
+      initProvice(obj) {
+        let searchCity = {
+          "areaPid": obj.ts_pl_GroupProvice
+        }
+        return this.$store.dispatch('initCityList', searchCity)
       },
       //修改
       updateAdminQueryProductInformation(obj) {
-        obj.ts_pl_LineDays = obj.ts_pl_LineDays + ''
-        this.updateAdminQueryProductInformationObj = obj
-        this.updateAdminQueryProductInformationDialog = true;
-//        this.$store.commit('initUpdateAdminQueryProductInformationObj', id);
+        this.isLoading = true;
+        this.initProvice(obj)
+          .then(() => {
+            this.isLoading = false;
+            obj.ts_pl_LineDays = obj.ts_pl_LineDays + ''
+            this.updateAdminQueryProductInformationObj = obj
+            this.updateAdminQueryProductInformationDialog = true;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            })
+          })
+
       },
       //修改提交
       updateAdminQueryProductInformationSubmit() {
-//        if(isNaN(this.updateAdminQueryProductInformationObj.provice)){
-//          this.updateAdminQueryProductInformationObj.ts_pl_GroupProvice = this.updateAdminQueryProductInformationObj.provice
-//        }
-//        if(isNaN(this.updateAdminQueryProductInformationObj.city)){
-//          this.updateAdminQueryProductInformationObj.ts_pl_GroupCity = this.updateAdminQueryProductInformationObj.city
-//        }
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -806,18 +817,18 @@
           updateOptions.data.ts_pt_Images = this.updateImageURL.join(',')
         }
         this.$store.dispatch('UpdateAdminQueryProductInformation', updateOptions)
-        .then(() => {
-          this.$notify({
-            message: '修改成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '修改成功!',
+              type: 'success'
+            });
+            this.initData(this.updateAdminQueryProductInformationObj.ts_pt_GoodsListID)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.updateAdminQueryProductInformationObj.ts_pt_GoodsListID)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.updateAdminQueryProductInformationDialog = false;
       },
       //删除
@@ -833,18 +844,18 @@
           }
         };
         this.$store.dispatch('DeleteAdminQueryProductInformation', deleteOptions)
-        .then(() => {
-          this.$notify({
-            message: '删除成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '删除成功!',
+              type: 'success'
+            });
+            this.initData(this.value);
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.value);
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
       },
       //点击跳转到产品特色管理
       productCharacteristicManagement(id) {
@@ -862,7 +873,7 @@
         sessionStorage.setItem('index', '2')
       }
     },
-    mounted(){
+    mounted() {
       this.searchInitData()
     }
   }

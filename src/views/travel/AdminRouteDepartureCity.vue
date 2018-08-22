@@ -348,7 +348,6 @@
         }
         this.$store.dispatch('initAdminRouteDepartureCity', options)
           .then(data => {
-            console.log(data)
             this.total = Number(data.totalrows);
           }, err => {
             this.$notify({

@@ -98,8 +98,8 @@
             <el-button
               size="mini"
               type="primary"
+              v-show="scope.row.sm_ai_IsPass!=1"
               @click="updateAdminUserInfo(scope.row)">修改
-              <!--v-show="scope.row.sm_ai_IsPass!=1"-->
             </el-button>
             <el-button
               size="mini"
@@ -141,7 +141,7 @@
           万元
         </el-form-item>
         <el-form-item label="公司规模:" :label-width="formLabelWidth">
-          <el-select v-model="obj.sm_ai_CompanyPersons">
+          <el-select v-model="obj.sm_ai_CPropertyID">
             <el-option
               v-for="item in changeCompanyTypeList"
               :key="item.ts_jb_ID "
@@ -151,7 +151,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="结算币种:" :label-width="formLabelWidth">
-          <el-select v-model="obj.sm_ai_BalanceCurrencyName">
+          <el-select v-model="obj.sm_ai_MPropertyID">
             <el-option
               v-for="item in changeMineyTypeList"
               :key="item.ts_jb_ID"
@@ -196,7 +196,7 @@
               v-for="item in changeCooperationTypecList"
               :key="item.sm_cp_ID"
               :label="item.sm_cp_Name"
-              :value="item.sm_cp_Name"
+              :value="item.sm_cp_ID"
             >
             </el-option>
           </el-select>
@@ -429,7 +429,6 @@
       let userInfo = JSON.parse(sessionStorage.getItem('admin'));
       this.isPass = userInfo.sm_ui_PassState;
       this.activeIndex = userInfo.sm_ui_PassState + '';
-//      this.changeScopeOfOperation();
       this.changeCompanyType();
       this.changeMoneyType();
       this.changeCooperationTypeL();
@@ -468,7 +467,7 @@
           "loginUserPass": "123",
           "operateUserID": "",
           "operateUserName": "",
-          sm_ai_Name: '',
+          "sm_ai_Name": '',
           "sm_ai_ID": userInfo.sm_ui_ID,
           "page": 1,
           "rows": 5,
@@ -478,7 +477,6 @@
           .then(userInfo => {
             this.isLoading = false;
           }, err => {
-            console.log(err)
             this.$notify({
               message: err,
               type: 'error'
@@ -499,10 +497,6 @@
                 relove(JSON.parse(data))
               }
             } else {
-//               if (xhr.responseText) {
-//                 var data = xhr.responseText;
-//                 reject(JSON.parse(data).resultcontent)
-//               }
             }
           }
         })
@@ -513,10 +507,6 @@
           if (this.$refs.upload) {
             this.$refs.upload.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload.files.length; i++) {
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('CarUploadAdminImgs', {
-                //     imageData: data
-                //   })
                 this.uploadToOSS(this.$refs.upload.files[i])
                   .then(data => {
                     if (data) {
@@ -529,7 +519,6 @@
                       });
                     }
                   })
-                //   })
               }
             })
           }
@@ -537,10 +526,6 @@
           if (this.$refs.upload2) {
             this.$refs.upload2.addEventListener('change', data => {
               for (var i = 0; i < this.$refs.upload2.files.length; i++) {
-                // this.uploadImg(this.$refs.upload.files[i]).then(data => {
-                //   this.$store.dispatch('CarUploadAdminImgs', {
-                //     imageData: data
-                //   })
                 this.uploadToOSS(this.$refs.upload2.files[i])
                   .then(data => {
                     if (data) {
@@ -553,7 +538,6 @@
                       });
                     }
                   })
-                //   })
               }
             })
           }

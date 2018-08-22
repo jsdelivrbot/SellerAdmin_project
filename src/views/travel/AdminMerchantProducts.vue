@@ -389,7 +389,7 @@
         <!--</el-form-item>-->
 
         <el-form-item label="产品图片:" :label-width="formLabelWidth">
-          <p>单张图片大小不能大于600KB</p>
+          <p>单张图片大小不能大于2M</p>
           <Upload @getData="updateImage" :attrs="imageObj"></Upload>
 
           <div class="imgWap">

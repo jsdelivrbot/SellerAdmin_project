@@ -358,8 +358,8 @@
       },
       //查询
       search() {
-        if (this.userSearchID) {
-          this.initData(1, this.userSearchID)
+        if (this.id) {
+          this.initData(1, this.id)
         } else {
           this.$notify({
             message: '请选择筛选条件!',
@@ -450,7 +450,9 @@
           "operateUserID": "",
           "operateUserName": "",
           "pcName": "",
-          "ID": id
+          "data": {
+            "ts_cc_ID": id,
+          }
         };
         this.$store.dispatch('DeleteAdminRouteDepartureCity', deleteOptions)
           .then(() => {
@@ -458,7 +460,7 @@
               message: '删除成功!',
               type: 'success'
             });
-            this.initData(1, this.userSearchID)
+            this.initData(1, this.id)
           }, err => {
             this.$notify({
               message: err,

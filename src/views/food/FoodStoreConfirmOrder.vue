@@ -53,9 +53,9 @@
               <el-form-item label="总价格:">
                 <span>{{ props.row.fd_or_SumPrice }}元</span>
               </el-form-item>
-              <el-form-item label="人数:">
-                <span>{{ props.row.fd_or_TicketCount }}人</span>
-              </el-form-item>
+              <!--<el-form-item label="人数:">-->
+                <!--<span>{{ props.row.fd_or_TicketCount }}人</span>-->
+              <!--</el-form-item>-->
               <el-form-item label="提前提醒时间:">
                 <span>{{ props.row.fd_or_BeforeNotice }}</span>
               </el-form-item>
@@ -80,9 +80,9 @@
               <el-form-item label="支付方式:">
                 <span>{{ props.row.fd_or_PayWay }}</span>
               </el-form-item>
-              <el-form-item label="餐桌编号:">
-                <span>{{ props.row.fd_or_TableID }}</span>
-              </el-form-item>
+              <!--<el-form-item label="餐桌编号:">-->
+                <!--<span>{{ props.row.fd_or_TableID }}</span>-->
+              <!--</el-form-item>-->
               <el-form-item label="使用状态:">
                 <span>{{ props.row.fd_or_UseState | useStatus }}</span>
               </el-form-item>
@@ -100,13 +100,13 @@
           align="center"
           prop="fd_or_UserName">
         </el-table-column>
-        <el-table-column
-          label="人数"
-          align="center">
-          <template slot-scope="scope">
-            {{scope.row.fd_or_TicketCount ? scope.row.fd_or_TicketCount + '人' : ''}}
-          </template>
-        </el-table-column>
+        <!--<el-table-column-->
+          <!--label="人数"-->
+          <!--align="center">-->
+          <!--<template slot-scope="scope">-->
+            <!--{{scope.row.fd_or_TicketCount ? scope.row.fd_or_TicketCount + '人' : ''}}-->
+          <!--</template>-->
+        <!--</el-table-column>-->
         <el-table-column
           label="订单状态"
           align="center"
@@ -122,11 +122,11 @@
             {{scope.row.fd_or_OutStatus | getOutStatus}}
           </template>
         </el-table-column>
-        <el-table-column
-          label="餐桌编号"
-          align="center"
-          prop="fd_or_TableID">
-        </el-table-column>
+        <!--<el-table-column-->
+          <!--label="餐桌编号"-->
+          <!--align="center"-->
+          <!--prop="fd_or_TableID">-->
+        <!--</el-table-column>-->
         <el-table-column
           label="总价格"
           align="center">

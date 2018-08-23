@@ -173,11 +173,11 @@
       <el-dialog title="修改线路日程" :visible.sync="updateAdminLinePrepareDialog" :close-on-click-modal="false"
                  @close="closeDialog" width="1150px">
         <el-form :model="updateAdminLinePrepareObj">
-          <el-form-item label="第几天行程:" :label-width="formLabelWidth">
-            <el-input v-model="updateAdminLinePrepareObj.ts_pt_Day" placeholder="请输入第几天行程"></el-input>
-          </el-form-item>
           <el-form-item label="日程名称:" :label-width="formLabelWidth">
             <el-input v-model="updateAdminLinePrepareObj.ts_pt_Name" placeholder="请输入日程名称"></el-input>
+          </el-form-item>
+          <el-form-item label="第几天行程:" :label-width="formLabelWidth">
+            <el-input v-model="updateAdminLinePrepareObj.ts_pt_Day" placeholder="请输入第几天行程"></el-input>
           </el-form-item>
           <el-form-item label="线路日程详情:" :label-width="formLabelWidth">
             <editor v-model="updateAdminLinePrepareObj.ts_pt_Content"></editor>
@@ -336,7 +336,7 @@
       cacheForm() {
 
         this.addDialog = false
-        window.location.reload()
+//        window.location.reload()
       },
       //查询很多
       selectInitData(id, ParentID) {
@@ -462,6 +462,13 @@
         if (this.ImageURL.length) {
           this.addData.ts_pt_ShowImage = this.ImageURL.join(',')
         }
+        if(isNaN(this.addData.ts_pt_Day)){
+          this.$notify({
+            message: '第几天行程请输入数字!',
+            type: 'error'
+          });
+          return
+        }
         this.addData.ts_pt_Product_LineID = this.id;
         this.addOptions.data = this.addData;
         this.$store.dispatch('AddAdminLinePrepare', this.addOptions)
@@ -470,8 +477,8 @@
             message: suc,
             type: 'success'
           });
-          window.location.reload()
-//          this.initData(this.id)
+//          window.location.reload()
+          this.initData(this.id)
         }, err => {
           this.$notify({
             message: err,
@@ -488,6 +495,13 @@
       },
       //修改提交
       updateAdminLinePrepareSubmit() {
+        if(isNaN(this.updateAdminLinePrepareObj.ts_pt_Day)){
+          this.$notify({
+            message: '第几天行程请输入数字!',
+            type: 'error'
+          });
+          return
+        }
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -496,11 +510,13 @@
           "pcName": "",
           data: {
             "ts_pt_ID": this.updateAdminLinePrepareObj.ts_pt_ID,
+            "ts_pt_Day":this.updateAdminLinePrepareObj.ts_pt_Day,
             "ts_pt_Content": this.updateAdminLinePrepareObj.ts_pt_Content,
             "ts_pt_Name": this.updateAdminLinePrepareObj.ts_pt_Name,
             "ts_pt_Remark": this.updateAdminLinePrepareObj.ts_pt_Remark,
           }
         };
+
         if (this.updateImageURL.length) {
           updateOptions.data.ts_pt_ShowImage = this.updateImageURL.join(',')
         }

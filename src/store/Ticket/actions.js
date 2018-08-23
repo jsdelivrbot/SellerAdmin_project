@@ -282,6 +282,24 @@ export default {
         })
     })
   },
+  //删除预订须知
+  DeleteTicketPredeterminedInstructions(store,data){
+    return new Promise(function (relove, reject) {
+      request.post(getNewStr + '/BookKnow/Delete', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(data => {
+        var data = data.data;
+        if (Number(data.resultcode) == 200) {
+          relove(data.resultcontent);
+        } else {
+          reject(data.resultcontent);
+        }
+      });
+    })
+  },
   //初始化交通信息
   initTrafficInformation({commit}, data) {
     return new Promise(function (relove, reject) {

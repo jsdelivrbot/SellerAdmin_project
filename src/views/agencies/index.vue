@@ -616,7 +616,9 @@
             this.updateDialog = true;
             this.$store.commit('setTranstionFalse');
             this.uploaNode()
-          },err=>{})
+          },err=>{
+            console.log(err)
+          })
       },
 //      修改提交
       updateAdminUserInfoSubmit() {

@@ -48,7 +48,7 @@
               <el-form-item label="产品编号:">
                 <span>{{ props.row.ts_pt_GoodsListID }}</span>
               </el-form-item>
-              <el-form-item label="行程名称:">
+              <el-form-item label="线路名称:">
                 <span>{{ props.row.ts_pt_Name }}</span>
               </el-form-item>
               <el-form-item label="出发时间:">
@@ -59,6 +59,9 @@
               </el-form-item>
               <el-form-item label="成团地点:">
                 <span>{{ props.row.provice + props.row.city}}</span>
+              </el-form-item>
+              <el-form-item label="App中使用的图片:">
+                <img v-lazy="item" alt="" v-for="item in props.row.ts_pt_Images">
               </el-form-item>
               <!--<el-form-item label="预定需知:">-->
               <!--<div v-html="props.row.ts_pt_BookKnow"></div>-->
@@ -112,7 +115,7 @@
         </el-table-column>
         <el-table-column
           align="center"
-          label="行程名称"
+          label="线路名称"
           prop="ts_pt_Name">
         </el-table-column>
         <el-table-column label="操作" align="center">
@@ -198,7 +201,7 @@
         </el-form-item>
 
         <el-form-item label="线路图片展示:" :label-width="formLabelWidth" required>
-          <p style="font-weight: bold;color: #f60">App中使用的图片格式</p>
+          <p style="font-weight: bold;color: #f60">App中使用的图片</p>
           <p>单张图片大小不能大于600KB</p>
           <Upload @getData="getData" :attrs="imageObj"></Upload>
           <div class="imgWap">
@@ -724,6 +727,10 @@
             this.addOptions.data[attr] = ''
           }
         }
+        let uploader = document.querySelector('.uploader-list')
+        if(uploader){
+          uploader.querySelector('ul').innerHTML = ''
+        }
         let textArr = document.querySelectorAll('.w-e-text')
         if (textArr && textArr.length) {
           for (var i = 0; i < textArr.length; i++) {
@@ -745,8 +752,8 @@
               message: '添加成功!',
               type: 'success'
             });
-            window.location.reload()
-//          this.initData(this.value)
+//            window.location.reload()
+          this.initData(this.value)
           }, err => {
             this.$notify({
               message: err,

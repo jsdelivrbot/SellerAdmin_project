@@ -244,8 +244,14 @@ export default {
         .then(data => {
           var data = data.data;
           if (Number(data.resultcode) == 200) {
-            commit('initAdminProductLine', data.data);
-            relove(data.data)
+            let resutle = data.data;
+            for(var i=0;i<resutle.length;i++){
+              if(resutle[i].ts_pt_Images){
+                resutle[i].ts_pt_Images = resutle[i].ts_pt_Images.split(',')
+              }
+            }
+            commit('initAdminProductLine', resutle);
+            relove(resutle)
           } else {
             reject(data.resultcontent)
           }

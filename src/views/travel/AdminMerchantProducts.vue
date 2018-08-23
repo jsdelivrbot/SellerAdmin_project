@@ -11,9 +11,9 @@
           <el-button type="primary" @click="search" size="small">查询</el-button>
           <el-button type="primary" @click="addAdminMerchantProducts" size="small">新增</el-button>
         </el-form-item>
-        <el-form-item>
-          <span style="color: #f60">提示:添加一条之后，需要添加下一条,请刷新页面重置富文本信息!</span>
-        </el-form-item>
+        <!--<el-form-item>-->
+          <!--<span style="color: #f60">提示:添加一条之后，需要添加下一条,请刷新页面重置富文本信息!</span>-->
+        <!--</el-form-item>-->
       </el-form>
     </el-col>
 
@@ -323,7 +323,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <!--<el-button @click="cacheForm">取 消</el-button>-->
-        <el-button @click="addAdminMerchantProductsDialog = false">取 消</el-button>
+        <el-button @click="addDialog = false">取 消</el-button>
         <el-button type="primary" @click="addSubmit">确 定</el-button>
       </div>
     </el-dialog>
@@ -885,19 +885,16 @@
       },
 
       //添加
-      addAdminMerchantProducts() {
-        for (let attr in this.addData) {
-          if (attr != 'loginUserID' && attr != 'loginUserPass') {
-            this.addData[attr] = ''
-          }
-        }
+      addAdminMerchantProducts(){
         let uploader = document.querySelector('.uploader-list')
-        if (uploader) {
+        if(uploader){
           uploader.querySelector('ul').innerHTML = ''
+        }
+        for (let attr in this.addData) {
+          this.addData[attr] = ''
         }
         this.content = ''
         this.ImageURL = [];
-        this.$store.commit('setTranstionFalse');
         this.addDialog = true;
       },
       //添加提交

@@ -63,7 +63,7 @@
     mounted () {
       this.editor = new Editor(`#${this.editorId}`)
       this.editor.customConfig.onchange = (html) => {
-        this.$emit('input',html)
+        this.$emit('input',escape(html))
       }
       this.editor.customConfig.onchangeTimeout = this.changeInterval
 
@@ -98,7 +98,6 @@
       // create这个方法一定要在所有配置项之后调用
       this.editor.create()
       // 如果本地有存储加载本地存储内容
-      console.log(this.value)
       this.editor.txt.html(this.value)
     }
   }

@@ -118,11 +118,11 @@
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="update(scope.row)">修改</el-button>
             <el-button size="mini" type="danger" @click="Delete(scope.row.fd_sf_ID)">删除</el-button>
-            <el-button size="mini" v-show="scope.row.fd_sf_PassStatus == '通过'" type="success"
-                       @click="recommendShop(scope.row.fd_sf_ID)">申请推荐店面
+            <!--<el-button size="mini" v-show="scope.row.fd_sf_PassStatus == '通过'" type="success"-->
+                       <!--@click="recommendShop(scope.row.fd_sf_ID)">申请推荐店面-->
             </el-button>
-            <el-button size="mini" type="primary" @click="goThisProduct(scope.row.fd_sf_ID)">前往店面产品</el-button>
-            <el-button size="mini" type="primary" @click="goThisRoom(scope.row.fd_sf_ID)">店面房间</el-button>
+            <el-button size="mini" type="primary" @click="goThisProduct(scope.row.fd_sf_ID)">添加店面美食</el-button>
+            <el-button size="mini" type="primary" @click="goThisRoom(scope.row.fd_sf_ID)">添加店面房间</el-button>
             <el-button size="mini" type="success" @click="jump(scope.row)">预览效果</el-button>
           </template>
         </el-table-column>
@@ -643,7 +643,7 @@
             type: 'warning'
           });
         } else {
-          window.open('http://hly.1000da.com.cn/index.html#/Comment/foodDetail/' + obj.fd_sf_ID, '_blank')
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/foodHome/?keyword=' + obj.fd_sf_ProductName, '_blank')
         }
       },
       getData(data) {

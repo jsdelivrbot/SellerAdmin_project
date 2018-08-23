@@ -282,7 +282,7 @@
             type: 'warning'
           });
         } else {
-          window.open('http://hly.1000da.com.cn/index.html#/Comment/foodDetail/' + obj.fd_sfp_StoreFrontID, '_blank')
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/lineOrder?id=' + obj.fd_sfp_StoreFrontID, '_blank')
         }
       },
       //分页

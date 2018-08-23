@@ -325,12 +325,13 @@ export const constantRouterMap = [
         component: () => import('@/views/food/FoodStoreProduct'),
         meta: {title: 'foodStoreProduct'}
       },
-      {
-        path: 'foodStoreRecommend',
-        name: 'FoodStoreRecommend',
-        component: () => import('@/views/food/FoodStoreRecommend'),
-        meta: {title: 'foodStoreRecommend'}
-      },
+      //推荐菜
+      // {
+      //   path: 'foodStoreRecommend',
+      //   name: 'FoodStoreRecommend',
+      //   component: () => import('@/views/food/FoodStoreRecommend'),
+      //   meta: {title: 'foodStoreRecommend'}
+      // },
 
       {
         path: 'foodStoreRoom/:id',
@@ -339,12 +340,13 @@ export const constantRouterMap = [
         component: () => import('@/views/food/FoodStoreRoom'),
         meta: {title: 'foodStoreRoom'}
       },
-      {
-        path: 'foodStoreRoomTabel',
-        name: 'FoodStoreRoomTabel',
-        component: () => import('@/views/food/FoodStoreRoomTabel'),
-        meta: {title: 'foodStoreRoomTabel'}
-      },
+      //房间餐桌
+      // {
+      //   path: 'foodStoreRoomTabel',
+      //   name: 'FoodStoreRoomTabel',
+      //   component: () => import('@/views/food/FoodStoreRoomTabel'),
+      //   meta: {title: 'foodStoreRoomTabel'}
+      // },
       {
         path: 'foodStoreOrderingTime',
         name: 'FoodStoreOrderingTime',

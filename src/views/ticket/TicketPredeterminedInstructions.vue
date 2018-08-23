@@ -133,6 +133,11 @@
               @click="update(scope.row.tm_bk_ID)">修改
             </el-button>
             <el-button
+              size="mini"
+              type="danger"
+              @click="Delete(scope.row)">删除
+            </el-button>
+            <el-button
               type="success"
               size="small"
               @click="jump(scope.row)">预览效果
@@ -258,6 +263,7 @@
   import {mapGetters} from 'vuex'
   // import Tinymce from '@/components/NewTinymce'
   import Editor from '@/components/Editor'
+  import {getEscapeVal} from '@/assets/js/public'
 
   export default {
     name: '',
@@ -398,6 +404,7 @@
       },
 
       addSubmit() {
+//        return
         let insertBookKnow = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -428,6 +435,11 @@
       },
 
       updateSubmit(){
+        for(var attr in this.updatePredeterminedInstructionsObj){
+          if(attr!='tm_bk_ID'||attr!='tm_bk_TourSiteID'){
+            this.updatePredeterminedInstructionsObj[attr] = getEscapeVal(this.updatePredeterminedInstructionsObj[attr])
+          }
+        }
         let updateBookKnow = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -447,6 +459,24 @@
             });
           })
         this.updateDialog = false;
+      },
+      //删除预订须知
+      Delete(obj){
+        let options = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "token": "gE+PQ5wMkJpDAR2sPoMCcUpZMMaLK5CJ8gwkgNXYxtfeq5GxZH0evU2mm9C422ufOJYTPRVRn4Myx9m5W4Xjyg==",
+          "data": {
+            "tm_bk_ID": obj.tm_bk_ID,//预定须知编号
+          }
+        }
+        this.$store.dispatch('DeleteTicketPredeterminedInstructions',options)
+        .then(()=>{
+          this.initData(obj.tm_bk_TourSiteID);
+        })
       }
     },
     created(){

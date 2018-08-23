@@ -152,7 +152,9 @@
   import {mapGetters} from 'vuex'
   // import Tinymce from '@/components/NewTinymce'
   import Editor from '@/components/Editor'
-  export default{
+  import {getEscapeVal} from '@/assets/js/public'
+
+  export default {
     name: '',
     props: ['id'],
     components: {
@@ -162,36 +164,36 @@
     computed: mapGetters([
       'adminProductLine'
     ]),
-    data(){
+    data() {
       return {
         lineObj: {},
-        tinymceHeight:800,
+        tinymceHeight: 800,
         addDialog: false,
         formLabelWidth: '120px',
         isLoading: false,
-        addData:{},
+        addData: {},
         addOptions: {
           "loginUserID": "huileyou",
-            "loginUserPass": "123",
-            "operateUserID": "",
-            "operateUserName": "",
-            "pcName": "",
-            "token": "",
-            "data": {
-              ts_pt_GoodsListID:'',
-              ts_pt_ID: "",//线路编号
-              ts_pt_BookKnow :"",//预定需知      富文本格式
-              ts_pt_SafetyLimit: '',//特殊限制
-              ts_pt_SpecialLimit: '',//安全提示
-              ts_pt_PayWay: '',//付款方式
-              ts_pt_LimitDuty:'',//违约责任
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "token": "",
+          "data": {
+            ts_pt_GoodsListID: '',
+            ts_pt_ID: "",//线路编号
+            ts_pt_BookKnow: "",//预定需知      富文本格式
+            ts_pt_SafetyLimit: '',//特殊限制
+            ts_pt_SpecialLimit: '',//安全提示
+            ts_pt_PayWay: '',//付款方式
+            ts_pt_LimitDuty: '',//违约责任
           }
         },
-        updateOptions:{},
-        updateDialog:false
+        updateOptions: {},
+        updateDialog: false
       }
     },
-    created(){
+    created() {
       let lineObj = sessionStorage.getItem('lineObj');
       if (lineObj) {
         this.lineObj = JSON.parse(lineObj);
@@ -200,24 +202,24 @@
 
     },
     methods: {
-      jump(obj){
+      jump(obj) {
         let MerchanID = sessionStorage.getItem('MerchanID')
-        if(MerchanID)  {
+        if (MerchanID) {
           window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + MerchanID, '_blank')
         }
       },
-      cacheForm(){
+      cacheForm() {
 
-         window.location.reload()
-          this.ImageURL = [],
+        window.location.reload()
+        this.ImageURL = [],
           this.addDialog = false
 
       },
       //添加
-      addAdminBookingInstructions(){
+      addAdminBookingInstructions() {
 
-        for(let attr in this.addOptions.data){
-          this.addOptions.data[attr]= ''
+        for (let attr in this.addOptions.data) {
+          this.addOptions.data[attr] = ''
         }
         let textArr = document.querySelectorAll('.w-e-text')
         if (textArr && textArr.length) {
@@ -228,7 +230,7 @@
 
         this.addDialog = true
       },
-      initData(obj){
+      initData(obj) {
         let GetProductLine = {
           loginUserID: 'huileyou',
           loginUserPass: 123,
@@ -237,74 +239,74 @@
         };
         this.isLoading = true;
         this.$store.dispatch('initAdminProductLine', GetProductLine)
-        .then(() => {
-          this.isLoading = false;
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(() => {
+            this.isLoading = false;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
         this.addDialog = false
       },
       //添加提交
-      addSubmit(){
+      addSubmit() {
         this.addOptions.data.ts_pt_GoodsListID = this.lineObj.ts_pt_GoodsListID;
         this.addOptions.data.ts_pt_ID = this.id;
 //        console.log(this.addOptions.data)
 //        return
         this.$store.dispatch('UpdateAdminQueryProductInformation', this.addOptions)
-        .then(() => {
-          this.$notify({
-            message: '修改成功!',
-            type: 'success'
-          });
+          .then(() => {
+            this.$notify({
+              message: '修改成功!',
+              type: 'success'
+            });
 //          window.location.reload()
-          this.initData(this.lineObj)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
+            this.initData(this.lineObj)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-        });
       },
       //修改
-      updateAdminBookingInstructions(obj){
+      updateAdminBookingInstructions(obj) {
         this.updateOptions = obj;
         this.updateDialog = true
       },
       //修改提交
-      updateSubmit(){
-        let updateOptions =  {
-            "loginUserID": "huileyou",
-            "loginUserPass": "123",
-            "operateUserID": "",
-            "operateUserName": "",
-            "pcName": "",
-            "token": "",
-            "data": {
-              ts_pt_GoodsListID:this.lineObj.ts_pt_GoodsListID,
-              "ts_pt_ID": this.id,//线路编号
-              "ts_pt_BookKnow": this.updateOptions.ts_pt_BookKnow,//预定需知      富文本格式
-              ts_pt_SafetyLimit: this.updateOptions.ts_pt_SafetyLimit,//特殊限制
-              ts_pt_SpecialLimit: this.updateOptions.ts_pt_SpecialLimit,//安全提示
-              ts_pt_PayWay: this.updateOptions.ts_pt_PayWay,//付款方式
-              ts_pt_LimitDuty:this.updateOptions.ts_pt_LimitDuty//违约责任
+      updateSubmit() {
+        let updateOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "token": "",
+          "data": {
+            ts_pt_GoodsListID: this.lineObj.ts_pt_GoodsListID,
+            "ts_pt_ID": this.id,//线路编号
+            "ts_pt_BookKnow": getEscapeVal(this.updateOptions.ts_pt_BookKnow),//预定需知      富文本格式
+            ts_pt_SafetyLimit: getEscapeVal(this.updateOptions.ts_pt_SafetyLimit),//特殊限制
+            ts_pt_SpecialLimit: getEscapeVal(this.updateOptions.ts_pt_SpecialLimit),//安全提示
+            ts_pt_PayWay: getEscapeVal(this.updateOptions.ts_pt_PayWay),//付款方式
+            ts_pt_LimitDuty: getEscapeVal(this.updateOptions.ts_pt_LimitDuty)//违约责任
           }
         }
         this.$store.dispatch('UpdateAdminQueryProductInformation', updateOptions)
-        .then(() => {
-          this.$notify({
-            message: '修改成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '修改成功!',
+              type: 'success'
+            });
+            this.initData(this.lineObj)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.lineObj)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.updateDialog = false
       }
     },

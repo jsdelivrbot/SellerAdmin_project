@@ -22,7 +22,7 @@
                 <span>{{ props.row.ts_pt_Name }}</span>
               </el-form-item>
               <el-form-item label="退改政策:">
-              <div v-html="props.row.ts_pt_ReturnRule"></div>
+                <div v-html="props.row.ts_pt_ReturnRule"></div>
               </el-form-item>
               <el-form-item label="费用包含:">
                 <div v-html="props.row.ts_pt_FeeIn"></div>
@@ -124,8 +124,9 @@
 <script>
   import {mapGetters} from 'vuex'
   import Editor from '@/components/Editor'
+  import {getEscapeVal} from '@/assets/js/public'
   // import Tinymce from '@/components/NewTinymce'
-  export default{
+  export default {
     name: '',
     props: ['id'],
     components: {
@@ -135,10 +136,10 @@
     computed: mapGetters([
       'adminProductLine'
     ]),
-    data(){
+    data() {
       return {
         lineObj: {},
-        tinymceHeight:800,
+        tinymceHeight: 800,
         addDialog: false,
         formLabelWidth: '120px',
         isLoading: false,
@@ -150,26 +151,26 @@
           "pcName": "",
           "token": "",
           "data": {
-            ts_pt_GoodsListID:'',
+            ts_pt_GoodsListID: '',
             "ts_pt_ID": "",//线路编号
             "ts_pt_ReturnRule": "",//退改政策      富文本格式
             ts_pt_FeeIn: '',//费用包含
             ts_pt_FeeNotIn: '',//费用不包含
           }
         },
-        updateOptions:{},
-        updateDialog:false
+        updateOptions: {},
+        updateDialog: false
       }
     },
-    created(){
+    created() {
       let lineObj = sessionStorage.getItem('lineObj');
       if (lineObj) {
         this.lineObj = JSON.parse(lineObj);
         this.initData(this.lineObj)
       }
-      let AdminQueryProductInformationListName =sessionStorage.getItem('AdminQueryProductInformationListName')
-      if(AdminQueryProductInformationListName!=='预订须知'){
-        sessionStorage.setItem('AdminQueryProductInformationListName','费用说明')
+      let AdminQueryProductInformationListName = sessionStorage.getItem('AdminQueryProductInformationListName')
+      if (AdminQueryProductInformationListName !== '预订须知') {
+        sessionStorage.setItem('AdminQueryProductInformationListName', '费用说明')
       }
 
     },
@@ -180,16 +181,16 @@
         window.location.reload()
       },
 
-      jump(obj){
+      jump(obj) {
         let MerchanID = sessionStorage.getItem('MerchanID')
-        if(MerchanID)  {
+        if (MerchanID) {
           window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + MerchanID, '_blank')
         }
       },
       //添加
-      addAdminCostDescription(){
-        for(let attr in this.addOptions.data){
-          this.addOptions.data[attr]= ''
+      addAdminCostDescription() {
+        for (let attr in this.addOptions.data) {
+          this.addOptions.data[attr] = ''
         }
         let textArr = document.querySelectorAll('.w-e-text')
         if (textArr && textArr.length) {
@@ -200,7 +201,7 @@
 
         this.addDialog = true
       },
-      initData(obj){
+      initData(obj) {
         let GetProductLine = {
           loginUserID: 'huileyou',
           loginUserPass: 123,
@@ -209,45 +210,45 @@
         };
         this.isLoading = true;
         this.$store.dispatch('initAdminProductLine', GetProductLine)
-        .then(() => {
-          this.isLoading = false;
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(() => {
+            this.isLoading = false;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
         this.addDialog = false
       },
       //添加提交
-      addSubmit(){
+      addSubmit() {
         this.addOptions.data.ts_pt_GoodsListID = this.lineObj.ts_pt_GoodsListID;
         this.addOptions.data.ts_pt_ID = this.id;
 //        console.log(this.addOptions.data)
 //        return
         this.$store.dispatch('UpdateAdminQueryProductInformation', this.addOptions)
-        .then(() => {
-          this.$notify({
-            message: '修改成功!',
-            type: 'success'
-          });
-          window.location.reload()
+          .then(() => {
+            this.$notify({
+              message: '修改成功!',
+              type: 'success'
+            });
+            window.location.reload()
 //          this.initData(this.lineObj)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-        });
       },
       //修改
-      updateAdminCostDescription(obj){
+      updateAdminCostDescription(obj) {
         this.updateOptions = obj;
         this.updateDialog = true
       },
       //修改提交
-      updateSubmit(){
-        let updateOptions =  {
+      updateSubmit() {
+        let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "",
@@ -255,26 +256,26 @@
           "pcName": "",
           "token": "",
           "data": {
-            ts_pt_GoodsListID:this.lineObj.ts_pt_GoodsListID,
+            ts_pt_GoodsListID: this.lineObj.ts_pt_GoodsListID,
             "ts_pt_ID": this.id,//线路编号
-            "ts_pt_ReturnRule": this.updateOptions.ts_pt_ReturnRule,//退改政策      富文本格式
-            ts_pt_FeeIn: this.updateOptions.ts_pt_FeeIn,//费用包含
-            ts_pt_FeeNotIn: this.updateOptions.ts_pt_FeeNotIn,//费用不包含
+            "ts_pt_ReturnRule": getEscapeVal(this.updateOptions.ts_pt_ReturnRule),//退改政策      富文本格式
+            ts_pt_FeeIn: getEscapeVal(this.updateOptions.ts_pt_FeeIn),//费用包含
+            ts_pt_FeeNotIn: getEscapeVal(this.updateOptions.ts_pt_FeeNotIn),//费用不包含
           }
         }
         this.$store.dispatch('UpdateAdminQueryProductInformation', updateOptions)
-        .then(() => {
-          this.$notify({
-            message: '修改成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '修改成功!',
+              type: 'success'
+            });
+            this.initData(this.lineObj)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.lineObj)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.updateDialog = false
       }
     },

@@ -219,7 +219,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import {getNewStr} from '@/assets/js/public'
+  import {getNewStr, getEscapeVal} from '@/assets/js/public'
   // import Tinymce from '@/components/NewTinymce'
   import Editor from '@/components/Editor'
   import Upload from '@/components/Upload'
@@ -304,7 +304,7 @@
         }
       },
       //删除修改对应图片
-      deleteUpdateImageURL(val){
+      deleteUpdateImageURL(val) {
         this.isNewUploaNode = false
         this.updateImageURL = this.updateImageURL.filter(v => {
           if (v == val) {
@@ -314,7 +314,7 @@
         })
       },
       //删除对应图片
-      deleteImageURL(val){
+      deleteImageURL(val) {
         this.isUploaNode = false;
         this.ImageURL = this.ImageURL.filter(v => {
           if (v == val) {
@@ -323,13 +323,13 @@
           return true
         })
       },
-      jump(obj){
+      jump(obj) {
         let MerchanID = sessionStorage.getItem('MerchanID')
         if (MerchanID) {
           window.open('http://hly.1000da.com.cn/index.html#/Comment/agenciesDetail/' + MerchanID, '_blank')
         }
       },
-      closeDialog(){
+      closeDialog() {
         this.updateAdminLinePrepareDialog = false
         this.addDialog = false
       },
@@ -381,14 +381,14 @@
             "rows": 40
           };
           this.$store.dispatch('initAdminTradeGoodList', options)
-          .then((data) => {
-            relove(data)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
-          })
+            .then((data) => {
+              relove(data)
+            }, err => {
+              this.$notify({
+                message: err,
+                type: 'error'
+              });
+            })
         })
       },
       querySearchAsync(queryString, cb) {
@@ -418,14 +418,14 @@
         };
         this.isLoading = true;
         this.$store.dispatch('initAdminLinePrepare', options)
-        .then(() => {
-          this.isLoading = false;
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        })
+          .then(() => {
+            this.isLoading = false;
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
+          })
       },
       //查询
       search() {
@@ -445,7 +445,7 @@
         }
       },
       //添加
-      addAdminLinePrepare(){
+      addAdminLinePrepare() {
         for (var attr in this.addData) {
           this.addData[attr] = ''
         }
@@ -458,11 +458,11 @@
         this.addDialog = true;
       },
       //添加提交
-      addSubmit(){
+      addSubmit() {
         if (this.ImageURL.length) {
           this.addData.ts_pt_ShowImage = this.ImageURL.join(',')
         }
-        if(isNaN(this.addData.ts_pt_Day)){
+        if (isNaN(this.addData.ts_pt_Day)) {
           this.$notify({
             message: '第几天行程请输入数字!',
             type: 'error'
@@ -472,19 +472,19 @@
         this.addData.ts_pt_Product_LineID = this.id;
         this.addOptions.data = this.addData;
         this.$store.dispatch('AddAdminLinePrepare', this.addOptions)
-        .then((suc) => {
-          this.$notify({
-            message: suc,
-            type: 'success'
-          });
+          .then((suc) => {
+            this.$notify({
+              message: suc,
+              type: 'success'
+            });
 //          window.location.reload()
-          this.initData(this.id)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
+            this.initData(this.id)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-        });
         this.addDialog = false
       },
       //修改
@@ -495,7 +495,7 @@
       },
       //修改提交
       updateAdminLinePrepareSubmit() {
-        if(isNaN(this.updateAdminLinePrepareObj.ts_pt_Day)){
+        if (isNaN(this.updateAdminLinePrepareObj.ts_pt_Day)) {
           this.$notify({
             message: '第几天行程请输入数字!',
             type: 'error'
@@ -510,8 +510,8 @@
           "pcName": "",
           data: {
             "ts_pt_ID": this.updateAdminLinePrepareObj.ts_pt_ID,
-            "ts_pt_Day":this.updateAdminLinePrepareObj.ts_pt_Day,
-            "ts_pt_Content": this.updateAdminLinePrepareObj.ts_pt_Content,
+            "ts_pt_Day": this.updateAdminLinePrepareObj.ts_pt_Day,
+            "ts_pt_Content": getEscapeVal(this.updateAdminLinePrepareObj.ts_pt_Content),
             "ts_pt_Name": this.updateAdminLinePrepareObj.ts_pt_Name,
             "ts_pt_Remark": this.updateAdminLinePrepareObj.ts_pt_Remark,
           }
@@ -521,18 +521,18 @@
           updateOptions.data.ts_pt_ShowImage = this.updateImageURL.join(',')
         }
         this.$store.dispatch('UpdateAdminLinePrepare', updateOptions)
-        .then(() => {
-          this.$notify({
-            message: '修改成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '修改成功!',
+              type: 'success'
+            });
+            this.initData(this.updateAdminLinePrepareObj.ts_pt_Product_LineID)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.updateAdminLinePrepareObj.ts_pt_Product_LineID)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
         this.updateAdminLinePrepareDialog = false;
       },
       //删除
@@ -549,18 +549,18 @@
         };
 
         this.$store.dispatch('DeleteAdminLinePrepare', deleteOptions)
-        .then(() => {
-          this.$notify({
-            message: '删除成功!',
-            type: 'success'
+          .then(() => {
+            this.$notify({
+              message: '删除成功!',
+              type: 'success'
+            });
+            this.initData(this.id)
+          }, err => {
+            this.$notify({
+              message: err,
+              type: 'error'
+            });
           });
-          this.initData(this.id)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
-        });
       },
       //点击跳转日程时间管理
       scheduleTimeManagement(id) {
@@ -570,9 +570,9 @@
       }
     },
     created() {
-      let AdminQueryProductInformationListName =sessionStorage.getItem('AdminQueryProductInformationListName')
-      if(AdminQueryProductInformationListName!=='预订须知'){
-        sessionStorage.setItem('AdminQueryProductInformationListName','线路日程')
+      let AdminQueryProductInformationListName = sessionStorage.getItem('AdminQueryProductInformationListName')
+      if (AdminQueryProductInformationListName !== '预订须知') {
+        sessionStorage.setItem('AdminQueryProductInformationListName', '线路日程')
       }
 
       for (var i = 1; i < 21; i++) {

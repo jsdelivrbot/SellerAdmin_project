@@ -542,7 +542,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import {getNewStr, isNewPhone} from '@/assets/js/public'
+  import {getNewStr, isNewPhone, getEscapeVal} from '@/assets/js/public'
   import Tinymce from '@/components/NewTinymce'
   import Editor from '@/components/Editor'
   import Upload from '@/components/Upload'
@@ -1018,6 +1018,11 @@
       },
       //修改提交
       updateSubmit() {
+        for(var attr in this.updateTicketAttractionsObj){
+          if(attr == 'tm_ts_Detailedintroduction'){
+            this.updateTicketAttractionsObj[attr] = getEscapeVal(this.updateTicketAttractionsObj[attr])
+          }
+        }
         if (!isNaN(this.updateTicketAttractionsObj.tm_ts_ContryName)) {
           this.updateTicketAttractionsObj.tm_ts_ContryID = this.updateTicketAttractionsObj.tm_ts_ContryName;
         }else{

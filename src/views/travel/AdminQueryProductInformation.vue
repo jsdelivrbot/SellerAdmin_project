@@ -400,6 +400,8 @@
   import {mapGetters} from 'vuex'
   import Upload from '@/components/Upload'
   import Editor from '@/components/Editor'
+  import {getEscapeVal} from '@/assets/js/public'
+
 
   export default {
     computed: mapGetters([
@@ -728,7 +730,7 @@
           }
         }
         let uploader = document.querySelector('.uploader-list')
-        if(uploader){
+        if (uploader) {
           uploader.querySelector('ul').innerHTML = ''
         }
         let textArr = document.querySelectorAll('.w-e-text')
@@ -753,7 +755,7 @@
               type: 'success'
             });
 //            window.location.reload()
-          this.initData(this.value)
+            this.initData(this.value)
           }, err => {
             this.$notify({
               message: err,
@@ -787,6 +789,7 @@
       },
       //修改提交
       updateAdminQueryProductInformationSubmit() {
+
         let updateOptions = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -798,7 +801,6 @@
             "ts_pt_GoodsListID": this.$route.params.id,
             "ts_pt_Name": this.updateAdminQueryProductInformationObj.ts_pt_Name,
             "ts_pt_Remark": this.updateAdminQueryProductInformationObj.ts_pt_Remark,
-
             "ts_pl_GoTime": this.updateAdminQueryProductInformationObj.ts_pl_GoTime,//出发时间
             "ts_pl_LineDays": this.updateAdminQueryProductInformationObj.ts_pl_LineDays,//行程天数
             "ts_pl_GroupProvice": this.updateAdminQueryProductInformationObj.ts_pl_GroupProvice,//成团地点所属省
@@ -809,11 +811,11 @@
             "ts_pt_Images": "",//线路图片
             "ts_pt_BookKnow": this.updateAdminQueryProductInformationObj.ts_pt_BookKnow,//预定需知      富文本格式
             "ts_pt_ReturnRule": this.updateAdminQueryProductInformationObj.ts_pt_ReturnRule,//退改政策     富文本格式
-            "ts_pt_IntroReason": this.updateAdminQueryProductInformationObj.ts_pt_IntroReason,//推荐理由       富文本格式
-            "ts_pt_Describe": this.updateAdminQueryProductInformationObj.ts_pt_Describe,//产品线路介绍          富文本格式
+            "ts_pt_IntroReason": getEscapeVal(this.updateAdminQueryProductInformationObj.ts_pt_IntroReason),//推荐理由       富文本格式
+            "ts_pt_Describe": getEscapeVal(this.updateAdminQueryProductInformationObj.ts_pt_Describe),//产品线路介绍          富文本格式
             "ts_pt_FeeIn": this.updateAdminQueryProductInformationObj.ts_pt_FeeIn,//费用包含               富文本格式
             "ts_pt_FeeNotIn": this.updateAdminQueryProductInformationObj.ts_pt_FeeNotIn,//费用不包含        富文本格式
-            "ts_pt_LineDetail": this.updateAdminQueryProductInformationObj.ts_pt_LineDetail,//行程明细       富文本格式
+            "ts_pt_LineDetail": getEscapeVal(this.updateAdminQueryProductInformationObj.ts_pt_LineDetail),//行程明细       富文本格式
             "ts_pt_LimitDuty": this.updateAdminQueryProductInformationObj.ts_pt_LimitDuty,//违约责任      富文本格式
             "ts_pt_SpecialLimit": this.updateAdminQueryProductInformationObj.ts_pt_SpecialLimit,//特殊限制      富文本格式
             "ts_pt_SafetyLimit": this.updateAdminQueryProductInformationObj.ts_pt_SafetyLimit,//安全限制     富文本格式

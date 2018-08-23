@@ -2,7 +2,6 @@
   <div>
     <div id="wrap" class="clearfix">
       <h1 class="userClass">预定须知</h1>
-
       <!--添加-->
       <div class="search">
         <el-autocomplete

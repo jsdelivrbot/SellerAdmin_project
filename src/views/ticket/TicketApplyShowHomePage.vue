@@ -195,11 +195,19 @@
       },
       //申请
       apply(obj) {
+        if(Number(obj.tm_ts_IsPass)==0){
+          this.$notify({
+            message: '当前景点未通过审核,不能设置到首页!',
+            type: 'error'
+          });
+          return
+        }
         if (obj.tm_ts_ShowTop == 0) {
           obj.tm_ts_ShowTop = 1;
         } else {
           obj.tm_ts_ShowTop = 0;
         }
+
         let updateTourSiteIsShowTop = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",

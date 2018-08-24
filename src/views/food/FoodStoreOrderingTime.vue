@@ -35,7 +35,7 @@
           <el-form-item>
             <el-button type="primary" @click="search"  size="small">查询</el-button>
             <el-button type="primary" @click="add" size="small">添加</el-button>
-            <el-button type="danger" @click="Delete" size="small">删除</el-button>
+            <el-button type="danger" @click="DeleteFoodStoreOrderingTime" size="small">删除</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -83,11 +83,12 @@
         </el-table-column>
       </el-table>
       <!--分页-->
-      <div class="block" style="text-align: right">
+      <div class="block" style="text-align: right;padding: 30px 0">
         <el-pagination
+          background
           :page-size="10"
           @current-change="handleCurrentChange"
-          layout="prev, pager, next"
+          layout="total,prev, pager, next"
           :total="total"
           v-show="total"
         >
@@ -290,8 +291,25 @@
           })
         this.addDialog = false;
       },
+      DeleteFoodStoreOrderingTime(){
+        this.isLoading = true;
+        this.Delete().then(suc => {
+          this.isLoading = false;
+          this.$notify({
+            message: '删除成功',
+            type: 'success'
+          })
+          this.initData();
+        }, err => {
+          this.isLoading = false;
+          this.$notify({
+            message: err,
+            type: 'error'
+          })
+        })
+      },
       //删除
-      Delete() {
+      async Delete() {
         if (!this.deleteData.length) {
           this.$notify({
             message: '请选择要删除的时间!!',
@@ -301,7 +319,7 @@
         }
         ;
         for (let i = 0; i < this.deleteData.length; i++) {
-          this.deleteSubmit(this.deleteData[i].fd_rtt_ID);
+          await this.deleteSubmit(this.deleteData[i].fd_rtt_ID);
         }
       },
       //删除提交
@@ -316,19 +334,8 @@
             "fd_rtt_ID": id,//店面房间餐桌时间标识
           }
         };
-        this.$store.dispatch('deleteFoodStoreOrderingTime', deleteRoomTableTimeInfo)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            })
-            this.initData();
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            })
-          })
+        return this.$store.dispatch('deleteFoodStoreOrderingTime', deleteRoomTableTimeInfo)
+
       },
     },
     created() {
@@ -336,7 +343,7 @@
       if( !this.foodStoreInformtionList.length ){
         this.initFoodStoreInformtion();
       }
-      this.initData();
+//      this.initData();
     }
   }
 </script>

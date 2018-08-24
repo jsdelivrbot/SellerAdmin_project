@@ -120,7 +120,7 @@
             <el-button size="mini" type="danger" @click="Delete(scope.row.fd_sf_ID)">删除</el-button>
             <!--<el-button size="mini" v-show="scope.row.fd_sf_PassStatus == '通过'" type="success"-->
                        <!--@click="recommendShop(scope.row.fd_sf_ID)">申请推荐店面-->
-            </el-button>
+            <!--</el-button>-->
             <el-button size="mini" type="primary" @click="goThisProduct(scope.row.fd_sf_ID)">添加店面美食</el-button>
             <el-button size="mini" type="primary" @click="goThisRoom(scope.row.fd_sf_ID)">添加店面房间</el-button>
             <el-button size="mini" type="success" @click="jump(scope.row)">预览效果</el-button>
@@ -835,6 +835,7 @@
           });
           return
         }
+        this.isLoading = true;
 
         let updateStoreFrontInfo = {
           "loginUserID": "huileyou",
@@ -853,8 +854,8 @@
             "fd_sf_Address": this.updateObj.fd_sf_Address,//地址描述
             "fd_sf_Lng": this.updateObj.fd_sf_Lng,//经度
             "fd_sf_Lat": this.updateObj.fd_sf_Lat,//纬度
-            "fd_sf_Provice": '',//省
-            "fd_sf_City": '',//市
+            "fd_sf_Provice": this.updateObj.fd_sf_Provice,//省
+            "fd_sf_City": this.updateObj.fd_sf_City,//市
             "fd_sf_OpenTime": this.times[0] ? this.times[0] : '',//营业时间
             "fd_sf_CloseTime": this.times[1] ? this.times[1] : '',//闭店时间
             "fd_sf_AvgPrice": this.updateObj.fd_sf_AvgPrice,//人均价格
@@ -874,12 +875,14 @@
         }
         this.$store.dispatch('updateFoodStoreInformtionSubmit', updateStoreFrontInfo)
           .then(suc => {
+            this.isLoading = false;
             this.$notify({
               message: suc,
               type: 'success'
             });
             this.initData();
           }, err => {
+            this.isLoading = false;
             this.$notify({
               message: err,
               type: 'error'

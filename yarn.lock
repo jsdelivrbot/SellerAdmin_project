@@ -6508,10 +6508,6 @@ vue-loader@13.5.0:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.6.0"
 
-vue-router@3.0.1:
-  version "3.0.1"
-  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
-
 vue-simple-uploader@^0.4.6:
   version "0.4.6"
   resolved "http://registry.npm.taobao.org/vue-simple-uploader/download/vue-simple-uploader-0.4.6.tgz#7bd953d4e09e87e7d465ce96afed8ea0a7194f19"
@@ -6542,10 +6538,6 @@ vue-template-compiler@2.5.10:
 vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "http://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
-
-vuex@3.0.1:
-  version "3.0.1"
-  resolved "http://registry.npm.taobao.org/vuex/download/vuex-3.0.1.tgz#e761352ebe0af537d4bb755a9b9dc4be3df7efd2"
 
 wangeditor@^3.1.1:
   version "3.1.1"

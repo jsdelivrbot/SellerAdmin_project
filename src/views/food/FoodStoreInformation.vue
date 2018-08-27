@@ -452,6 +452,14 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item label="店面介绍:" :label-width="formLabelWidth">
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="请输入内容"
+              v-model="updateObj.fd_sf_Introduce">
+            </el-input>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="updateDialog = false">取 消</el-button>

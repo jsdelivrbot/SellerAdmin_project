@@ -1,5 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+// import Vue from 'vue'
+// import Vuex from 'vuex'
+
+Vue.use(Vuex);
+
+
+
 import app from './modules/app'
 import user from './modules/user'
 import travelAgency from './TravelAgency'
@@ -13,7 +18,10 @@ import car from './Car'
 import permission from './modules/permission'
 import getters from './getters'
 
-Vue.use(Vuex)
+
+
+
+const debug = process.env.NODE_ENV !== 'production'
 
 const store = new Vuex.Store({
   modules: {

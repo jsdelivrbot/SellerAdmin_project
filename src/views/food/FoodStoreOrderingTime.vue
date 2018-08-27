@@ -77,9 +77,13 @@
           label="日期">
         </el-table-column>
         <el-table-column
-          prop="fd_rtt_TableState"
           align="center"
           label="餐桌状态">
+          <template slot-scope="scope">
+            <span v-show="scope.row.fd_rtt_TableState=='空闲'" style="color: forestgreen;font-weight: bold;">{{ scope.row.fd_rtt_TableState  }}</span>
+            <span v-show="scope.row.fd_rtt_TableState=='锁定'" style="color: #f60;font-weight: bold;">{{ scope.row.fd_rtt_TableState  }}</span>
+            <span v-show="scope.row.fd_rtt_TableState=='已售'" style="color: blue;font-weight: bold;">{{ scope.row.fd_rtt_TableState  }}</span>
+          </template>
         </el-table-column>
       </el-table>
       <!--分页-->
@@ -255,6 +259,13 @@
       },
       //查询
       search() {
+        if(!this.storeId){
+          this.$notify({
+            message: '请先选择店面！',
+            type: 'error'
+          })
+          return
+        }
         this.initData(this.searchTime[0], this.searchTime[1], this.storeId, 1);
       },
       //添加

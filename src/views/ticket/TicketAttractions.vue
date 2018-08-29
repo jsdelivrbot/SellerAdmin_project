@@ -701,7 +701,6 @@
       },
 
       jump(obj) {
-
         sessionStorage.setItem("code", obj.tm_ts_Code)
         if (obj.tm_ts_IsPass == 0) {
           this.$notify({
@@ -709,7 +708,7 @@
             type: 'error'
           })
         } else {
-          window.open('http://hly.1000da.com.cn/index.html#/Comment/admissionTicketMore?id=272&keycode=' + obj.tm_ts_Name, '_blank')
+          window.open('http://hly.1000da.com.cn/index.html#/Comment/admissionTicketMore?proviceID='+obj.tm_ts_ProviceID+'&keycode=' + obj.tm_ts_Name, '_blank')
         }
       },
       //查询景点主题分类信息

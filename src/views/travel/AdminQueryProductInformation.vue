@@ -82,9 +82,9 @@
               <!--<el-form-item label="费用不包含:">-->
               <!--<div v-html="props.row.ts_pt_FeeNotIn"></div>-->
               <!--</el-form-item>-->
-              <el-form-item label="行程明细:">
-                <div v-html="props.row.ts_pt_LineDetail"></div>
-              </el-form-item>
+              <!--<el-form-item label="行程明细:">-->
+                <!--<div v-html="props.row.ts_pt_LineDetail"></div>-->
+              <!--</el-form-item>-->
               <!--<el-form-item label="违约责任:">-->
               <!--<div v-html="props.row.ts_pt_LimitDuty"></div>-->
               <!--</el-form-item>-->
@@ -205,7 +205,7 @@
           <p>单张图片大小不能大于600KB</p>
           <Upload @getData="getData" :attrs="imageObj"></Upload>
           <div class="imgWap">
-            <p v-for="item,index in ImageURL" style="display: inline-block;position: relative">
+            <p v-for="item,index in ImageURL" style="display: inline-block;position: relative;margin-right: 70px">
               <img
                 :src="item"
                 width="280"
@@ -241,10 +241,10 @@
         <!--<el-form-item label="费用不包含:" :label-width="formLabelWidth">-->
         <!--<tinymce :height="300" v-model="addOptions.data.ts_pt_FeeNotIn" ></tinymce>-->
         <!--</el-form-item>-->
-        <el-form-item label="行程明细:" :label-width="formLabelWidth">
-          <editor v-model="addOptions.data.ts_pt_LineDetail"></editor>
-          <!--<tinymce :height="300" v-model="addOptions.data.ts_pt_LineDetail" ></tinymce>-->
-        </el-form-item>
+        <!--<el-form-item label="行程明细:" :label-width="formLabelWidth">-->
+          <!--<editor v-model="addOptions.data.ts_pt_LineDetail"></editor>-->
+          <!--&lt;!&ndash;<tinymce :height="300" v-model="addOptions.data.ts_pt_LineDetail" ></tinymce>&ndash;&gt;-->
+        <!--</el-form-item>-->
         <!--<el-form-item label="违约责任:" :label-width="formLabelWidth">-->
         <!--<tinymce :height="300" v-model="addOptions.data.ts_pt_LimitDuty" ></tinymce>-->
         <!--</el-form-item>-->
@@ -370,10 +370,10 @@
         <!--<el-form-item label="费用不包含:" :label-width="formLabelWidth">-->
         <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_FeeNotIn" ></tinymce>-->
         <!--</el-form-item>-->
-        <el-form-item label="行程明细:" :label-width="formLabelWidth">
-          <editor v-model="updateAdminQueryProductInformationObj.ts_pt_LineDetail"></editor>
-          <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_LineDetail" ></tinymce>-->
-        </el-form-item>
+        <!--<el-form-item label="行程明细:" :label-width="formLabelWidth">-->
+          <!--<editor v-model="updateAdminQueryProductInformationObj.ts_pt_LineDetail"></editor>-->
+          <!--&lt;!&ndash;<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_LineDetail" ></tinymce>&ndash;&gt;-->
+        <!--</el-form-item>-->
         <!--<el-form-item label="违约责任:" :label-width="formLabelWidth">-->
         <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_LimitDuty" ></tinymce>-->
         <!--</el-form-item>-->
@@ -599,6 +599,16 @@
           return true
         })
       },
+      //删除修改图片
+      deleteUpdateImageURL(val){
+        this.isNewUploaNode = false
+        this.updateImageURL = this.updateImageURL.filter(v => {
+          if (v == val) {
+            return false
+          }
+          return true
+        })
+      },
       querySearch(queryString, cb) {
         var restaurants = this.restaurantsDay;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
@@ -772,6 +782,7 @@
       },
       //修改
       updateAdminQueryProductInformation(obj) {
+        this.updateImageURL = obj.ts_pt_Images
         this.isLoading = true;
         this.initProvice(obj)
           .then(() => {

@@ -56,6 +56,9 @@
               <el-form-item label="第几天日程:">
                 <span>{{ props.row.ts_pt_Day }}</span>
               </el-form-item>
+              <el-form-item label="日程明细:">
+                <span>{{ props.row.ts_pt_Describe }}</span>
+              </el-form-item>
               <el-form-item label="活动图片地址:">
                 <img v-for="item,index in props.row.ts_pt_ShowImage" :src="item" alt="" :key="index" width="300"
                      height="150">
@@ -134,6 +137,10 @@
           <el-form-item label="第几天行程:" :label-width="formLabelWidth">
             <el-input v-model="addData.ts_pt_Day" placeholder="请输入第几天行程"></el-input>
           </el-form-item>
+          <el-form-item label="日程明细:" :label-width="formLabelWidth">
+            <el-input v-model="addData.ts_pt_Describe" placeholder="请输入日程明细" type="textarea"
+                      :autosize="{ minRows: 6, maxRows: 10}"></el-input>
+          </el-form-item>
           <el-form-item label="线路日程详情:" :label-width="formLabelWidth">
             <editor v-model="addData.ts_pt_Content"></editor>
             <!--<tinymce :height="300" v-model="addData.ts_pt_Content"></tinymce>-->
@@ -156,6 +163,7 @@
               </p>
             </div>
           </el-form-item>
+
           <el-form-item label="备注:" :label-width="formLabelWidth">
             <el-input v-model="addData.ts_pt_Remark" placeholder="请输入内容" type="textarea"
                       :autosize="{ minRows: 6, maxRows: 10}"></el-input>
@@ -178,6 +186,10 @@
           </el-form-item>
           <el-form-item label="第几天行程:" :label-width="formLabelWidth">
             <el-input v-model="updateAdminLinePrepareObj.ts_pt_Day" placeholder="请输入第几天行程"></el-input>
+          </el-form-item>
+          <el-form-item label="日程明细:" :label-width="formLabelWidth">
+            <el-input v-model="updateAdminLinePrepareObj.ts_pt_Describe" placeholder="请输入日程明细" type="textarea"
+                      :autosize="{ minRows: 6, maxRows: 10}"></el-input>
           </el-form-item>
           <el-form-item label="线路日程详情:" :label-width="formLabelWidth">
             <editor v-model="updateAdminLinePrepareObj.ts_pt_Content"></editor>
@@ -266,6 +278,7 @@
           "ts_pt_ShowImage": "",//活动图片
           "ts_pt_Day": '',//第几天行程
           "ts_pt_Remark": "",
+          'ts_pt_Describe':''
         },
         addOptions: {
           "loginUserID": "huileyou",
@@ -315,6 +328,10 @@
       },
       //删除对应图片
       deleteImageURL(val) {
+        let uploader = document.querySelector('.uploader-list')
+        if (uploader) {
+          uploader.querySelector('ul').innerHTML = ''
+        }
         this.isUploaNode = false;
         this.ImageURL = this.ImageURL.filter(v => {
           if (v == val) {
@@ -449,6 +466,11 @@
         for (var attr in this.addData) {
           this.addData[attr] = ''
         }
+        this.ImageURL = [];
+        let uploader = document.querySelector('.uploader-list')
+        if (uploader) {
+          uploader.querySelector('ul').innerHTML = ''
+        }
         let textArr = document.querySelectorAll('.w-e-text')
         if (textArr && textArr.length) {
           for (var i = 0; i < textArr.length; i++) {
@@ -514,6 +536,7 @@
             "ts_pt_Content": getEscapeVal(this.updateAdminLinePrepareObj.ts_pt_Content),
             "ts_pt_Name": this.updateAdminLinePrepareObj.ts_pt_Name,
             "ts_pt_Remark": this.updateAdminLinePrepareObj.ts_pt_Remark,
+            "ts_pt_Describe":this.updateAdminLinePrepareObj.ts_pt_Describe,
           }
         };
 

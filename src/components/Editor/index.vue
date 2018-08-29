@@ -95,6 +95,63 @@
           _this.beforeUpload(files[i],insert)
         }
       }
+
+
+
+      // 表情面板可以有多个 tab ，因此要配置成一个数组。数组每个元素代表一个 tab 的配置
+      this.editor.customConfig.emotions = [
+        {
+          // tab 的标题
+          title: '默认',
+          // type -> 'emoji' / 'image'
+          type: 'image',
+          // content -> 数组
+          content: [
+            {
+              alt: '[住宿]',
+              src: 'http://hly.1000da.com.cn/icon/Accommodation.png'
+            },
+            {
+              alt: '[用餐]',
+              src: 'http://hly.1000da.com.cn/icon/Meal.png'
+            },
+            {
+              alt: '[温馨提示]',
+              src: 'http://hly.1000da.com.cn/icon/WarmTips.png'
+            },
+            {
+              alt: '[景点]',
+              src: 'http://hly.1000da.com.cn/icon/Attractions.png'
+            },
+            {
+              alt: '[交通]',
+              src: 'http://hly.1000da.com.cn/icon/Traffic.png'
+            },
+            {
+              alt: '[行程概览]',
+              src: 'http://hly.1000da.com.cn/icon/ItineraryOverview.png'
+            },
+            {
+              alt: '[飞机]',
+              src: 'http://hly.1000da.com.cn/icon/Plane.png'
+            },
+            {
+              alt: '[免费活动]',
+              src: 'http://hly.1000da.com.cn/icon/FreeActivities.png'
+            }
+          ]
+        },
+//        {
+//          // tab 的标题
+//          title: 'Logo',
+//          // type -> 'emoji' / 'image'
+//          type: 'emoji',
+//          // content -> 数组
+//          content: ['😀', '😃', '😄', '😁', '😆']
+//        }
+      ]
+
+
       // create这个方法一定要在所有配置项之后调用
       this.editor.create()
       // 如果本地有存储加载本地存储内容

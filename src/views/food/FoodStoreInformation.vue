@@ -772,6 +772,7 @@
             this.addOptions[attr] = ''
           }
         }
+        this.addImage = [];
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
         this.addOptions.fd_sf_TradeID = this.userInfo.sm_ui_ID;

@@ -1,6 +1,6 @@
 <template>
   <uploader :options="options" :file-status-text="statusText" class="uploader-example" ref="uploader"
-            @file-success="fileSuccess"  @file-added="add">
+            @file-success="fileSuccess"  @file-added="add" v-if="clearShow">
     <uploader-unsupport></uploader-unsupport>
     <uploader-drop>
       <p>上传文件</p>
@@ -21,6 +21,7 @@
     props: ['attrs'],
     data() {
       return {
+        clearShow:true,
         options: {
           // 可通过 https://github.com/simple-uploader/Uploader/tree/develop/samples/Node.js 示例启动服务
           target: getNewStr + '/OSSFile/PostToOSS',
@@ -92,6 +93,7 @@
 
       //上传成功的事件
       fileSuccess (rootFile, file, message, chunk) {
+        this.clearShow = true
         var obj = JSON.parse(message)
 
         this.$emit('getData',obj);

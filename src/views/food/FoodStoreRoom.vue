@@ -395,6 +395,7 @@
         if (uploader) {
           uploader.querySelector('ul').innerHTML = ''
         }
+        this.addImageUrl = []
         for (let attr in this.addOptions) {
           this.addOptions[attr] = ''
         }

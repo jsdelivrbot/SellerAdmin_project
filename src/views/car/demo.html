@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  #wrap{
+    display: none;
+    width: 116px;
+    border: 1px solid #ccc;
+  }
+  #wrap div{
+    width: 100px;
+    padding: 8px;
+    text-align: center;
+  }
+  #wrap div:hover{
+    background: #333;
+    color: #fff;
+  }
+  .selected{
+    color: #fff;
+    background: #000;
+  }
+</style>
+<body>
+<input type="text" id="input"/>
+<div id="wrap"></div>
+<script>
+  window.onload = function () {
+
+
+    let arr = [];
+    let arr1 = []
+    let num = 0
+
+
+    getKeyDown('#wrap','#input').then((data)=>{
+      num=0
+      console.log(wrap)
+      console.log(data)
+
+    })
+    function getKeyDown(wrapStr,inputStr,key) {
+      return new Promise((relove,reject)=>{
+        let wrap = document.querySelector(wrapStr)
+        let input = document.querySelector(inputStr)
+        wrap.style.display = 'block'
+        wrap.innerHTML =''
+        for (var i = 0; i < 10; i++) {
+          arr.push(i)
+          arr1.push(i)
+          wrap.innerHTML += `<div>${i}</div>`
+        }
+        let allDiv = wrap.querySelectorAll('div');
+        if(key){
+//        let input = document.querySelector(input)
+          input.focus()
+          document.onkeydown = function (e) {
+            if (e.keyCode == 113) {
+              wrap.style.display = 'block'
+            }
+            if (e.keyCode == 34) {
+              if (num >= allDiv.length) {
+                num = 0;
+              }
+              console.log(allDiv)
+              for (var i = 0; i < allDiv.length; i++) {
+                allDiv[i].className = ''
+              }
+              allDiv[num].className = 'selected';
+              num++;
+            }
+            if (e.keyCode == 33) {
+              console.log(allDiv.length-1)
+              num--;
+              if (num < 0) {
+                num = allDiv.length-1;
+              }
+              for (var i = 0; i < allDiv.length; i++) {
+                allDiv[i].className = ''
+              }
+              allDiv[num].className = 'selected';
+              console.log(num)
+            }
+          }
+        }else{
+          input.focus()
+          //触发站点
+          document.onkeydown = function (e) {
+            if (e.keyCode == 113) {
+              wrap.style.display = 'block'
+            }
+            if (e.keyCode == 34) {
+              if (num >= allDiv.length) {
+                num = 0;
+              }
+              for (var i = 0; i < allDiv.length; i++) {
+                allDiv[i].className = ''
+              }
+              allDiv[num].className = 'selected';
+              num++;
+              console.log(e.keyCode)
+            }
+            if (e.keyCode == 33) {
+              num--;
+              if (num < 0) {
+                num = allDiv.length-1;
+              }
+              for (var i = 0; i < allDiv.length; i++) {
+                allDiv[i].className = ''
+              }
+              allDiv[num].className = 'selected';
+              console.log(e.keyCode)
+            }
+            if(e.keyCode==13){
+              let sAllDiv = wrap.querySelectorAll('div')
+              input.value = sAllDiv[num].innerHTML
+
+              wrap.style.display = 'none'
+              relove(sAllDiv[num].innerHTML,wrap)
+            }
+          }
+          input.oninput = function () {
+            if(this.value){
+              let newArr =  arr.filter(item=>{
+                if(item==this.value){
+                  return true;
+                }
+                return false;
+              })
+              if(newArr.length){
+                num = 0
+                wrap.innerHTML =''
+                for(var i=0;i<newArr.length;i++){
+                  wrap.innerHTML+=`<div>${newArr[i]}</div>`
+                }
+                let newDivs = wrap.querySelectorAll('div')
+                for (var i = 0; i < newDivs.length; i++) {
+                  newDivs[i].className = ''
+                }
+                newDivs[num].className = 'selected';
+              }
+            }else{
+              wrap.innerHTML =''
+              for(var i=0;i<arr1.length;i++){
+                wrap.innerHTML+=`<div>${arr1[i]}</div>`
+              }
+              wrap.style.display = 'block'
+              getKeyDown(wrapStr,inputStr)
+            }
+
+          }
+        }
+      })
+
+    }
+      //上33   下34
+
+
+  }
+</script>
+</body>
+</html>

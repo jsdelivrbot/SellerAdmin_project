@@ -39,6 +39,7 @@
               :src="item" alt=""
               v-for="item,index in scope.row.imgData"
               height="50"
+              @click="$seeImage"
             >
           </template>
         </el-table-column>

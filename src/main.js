@@ -14,6 +14,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 import VueLazyLoad from 'vue-lazyload'
+import seeImage from '@/plugin/SeeImage'
+Vue.use(seeImage);
 // import axios from 'axios'
 import { getToken } from '@/utils/auth'
 import * as filters from './filters'

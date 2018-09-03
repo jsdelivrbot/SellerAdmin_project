@@ -61,7 +61,7 @@
                 <span>{{ props.row.provice + props.row.city}}</span>
               </el-form-item>
               <el-form-item label="App中使用的图片:">
-                <img v-lazy="item" alt="" v-for="item in props.row.ts_pt_Images">
+                <img v-lazy="item" alt="" v-for="item in props.row.ts_pt_Images" @click="$seeImage">
               </el-form-item>
               <!--<el-form-item label="预定需知:">-->
               <!--<div v-html="props.row.ts_pt_BookKnow"></div>-->

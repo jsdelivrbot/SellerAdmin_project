@@ -47,6 +47,13 @@
         </el-form>
       </el-col>
       <span style="font-size: 12px;margin:40px 0 0 30px ;color: #f60;display: block">点击全选生成座位</span>
+      <el-col :span="24" class="formSearch" v-show="adminLinePriceList.length">
+        <el-form :inline="true">
+          <el-form-item>
+            <el-button type="primary" @click="buildSeat">生成座位</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
       <!--数据展示-->
       <el-table
         :data="adminLinePriceList"
@@ -142,13 +149,7 @@
         </el-table-column>
       </el-table>
 
-      <el-col :span="24" class="formSearch" v-show="adminLinePriceList.length">
-        <el-form :inline="true">
-          <el-form-item>
-            <el-button type="primary" @click="buildSeat">生成座位</el-button>
-          </el-form-item>
-        </el-form>
-      </el-col>
+
 
       <!--添加产品线路价格-->
       <el-dialog title="添加产品线路价格" :visible.sync="addAdminLinePriceDialog" :close-on-click-modal="false" width="70%">
@@ -531,6 +532,7 @@
         this.multipleSelection = val;
       },
       async searchBuildSeat(){
+
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -546,6 +548,13 @@
       },
       //生成座位
       buildSeat(){
+        if(!this.multipleSelection.length){
+          this.$notify({
+            message: '请先选择,再生成座位!',
+            type: 'error'
+          });
+          return
+        }
         this.isLoading = true
         this.searchBuildSeat().then(() => {
           this.isLoading = false;

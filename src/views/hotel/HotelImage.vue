@@ -34,8 +34,9 @@
             :src="item"
             title="点击查看大图"
             style="width:100px;cursor: pointer;margin-right: 10px;"
-            @click="clickImg(item)"
-          >
+            @click="$seeImage"
+          />
+          <!--@click="clickImg(item)"-->
         </template>
 
       </el-table-column>

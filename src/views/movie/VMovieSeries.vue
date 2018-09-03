@@ -52,7 +52,7 @@
 
               <el-form-item label="系列图片:">
 
-                <img :src="props.row.vf_ss_SeriesImageURL" alt="" style="width: 100px;height: 50px">
+                <img :src="props.row.vf_ss_SeriesImageURL" alt="" style="width: 100px;height: 50px"  @click="$seeImage">
               </el-form-item>
 
               <el-form-item label="更新时间:">

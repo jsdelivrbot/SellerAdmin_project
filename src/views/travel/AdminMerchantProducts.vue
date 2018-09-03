@@ -129,7 +129,7 @@
 
             <el-form-item label="产品图片地址:">
               <img v-for="item,index in props.row.ta_tg_ShowImages" :src="item" alt="" :key="index" width="300"
-                   height="150">
+                   height="150" @click="$seeImage">
 
             </el-form-item>
             <el-form-item label="产品创建时间:">

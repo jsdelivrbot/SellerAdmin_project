@@ -44,6 +44,7 @@
                 v-for="item,index in props.row.imgData"
                 height="50"
                 style="margin-right: 10px;"
+                @click="$seeImage"
               >
             </el-form-item>
             <el-form-item label="房间视频">

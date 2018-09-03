@@ -33,8 +33,9 @@
                 v-for="item,index in props.row.ht_bt_ImagePath"
                 v-lazy="item" alt=""
                 style="width: 100px;height: 100px;margin-right: 10px;"
-                @click="lookImg(item)"
+                @click="$seeImage"
               >
+              <!--@click="lookImg(item)"-->
             </el-form-item>
             <el-form-item label="面积:">
               <span>{{ props.row.ht_bt_Area }}m<sup>2</sup></span>

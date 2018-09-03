@@ -349,12 +349,13 @@ export const constantRouterMap = [
       //   component: () => import('@/views/food/FoodStoreRoomTabel'),
       //   meta: {title: 'foodStoreRoomTabel'}
       // },
+      // {
+      //   path: 'foodStoreOrderingTime',
+      //   name: 'FoodStoreOrderingTime',
+      //   component: () => import('@/views/food/FoodStoreOrderingTime'),
+      //   meta: {title: 'foodStoreOrderingTime'}
+      // },
       {
-        path: 'foodStoreOrderingTime',
-        name: 'FoodStoreOrderingTime',
-        component: () => import('@/views/food/FoodStoreOrderingTime'),
-        meta: {title: 'foodStoreOrderingTime'}
-      }, {
         path: 'foodStoppingPlace',
         name: 'FoodStoppingPlace',
         component: () => import('@/views/food/FoodStoppingPlace'),

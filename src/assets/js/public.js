@@ -279,8 +279,11 @@ export const oneOf =(value, validList) =>{
   }
   return false
 }
-//http://hly.1000da.com.cn
+
 export const getEscapeVal = str=>{
   return escape(str)
 }
+
+
+//http://hly.1000da.com.cn
 export const getNewStr =  '/api' //'http://192.168.3.4' //'http://192.168.3.50'///api

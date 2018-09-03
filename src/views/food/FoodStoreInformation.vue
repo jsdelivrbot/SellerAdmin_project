@@ -26,77 +26,81 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="店面编号">
+              <el-form-item label="店面编号:">
                 <span>{{ props.row.fd_sf_ID }}</span>
               </el-form-item>
-              <el-form-item label="店面用餐类型">
+              <el-form-item label="店面用餐类型:">
                 <span v-for="item,index in props.row.eatTypeList">{{ item.propertyName + ' ,' }}</span>
               </el-form-item>
-              <el-form-item label="店面经营类别">
+              <el-form-item label="店面经营类别:">
                 <span v-for="item,index in props.row.foodTypeList">{{ item.propertyName + ' ,' }}</span>
               </el-form-item>
-              <el-form-item label="店面图片">
+              <el-form-item label="店面图片:">
                 <img
                   v-for="item,index in props.row.imgList"
                   v-lazy="item"
                   style="width: 100px;height: 50px;margin-right: 10px;"
+                  @click="$seeImage"
                 >
               </el-form-item>
-              <el-form-item label="用餐人数">
+              <el-form-item label="停车位个数:">
+                <span>{{ props.row.fd_sf_WaitCarCount }}</span>
+              </el-form-item>
+              <el-form-item label="用餐人数:">
                 <span>{{ props.row.fd_py_MansName }}</span>
               </el-form-item>
-              <el-form-item label="可订餐类型">
+              <el-form-item label="可订餐类型:">
                 <span v-for="item,index in props.row.canLockTimeList">{{ item.propertyName + ' ,' }}</span>
               </el-form-item>
-              <el-form-item label="店面名称">
+              <el-form-item label="店面名称:">
                 <span>{{ props.row.fd_sf_ProductName }}</span>
               </el-form-item>
-              <el-form-item label="地址描述">
+              <el-form-item label="地址描述:">
                 <span>{{ props.row.fd_sf_Address }}</span>
               </el-form-item>
-              <el-form-item label="经度">
+              <el-form-item label="经度:">
                 <span>{{ props.row.fd_sf_Lng }}°</span>
               </el-form-item>
-              <el-form-item label="纬度">
+              <el-form-item label="纬度:">
                 <span>{{ props.row.fd_sf_Lat }}°</span>
               </el-form-item>
-              <el-form-item label="省">
+              <el-form-item label="省:">
                 <span>{{ props.row.fd_sf_Provice }}</span>
               </el-form-item>
-              <el-form-item label="市">
+              <el-form-item label="市:">
                 <span>{{ props.row.fd_sf_City }}</span>
               </el-form-item>
-              <el-form-item label="人均价格">
+              <el-form-item label="人均价格:">
                 <span>{{ props.row.fd_sf_AvgPrice }}元</span>
               </el-form-item>
-              <el-form-item label="每周开始营业时间">
+              <el-form-item label="每周开始营业时间:">
                 <span>{{ props.row.fd_sf_WorkDayFrom | getWeek }}</span>
               </el-form-item>
-              <el-form-item label="每周结束营业时间">
+              <el-form-item label="每周结束营业时间:">
                 <span>{{ props.row.fd_sf_WorkDayTo | getWeek}}</span>
               </el-form-item>
-              <el-form-item label="每天营业时间">
+              <el-form-item label="每天营业时间:">
                 <span>{{ props.row.fd_sf_OpenTime + '~' + props.row.fd_sf_CloseTime}}</span>
               </el-form-item>
-              <el-form-item label="联系电话">
+              <el-form-item label="联系电话:">
                 <span>{{ props.row.fd_sf_Phone }}</span>
               </el-form-item>
-              <el-form-item label="是否有WAFI">
+              <el-form-item label="是否有WIFI:">
                 <span>{{ props.row.fd_sf_HasWafi}}</span>
               </el-form-item>
-              <el-form-item label="交通信息">
+              <el-form-item label="交通信息:">
                 <span>{{ props.row.fd_sf_TransInfo }}</span>
               </el-form-item>
-              <el-form-item label="提前多少分钟通知">
+              <el-form-item label="提前多少分钟通知:">
                 <span>{{ props.row.fd_sf_Minutes }}</span>
               </el-form-item>
-              <el-form-item label="审核状态">
+              <el-form-item label="审核状态:">
                 <span>{{ props.row.fd_sf_PassStatus }}</span>
               </el-form-item>
-              <el-form-item label="店面简介">
+              <el-form-item label="店面简介:">
                 <span>{{ props.row.fd_sf_Introduce }}</span>
               </el-form-item>
-              <el-form-item label="推荐店铺审核状态">
+              <el-form-item label="推荐店铺审核状态:">
                 <span>{{props.row.fd_sf_ApplayState | applyState}}</span>
               </el-form-item>
             </el-form>
@@ -206,6 +210,9 @@
           <el-form-item label="地址描述:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.fd_sf_Address"></el-input>
           </el-form-item>
+          <el-form-item label="停车位个数:" :label-width="formLabelWidth">
+            <el-input v-model="addOptions.fd_sf_WaitCarCount"></el-input>
+          </el-form-item>
           <el-form-item label="经度:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.fd_sf_Lng"></el-input>
           </el-form-item>
@@ -273,7 +280,7 @@
           <el-form-item label="联系电话:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.fd_sf_Phone"></el-input>
           </el-form-item>
-          <el-form-item label="是否有WAFI:" :label-width="formLabelWidth">
+          <el-form-item label="是否有WIFI:" :label-width="formLabelWidth">
             <el-select v-model="addOptions.fd_sf_HasWafi" placeholder="请选择">
               <el-option
                 v-for="item in isWifi"
@@ -371,9 +378,11 @@
               </el-option>
             </el-select>
           </el-form-item>
-
           <el-form-item label="地址描述:" :label-width="formLabelWidth">
             <el-input v-model="updateObj.fd_sf_Address"></el-input>
+          </el-form-item>
+          <el-form-item label="停车位个数:" :label-width="formLabelWidth">
+            <el-input v-model="updateObj.fd_sf_WaitCarCount"></el-input>
           </el-form-item>
           <el-form-item label="经度:" :label-width="formLabelWidth" required>
             <el-input v-model="updateObj.fd_sf_Lng"></el-input>
@@ -511,6 +520,7 @@
           "fd_sf_HasWafi": "",
           "fd_sf_TradeID": "",
           "fd_sf_TransInfo": "",
+          "fd_sf_WaitCarCount": 30,//停车位个数
           "fd_sf_WorkDayFrom": "",
           "fd_sf_WorkDayTo": ""
         },
@@ -864,6 +874,7 @@
             "fd_sf_Lng": this.updateObj.fd_sf_Lng,//经度
             "fd_sf_Lat": this.updateObj.fd_sf_Lat,//纬度
             "fd_sf_Provice": this.updateObj.fd_sf_Provice,//省
+            fd_sf_WaitCarCount:this.updateObj.fd_sf_WaitCarCount,//停车位个数
             "fd_sf_City": this.updateObj.fd_sf_City,//市
             "fd_sf_OpenTime": this.times[0] ? this.times[0] : '',//营业时间
             "fd_sf_CloseTime": this.times[1] ? this.times[1] : '',//闭店时间

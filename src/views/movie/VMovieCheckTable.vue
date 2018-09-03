@@ -35,7 +35,7 @@
                 <span>{{props.row.vf_ve_Content.vf_vo_Time}}</span>
               </el-form-item>
               <el-form-item label="首页大图:">
-                <img :src="props.row.vf_ve_Content.vf_vo_TomImageURL" alt="" style="width: 100px;height: 100px">
+                <img :src="props.row.vf_ve_Content.vf_vo_TomImageURL" alt="" style="width: 100px;height: 100px"  @click="$seeImage">
               </el-form-item>
               <el-form-item label="大小:">
                 <span>{{props.row.vf_ve_Content.vf_vo_Size}}</span>
@@ -53,7 +53,7 @@
                 <span>{{props.row.vf_ve_Content.vf_vo_Introduce}}</span>
               </el-form-item>
               <el-form-item label="视频图片:">
-                <img :src="props.row.vf_ve_Content.vf_vo_ImageURL" alt="" style="width: 100px;height: 100px">
+                <img :src="props.row.vf_ve_Content.vf_vo_ImageURL" alt="" style="width: 100px;height: 100px"  @click="$seeImage">
               </el-form-item>
               <el-form-item label="备注:">
                 <span>{{props.row.vf_ve_Content.vf_vo_Remark}}</span>

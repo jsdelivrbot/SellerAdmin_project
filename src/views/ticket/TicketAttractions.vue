@@ -51,7 +51,7 @@
               </el-form-item>
               <el-form-item label="展示图片:">
                 <img v-for="item,index in props.row.tm_ts_ShowImage" width="300" height="150"
-                     style="margin: 10px 15px 0;" v-lazy="item">
+                     style="margin: 10px 15px 0;" v-lazy="item" @click="$seeImage">
               </el-form-item>
               <el-form-item label="简介:">
                 <span>{{ props.row.tm_ts_Introduce }}</span>

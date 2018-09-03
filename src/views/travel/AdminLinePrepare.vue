@@ -61,7 +61,7 @@
               </el-form-item>
               <el-form-item label="活动图片地址:">
                 <img v-for="item,index in props.row.ts_pt_ShowImage" :src="item" alt="" :key="index" width="300"
-                     height="150">
+                     height="150" @click="$seeImage">
 
               </el-form-item>
               <el-form-item label="线路日程详情:">

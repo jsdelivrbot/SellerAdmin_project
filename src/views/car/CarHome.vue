@@ -66,9 +66,9 @@
     <el-dialog title="添加租车信息" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
 
-        <el-form-item label="供应商ID:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.cr_h_AgentId" disabled></el-input>
-        </el-form-item>
+        <!--<el-form-item label="供应商ID:" :label-width="formLabelWidth">-->
+          <!--<el-input v-model="addOptions.data.cr_h_AgentId" disabled></el-input>-->
+        <!--</el-form-item>-->
 
         <el-form-item label="公司名称:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.cr_h_Name"></el-input>
@@ -199,7 +199,7 @@
       'carCompaniesList'
     ]),
     created() {
-      this.agentID = JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID
+      this.agentID = JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID;
       this.addOptions.data.cr_h_AgentId = this.agentID;
       this.initData()
     },
@@ -291,7 +291,6 @@
       },
       //添加提交
       addSubmit(){
-
         this.addOptions.data.cr_h_Logo = this.ImageURL.join(',');
         this.$store.dispatch('addCarHomeSubmit',this.addOptions)
           .then(suc => {

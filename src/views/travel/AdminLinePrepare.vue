@@ -192,7 +192,7 @@
                       :autosize="{ minRows: 6, maxRows: 10}"></el-input>
           </el-form-item>
           <el-form-item label="线路日程详情:" :label-width="formLabelWidth">
-            <editor v-model="updateAdminLinePrepareObj.ts_pt_Content"></editor>
+            <editor v-model="updateAdminLinePrepareObj.ts_pt_Content" ref="editor"></editor>
             <!--<tinymce :height="1000" v-model="updateAdminLinePrepareObj.ts_pt_Content"></tinymce>-->
           </el-form-item>
           <el-form-item label="展示图片:" :label-width="formLabelWidth">
@@ -513,6 +513,9 @@
       updateAdminLinePrepare(obj) {
         this.updateAdminLinePrepareObj = obj
         this.updateAdminLinePrepareDialog = true;
+        this.$nextTick(()=>{
+          this.$refs.editor.setHtml(obj.ts_pt_Content)
+        })
         this.updateImageURL = obj.ts_pt_ShowImage
       },
       //修改提交

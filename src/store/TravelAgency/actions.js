@@ -534,7 +534,7 @@ export default {
   //修改线路
   UpdateAdminQueryProductInformation(store, data) {
     return new Promise(function (relove, reject) {
-      request.post(getNewStr + '/ProductLine/Update', JSON.stringify(data), {
+      request.post(getNewStr + '/ProductLine/UpdateL', JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -547,6 +547,23 @@ export default {
             reject(data.resultcontent);
           }
         })
+    })
+  },
+  UpdateAdminQueryProductInformationLine({commit},data){
+    return new Promise(function (relove, reject) {
+      request.post(getNewStr + '/ProductLine/Update', JSON.stringify(data), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(data => {
+        var data = data.data;
+        if (Number(data.resultcode) == 200) {
+          relove(data.resultcontent);
+        } else {
+          reject(data.resultcontent);
+        }
+      })
     })
   },
   //删除线路

@@ -46,6 +46,9 @@
       }
     },
     methods:{
+      setHtml (val) {
+        this.editor.txt.html(val)
+      },
       beforeUpload(file,insert){
         var fd = new FormData();
         fd.append("fileToUpload", file);

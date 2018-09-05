@@ -180,11 +180,11 @@
           "pcName": "",
           "token": "",
           "data": {
-            ts_pt_GoodsListID: '',
+//            ts_pt_GoodsListID: '',
             ts_pt_ID: "",//线路编号
             ts_pt_BookKnow: "",//预定需知      富文本格式
-            ts_pt_SafetyLimit: '',//特殊限制
-            ts_pt_SpecialLimit: '',//安全提示
+            ts_pt_SafetyLimit: '',// 安全提示
+            ts_pt_SpecialLimit: '',//特殊限制
             ts_pt_PayWay: '',//付款方式
             ts_pt_LimitDuty: '',//违约责任
           }
@@ -251,7 +251,7 @@
       },
       //添加提交
       addSubmit() {
-        this.addOptions.data.ts_pt_GoodsListID = this.lineObj.ts_pt_GoodsListID;
+//        this.addOptions.data.ts_pt_GoodsListID = this.lineObj.ts_pt_GoodsListID;
         this.addOptions.data.ts_pt_ID = this.id;
 //        console.log(this.addOptions.data)
 //        return
@@ -285,7 +285,7 @@
           "pcName": "",
           "token": "",
           "data": {
-            ts_pt_GoodsListID: this.lineObj.ts_pt_GoodsListID,
+//            ts_pt_GoodsListID: this.lineObj.ts_pt_GoodsListID,
             "ts_pt_ID": this.id,//线路编号
             "ts_pt_BookKnow": getEscapeVal(this.updateOptions.ts_pt_BookKnow),//预定需知      富文本格式
             ts_pt_SafetyLimit: getEscapeVal(this.updateOptions.ts_pt_SafetyLimit),//特殊限制

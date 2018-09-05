@@ -97,17 +97,17 @@
       <el-dialog title="修改费用说明" :visible.sync="updateDialog" :close-on-click-modal="false" width="60%">
         <el-form :model="updateOptions">
           <el-form-item label="退改政策:" :label-width="formLabelWidth">
-            <editor v-model="updateOptions.ts_pt_ReturnRule"></editor>
+            <editor v-model="updateOptions.ts_pt_ReturnRule" ref="editor"></editor>
             <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_ReturnRule"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="费用包含:" :label-width="formLabelWidth">
-            <editor v-model="updateOptions.ts_pt_FeeIn"></editor>
+            <editor v-model="updateOptions.ts_pt_FeeIn" ref="editor1"></editor>
             <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_FeeIn"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_SpecialPolicy" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="费用不包含:" :label-width="formLabelWidth">
-            <editor v-model="updateOptions.ts_pt_FeeNotIn"></editor>
+            <editor v-model="updateOptions.ts_pt_FeeNotIn" ref="editor2"></editor>
             <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_FeeNotIn"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
@@ -244,6 +244,11 @@
       //修改
       updateAdminCostDescription(obj) {
         this.updateOptions = obj;
+        this.$nextTick(()=>{
+          this.$refs.editor.setHtml(obj.ts_pt_ReturnRule)
+          this.$refs.editor1.setHtml(obj.ts_pt_FeeIn)
+          this.$refs.editor2.setHtml(obj.ts_pt_FeeNotIn)
+        })
         this.updateDialog = true
       },
       //修改提交

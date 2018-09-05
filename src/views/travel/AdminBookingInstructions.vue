@@ -114,27 +114,27 @@
       <el-dialog title="修改预定须知" :visible.sync="updateDialog" :close-on-click-modal="false" width="60%">
         <el-form :model="updateOptions">
           <el-form-item label="出行须知:" :label-width="formLabelWidth">
-            <editor v-model="updateOptions.ts_pt_BookKnow"></editor>
+            <editor v-model="updateOptions.ts_pt_BookKnow" ref="editor"></editor>
             <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_BookKnow"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊限制:" :label-width="formLabelWidth">
-            <editor v-model="updateOptions.ts_pt_SpecialLimit"></editor>
+            <editor v-model="updateOptions.ts_pt_SpecialLimit" ref="editor1"></editor>
             <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_SpecialLimit"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_SpecialPolicy" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="付款方式:" :label-width="formLabelWidth">
-            <editor v-model="updateOptions.ts_pt_PayWay"></editor>
+            <editor v-model="updateOptions.ts_pt_PayWay" ref="editor2"></editor>
             <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_PayWay"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="违约责任:" :label-width="formLabelWidth">
-            <editor v-model="updateOptions.ts_pt_LimitDuty"></editor>
+            <editor v-model="updateOptions.ts_pt_LimitDuty" ref="editor3"></editor>
             <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_LimitDuty"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="安全提示:" :label-width="formLabelWidth">
-            <editor v-model="updateOptions.ts_pt_SafetyLimit"></editor>
+            <editor v-model="updateOptions.ts_pt_SafetyLimit" ref="editor4"></editor>
             <!--<tinymce :height="tinymceHeight" v-model="updateOptions.ts_pt_SafetyLimit"></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_HappyNotice" type="textarea"></el-input>-->
           </el-form-item>
@@ -273,6 +273,13 @@
       //修改
       updateAdminBookingInstructions(obj) {
         this.updateOptions = obj;
+        this.$nextTick(()=>{
+          this.$refs.editor.setHtml(obj.ts_pt_BookKnow)
+          this.$refs.editor1.setHtml(obj.ts_pt_SpecialLimit)
+          this.$refs.editor2.setHtml(obj.ts_pt_PayWay)
+          this.$refs.editor3.setHtml(obj.ts_pt_LimitDuty)
+          this.$refs.editor4.setHtml(obj.ts_pt_SafetyLimit)
+        })
         this.updateDialog = true
       },
       //修改提交

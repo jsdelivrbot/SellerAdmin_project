@@ -356,11 +356,11 @@
         <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_ReturnRule" ></tinymce>-->
         <!--</el-form-item>-->
         <el-form-item label="推荐理由:" :label-width="formLabelWidth">
-          <editor v-model="updateAdminQueryProductInformationObj.ts_pt_IntroReason"></editor>
+          <editor v-model="updateAdminQueryProductInformationObj.ts_pt_IntroReason" ref="editor"></editor>
           <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_IntroReason" ></tinymce>-->
         </el-form-item>
         <el-form-item label="产品线路介绍:" :label-width="formLabelWidth">
-          <editor v-model="updateAdminQueryProductInformationObj.ts_pt_Describe"></editor>
+          <editor v-model="updateAdminQueryProductInformationObj.ts_pt_Describe" ref="editor1"></editor>
           <!--<tinymce :height="300" v-model="updateAdminQueryProductInformationObj.ts_pt_Describe" ></tinymce>-->
         </el-form-item>
         <!--<el-form-item label="费用包含:" :label-width="formLabelWidth">-->
@@ -790,6 +790,10 @@
             obj.ts_pl_LineDays = obj.ts_pl_LineDays + ''
             this.updateAdminQueryProductInformationObj = obj
             this.updateAdminQueryProductInformationDialog = true;
+            this.$nextTick(()=>{
+              this.$refs.editor.setHtml(obj.ts_pt_IntroReason)
+              this.$refs.editor1.setHtml(obj.ts_pt_Describe)
+            })
           }, err => {
             this.$notify({
               message: err,

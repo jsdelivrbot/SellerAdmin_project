@@ -432,7 +432,7 @@
             <el-input v-model="updateTicketAttractionsObj.tm_ts_Introduce"></el-input>
           </el-form-item>
           <el-form-item label="详细介绍:" :label-width="formLabelWidth">
-            <editor v-model="updateTicketAttractionsObj.tm_ts_Detailedintroduction"></editor>
+            <editor v-model="updateTicketAttractionsObj.tm_ts_Detailedintroduction" ref="editor"></editor>
             <!--<tinymce :height="300" v-model="updateTicketAttractionsObj.tm_ts_Detailedintroduction"></tinymce>-->
           </el-form-item>
           <el-form-item label="详细地址:" :label-width="formLabelWidth" required>
@@ -1004,7 +1004,6 @@
       },
 //      修改
       update(obj) {
-//        console.log(obj)
 //        return
         this.isLoading = true;
         this.arrInit(obj).then(()=>{
@@ -1012,6 +1011,9 @@
           this.updateTicketAttractionsObj = obj;
           this.updateImageURL = obj.tm_ts_ShowImage
           this.updateDialog = true;
+          this.$nextTick(()=>{
+            this.$refs.editor.setHtml(obj.tm_ts_Detailedintroduction)
+          })
         })
 //        this.$store.commit('updateTicketAttractions', id);
       },

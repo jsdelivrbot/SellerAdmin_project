@@ -66,10 +66,13 @@
     <el-dialog title="添加租车信息" :visible.sync="addDialog" :close-on-click-modal="false">
       <el-form :model="addOptions">
 
+<<<<<<< Updated upstream
         <!--<el-form-item label="供应商ID:" :label-width="formLabelWidth">-->
           <!--<el-input v-model="addOptions.data.cr_h_AgentId" disabled></el-input>-->
         <!--</el-form-item>-->
 
+=======
+>>>>>>> Stashed changes
         <el-form-item label="公司名称:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.cr_h_Name"></el-input>
         </el-form-item>
@@ -109,10 +112,6 @@
     <!--修改-->
     <el-dialog title="修改租车信息" :visible.sync="updateDialog" :close-on-click-modal="false">
       <el-form :model="updateOptions">
-
-        <el-form-item label="供应商ID:" :label-width="formLabelWidth">
-          <el-input v-model="updateOptions.cr_h_AgentId" disabled></el-input>
-        </el-form-item>
 
         <el-form-item label="公司名称:" :label-width="formLabelWidth">
           <el-input v-model="updateOptions.cr_h_Name"></el-input>

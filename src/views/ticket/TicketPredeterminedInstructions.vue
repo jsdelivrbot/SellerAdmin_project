@@ -30,77 +30,77 @@
               <el-form-item label="开放时间:">
                 <div v-html="props.row.tm_bk_OpenTime"></div>
                 <!--<el-popover-->
-                  <!--ref="popover1"-->
-                  <!--placement="top-start"-->
-                  <!--title="开放时间"-->
-                  <!--trigger="hover"-->
-                  <!--:content="props.row.tm_bk_OpenTime">-->
+                <!--ref="popover1"-->
+                <!--placement="top-start"-->
+                <!--title="开放时间"-->
+                <!--trigger="hover"-->
+                <!--:content="props.row.tm_bk_OpenTime">-->
                 <!--</el-popover>-->
                 <!--<el-button v-popover:popover1 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="特殊人群政策:">
                 <div v-html="props.row.tm_bk_SpecialPolicy"></div>
                 <!--<el-popover-->
-                  <!--ref="popover2"-->
-                  <!--placement="top-start"-->
-                  <!--title="特殊人群政策"-->
-                  <!--trigger="hover"-->
-                  <!--:content="props.row.tm_bk_SpecialPolicy">-->
+                <!--ref="popover2"-->
+                <!--placement="top-start"-->
+                <!--title="特殊人群政策"-->
+                <!--trigger="hover"-->
+                <!--:content="props.row.tm_bk_SpecialPolicy">-->
                 <!--</el-popover>-->
                 <!--<el-button v-popover:popover2 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="预订提醒:">
                 <div v-html="props.row.tm_bk_Remind"></div>
                 <!--<el-popover-->
-                  <!--ref="popover3"-->
-                  <!--placement="top-start"-->
-                  <!--title="预订提醒"-->
-                  <!--trigger="hover"-->
-                  <!--:content="props.row.tm_bk_Remind">-->
+                <!--ref="popover3"-->
+                <!--placement="top-start"-->
+                <!--title="预订提醒"-->
+                <!--trigger="hover"-->
+                <!--:content="props.row.tm_bk_Remind">-->
                 <!--</el-popover>-->
                 <!--<el-button v-popover:popover3 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="温馨提示:">
                 <div v-html="props.row.tm_bk_HappyNotice"></div>
                 <!--<el-popover-->
-                  <!--ref="popover4"-->
-                  <!--placement="top-start"-->
-                  <!--title="温馨提示"-->
-                  <!--trigger="hover"-->
-                  <!--:content="props.row.tm_bk_HappyNotice">-->
+                <!--ref="popover4"-->
+                <!--placement="top-start"-->
+                <!--title="温馨提示"-->
+                <!--trigger="hover"-->
+                <!--:content="props.row.tm_bk_HappyNotice">-->
                 <!--</el-popover>-->
                 <!--<el-button v-popover:popover4 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="发票说明:">
                 <div v-html="props.row.tm_bk_TicketSay"></div>
                 <!--<el-popover-->
-                  <!--ref="popover5"-->
-                  <!--placement="top-start"-->
-                  <!--title="发票说明"-->
-                  <!--trigger="hover"-->
-                  <!--:content="props.row.tm_bk_TicketSay">-->
+                <!--ref="popover5"-->
+                <!--placement="top-start"-->
+                <!--title="发票说明"-->
+                <!--trigger="hover"-->
+                <!--:content="props.row.tm_bk_TicketSay">-->
                 <!--</el-popover>-->
                 <!--<el-button v-popover:popover5 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="退改规则:">
                 <div v-html="props.row.tm_bk_ReturnRule"></div>
                 <!--<el-popover-->
-                  <!--ref="popover6"-->
-                  <!--placement="top-start"-->
-                  <!--title="退改规则"-->
-                  <!--trigger="hover"-->
-                  <!--:content="props.row.tm_bk_ReturnRule">-->
+                <!--ref="popover6"-->
+                <!--placement="top-start"-->
+                <!--title="退改规则"-->
+                <!--trigger="hover"-->
+                <!--:content="props.row.tm_bk_ReturnRule">-->
                 <!--</el-popover>-->
                 <!--<el-button v-popover:popover6 size="mini">移入查看</el-button>-->
               </el-form-item>
               <el-form-item label="特殊信息:">
                 <div v-html="props.row.tm_bk_SpecialMessage"></div>
                 <!--<el-popover-->
-                  <!--ref="popover7"-->
-                  <!--placement="top-start"-->
-                  <!--title="特殊信息"-->
-                  <!--trigger="hover"-->
-                  <!--:content="props.row.tm_bk_SpecialMessage">-->
+                <!--ref="popover7"-->
+                <!--placement="top-start"-->
+                <!--title="特殊信息"-->
+                <!--trigger="hover"-->
+                <!--:content="props.row.tm_bk_SpecialMessage">-->
                 <!--</el-popover>-->
                 <!--<el-button v-popover:popover7 size="mini">移入查看</el-button>-->
               </el-form-item>
@@ -116,11 +116,11 @@
           <template slot-scope="scope">
             <div v-html="scope.row.tm_bk_OpenTime"></div>
             <!--<el-popover-->
-              <!--ref="popover8"-->
-              <!--placement="top-start"-->
-              <!--title="开放时间"-->
-              <!--trigger="hover"-->
-              <!--:content="scope.row.tm_bk_OpenTime">-->
+            <!--ref="popover8"-->
+            <!--placement="top-start"-->
+            <!--title="开放时间"-->
+            <!--trigger="hover"-->
+            <!--:content="scope.row.tm_bk_OpenTime">-->
             <!--</el-popover>-->
             <!--<el-button v-popover:popover8 size="mini">移入查看</el-button>-->
           </template>
@@ -129,7 +129,7 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
-              @click="update(scope.row.tm_bk_ID)">修改
+              @click="update(scope.row)">修改
             </el-button>
             <el-button
               size="mini"
@@ -179,7 +179,7 @@
             <!--<tinymce :height="300" v-model="addOptions.tm_bk_HappyNotice" ></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_HappyNotice" type="textarea"></el-input>-->
           </el-form-item>
-          <el-form-item label="发票说明:" :label-width="formLabelWidth" >
+          <el-form-item label="发票说明:" :label-width="formLabelWidth">
             <editor v-model="addOptions.tm_bk_TicketSay"></editor>
             <!--<tinymce :height="300" v-model="addOptions.tm_bk_TicketSay" ></tinymce>-->
             <!--<el-input v-model="addOptions.tm_bk_TicketSay" type="textarea"></el-input>-->
@@ -214,37 +214,37 @@
 
           </el-form-item>
           <el-form-item label="开放时间:" :label-width="formLabelWidth">
-            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime"></editor>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" ref="editor"></editor>
             <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_OpenTime" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊人群政策:" :label-width="formLabelWidth">
-            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialPolicy"></editor>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialPolicy" ref="editor1"></editor>
             <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialPolicy" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialPolicy" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="预订提醒:" :label-width="formLabelWidth">
-            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_Remind"></editor>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_Remind" ref="editor2"></editor>
             <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_Remind" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_Remind" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="温馨提示:" :label-width="formLabelWidth">
-            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_HappyNotice"></editor>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_HappyNotice" ref="editor3"></editor>
             <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_HappyNotice" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_HappyNotice" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="发票说明:" :label-width="formLabelWidth">
-            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_TicketSay"></editor>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_TicketSay" ref="editor4"></editor>
             <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_TicketSay" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_TicketSay" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="退改规则:" :label-width="formLabelWidth">
-            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_ReturnRule"></editor>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_ReturnRule" ref="editor5"></editor>
             <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_ReturnRule" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_ReturnRule" type="textarea"></el-input>-->
           </el-form-item>
           <el-form-item label="特殊信息:" :label-width="formLabelWidth">
-            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialMessage"></editor>
+            <editor v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialMessage" ref="editor6"></editor>
             <!--<tinymce :height="300" v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialMessage" ></tinymce>-->
             <!--<el-input v-model="updatePredeterminedInstructionsObj.tm_bk_SpecialMessage" type="textarea"></el-input>-->
           </el-form-item>
@@ -272,12 +272,11 @@
     },
     computed: mapGetters([
       'predeterminedInstructionsList',
-      'updatePredeterminedInstructionsObj',
       'ticketAttractionsList'
     ]),
     data() {
       return {
-        tourName:'',
+        tourName: '',
         siteName: '',
         isLoading: false,
         addOptions: {
@@ -293,36 +292,37 @@
         addDialog: false,
         formLabelWidth: '120px',
         updateDialog: false,
-        adminUserInfo:'',
-        ticketAttractionsValue:'',
+        adminUserInfo: '',
+        ticketAttractionsValue: '',
+        updatePredeterminedInstructionsObj: {},
       }
     },
     methods: {
-      jump(obj){
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/ticketsDetail/'+this.ticketAttractionsValue,'_blank')
+      jump(obj) {
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/ticketsDetail/' + this.ticketAttractionsValue, '_blank')
       },
-      handleSelect(item){
+      handleSelect(item) {
         this.ticketAttractionsValue = item.id;
         this.addOptions.tm_bk_TourSiteID = item.id;
         this.updatePredeterminedInstructionsObj.tm_bk_TourSiteID = item.id;
       },
       loadAll(num, name) {
-          let options = {
-            "loginUserID": "huileyou",
-            "loginUserPass": "123",
-            "operateUserID": "",
-            "operateUserName": "",
-            "pcName": "",
-            "tm_ts_Code": "",    //景点编码
-            "tm_ts_Name": name,//景点名称
-            "tm_ts_TradeInfoID": this.adminUserInfo.sm_ui_ID,//供应商编码
-            "tm_ts_IsDelete": 0,//必须传
-            "tm_ts_IsPass": "",//是否通过审核(0审核中1通过审核2未通过审核)
-            "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
-            "tm_ts_IsHot": "",//是否热门景点（0普通1热门)
-            "tm_ts_ThemeTypeID": "",//主题编码
-          };
-          return this.$store.dispatch('initSearchTicketAttractions', options)
+        let options = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "tm_ts_Code": "",    //景点编码
+          "tm_ts_Name": name,//景点名称
+          "tm_ts_TradeInfoID": this.adminUserInfo.sm_ui_ID,//供应商编码
+          "tm_ts_IsDelete": 0,//必须传
+          "tm_ts_IsPass": "",//是否通过审核(0审核中1通过审核2未通过审核)
+          "tm_ts_ShowTop": "",//是否展示首页（0否，1是）
+          "tm_ts_IsHot": "",//是否热门景点（0普通1热门)
+          "tm_ts_ThemeTypeID": "",//主题编码
+        };
+        return this.$store.dispatch('initSearchTicketAttractions', options)
 
       },
       querySearchAsync(queryString, cb) {
@@ -362,7 +362,7 @@
         this.$store.dispatch('initTicketAttractions', options)
       },
       initData(id) {
-        if( !id ){
+        if (!id) {
           this.$notify({
             message: '请选择景点!!',
             type: 'error'
@@ -386,7 +386,7 @@
           })
       },
 
-      search(){
+      search() {
 
         this.initData(this.ticketAttractionsValue)
       },
@@ -427,15 +427,23 @@
         this.addDialog = false;
       },
 
-      update(id) {
-        this.$store.commit('setTranstionFalse');
+      update(obj) {
+        this.updatePredeterminedInstructionsObj = obj
         this.updateDialog = true;
-        this.$store.commit('updatePredeterminedInstructions',id)
+        this.$nextTick(() => {
+          this.$refs.editor.setHtml(obj.tm_bk_OpenTime)
+          this.$refs.editor1.setHtml(obj.tm_bk_SpecialPolicy)
+          this.$refs.editor2.setHtml(obj.tm_bk_Remind)
+          this.$refs.editor3.setHtml(obj.tm_bk_HappyNotice)
+          this.$refs.editor4.setHtml(obj.tm_bk_TicketSay)
+          this.$refs.editor5.setHtml(obj.tm_bk_ReturnRule)
+          this.$refs.editor6.setHtml(obj.tm_bk_SpecialMessage)
+        })
       },
 
-      updateSubmit(){
-        for(var attr in this.updatePredeterminedInstructionsObj){
-          if(attr!='tm_bk_ID'||attr!='tm_bk_TourSiteID'){
+      updateSubmit() {
+        for (var attr in this.updatePredeterminedInstructionsObj) {
+          if (attr != 'tm_bk_ID' || attr != 'tm_bk_TourSiteID') {
             this.updatePredeterminedInstructionsObj[attr] = getEscapeVal(this.updatePredeterminedInstructionsObj[attr])
           }
         }
@@ -444,7 +452,7 @@
           "loginUserPass": "123",
           "data": this.updatePredeterminedInstructionsObj
         };
-        this.$store.dispatch('updatePredeterminedInstructionsSubmit',updateBookKnow)
+        this.$store.dispatch('updatePredeterminedInstructionsSubmit', updateBookKnow)
           .then(suc => {
             this.$notify({
               message: suc,
@@ -460,7 +468,7 @@
         this.updateDialog = false;
       },
       //删除预订须知
-      Delete(obj){
+      Delete(obj) {
         let options = {
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -472,13 +480,13 @@
             "tm_bk_ID": obj.tm_bk_ID,//预定须知编号
           }
         }
-        this.$store.dispatch('DeleteTicketPredeterminedInstructions',options)
-        .then(()=>{
-          this.initData(obj.tm_bk_TourSiteID);
-        })
+        this.$store.dispatch('DeleteTicketPredeterminedInstructions', options)
+          .then(() => {
+            this.initData(obj.tm_bk_TourSiteID);
+          })
       }
     },
-    created(){
+    created() {
       this.adminUserInfo = JSON.parse(sessionStorage.getItem('admin'));
 //      this.initTicketAttraction();
     }

@@ -262,7 +262,7 @@
   import {mapGetters} from 'vuex'
   // import Tinymce from '@/components/NewTinymce'
   import Editor from '@/components/Editor'
-  import {getEscapeVal} from '@/assets/js/public'
+  import {getEscapeVal,goEscapeVal} from '@/assets/js/public'
 
   export default {
     name: '',
@@ -428,6 +428,9 @@
       },
 
       update(obj) {
+        for(let attr in obj){
+          obj[attr] = goEscapeVal(obj[attr])
+        }
         this.updatePredeterminedInstructionsObj = obj
         this.updateDialog = true;
         this.$nextTick(() => {

@@ -231,7 +231,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import {getNewStr, getEscapeVal} from '@/assets/js/public'
+  import {getNewStr, getEscapeVal,goEscapeVal} from '@/assets/js/public'
   // import Tinymce from '@/components/NewTinymce'
   import Editor from '@/components/Editor'
   import Upload from '@/components/Upload'
@@ -511,6 +511,9 @@
       },
       //修改
       updateAdminLinePrepare(obj) {
+        for(let attr in obj){
+          obj[attr] = goEscapeVal(obj[attr])
+        }
         this.updateAdminLinePrepareObj = obj
         this.updateAdminLinePrepareDialog = true;
         this.$nextTick(()=>{

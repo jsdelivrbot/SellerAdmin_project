@@ -284,6 +284,8 @@ export const getEscapeVal = str=>{
   return escape(str)
 }
 
-
+export const goEscapeVal = str=>{
+  return unescape(str)
+}
 //http://hly.1000da.com.cn
 export const getNewStr =  '/api' //'http://192.168.3.4' //'http://192.168.3.50'///api

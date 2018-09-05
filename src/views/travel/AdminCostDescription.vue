@@ -3,7 +3,7 @@
     <section id="wrap">
       <h1 class="userClass">费用说明</h1>
       <div style="float: right;padding-right: 30px">
-        <el-button type="primary" @click="addAdminCostDescription" size="small">新增</el-button>
+        <!--<el-button type="primary" @click="addAdminCostDescription" size="small">新增</el-button>-->
       </div>
 
       <!--数据展示-->
@@ -124,7 +124,7 @@
 <script>
   import {mapGetters} from 'vuex'
   import Editor from '@/components/Editor'
-  import {getEscapeVal} from '@/assets/js/public'
+  import {getEscapeVal,goEscapeVal} from '@/assets/js/public'
   // import Tinymce from '@/components/NewTinymce'
   export default {
     name: '',
@@ -243,6 +243,9 @@
       },
       //修改
       updateAdminCostDescription(obj) {
+        for(let attr in obj){
+          obj[attr] = goEscapeVal(obj[attr])
+        }
         this.updateOptions = obj;
         this.$nextTick(()=>{
           this.$refs.editor.setHtml(obj.ts_pt_ReturnRule)

@@ -542,7 +542,7 @@
 </template>
 <script>
   import {mapGetters} from 'vuex'
-  import {getNewStr, isNewPhone, getEscapeVal} from '@/assets/js/public'
+  import {getNewStr, isNewPhone, getEscapeVal,goEscapeVal} from '@/assets/js/public'
   import Tinymce from '@/components/NewTinymce'
   import Editor from '@/components/Editor'
   import Upload from '@/components/Upload'
@@ -1004,6 +1004,9 @@
       },
 //      修改
       update(obj) {
+        for(let attr in obj){
+          obj[attr] = goEscapeVal(obj[attr])
+        }
 //        return
         this.isLoading = true;
         this.arrInit(obj).then(()=>{

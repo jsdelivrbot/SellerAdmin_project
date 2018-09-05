@@ -355,12 +355,13 @@ export const constantRouterMap = [
       //   component: () => import('@/views/food/FoodStoreOrderingTime'),
       //   meta: {title: 'foodStoreOrderingTime'}
       // },
+      // {
+      //   path: 'foodStoppingPlace',
+      //   name: 'FoodStoppingPlace',
+      //   component: () => import('@/views/food/FoodStoppingPlace'),
+      //   meta: {title: 'foodStoppingPlace'}
+      // },
       {
-        path: 'foodStoppingPlace',
-        name: 'FoodStoppingPlace',
-        component: () => import('@/views/food/FoodStoppingPlace'),
-        meta: {title: 'foodStoppingPlace'}
-      },{
         path: 'foodStoreConfirmOrder',
         name: 'FoodStoreConfirmOrder',
         component: () => import('@/views/food/FoodStoreConfirmOrder'),

@@ -3,7 +3,7 @@
     <section id="wrap">
       <h1 class="userClass">预订须知</h1>
       <div style="float: right;padding-right: 30px">
-        <el-button type="primary" @click="addAdminBookingInstructions" size="small">新增</el-button>
+        <!--<el-button type="primary" @click="addAdminBookingInstructions" size="small">新增</el-button>-->
       </div>
 
       <!--数据展示-->
@@ -152,7 +152,7 @@
   import {mapGetters} from 'vuex'
   // import Tinymce from '@/components/NewTinymce'
   import Editor from '@/components/Editor'
-  import {getEscapeVal} from '@/assets/js/public'
+  import {getEscapeVal,goEscapeVal} from '@/assets/js/public'
 
   export default {
     name: '',
@@ -258,7 +258,7 @@
         this.$store.dispatch('UpdateAdminQueryProductInformation', this.addOptions)
           .then(() => {
             this.$notify({
-              message: '修改成功!',
+              message: '添加成功!',
               type: 'success'
             });
 //          window.location.reload()
@@ -272,6 +272,9 @@
       },
       //修改
       updateAdminBookingInstructions(obj) {
+        for(let attr in obj){
+          obj[attr] = goEscapeVal(obj[attr])
+        }
         this.updateOptions = obj;
         this.$nextTick(()=>{
           this.$refs.editor.setHtml(obj.ts_pt_BookKnow)

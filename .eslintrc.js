@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   parser: 'babel-eslint',
+
   parserOptions: {
     sourceType: 'module'
   },
@@ -25,6 +26,8 @@ module.exports = {
   // add your custom rules here
   //it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
+    "indent": 0,//缩进风格
+    'semi': 0,
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
       'before': true,
@@ -162,11 +165,11 @@ module.exports = {
       }
     }],
     'padded-blocks': [2, 'never'],
-    'quotes': [2, 'single', {
+    'quotes': [0, 'single', {
       'avoidEscape': true,
       'allowTemplateLiterals': true
     }],
-    'semi': [2, 'never'],
+    // 'semi': [2, 'never'],
     'semi-spacing': [2, {
       'before': false,
       'after': true
@@ -179,7 +182,7 @@ module.exports = {
       'words': true,
       'nonwords': false
     }],
-    'spaced-comment': [2, 'always', {
+    'spaced-comment': [0, 'always', {
       'markers': ['global', 'globals', 'eslint', 'eslint-disable', '*package', '!', ',']
     }],
     'template-curly-spacing': [2, 'never'],

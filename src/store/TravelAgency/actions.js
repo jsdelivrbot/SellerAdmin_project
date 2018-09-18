@@ -269,15 +269,55 @@ export default {
         .then(data => {
           var data = data.data;
           if (Number(data.resultcode) == 200) {
-            for (var i = 0; i < data.data.length; i++) {
-              if(data.data[i].ts_pt_ShowImage){
-                data.data[i].ts_pt_ShowImage = data.data[i].ts_pt_ShowImage.split(',')
+            let resulte = data.data;
+            for (var j = 0; j < resulte.length; j++) {
+              if(resulte[j].ts_pt_FreeImage){
+                resulte[j].ts_pt_FreeImage = JSON.parse(resulte[j].ts_pt_FreeImage)
               }else{
-                data.data[i].ts_pt_ShowImage = []
+                resulte[j].ts_pt_FreeImage = []
               }
 
+              //标题
+              let titleList = resulte[j].titleList;
+              if(titleList.length){
+                for(var i=0;i<titleList.length;i++){
+                  if(titleList[i].ts_dtp_ReachSite){
+                    titleList[i].ts_dtp_GoWay=100
+                  }
+                  if(titleList[i].ts_dtp_GoWay==null){
+                    titleList[i].ts_dtp_GoWay=100
+                  }
+                }
+              }
+              //美食
+              let foodList = resulte[j].foodList;
+              if(foodList.length){
+                for(var i=0;i<foodList.length;i++){
+                  if(foodList[i].ts_fd_Image){
+                    foodList[i].ts_fd_Image = JSON.parse(foodList[i].ts_fd_Image)
+                  }
+                }
+              }
+              //景点
+              let tourList = resulte[j].tourList;
+              if(tourList.length){
+                for(var i=0;i<tourList.length;i++){
+                  if(tourList[i].ts_ts_Image){
+                    tourList[i].ts_ts_Image = JSON.parse(tourList[i].ts_ts_Image)
+                  }
+                }
+              }
+              //酒店
+              let hotelList = resulte[j].hotelList;
+              if(hotelList.length){
+                for(var i=0;i<hotelList.length;i++){
+                  if(hotelList[i].ts_hl_HotelImage){
+                    hotelList[i].ts_hl_HotelImage = JSON.parse(hotelList[i].ts_hl_HotelImage)
+                  }
+                }
+              }
             }
-            commit('initAdminLinePrepare', data.data);
+            commit('initAdminLinePrepare', resulte);
             relove()
           } else {
             reject(data.resultcontent)

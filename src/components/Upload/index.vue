@@ -18,7 +18,7 @@
 
   export default {
     name: '',
-    props: ['attrs'],
+    props: ['attrs','index'],
     data() {
       return {
         clearShow:true,
@@ -95,6 +95,7 @@
       fileSuccess (rootFile, file, message, chunk) {
         this.clearShow = true
         var obj = JSON.parse(message)
+        obj.index = this.index;
 
         this.$emit('getData',obj);
       },

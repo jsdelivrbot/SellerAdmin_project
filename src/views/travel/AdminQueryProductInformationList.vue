@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="contentBox">
-      <h1>当前线路:{{LineName}}</h1>
+      <div style="margin-bottom: 20px" class="LineName">
+        <h1>当前线路:</h1><span style="margin: 10px 0 10px 20px;display: inline-block;font-size: 14px;">{{LineName}}</span>
+      </div>
       <el-tabs v-model="activeName" @tab-click="tab" >
         <el-tab-pane label="预订须知" name="预订须知">
           <adminBookingInstructions :id="id"></adminBookingInstructions>
@@ -144,8 +146,9 @@
   .contentBox {
     padding: 20px;
   }
-  .contentBox>h1 {
+  .LineName>h1{
+    display: inline-block;
     font: bold 20px/2 '微软雅黑';
-    margin-bottom: 20px;
+    margin: 0;
   }
 </style>

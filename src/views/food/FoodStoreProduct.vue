@@ -324,6 +324,11 @@
         for (let attr in this.addOptions) {
           this.addOptions[attr] = ''
         }
+        let uploader = document.querySelector('.uploader-list')
+        if(uploader){
+          uploader.querySelector('ul').innerHTML = ''
+        }
+        this.addImage = []
         this.addOptions.fd_sfp_StoreFrontID = this.productId;
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;

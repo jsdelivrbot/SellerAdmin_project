@@ -92,9 +92,9 @@
             @click="toRoomProduct(scope.row.ht_bt_RoomID)">前往房间产品
           </el-button>
           <!--<el-button-->
-            <!--size="mini"-->
-            <!--type="primary"-->
-            <!--@click="toRoomNumber(scope.row.ht_bt_RoomID)">前往生成房间数-->
+          <!--size="mini"-->
+          <!--type="primary"-->
+          <!--@click="toRoomNumber(scope.row.ht_bt_RoomID)">前往生成房间数-->
           <!--</el-button>-->
           <el-button
             size="mini"
@@ -284,8 +284,8 @@
     },
     data(){
       return {
-        imgUrl:'',
-        imgShow:false,
+        imgUrl: '',
+        imgShow: false,
         ImageURL: [],
         ImageURL1: [],
         roomName: '',
@@ -333,7 +333,7 @@
         this.$notify({
           message: '请先添加酒店信息!',
           position: 'top-left',
-          type:'error'
+          type: 'error'
         });
         return
       }
@@ -383,22 +383,21 @@
       },
 
 
-
       jump(obj){
-        let hotelID=sessionStorage.getItem("hotelID")
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
+        let hotelID = sessionStorage.getItem("hotelID")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/' + hotelID, '_blank')
       },
       //前往生成房间数
       toRoomNumber(RoomID){
-        this.$router.push({name:'HotelRoomNumber', params: {id: RoomID}})
+        this.$router.push({name: 'HotelRoomNumber', params: {id: RoomID}})
       },
       //前往房间房间设施
       toRoomFacilities(RoomID){
-        this.$router.push({name:'HotelRoomRoomFacilities', params: {id: RoomID}})
+        this.$router.push({name: 'HotelRoomRoomFacilities', params: {id: RoomID}})
       },
       //前往房间产品
       toRoomProduct(RoomID){
-        this.$router.push({name:'HotelRoomProduct', params: {id: RoomID}})
+        this.$router.push({name: 'HotelRoomProduct', params: {id: RoomID}})
       },
       lookImg(imgUrl){
         this.$store.commit('setTranstionFalse');
@@ -419,7 +418,7 @@
           "pcName": "",
           "ht_bt_RoomID": "",//房间编码
           "ht_bt_HotelID": this.hotelID,//酒店编码
-          "ht_bt_RoomName":name?name:'',
+          "ht_bt_RoomName": name ? name : '',
           "ht_bt_IsDelete": "",//是否启用
           "page": page ? page : 1,//页码编号
           "rows": "5",//单页显示数量
@@ -438,19 +437,19 @@
       },
       //查询
       search(){
-        this.initData(this.roomName,1)
+        this.initData(this.roomName, 1)
       },
       Add(){
         let uploader = document.querySelector('.uploader-list')
-        if(uploader){
+        if (uploader) {
           uploader.querySelector('ul').innerHTML = ''
         }
-        for(let attr in this.addOptions.data){
-          if(typeof this.addOptions.data[attr]=='object'){
-            for(let attr1 in this.addOptions.data[attr]){
+        for (let attr in this.addOptions.data) {
+          if (typeof this.addOptions.data[attr] == 'object') {
+            for (let attr1 in this.addOptions.data[attr]) {
               this.addOptions.data[attr][attr1] = ''
             }
-          }else{
+          } else {
             this.addOptions.data[attr] = ''
           }
         }
@@ -496,19 +495,19 @@
           "data": this.updateHotelRoomObj
         };
         updateOptions.data.ht_bt_ImagePath = this.ImageURL1.join(',');
-        this.$store.dispatch('UpdateHotelRoom',updateOptions)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData(this.roomName, 1)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
+        this.$store.dispatch('UpdateHotelRoom', updateOptions)
+        .then(suc => {
+          this.$notify({
+            message: suc,
+            type: 'success'
           });
+          this.initData(this.roomName, 1)
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        });
         this.updateDialog = false;
       },
       //删除
@@ -523,7 +522,7 @@
             "ht_bt_RoomID": id//房间编码
           }
         };
-        this.$store.dispatch('DeleteHotelRoom',deleteOptions)
+        this.$store.dispatch('DeleteHotelRoom', deleteOptions)
         .then(suc => {
           this.$notify({
             message: suc,

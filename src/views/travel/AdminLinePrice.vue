@@ -165,7 +165,7 @@
           <!--</el-option>-->
           <!--</el-select>-->
           <!--</el-form-item>-->
-          <el-form-item label="请筛选出发城市:" :label-width="formLabelWidth">
+          <el-form-item label="请筛选出发城市:" :label-width="formLabelWidth" required>
             <!--<el-select v-model="addOptions.city" placeholder="请选择出发城市" filterable>-->
               <!--<el-option-->
                 <!--v-for="item in adminRouteDepartureCity"-->
@@ -185,19 +185,19 @@
             ></el-autocomplete>
 
           </el-form-item>
-          <el-form-item label="可销售成人票数:" :label-width="formLabelWidth">
+          <el-form-item label="可销售成人票数:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.manNo" placeholder="请输入成人票数"></el-input>
           </el-form-item>
-          <el-form-item label="可销售成人票价:" :label-width="formLabelWidth">
+          <el-form-item label="可销售成人票价:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.fullPrice" placeholder="请输入成人票价"></el-input>
           </el-form-item>
-          <el-form-item label="可销售儿童票数:" :label-width="formLabelWidth">
+          <el-form-item label="可销售儿童票数:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.childNo" placeholder="请输入儿童票数"></el-input>
           </el-form-item>
-          <el-form-item label="可销售儿童票价:" :label-width="formLabelWidth">
+          <el-form-item label="可销售儿童票价:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.childPrice" placeholder="请输入儿童票价"></el-input>
           </el-form-item>
-          <el-form-item label="可销售日期范围:" :label-width="formLabelWidth">
+          <el-form-item label="可销售日期范围:" :label-width="formLabelWidth" required>
             <el-date-picker
               v-model="createTimeData"
               type="daterange"
@@ -593,6 +593,7 @@
             this.addOptions[attr] = ''
           }
         }
+        this.cityName = ''
         let textArr = document.querySelectorAll('.w-e-text')
         if (textArr && textArr.length) {
           for (var i = 0; i < textArr.length; i++) {
@@ -604,6 +605,13 @@
       },
       //添加提交
       addAdminLinePriceSubmit(){
+        if(!this.cityName){
+          this.$notify({
+            message: '请选择出发城市!',
+            type: 'error'
+          });
+          return
+        }
         this.addOptions.createFrom = this.createTimeData[0];
         this.addOptions.createTo = this.createTimeData[1]
         this.addOptions.productLineID = this.adminLineScheduleManagementId
@@ -654,5 +662,7 @@
   }
 </script>
 <style scoped>
-
+.el-form-item__label{
+  width: 140px !important;
+}
 </style>

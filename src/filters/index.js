@@ -484,6 +484,8 @@ export const getWeek = val=>{
       return '星期六';
     case 7:
       return '星期日';
+    default:
+      return '其他';
   }
 }
 
@@ -497,6 +499,8 @@ export const applyState = val => {
       return '申请成功';
     case 3:
       return '申请失败';
+    default:
+      return '其他';
   }
 }
 
@@ -506,8 +510,48 @@ export const washRoomState = val => {
       return '无';
     case 1:
       return '有';
+    default:
+      return '其他';
   }
 }
-
+//获取乘车方式
+export const getGoWay = val =>{
+  switch (val) {
+    case 0:
+      return '汽车';
+    case 1:
+      return '火车';
+    case 2:
+      return '飞机';
+    case 3:
+      return '轮船';
+    default:
+      return '';
+  }
+}
+//获取早中晚
+export const getUseType = val =>{
+  switch (Number(val)) {
+    case 0:
+      return '早餐';
+    case 1:
+      return '中餐';
+    case 2:
+      return '晚餐';
+    default:
+      return '其他';
+  }
+}
+//获取美食状态
+export const getInclude = val =>{
+  switch (Number(val)) {
+    case 0:
+      return '个人自理';
+    case 1:
+      return '已含';
+    default:
+      return '其他';
+  }
+}
 
 

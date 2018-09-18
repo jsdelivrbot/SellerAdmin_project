@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="wrap" class="clearfix">
-      <h1 class="userClass">店面可订餐时间</h1>
+      <h1 class="userClass">店面可用餐日期</h1>
       <!--查询-->
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">

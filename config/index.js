@@ -61,7 +61,7 @@ module.exports = {
         index: path.resolve(__dirname, '../supplier/index.html'),
 
         // Paths
-        assetsRoot: path.resolve(__dirname, '../supplier'),
+        assetsRoot: path.resolve(__dirname, '../supplier'),//supplier
         assetsSubDirectory: 'static',
 
         // you can set by youself according to actual condition

@@ -1,6 +1,6 @@
 // import Vue from 'vue'
 // console.log(ELEMENT)
-
+// console.log(Mock)
 import 'normalize.css/normalize.css'// A modern alternative to CSS resets
 
 // import ElementUI from 'element-ui'

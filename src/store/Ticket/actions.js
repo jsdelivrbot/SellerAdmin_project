@@ -65,9 +65,15 @@ export default {
             //   }
             // }
             let resulte = data.data;
+
             for(var i=0;i<resulte.length;i++){
               if(resulte[i].tm_ts_Opentime){
                 resulte[i].tm_ts_Opentime = unescape(resulte[i].tm_ts_Opentime)
+              }
+              if(resulte[i].tm_ts_ShowImage){
+                resulte[i].tm_ts_ShowImage = resulte[i].tm_ts_ShowImage.split(',')
+              }else{
+                resulte[i].tm_ts_ShowImage = []
               }
             }
             commit('initTicketAttractions', resulte);

@@ -950,11 +950,9 @@
         this.addDialog = true;
         this.addOptions.tm_ts_TradeInfoID = this.adminUserInfo.sm_ui_ID;
       },
-      //添加提交
+      // 添加提交
       addSubmit() {
         this.addOptions.tm_ts_ShowImage = this.ImageURL.join(',')
-//        console.log(JSON.stringify(this.addOptions))
-//        return
         if (isNaN(this.addOptions.tm_ts_Time)) {
           this.$notify({
             message: '建议游玩时长，请输入数字',
@@ -970,7 +968,7 @@
           });
           return
         }
-        if (this.addOptions.tm_ts_Longitude.trim() == '' || this.addOptions.tm_ts_Latitude.trim() == '') {
+        if (this.addOptions.tm_ts_Longitude.trim() === '' || this.addOptions.tm_ts_Latitude.trim() === '') {
           this.$notify({
             message: '经纬度必须输入!',
             type: 'error'
@@ -1004,8 +1002,12 @@
       },
 //      修改
       update(obj) {
+
         for(let attr in obj){
-          obj[attr] = goEscapeVal(obj[attr])
+          if(attr=='tm_ts_Detailedintroduction'){
+            obj[attr] = goEscapeVal(obj[attr])
+          }
+
         }
 //        return
         this.isLoading = true;

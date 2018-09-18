@@ -1,8 +1,8 @@
 <template>
   <div id="wrap" class="clearfix">
-    <el-breadcrumb separator-class="el-icon-arrow-right"style="margin: 20px 0px 0px 20px" >
-      <el-breadcrumb-item :to="{ path:'/home/hotelRoom'}" >房间</el-breadcrumb-item>
-      <el-breadcrumb-item >酒店房间产品</el-breadcrumb-item>
+    <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 20px 0px 0px 20px">
+      <el-breadcrumb-item :to="{ path:'/home/hotelRoom'}">房间</el-breadcrumb-item>
+      <el-breadcrumb-item>酒店房间产品</el-breadcrumb-item>
       <!--<el-breadcrumb-item>酒店房间实体</el-breadcrumb-item>-->
       <!--<el-breadcrumb-item>前往生成房间数</el-breadcrumb-item>-->
     </el-breadcrumb>
@@ -326,7 +326,7 @@
             "ht_rpp_WafiType": "",//0免费WAFI  1免费有线 2收费有线
             "ht_rpp_CancelType": "",//取消类型
             "ht_rpp_ProductPrice": "",//产品价格
-            "ht_rpp_RoomNumber": "",//房间数量
+            "ht_rpp_RoomNumber": ""//房间数量
           }
         }
       }
@@ -351,20 +351,20 @@
     },
     methods: {
       jump(obj){
-        let hotelID=sessionStorage.getItem("hotelID")
-        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
+        let hotelID = sessionStorage.getItem("hotelID")
+        window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/' + hotelID, '_blank')
       },
-      //前往房间实体
-      toRoomEntity(item){
-        sessionStorage.setItem('roomProductID',item.ht_rpp_ID)
-        this.$router.push({name:'HotelRoomEntity', params: {id: item.ht_rpp_ID}})
+      //  前往房间实体
+      toRoomEntity(item) {
+        sessionStorage.setItem('roomProductID', item.ht_rpp_ID)
+        this.$router.push({name: 'HotelRoomEntity', params: {id: item.ht_rpp_ID}})
       },
       toLotRoomNumber(id){
-        this.$router.push({name:'HotelLotRoomNumber', params: {id: id}})
+        this.$router.push({name: 'HotelLotRoomNumber', params: {id: id}})
       },
       //前往生成房间数
       toRoomNumber(RoomProductID){
-        this.$router.push({name:'HotelRoomNumber', params: {id: RoomProductID}})
+        this.$router.push({name: 'HotelRoomNumber', params: {id: RoomProductID}})
       },
       //分页
       handleCurrentChange(num){
@@ -407,12 +407,12 @@
       },
       //添加
       Add(){
-        for(let attr in this.addOptions.data){
-          if(typeof this.addOptions.data[attr]=='object'){
-            for(let attr1 in this.addOptions.data[attr]){
+        for (let attr in this.addOptions.data) {
+          if (typeof this.addOptions.data[attr] == 'object') {
+            for (let attr1 in this.addOptions.data[attr]) {
               this.addOptions.data[attr][attr1] = ''
             }
-          }else{
+          } else {
             this.addOptions.data[attr] = ''
           }
         }
@@ -452,19 +452,19 @@
           "pcName": "",
           "data": this.updateHotelRoomProductObj
         }
-        this.$store.dispatch('UpdateHotelRoomProduct',updateOptions)
-          .then(suc => {
-            this.$notify({
-              message: suc,
-              type: 'success'
-            });
-            this.initData(this.roomName, 1)
-          }, err => {
-            this.$notify({
-              message: err,
-              type: 'error'
-            });
+        this.$store.dispatch('UpdateHotelRoomProduct', updateOptions)
+        .then(suc => {
+          this.$notify({
+            message: suc,
+            type: 'success'
           });
+          this.initData(this.roomName, 1)
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        });
         this.updateDialog = false;
       },
       //删除
@@ -476,10 +476,10 @@
           "operateUserName": "lb",
           "pcName": "",
           "data": {
-            "ht_rpp_ID":id//房间产品ID
+            "ht_rpp_ID": id//房间产品ID
           }
         };
-        this.$store.dispatch('DeleteHotelRoomProduct',deleteOptions)
+        this.$store.dispatch('DeleteHotelRoomProduct', deleteOptions)
         .then(suc => {
           this.$notify({
             message: suc,

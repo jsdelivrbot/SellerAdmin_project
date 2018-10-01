@@ -488,6 +488,19 @@ export const getWeek = val=>{
       return '其他';
   }
 }
+//展示首页
+export const getShowTop = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '未审核';
+    case 1:
+      return '审核通过';
+    case 2:
+      return '申请中';
+    default:
+      return '申请失败';
+  }
+}
 
 export const applyState = val => {
   switch (Number(val)) {

@@ -42,6 +42,9 @@
             <el-form-item label="推荐价格:">
               <span>¥ {{ props.row.ts_tg_lowestPrice}}</span>
             </el-form-item>
+            <el-form-item label="首页展示状态:">
+              <span>{{ props.row.ts_tg_ShowTop | getShowTop}}</span>
+            </el-form-item>
             <!--<el-form-item label="所属国家:">-->
             <!--<span>{{ props.row.ts_tg_Country }}</span>-->
             <!--</el-form-item>-->
@@ -51,81 +54,9 @@
             <el-form-item label="产品类型:">
               <span>{{ props.row.ts_tg_Type | getTrandeType}}</span>
             </el-form-item>
-            <!--<el-form-item label="产品描述:">-->
-            <!--<el-popover-->
-            <!--ref="popover1"-->
-            <!--placement="top-start"-->
-            <!--trigger="hover"-->
-            <!--:content="props.row.ta_tg_Describe">-->
-            <!--</el-popover>-->
-            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="成团地点:">-->
-            <!--<span>{{ props.row.ts_tg_GroupSite }}</span>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="费用包含:">-->
-            <!--<el-popover-->
-            <!--ref="popover1"-->
-            <!--placement="top-start"-->
-            <!--trigger="hover"-->
-            <!--&gt;-->
-            <!--<p v-for="item,index in props.row.feeIn" style="padding: 20px;width: 500px">-->
-            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-            <!--</el-popover>-->
-            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="费用不包含:">-->
-            <!--<el-popover-->
-            <!--ref="popover1"-->
-            <!--placement="top-start"-->
-            <!--trigger="hover">-->
-            <!--<p v-for="item,index in props.row.feeNotIn" style="padding: 20px;width: 500px">-->
-            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-            <!--</el-popover>-->
-            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
-
-            <!--</el-form-item>-->
-            <!--<el-form-item label="推荐理由:">-->
-            <!--<el-popover-->
-            <!--ref="popover1"-->
-            <!--placement="top-start"-->
-            <!--trigger="hover">-->
-            <!--<p v-for="item,index in props.row.buyReason" style="padding: 20px;width: 500px">-->
-            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-            <!--</el-popover>-->
-            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="产品介绍:">-->
-            <!--<el-popover-->
-            <!--ref="popover1"-->
-            <!--placement="top-start"-->
-            <!--trigger="hover">-->
-            <!--<p v-for="item,index in props.row.goodIntroduce" style="padding: 20px;width: 500px">-->
-            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-            <!--</el-popover>-->
-            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="预订须知:">-->
-            <!--<el-popover-->
-            <!--ref="popover1"-->
-            <!--placement="top-start"-->
-            <!--trigger="hover"-->
-            <!--&gt;-->
-            <!--<p v-for="item,index in props.row.bookKnow" style="padding: 20px;width: 500px">-->
-            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-            <!--</el-popover>-->
-            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="退订政策:">-->
-            <!--<el-popover-->
-            <!--ref="popover1"-->
-            <!--placement="top-start"-->
-            <!--trigger="hover">-->
-            <!--<p v-for="item,index in props.row.backRule" style="padding: 20px;width: 500px">-->
-            <!--({{index+1}}):{{item.ts_gi_Name}}</p>-->
-            <!--</el-popover>-->
-            <!--<el-button v-popover:popover1 size="small">移入查看</el-button>-->
-            <!--</el-form-item>-->
+            <el-form-item label="审核状态:">
+              <span>{{ props.row.ts_tg_IsPass | getIsPass}}</span>
+            </el-form-item>
 
             <el-form-item label="产品图片地址:">
               <img v-for="item,index in props.row.ta_tg_ShowImages" :src="item" alt="" :key="index" width="300"
@@ -188,6 +119,12 @@
             type="success"
             size="mini"
             @click="jump(scope.row)">预览效果
+          </el-button>
+          <el-button
+            type="success"
+            size="mini"
+            v-show="scope.row.ts_tg_ShowTop==0"
+            @click="addShowTop(scope.row)">申请首页展示
           </el-button>
         </template>
       </el-table-column>
@@ -664,6 +601,31 @@
       this.getProductCategory()
     },
     methods: {
+      //申请首页展示
+      addShowTop(obj){
+        obj.ts_tg_ShowTop=2;
+        let addShowTopOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "data": obj
+        };
+        this.$store.dispatch('UpdateAdminMerchantProducts', addShowTopOptions)
+        .then(() => {
+          this.$notify({
+            message: '修改成功!',
+            type: 'success'
+          });
+          this.initData(this.productsID, 1);
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        });
+      },
       handleChange() {
         console.log(html, text)
       },
@@ -943,7 +905,8 @@
       //修改
       updateAdminMerchantProducts(obj) {
         this.isLoading = true;
-        this.initUpdateCity(obj.ts_tg_Provice)
+        if(obj.ts_tg_Provice){
+          this.initUpdateCity(obj.ts_tg_Provice)
           .then(() => {
             this.isLoading = false;
             obj.ts_tg_LongOut = obj.ts_tg_LongOut + '';
@@ -957,7 +920,13 @@
               type: 'error'
             })
           })
-
+        }else{
+          obj.ts_tg_LongOut = obj.ts_tg_LongOut + '';
+          obj.ts_tg_Type = obj.ts_tg_Type + ''
+          this.updateAdminMerchantProductsObj = obj;
+          this.updateImageURL = this.updateAdminMerchantProductsObj.ta_tg_ShowImages
+          this.updateDialog = true;
+        }
       },
       //修改提交
       updateSubmit() {

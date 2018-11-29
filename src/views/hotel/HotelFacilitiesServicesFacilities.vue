@@ -4,13 +4,18 @@
       <h1 style="font-size: 20px;">酒店设施服务设施</h1><br><br>
       <el-button type="primary" @click="Add" size="small" style="float: right;margin-right: 80px;">新增</el-button>
     </div>
-
+    <el-button type="danger" size="mini" style="margin-left: 5px" @click="HotelFacilitiesServicesFacilitiesArrDelete">批量删除</el-button>
     <!--数据展示-->
     <el-table
       :data="hotelFacilitiesServicesFacilitiesList"
       v-loading="isLoading"
+      @selection-change="handleSelectionChange"
       style="width: 100%"
     >
+      <el-table-column
+        type="selection"
+        width="55">
+      </el-table-column>
       <el-table-column
         prop="ht_hsh_ID"
         label="设施服务设施ID"
@@ -103,6 +108,7 @@
         hotelID:'',
         isLoading:false,
         addDialog:false,
+        selectList:[],
         updateDialog:false,
         formLabelWidth:'120px',
         facilitiesTypeID:'',
@@ -142,6 +148,56 @@
 
     },
     methods: {
+      //批量删除
+      HotelFacilitiesServicesFacilitiesArrDelete(){
+        if (!this.selectList.length) {
+          this.$notify({
+            message: '请选择需要删除的设施服务设施!',
+            type: 'error'
+          });
+          return
+        }
+        let arr = []
+        for (var i = 0; i < this.selectList.length; i++) {
+          arr[i] = this.selectList[i].ht_hsh_ID
+        }
+        this.getValue(arr)
+        .then(suc => {
+          this.$notify({
+            message: '删除成功',
+            type: 'success'
+          });
+          this.initData(1)
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        });
+      },
+      async getValue(arr){
+        for(var i=0;i<arr.length;i++){
+          await this.ArrDelete(arr[i])
+        }
+      },
+      //批量删除
+      ArrDelete(id) {
+        let deleteOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "操作员编码",
+          "operateUserName": "lb",
+          "pcName": "",
+          "data": {
+            "ht_hsh_ID": id//ID
+          }
+        };
+       return this.$store.dispatch('DeleteHotelFacilitiesServicesFacilities',deleteOptions)
+      },
+      //全选
+      handleSelectionChange(arr){
+        this.selectList = arr;
+      },
       jump(obj){
         let hotelID=sessionStorage.getItem("hotelID")
         window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')

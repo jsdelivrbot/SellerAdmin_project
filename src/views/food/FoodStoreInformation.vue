@@ -145,7 +145,7 @@
       </div>
       <!--添加-->
       <el-dialog title="添加店面信息" :visible.sync="addDialog">
-        <el-form :model="addOptions">
+        <el-form :model="addOptions" :rules="rules"  class="demo-ruleForm" status-icon  ref="addOptions">
           <el-form-item label="店面用餐类型:" :label-width="formLabelWidth" required>
             <el-select v-model="fd_sf_TypeID" multiple placeholder="请选择">
               <el-option
@@ -296,8 +296,8 @@
           <el-form-item label="交通信息:" :label-width="formLabelWidth" required>
             <el-input v-model="addOptions.fd_sf_TransInfo"></el-input>
           </el-form-item>
-          <el-form-item label="提前多少分钟通知:" :label-width="formLabelWidth" required>
-            <el-input v-model="addOptions.fd_sf_Minutes"></el-input>
+          <el-form-item label="提前多少分钟通知:" :label-width="formLabelWidth"  prop="fd_sf_Minutes">
+            <el-input v-model.number="addOptions.fd_sf_Minutes"></el-input>
           </el-form-item>
           <el-form-item label="店面介绍:" :label-width="formLabelWidth">
             <el-input
@@ -498,6 +498,18 @@
       'selectPropertyInfoList'
     ]),
     data() {
+      var checkMinutes = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('提前多少分钟不能为空'));
+        }
+        setTimeout(() => {
+          if (!Number.isInteger(value)) {
+            callback(new Error('请输入数字值'));
+          }else{
+            callback();
+          }
+        }, 500);
+      };
       return {
         //是否禁用
         isDisabled: false,
@@ -516,6 +528,7 @@
           "fd_sf_AvgPrice": "",
           "fd_sf_OpenTime": "",
           "fd_sf_CloseTime": "",
+          fd_sf_Minutes:'',
           "fd_sf_Phone": "",
           "fd_sf_HasWafi": "",
           "fd_sf_TradeID": "",
@@ -579,6 +592,11 @@
         updateImage: [],
         updateRadioIndex: 0,
         canLockTime: [],
+        rules:{
+          fd_sf_Minutes:[
+            { validator: checkMinutes, trigger: 'blur' }
+          ]
+        }
       }
     },
     created() {
@@ -789,6 +807,20 @@
       },
 //      添加提交
       addSubmit() {
+        if(!this.addImage.length){
+          this.$notify({
+            message: '请选择一张店面图片!',
+            type: 'error'
+          });
+          return
+        }
+        if(isNaN(this.addOptions.fd_sf_Minutes)){
+          this.$notify({
+            message: '提前多少分钟通知请输入数字!',
+            type: 'error'
+          });
+          return
+        }
         this.addOptions.fd_sf_TypeID = this.addOptions.fd_sf_TypeID;
         this.addOptions.fd_sf_CategoryID = this.addOptions.fd_sf_CategoryID;
         this.addOptions.fd_sf_OpenTime = this.times[0]
@@ -829,6 +861,7 @@
       },
       //修改
       update(rowData) {
+//        times
         this.isLoading = true;
         this.changeCity(rowData.proviceID)
           .then(()=>{
@@ -874,6 +907,8 @@
             "fd_sf_Lng": this.updateObj.fd_sf_Lng,//经度
             "fd_sf_Lat": this.updateObj.fd_sf_Lat,//纬度
             "fd_sf_Provice": this.updateObj.fd_sf_Provice,//省
+            "fd_sf_WorkDayFrom": this.updateObj.fd_sf_WorkDayFrom,//星期几
+            "fd_sf_WorkDayTo": this.updateObj.fd_sf_WorkDayTo,//星期几
             fd_sf_WaitCarCount:this.updateObj.fd_sf_WaitCarCount,//停车位个数
             "fd_sf_City": this.updateObj.fd_sf_City,//市
             "fd_sf_OpenTime": this.times[0] ? this.times[0] : '',//营业时间

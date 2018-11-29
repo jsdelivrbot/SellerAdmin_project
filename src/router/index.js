@@ -34,7 +34,7 @@ export const constantRouterMap = [
    *  首页
    **/
   {
-    path: '',
+    path: '/',
     component: Layout,
     redirect: 'dashboard',
     children: [{
@@ -189,7 +189,6 @@ export const constantRouterMap = [
     name: 'Hotel',
     hidden:true,
     redirect: '/hotel/hotelDetil',
-    // alwaysShow: false,
     meta: {title: 'hotel', icon: 'chart'},
     children: [
       {
@@ -197,12 +196,6 @@ export const constantRouterMap = [
         name: 'HotelDetil',
         component: () => import('@/views/hotel/HotelDetil'),
         meta: {title: 'hotelDetail'}
-      },
-      {
-        path: 'hotelConfirmOrder',
-        name: 'HotelConfirmOrder',
-        component: () => import('@/views/hotel/HotelConfirmOrder'),
-        meta: {title: 'hotelConfirmOrder'}
       },
       {
         path: 'hotelFacilitiesServices',
@@ -230,12 +223,7 @@ export const constantRouterMap = [
         component: () => import('@/views/hotel/HotelLotRoomNumber'),
         meta: {title: 'hotelLotRoomNumber'}
       },
-      {
-        path: 'hotelOrderDetails',
-        name: 'HotelOrderDetails',
-        component: () => import('@/views/hotel/HotelOrderDetails'),
-        meta: {title: 'hotelOrderDetails'}
-      },
+
       {
         path: 'hotelPolicy',
         name: 'HotelPolicy',
@@ -299,8 +287,18 @@ export const constantRouterMap = [
         component: () => import('@/views/hotel/HotelTheme'),
         meta: {title: 'hotelTheme'}
       },
-
-
+      {
+        path: 'hotelConfirmOrder',
+        name: 'HotelConfirmOrder',
+        component: () => import('@/views/hotel/HotelConfirmOrder'),
+        meta: {title: 'hotelConfirmOrder'}
+      },
+      {
+        path: 'hotelOrderDetails',
+        name: 'HotelOrderDetails',
+        component: () => import('@/views/hotel/HotelOrderDetails'),
+        meta: {title: 'hotelOrderDetails'}
+      },
     ]
   },
   /**

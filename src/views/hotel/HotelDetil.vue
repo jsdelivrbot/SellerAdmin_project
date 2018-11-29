@@ -448,6 +448,10 @@
       },
       //点击添加按钮
       addButton() {
+        let uploader = document.querySelector('.uploader-list')
+        if(uploader){
+          uploader.querySelector('ul').innerHTML = ''
+        }
         for(let attr in this.addHotelDetilsObj){
           this.addHotelDetilsObj[attr] = ''
         }

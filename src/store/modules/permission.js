@@ -1,4 +1,5 @@
-import { asyncRouterMap, constantRouterMap } from '@/router'
+import {  constantRouterMap } from '@/router'
+import {deepClone} from '@/assets/js/public'
 
 /**
  * 通过meta.role判断是否与当前用户权限匹配
@@ -34,7 +35,9 @@ function filterAsyncRouter(asyncRouterMap, roles) {
 const permission = {
   state: {
     routers: constantRouterMap,
-    addRouters: []
+    addRouters: [],
+    asyncRouterMap:[],
+    isGenerateRoutes:false,
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {
@@ -42,6 +45,7 @@ const permission = {
       state.routers = constantRouterMap.concat(routers)
     },
     GenerateRoutes(state,id){
+      state.isGenerateRoutes = true;
       switch (id){
         case 1:
           //美食
@@ -105,6 +109,7 @@ const permission = {
             constantRouterMap[i].hidden = false;
           }
       }
+      state.asyncRouterMap = deepClone(constantRouterMap)
       // state.routers = constantRouterMap.concat(routers)
     }
   },

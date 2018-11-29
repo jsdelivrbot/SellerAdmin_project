@@ -655,7 +655,7 @@ export default {
       }).then(data=>{
         var data = data.data;
         if(Number(data.resultcode)==200){
-          relove(data.resultcontent)
+          relove(data)
         }else{
           reject(data.resultcontent)
         }
@@ -812,7 +812,7 @@ export default {
       }).then(data=>{
         var data = data.data;
         if(Number(data.resultcode)==200){
-          relove(data.resultcontent)
+          relove(data)
         }else{
           reject(data.resultcontent)
         }
@@ -1017,7 +1017,7 @@ export default {
   //添加房间实体
   AddHotelRoomEntity(store,data){
     return new Promise((relove, reject) => {
-      request.post(getNewStr + '/RoomEntity/Insert',JSON.stringify(data),{
+      request.post(getNewStr + '/RoomEntity/BathInsert',JSON.stringify(data),{
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }

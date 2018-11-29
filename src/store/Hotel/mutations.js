@@ -136,14 +136,6 @@ export default {
   initHotelID(state, id) {
     state.hotelID = id;
   },
-  UpdateHotelRoomRoomFacilities(state, id) {
-    state.updateHotelRoomRoomFacilitiesObj = state.hotelRoomRoomFacilitiesList.filter(item => {
-      if (item.ht_rth_ID == id) {
-        return true;
-      }
-      return false;
-    })[0]
-  },
   initHotelOrderDetails(state, data) {
     state.hotelOrderDetailsList = data;
   },

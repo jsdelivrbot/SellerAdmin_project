@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="wrap" class="clearfix">
-      <h1 class="userClass">店面可用餐日期</h1>
+      <h1 class="userClass">店面休息日期</h1>
       <!--查询-->
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
@@ -44,45 +44,36 @@
         :data="foodStoreOrderingTimeList"
         style="width: 100%"
         v-loading="isLoading"
-        @selection-change="selete"
       >
-        <el-table-column
-          type="selection"
-          align="center"
-        >
         </el-table-column>
         <el-table-column
-          prop="fd_rtt_ID"
+          prop="fd_cns_ID"
           align="center"
           label="编号">
         </el-table-column>
         <el-table-column
-          prop="fd_sf_ProductName"
+          prop="fd_cns_FrontID"
           align="center"
-          label="店面名称">
+          label="店面编码">
         </el-table-column>
         <el-table-column
-          prop="fd_rtt_Time"
+          prop="fd_cns_StopDate"
           align="center"
-          label="用餐时间">
-        </el-table-column>
-        <el-table-column
-          prop="fd_sfr_RoomName"
-          align="center"
-          label="房间名称">
-        </el-table-column>
-        <el-table-column
-          prop="fd_rtt_Date"
-          align="center"
-          label="日期">
+          label="休息日期">
         </el-table-column>
         <el-table-column
           align="center"
-          label="餐桌状态">
+          label="状态">
           <template slot-scope="scope">
-            <span v-show="scope.row.fd_rtt_TableState=='空闲'" style="color: forestgreen;font-weight: bold;">{{ scope.row.fd_rtt_TableState  }}</span>
-            <span v-show="scope.row.fd_rtt_TableState=='锁定'" style="color: #f60;font-weight: bold;">{{ scope.row.fd_rtt_TableState  }}</span>
-            <span v-show="scope.row.fd_rtt_TableState=='已售'" style="color: blue;font-weight: bold;">{{ scope.row.fd_rtt_TableState  }}</span>
+            <span>{{ scope.row.fd_cns_CancelState | getCancelState  }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          align="center"
+          label="操作">
+          <template slot-scope="scope">
+            <el-button type="primary" v-show="scope.row.fd_cns_CancelState==0" size="small" @click="cancel(scope.row)">取消</el-button>
+            <el-button type="success" v-show="scope.row.fd_cns_CancelState==1">开启</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -99,10 +90,10 @@
         </el-pagination>
       </div>
       <!--添加-->
-      <el-dialog title="添加店面可订单时间" :visible.sync="addDialog" :close-on-click-modal="false">
+      <el-dialog title="添加店面休息时间" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
           <el-form-item label="店面名称:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.storeID" placeholder="请选择店面">
+            <el-select v-model="addOptions.fd_cns_FrontID" placeholder="请选择店面">
               <el-option
                 v-for="item in foodStoreInformtionList"
                 :key="item.fd_sf_ID"
@@ -111,17 +102,14 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="生成可订时间:" :label-width="formLabelWidth">
+          <el-form-item label="生成休息时间:" :label-width="formLabelWidth">
             <!--原版-->
             <div class="block">
               <el-date-picker
+                type="dates"
+                value-format="yyyy-MM-dd"
                 v-model="addTime"
-                :picker-options="pickerOptions"
-                type="daterange"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                value-format="yyyy-MM-dd">
+                placeholder="选择一个或多个日期">
               </el-date-picker>
             </div>
           </el-form-item>
@@ -189,14 +177,8 @@
         addDialog: false,
         deleteDialog: false,
         addOptions: {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",
-          "operateUserName": "",
-          "pcName": "",
-          "storeID": "",//店面编号
-          "dateFrom": "",//日期范围
-          "dateTo": "",//日期范围
+            "fd_cns_FrontID": '',//店面编号
+            "fd_cns_StopDate": "",//休息日期
         },
         formLabelWidth: '120px',
         isLoading:false,
@@ -210,6 +192,33 @@
       }
     },
     methods: {
+      Off(id,obj){
+        let options = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "token": "",
+          "operate": id,//0开/1关
+          "data": {
+            "fd_cns_ID": obj.fd_cns_ID,//标识
+          }
+        }
+        this.$store.dispatch('FoodStoreOrderingTimeOff',options)
+        .then(() => {
+          this.initData('','',this.addOptions.fd_cns_FrontID);
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          })
+        })
+      },
+      //取消
+      cancel(obj){
+        this.Off(1,obj)
+      },
       //店面列表
       initFoodStoreInformtion(){
         let selectStoreFrontpInfo = {
@@ -222,31 +231,28 @@
         };
         this.$store.dispatch('initFoodStoreInformtion', selectStoreFrontpInfo)
       },
-      selete(selection) {
-        this.deleteData = selection;
-      },
       //      分页
       handleCurrentChange(num) {
         this.initData(this.searchTime[0], this.searchTime[1], this.storeId, num);
       },
       //初始化数据
       initData(form, to, id, num) {
-        let selectRoomTableTimeInfo = {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "",
-          "operateUserName": "",
-          "pcName": "",
-          "page": num ? num : 1,
-          "rows": "10",
-          "fd_rtt_ID": "",//店面房间餐桌时间标识
-          "dateFrom": form ? form : '',//日期范围
-          "dateTo": to ? to : '',//日期范围
-          "fd_rtt_TableState": "",//餐桌锁定状态
-          "fd_rtt_FrontID": id ? id : ''//店面编码
-        };
+        let options = {
+            "loginUserID": "huileyou",
+            "loginUserPass": "123",
+            "operateUserID": "",
+            "operateUserName": "",
+            "pcName": "",
+            "fd_cns_ID":"",//标识
+            "fd_cns_FrontID":id ? id : '',//店面编码
+            "stopDateFrom": form ? form : '',//休息日期从
+            "stopDateTo":  to ? to : '',//休息日期从
+            //"fd_cns_CancelState":0,//状态 0正常 1取消
+            "page": num ? num : 1,
+            "rows": 10,
+          }
         this.isLoading = true;
-        this.$store.dispatch('initFoodStoreOrderingTime', selectRoomTableTimeInfo)
+        this.$store.dispatch('initFoodStoreOrderingTime', options)
           .then(total => {
             this.isLoading = false;
             this.total = total;
@@ -281,19 +287,42 @@
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
       },
+      addAll(id){
+        let options = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "",
+          "operateUserName": "",
+          "pcName": "",
+          "token": "",
+          "data": this.addOptions
+        }
+        options.data.fd_cns_StopDate = id;
+        return this.$store.dispatch('addFoodStoreOrderingTime', options)
+      },
+      async getAddAll(arr){
+        for(var i=0;i<arr.length;i++){
+          await this.addAll(arr[i])
+        }
+      },
       //添加提交
       addSubmit() {
-        this.addOptions.dateFrom = this.addTime[0];
-        this.addOptions.dateTo = this.addTime[1];
+        if(!this.addTime.length){
+          this.$notify({
+            message: '请选择日期!',
+            type: 'error'
+          })
+          return
+        }
         this.isLoading = true;
-        this.$store.dispatch('addFoodStoreOrderingTime', this.addOptions)
+        this.getAddAll(this.addTime)
           .then(suc => {
             this.isLoading = false;
             this.$notify({
               message: suc,
               type: 'success'
             })
-            this.initData();
+            this.initData('','',this.addOptions.fd_cns_FrontID);
           }, err => {
             this.$notify({
               message: err,

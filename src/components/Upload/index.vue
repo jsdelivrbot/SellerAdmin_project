@@ -1,6 +1,6 @@
 <template>
   <uploader :options="options" :file-status-text="statusText" class="uploader-example" ref="uploader"
-            @file-success="fileSuccess"  @file-added="add" v-if="clearShow">
+            @file-success="fileSuccess"  @file-added="add" v-if="clearShow"  @files-added="adds" >
     <uploader-unsupport></uploader-unsupport>
     <uploader-drop>
       <p>上传文件</p>
@@ -26,7 +26,8 @@
           // 可通过 https://github.com/simple-uploader/Uploader/tree/develop/samples/Node.js 示例启动服务
           target: getNewStr + '/OSSFile/PostToOSS',
           fileParameterName: 'fileToUpload',
-          testChunks: false
+          testChunks: false,
+          autoStart:false,
         },
 //        categoryMap:{image: ['gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp'],},
 //        attrs: {
@@ -46,6 +47,15 @@
 //    },
     computed: {},
     methods: {
+      adds(files, fileList){
+        if(files.length>21){
+          files.ignored = true
+          this.$notify({
+            message: '图片个数不能超过21张!',
+            type: 'error'
+          });
+        }
+      },
       add(file){
         let type = this.attrs.accept.split('/')[0];
         let fileType = file.fileType.split('/')[0];

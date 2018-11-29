@@ -19,13 +19,18 @@
         </el-form-item>
       </el-form>
     </el-col>
-
+    <el-button type="danger" size="mini" style="margin-left: 5px" @click="FaciltiesArrDelete">批量删除</el-button>
     <!--数据展示-->
     <el-table
       :data="hotelRoomRoomFacilitiesList"
       v-loading="isLoading"
+      @selection-change="handleSelectionChange"
       style="width: 100%"
     >
+      <el-table-column
+        type="selection"
+        width="55">
+      </el-table-column>
       <el-table-column
         prop="ht_rth_ID"
         label="房间房间设施ID"
@@ -49,7 +54,7 @@
           <el-button
             size="mini"
             type="primary"
-            @click="Update(scope.row.ht_rth_ID)">修改
+            @click="Update(scope.row)">修改
           </el-button>
           <el-button
             size="mini"
@@ -92,7 +97,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="房间设施:" :label-width="formLabelWidth">
-          <el-select v-model="ht_rth_RoomHardIDList" multiple placeholder="请选择" >
+          <el-select v-model="ht_rth_RoomHardIDList" multiple placeholder="请选择">
             <el-option
               v-for="item in roomFacilitiesList"
               :key="item.ht_rh_ID"
@@ -113,7 +118,7 @@
       <el-form :model="updateHotelRoomRoomFacilitiesObj">
 
         <el-form-item label="房间设施类型:" :label-width="formLabelWidth">
-          <el-select v-model="RoomFacilitiesTypeID" placeholder="请选择类型" @change="changeRoomFacilities">
+          <el-select v-model="updateHotelRoomRoomFacilitiesObj.ht_rth_RoomHardTypeId" placeholder="请选择类型" @change="changeRoomFacilities">
             <el-option
               v-for="item in hotelRoomFacilitiesTypeList"
               :key="item.ht_rht_ID"
@@ -123,7 +128,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="房间设施:" :label-width="formLabelWidth">
-          <el-select v-model="updateHotelRoomRoomFacilitiesObj.ht_rth_RoomHardID"  placeholder="请选择" >
+          <el-select v-model="updateHotelRoomRoomFacilitiesObj.ht_rth_RoomHardID"  placeholder="请选择">
             <el-option
               v-for="item in roomFacilitiesList"
               :key="item.ht_rh_ID"
@@ -149,11 +154,14 @@
         roomID:'',
         total: 0,
         isLoading: false,
+        selectList:[],//全选选中值
         addDialog: false,
         updateDialog: false,
         formLabelWidth: '120px',
         RoomFacilitiesTypeID:'',
         ht_rth_RoomHardIDList:[],
+        Updateht_rth_RoomHardIDList:[],
+        updateHotelRoomRoomFacilitiesObj:{},
         addOptions:{
           "loginUserID": "huileyou",
           "loginUserPass": "123",
@@ -172,7 +180,6 @@
       'hotelRoomRoomFacilitiesList',
       'hotelRoomFacilitiesTypeList',
       'roomFacilitiesList',
-      'updateHotelRoomRoomFacilitiesObj'
     ]),
     created(){
       let id = this.$route.params.id;
@@ -191,6 +198,56 @@
       this.initFacilitiesType();
     },
     methods: {
+      //批量删除
+      FaciltiesArrDelete(){
+        if (!this.selectList.length) {
+          this.$notify({
+            message: '请选择需要删除的房间设施!',
+            type: 'error'
+          });
+          return
+        }
+        let arr = []
+        for (var i = 0; i < this.selectList.length; i++) {
+          arr[i] = this.selectList[i].ht_rth_ID
+        }
+        this.getValue(arr)
+        .then(suc => {
+          this.$notify({
+            message: '删除成功',
+            type: 'success'
+          });
+          this.initData(1)
+        }, err => {
+          this.$notify({
+            message: err,
+            type: 'error'
+          });
+        });
+      },
+      async getValue(arr){
+        for(var i=0;i<arr.length;i++){
+          await this.ArrDelete(arr[i])
+        }
+      },
+      //批量删除
+      ArrDelete(id) {
+        let deleteOptions = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "操作员编码",
+          "operateUserName": "lb",
+          "pcName": "",
+          "data": {
+            "ht_rth_ID": id//房间房间设施ID
+          }
+        };
+       return this.$store.dispatch('DeleteHotelRoomRoomFacilities',deleteOptions)
+      },
+      //全选
+      handleSelectionChange(arr){
+        this.selectList = arr;
+      },
       jump(obj){
         let hotelID=sessionStorage.getItem("hotelID")
         window.open('http://hly.1000da.com.cn/index.html#/Comment/hotelDetalis/'+hotelID,'_blank')
@@ -223,6 +280,22 @@
           "ht_rh_IsHot": "",//是否热门
         }
         this.$store.dispatch('initRoomFacilities',options)
+      },
+      //选中房间设施类型
+      changeRoomFacilitiesID(id){
+        //获取对应设施
+        let options = {
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "操作员编码",
+          "operateUserName": "lb",
+          "pcName": "",
+          "ht_rh_ID": "",//房型设施
+          "ht_rh_Name": "",//设施名称
+          "ht_rh_RoomHardTypeID": id,//房间设施类型ID
+          "ht_rh_IsHot": "",//是否热门
+        }
+        return this.$store.dispatch('initRoomFacilities',options)
       },
       //分页
       handleCurrentChange(num){
@@ -293,10 +366,15 @@
           });
         this.addDialog = false;
       },
-      Update(id){
-        this.$store.commit('setTranstionFalse');
-        this.updateDialog = true;
-        this.$store.commit('UpdateHotelRoomRoomFacilities', id)
+      Update(obj){
+//        this.Updateht_rth_RoomHardIDList = [];
+        this.changeRoomFacilitiesID(obj.ht_rth_RoomHardTypeId)
+        .then(()=>{
+          console.log(obj)
+//          this.Updateht_rth_RoomHardIDList.push(obj.ht_rth_RoomHardID)
+          this.updateHotelRoomRoomFacilitiesObj = obj;
+          this.updateDialog = true;
+        })
       },
       //修改提交
       updateSubmit(){
@@ -308,6 +386,7 @@
           "pcName": "",
           "data": this.updateHotelRoomRoomFacilitiesObj
         };
+//        updateOptions.data.ht_rth_RoomHardID = this.Updateht_rth_RoomHardIDList.join(',')
         this.$store.dispatch('UpdateHotelRoomRoomFacilities',updateOptions)
           .then(suc => {
             this.$notify({

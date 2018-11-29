@@ -39,7 +39,7 @@ export default {
     foodStoreProduct:"美食店面菜肴",
     foodStoreRoom:'美食店面房间',
     foodStoreRoomTabel:'美食房间餐桌',
-    foodStoreOrderingTime:'美食店面用餐日期',
+    foodStoreOrderingTime:'美食店面休息日期',
     foodStoppingPlace:"美食停车场",
     foodStoreConfirmOrder:'美食订单管理',
 

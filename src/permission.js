@@ -59,8 +59,13 @@ router.beforeEach((to, from, next) => {
         NProgress.done()
         return
       }else{
+        if(!store.getters.isGenerateRoutes){
+          store.commit('GenerateRoutes',admin.sm_ui_PartnerType)
+          if(store.getters.asyncRouterMap.length){
+            router.addRoutes(store.getters.asyncRouterMap)
+          }
+        }
         //  console.log(to)
-        store.commit('GenerateRoutes',admin.sm_ui_PartnerType)
         // let roles = ['admin','editor','develop']
         // store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
         //   // router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表

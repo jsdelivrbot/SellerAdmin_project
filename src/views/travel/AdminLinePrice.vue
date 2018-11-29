@@ -125,6 +125,13 @@
           align="center"
           prop="cityName">
         </el-table-column>
+        <el-table-column
+          label="生成状态"
+          align="center">
+          <template slot-scope="props">
+            <span>已生成</span>
+          </template>
+        </el-table-column>
 
 
         <!--</el-table-column>-->

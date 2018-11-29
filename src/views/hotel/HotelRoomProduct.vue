@@ -44,9 +44,9 @@
             <el-form-item label="取消类型:">
               <span>{{ props.row.ht_rpp_CancelType | getCancelType}}</span>
             </el-form-item>
-            <el-form-item label="房间数量:">
-              <span>{{ props.row.ht_rpp_RoomNumber }}间</span>
-            </el-form-item>
+            <!--<el-form-item label="房间数量:">-->
+              <!--<span>{{ props.row.ht_rpp_RoomNumber }}间</span>-->
+            <!--</el-form-item>-->
           </el-form>
         </template>
       </el-table-column>
@@ -86,7 +86,7 @@
           <el-button
             size="mini"
             type="primary"
-            @click="toRoomEntity(scope.row)">前往房间实体
+            @click="toRoomEntity(scope.row)">设置房间门牌号
           </el-button>
           <el-button
             type="success"
@@ -157,9 +157,9 @@
         <el-form-item label="房间产品价格:" :label-width="formLabelWidth">
           <el-input v-model="addOptions.data.ht_rpp_ProductPrice"></el-input>
         </el-form-item>
-        <el-form-item label="房间数量:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.data.ht_rpp_RoomNumber"></el-input>
-        </el-form-item>
+        <!--<el-form-item label="房间数量:" :label-width="formLabelWidth">-->
+          <!--<el-input v-model="addOptions.data.ht_rpp_RoomNumber"></el-input>-->
+        <!--</el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="addDialog = false">取 消</el-button>
@@ -216,9 +216,9 @@
         <el-form-item label="房间产品价格:" :label-width="formLabelWidth">
           <el-input v-model="updateHotelRoomProductObj.ht_rpp_ProductPrice"></el-input>
         </el-form-item>
-        <el-form-item label="房间数量:" :label-width="formLabelWidth">
-          <el-input v-model="updateHotelRoomProductObj.ht_rpp_RoomNumber"></el-input>
-        </el-form-item>
+        <!--<el-form-item label="房间数量:" :label-width="formLabelWidth">-->
+          <!--<el-input v-model="updateHotelRoomProductObj.ht_rpp_RoomNumber"></el-input>-->
+        <!--</el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="updateDialog = false">取 消</el-button>
@@ -244,72 +244,100 @@
         BedTypeList: [
           {
             name: '单床',
-            value: '1'
+            value: 1
           },
           {
             name: '双床',
-            value: '2'
+            value: 2
           },
           {
             name: '三床',
-            value: '3'
+            value: 3
           },
           {
             name: '多床',
-            value: '4'
+            value: 4
           },
         ],
         //早餐类型
         BreakfastTypeList: [
           {
             name: '无早',
-            value: '0'
+            value: 0
           },
           {
             name: '单早',
-            value: '1'
+            value: 1
           },
           {
             name: '双早',
-            value: '2'
+            value: 2
           },
           {
             name: '三早',
-            value: '3'
+            value: 3
           },
           {
             name: '四早',
-            value: '4'
+            value: 4
           },
           {
             name: '多早',
-            value: '5'
+            value: 5
           },
         ],
         //WAFI
         WAFIList: [
           {
+            name: '无',
+            value: 7
+          },
+          {
+            name: '收费无线宽带',
+            value: 8
+          },
+          {
             name: '免费WIFI',
-            value: '0'
+            value: 0
           },
           {
-            name: '免费有线',
-            value: '1'
+            name: '免费有线宽带',
+            value: 1
           },
           {
-            name: '收费有线',
-            value: '2'
+            name: '收费有线宽带',
+            value: 2
+          },
+          {
+            name: '收费有线宽带和免费无线宽带',
+            value: 3
+          },
+          {
+            name: '免费有线宽带和免费无线宽带',
+            value: 4
+          },
+          {
+            name: '免费有线宽带和收费无线宽带',
+            value: 5
+          },
+          {
+            name: '收费有线宽带和收费无线宽带',
+            value: 6
           },
         ],
         //取消类型
         CancelTypeList: [
           {
             name: '可取消',
-            value: '0'
+            value: 0
           },
           {
             name: '不可取消',
-            value: '1'
+            value: 1
+          },
+          {
+            name: '限时取消',
+            value: 2
           }
         ],
         addOptions: {
@@ -423,9 +451,9 @@
       addSubmit(){
         this.addOptions.data.ht_rpp_RoomID = this.roomID;
         this.$store.dispatch('AddHotelRoomProduct', this.addOptions)
-        .then(suc => {
+        .then(data => {
           this.$notify({
-            message: suc,
+            message: data.resultcontent,
             type: 'success'
           });
           this.initData(this.roomName, 1)

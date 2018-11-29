@@ -240,6 +240,10 @@
             label: '荤菜',
             value: 1,
           },
+          {
+            label: '甜品',
+            value: 2,
+          },
         ],
         imageObj: {accept: 'image/*'},
         addImage: [],

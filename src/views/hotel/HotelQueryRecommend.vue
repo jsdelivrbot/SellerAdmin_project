@@ -71,6 +71,7 @@
             <el-cascader
               :options="hotelIntroduceTypeList"
               :props="props"
+              change-on-select
               v-model="introduceTypeList"
               :show-all-levels="false"
             ></el-cascader>

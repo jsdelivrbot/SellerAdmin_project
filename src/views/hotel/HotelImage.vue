@@ -414,6 +414,7 @@
               message: err,
               type: 'error'
             });
+            window.location.reload()
           });
         this.addDialog = false;
       },

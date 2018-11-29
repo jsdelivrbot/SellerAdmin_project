@@ -65,6 +65,12 @@
               <el-form-item label="温馨提示:">
                 <span>{{ props.row.ts_pt_HappyNotice }}</span>
               </el-form-item>
+              <el-form-item label="景点温馨提示:">
+                <span>{{ props.row.ts_pt_TicketHappyNotice }}</span>
+              </el-form-item>
+              <el-form-item label="酒店温馨提示:">
+                <span>{{ props.row.ts_pt_HotelHappyNotice }}</span>
+              </el-form-item>
               <el-form-item label="出发站点:">
                 <span v-for="item in props.row.titleList">{{ item.ts_dtp_FromSite }} <span>[{{item.ts_dtp_GoWay | getGoWay}}]</span></span>
               </el-form-item>
@@ -78,6 +84,7 @@
                     <p>景点地址:{{item.ts_ts_Address}}</p>
                     <p>费用情况:{{item.ts_ts_Fee}}</p>
                     <p>时间:{{item.ts_ts_Time}}</p>
+                    <p>温馨提示:{{item.ts_ts_Prompt}}</p>
                     <img v-lazy="v" alt="" v-for="v in item.ts_ts_Image" width="100" height="100">
                   </div>
                 </div>
@@ -187,27 +194,42 @@
       <el-dialog title="添加线路日程" :visible.sync="addDialog" :close-on-click-modal="false"
                  @close="closeDialog" width="65%">
         <div style="margin-bottom: 30px">
-          <el-button size="small" type="primary" @click="isFreeActivities=true">添加自由活动</el-button>
-          <el-button size="small" type="primary" @click="isTheTravel=true">添加行程概览</el-button>
-          <el-button size="small" type="primary" @click="isReminder=true">添加温馨提示</el-button>
+          <!--<el-button size="small" type="primary" @click="isFreeActivities=true">添加自由活动</el-button>-->
+          <!--<el-button size="small" type="primary" @click="isTheTravel=true">添加行程概览</el-button>-->
+          <!--<el-button size="small" type="primary" @click="isReminder=true">添加温馨提示</el-button>-->
           <el-button size="small" type="primary" @click="isFood=true">添加早中晚餐</el-button>
         </div>
-        <el-form :model="addData">
-          <el-form-item label="行程概览:" :label-width="formLabelWidth" style="margin: 5px 0" v-show="isTheTravel">
+        <el-form :model="addData" :rules="rules" ref="ruleForm">
+          <!--v-show="isTheTravel"-->
+          <el-form-item label="行程概览:" :label-width="formLabelWidth"  prop="ts_pt_TourShow">
             <el-input type="textarea" v-model="addData.ts_pt_TourShow" placeholder="请输入行程概览" size="small"
                       :autosize="{ minRows: 4, maxRows: 6}"></el-input>
           </el-form-item>
-          <el-form-item label="温馨提示:" :label-width="formLabelWidth" style="margin: 5px 0" v-show="isReminder">
+          <el-form-item label="温馨提示:" :label-width="formLabelWidth"  prop="ts_pt_HappyNotice">
+            <!--v-show="isReminder"-->
             <el-input type="textarea" v-model="addData.ts_pt_HappyNotice" placeholder="请输入温馨提示" size="small"
                       :autosize="{ minRows: 4, maxRows: 6}"></el-input>
           </el-form-item>
-          <el-form-item label="自由活动标题:" :label-width="formLabelWidth" v-show="isFreeActivities">
+          <el-form-item label="景点温馨提示:" :label-width="formLabelWidth">
+            <!--v-show="isReminder"-->
+            <el-input type="textarea" v-model="addData.ts_pt_TicketHappyNotice" placeholder="请输入景点温馨提示" size="small"
+                      :autosize="{ minRows: 4, maxRows: 6}"></el-input>
+          </el-form-item>
+          <el-form-item label="酒店温馨提示:" :label-width="formLabelWidth">
+            <!--v-show="isReminder"-->
+            <el-input type="textarea" v-model="addData.ts_pt_HotelHappyNotice" placeholder="请输入酒店温馨提示" size="small"
+                      :autosize="{ minRows: 4, maxRows: 6}"></el-input>
+          </el-form-item>
+          <el-form-item label="自由活动标题:" :label-width="formLabelWidth"  prop="ts_pt_FreeTitle">
+            <!--v-show="isFreeActivities"-->
             <el-input v-model="addData.ts_pt_FreeTitle" placeholder="请输入自由活动标题"></el-input>
           </el-form-item>
-          <el-form-item label="自由活动介绍:" :label-width="formLabelWidth" v-show="isFreeActivities">
+          <el-form-item label="自由活动介绍:" :label-width="formLabelWidth" prop="ts_pt_FreeDes">
+            <!--v-show="isFreeActivities"-->
             <el-input v-model="addData.ts_pt_FreeDes" placeholder="请输入自由活动介绍"></el-input>
           </el-form-item>
-          <el-form-item label="自由活动图片:" :label-width="formLabelWidth" required v-show="isFreeActivities">
+          <el-form-item label="自由活动图片:" :label-width="formLabelWidth" required>
+            <!--v-show="isFreeActivities"-->
             <p>单张图片大小不能大于600KB</p>
             <Upload @getData="getFreeData" :attrs="imageObj"></Upload>
             <div class="imgWap">
@@ -261,7 +283,7 @@
           <!--添加景点-->
           <el-form-item label="添加景点个数:" :label-width="formLabelWidth">
             <el-select v-model="tourNum" filterable placeholder="请选择" style="width: 80px;float: left;"
-                       @change="changeTourSite">
+                       @change="changeTourSite" required>
               <el-option
                 v-for="item in options"
                 :key="item.id"
@@ -272,73 +294,80 @@
             <div style="clear: both"></div>
             <div v-for="item,index in tourSiteJson">
               <h2>景点{{index+1}}</h2>
-              <el-form-item label="景点名称:" :label-width="formLabelWidth">
-                <el-input v-model="item.ts_ts_TourName" placeholder="请输入景点名称" size="small"></el-input>
-              </el-form-item>
-              <el-form-item label="时间:" :label-width="formLabelWidth">
-                <el-time-select
-                  size="small"
-                  v-model="item.ts_ts_Time"
-                  :picker-options="{
+              <el-form :model="item" :rules="rules1" ref="ruleForm1" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="景点名称:" :label-width="formLabelWidth" required prop="ts_ts_TourName">
+                  <el-input v-model="item.ts_ts_TourName" placeholder="请输入景点名称" size="small"></el-input>
+                </el-form-item>
+                <el-form-item label="时间:" :label-width="formLabelWidth" required  prop="ts_ts_Time">
+                  <el-time-select
+                    size="small"
+                    v-model="item.ts_ts_Time"
+                    :picker-options="{
                         start: '05:00',
                         step: '00:30',
                         end: '20:00'
                       }"
-                  placeholder="选择时间">
-                </el-time-select>
-                <!--<el-input v-model="item.ts_ts_Time" placeholder="请输入时间" size="small"></el-input>-->
-              </el-form-item>
-              <el-form-item label="游玩时长:" :label-width="formLabelWidth">
-                <el-input v-model="item.ts_ts_NeedMinute" placeholder="请输入游玩时长" size="small"></el-input>
-              </el-form-item>
-              <el-form-item label="开放时间:" :label-width="formLabelWidth" style="margin: 5px 0">
-                <el-input type="textarea" v-model="item.ts_ts_OpenTime" placeholder="请输入开放时间" size="small"
-                          :autosize="{ minRows: 4, maxRows: 6}"></el-input>
-              </el-form-item>
-              <el-form-item label="景点地址:" :label-width="formLabelWidth">
-                <el-input v-model="item.ts_ts_Address" placeholder="请输入景点地址" size="small"></el-input>
-              </el-form-item>
-              <el-form-item label="费用情况:" :label-width="formLabelWidth" style="margin: 5px 0">
-                <el-select v-model="item.ts_ts_Fee" placeholder="请选择" size="small">
-                  <el-option
-                    label="自费"
-                    value="自费">
-                  </el-option>
-                  <el-option
-                    label="免费"
-                    value="免费">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="景点图片:" :label-width="formLabelWidth" required>
-                <p>单张图片大小不能大于600KB</p>
-                <Upload @getData="getData" :attrs="imageObj" :index="index"></Upload>
-                <div class="imgWap">
-                  <p v-for="v in item.ImageURL" style="display: inline-block;position: relative;margin-right: 70px">
-                    <img
-                      :src="v"
-                      width="280"
-                      height="125"
-                      v-show="item.ImageURL.length"
-                    >
-                    <span style="color: #f60" @click="deleteImageURL(v,index)">X</span>
-                    <em>
-                      <el-radio v-model="addRadioIndex" :label="index+1">替换</el-radio>
-                    </em>
-                  </p>
-                </div>
-              </el-form-item>
-              <el-form-item label="景区简介:" :label-width="formLabelWidth" style="margin: 15px 0">
-                <el-input type="textarea" v-model="item.ts_ts_Des" placeholder="请输入景区简介" size="small"
-                          :autosize="{ minRows: 4, maxRows: 6}"></el-input>
-              </el-form-item>
+                    placeholder="选择时间">
+                  </el-time-select>
+                  <!--<el-input v-model="item.ts_ts_Time" placeholder="请输入时间" size="small"></el-input>-->
+                </el-form-item>
+                <el-form-item label="游玩时长:" :label-width="formLabelWidth" required  prop="ts_ts_NeedMinute">
+                  <el-input v-model="item.ts_ts_NeedMinute" placeholder="请输入游玩时长" size="small"></el-input>
+                </el-form-item>
+                <el-form-item label="开放时间:" :label-width="formLabelWidth" style="margin: 5px 0" required  prop="ts_ts_OpenTime">
+                  <el-input type="textarea" v-model="item.ts_ts_OpenTime" placeholder="请输入开放时间" size="small"
+                            :autosize="{ minRows: 4, maxRows: 6}"></el-input>
+                </el-form-item>
+                <el-form-item label="景点地址:" :label-width="formLabelWidth" required  prop="ts_ts_Address">
+                  <el-input v-model="item.ts_ts_Address" placeholder="请输入景点地址" size="small"></el-input>
+                </el-form-item>
+                <el-form-item label="费用情况:" :label-width="formLabelWidth" style="margin: 5px 0" required>
+                  <el-select v-model="item.ts_ts_Fee" placeholder="请选择" size="small">
+                    <el-option
+                      label="自费"
+                      value="自费">
+                    </el-option>
+                    <el-option
+                      label="免费"
+                      value="免费">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="景点图片:" :label-width="formLabelWidth" required>
+                  <p>单张图片大小不能大于600KB</p>
+                  <Upload @getData="getData" :attrs="imageObj" :index="index"></Upload>
+                  <div class="imgWap">
+                    <p v-for="v in item.ImageURL" style="display: inline-block;position: relative;margin-right: 70px">
+                      <img
+                        :src="v"
+                        width="280"
+                        height="125"
+                        v-show="item.ImageURL.length"
+                      >
+                      <span style="color: #f60" @click="deleteImageURL(v,index)">X</span>
+                      <em>
+                        <el-radio v-model="addRadioIndex" :label="index+1">替换</el-radio>
+                      </em>
+                    </p>
+                  </div>
+                </el-form-item  prop="tourRequired">
+                <el-form-item label="景区简介:" :label-width="formLabelWidth" style="margin: 15px 0">
+                  <el-input type="textarea" v-model="item.ts_ts_Des" placeholder="请输入景区简介" size="small"
+                            :autosize="{ minRows: 4, maxRows: 6}"></el-input>
+                </el-form-item>
+                <el-form-item label="温馨提示:" :label-width="formLabelWidth" style="margin: 15px 0">
+                  <el-input type="textarea" v-model="item.ts_ts_Prompt" placeholder="请输入温馨提示" size="small"
+                            :autosize="{ minRows: 4, maxRows: 6}"></el-input>
+                </el-form-item>
+              </el-form>
+
             </div>
           </el-form-item>
 
           <!--添加酒店-->
           <el-form-item label="添加酒店个数:" :label-width="formLabelWidth">
             <el-select v-model="hotelNum" filterable placeholder="请选择" style="width: 80px;float: left;"
-                       @change="changeHotel">
+                       @change="changeHotel" required>
               <el-option
                 v-for="item in options"
                 :key="item.id"
@@ -350,74 +379,77 @@
 
             <div v-for="item,index in hotelJson">
               <h2>酒店{{index+1}}</h2>
-              <el-form-item label="酒店名称:" :label-width="formLabelWidth">
-                <el-input v-model="item.ts_hl_HotelName" placeholder="请输入酒店名称" size="small"></el-input>
-              </el-form-item>
-              <el-form-item label="时间:" :label-width="formLabelWidth" style="margin: 5px 0">
-                <el-time-select
-                  size="small"
-                  v-model="item.ts_hl_Time"
-                  :picker-options="{
+              <el-form :model="item" :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="酒店名称:" :label-width="formLabelWidth" required prop="ts_hl_HotelName">
+                  <el-input v-model="item.ts_hl_HotelName" placeholder="请输入酒店名称" size="small"></el-input>
+                </el-form-item>
+                <el-form-item label="时间:" :label-width="formLabelWidth" style="margin: 5px 0" required prop="ts_hl_Time">
+                  <el-time-select
+                    size="small"
+                    v-model="item.ts_hl_Time"
+                    :picker-options="{
                         start: '05:00',
                         step: '00:30',
                         end: '20:00'
                       }"
-                  placeholder="选择时间">
-                </el-time-select>
-                <!--<el-input v-model="item.ts_hl_Time" placeholder="请输入时间" size="small"></el-input>-->
-              </el-form-item>
-              <el-form-item label="酒店星级:" :label-width="formLabelWidth">
-                <el-input v-model="item.ts_hl_Star" placeholder="请输入酒店星级" size="small"></el-input>
-              </el-form-item>
-              <el-form-item label="参考酒店:" :label-width="formLabelWidth">
-                <el-input v-model="item.ts_hl_LookHotel" placeholder="请输入参考酒店" size="small"></el-input>
-              </el-form-item>
-              <el-form-item label="标准间:" :label-width="formLabelWidth">
-                <el-input v-model="item.ts_hl_StandardRoom" placeholder="请输入标准间" size="small"></el-input>
-              </el-form-item>
-              <el-form-item label="床型:" :label-width="formLabelWidth">
-                <el-input v-model="item.ts_hl_BedType" placeholder="请输入床型" size="small"></el-input>
-              </el-form-item>
-              <el-form-item label="设施:" :label-width="formLabelWidth">
-                <el-input v-model="item.ts_hl_Good" placeholder="请输入设施" size="small"></el-input>
-              </el-form-item>
-              <el-form-item label="酒店地址:" :label-width="formLabelWidth">
-                <el-input v-model="item.ts_hl_Address" placeholder="请输入酒店地址" size="small"></el-input>
-              </el-form-item>
-              <el-form-item label="温馨提示:" :label-width="formLabelWidth" style="margin-top: 5px">
-                <el-input type="textarea" v-model="item.ts_hl_HappyNotice" placeholder="请输入温馨提示" size="small"
-                          :autosize="{ minRows: 4, maxRows: 6}"></el-input>
-              </el-form-item>
-              <el-form-item label="酒店介绍:" :label-width="formLabelWidth" style="margin-top: 10px">
-                <el-input type="textarea" v-model="item.ts_hl_HotelDes" placeholder="请输入酒店介绍" size="small"
-                          :autosize="{ minRows: 4, maxRows: 6}"></el-input>
-              </el-form-item>
+                    placeholder="选择时间">
+                  </el-time-select>
+                  <!--<el-input v-model="item.ts_hl_Time" placeholder="请输入时间" size="small"></el-input>-->
+                </el-form-item>
+                <el-form-item label="酒店星级:" :label-width="formLabelWidth" required prop="ts_hl_Star">
+                  <el-input v-model="item.ts_hl_Star" placeholder="请输入酒店星级" size="small"></el-input>
+                </el-form-item>
+                <el-form-item label="参考酒店:" :label-width="formLabelWidth">
+                  <el-input v-model="item.ts_hl_LookHotel" placeholder="请输入参考酒店" size="small"></el-input>
+                </el-form-item>
+                <el-form-item label="标准间:" :label-width="formLabelWidth">
+                  <el-input v-model="item.ts_hl_StandardRoom" placeholder="请输入标准间" size="small"></el-input>
+                </el-form-item>
+                <el-form-item label="床型:" :label-width="formLabelWidth">
+                  <el-input v-model="item.ts_hl_BedType" placeholder="请输入床型" size="small"></el-input>
+                </el-form-item>
+                <el-form-item label="设施:" :label-width="formLabelWidth">
+                  <el-input v-model="item.ts_hl_Good" placeholder="请输入设施" size="small"></el-input>
+                </el-form-item>
+                <el-form-item label="酒店地址:" :label-width="formLabelWidth" required prop="ts_hl_Address">
+                  <el-input v-model="item.ts_hl_Address" placeholder="请输入酒店地址" size="small"></el-input>
+                </el-form-item>
+                <el-form-item label="温馨提示:" :label-width="formLabelWidth" style="margin-top: 5px">
+                  <el-input type="textarea" v-model="item.ts_hl_HappyNotice" placeholder="请输入温馨提示" size="small"
+                            :autosize="{ minRows: 4, maxRows: 6}"></el-input>
+                </el-form-item>
+                <el-form-item label="酒店介绍:" :label-width="formLabelWidth" style="margin-top: 10px">
+                  <el-input type="textarea" v-model="item.ts_hl_HotelDes" placeholder="请输入酒店介绍" size="small"
+                            :autosize="{ minRows: 4, maxRows: 6}"></el-input>
+                </el-form-item>
 
-              <el-form-item label="酒店图片:" :label-width="formLabelWidth" required>
-                <p>单张图片大小不能大于600KB</p>
-                <Upload @getData="getHotelData" :attrs="imageObj" :index="index"></Upload>
-                <div class="imgWap">
-                  <p v-for="v in item.ImageURL" style="display: inline-block;position: relative;margin-right: 70px">
-                    <img
-                      :src="v"
-                      width="280"
-                      height="125"
-                      v-show="item.ImageURL.length"
-                    >
-                    <span style="color: #f60" @click="deleteHotelImageURL(v,index)">X</span>
-                    <em>
-                      <el-radio v-model="addHotelRadioIndex" :label="index+1">替换</el-radio>
-                    </em>
-                  </p>
-                </div>
-              </el-form-item>
+                <el-form-item label="酒店图片:" :label-width="formLabelWidth" required>
+                  <p>单张图片大小不能大于600KB</p>
+                  <Upload @getData="getHotelData" :attrs="imageObj" :index="index"></Upload>
+                  <div class="imgWap">
+                    <p v-for="v in item.ImageURL" style="display: inline-block;position: relative;margin-right: 70px">
+                      <img
+                        :src="v"
+                        width="280"
+                        height="125"
+                        v-show="item.ImageURL.length"
+                      >
+                      <span style="color: #f60" @click="deleteHotelImageURL(v,index)">X</span>
+                      <em>
+                        <el-radio v-model="addHotelRadioIndex" :label="index+1">替换</el-radio>
+                      </em>
+                    </p>
+                  </div>
+                </el-form-item>
+              </el-form>
+
             </div>
 
           </el-form-item>
 
           <!--添加早中晚-->
           <el-form-item :label="'添加'+item.ts_fd_UseName+':'" :label-width="formLabelWidth"
-                        v-for="item,index in foodJson" :key="index" v-show="isFood">
+                        v-for="item,index in foodJson" :key="index" v-show="isFood" required>
             <el-input v-model="item.ts_fd_Title" placeholder="请输入标题" size="small"></el-input>
             <el-select v-model="item.ts_fd_Include" placeholder="请选择美食状态" size="small">
               <el-option
@@ -467,10 +499,10 @@
 
           </el-form-item>
 
-          <el-form-item label="第几天行程:" :label-width="formLabelWidth">
+          <el-form-item label="第几天行程:" :label-width="formLabelWidth" required prop="ts_pt_Day">
             <el-input v-model="addData.ts_pt_Day" placeholder="请输入第几天行程"></el-input>
           </el-form-item>
-          <el-form-item label="日程明细:" :label-width="formLabelWidth">
+          <el-form-item label="日程明细:" :label-width="formLabelWidth" required prop="ts_pt_Describe">
             <el-input v-model="addData.ts_pt_Describe" placeholder="请输入日程明细" type="textarea"
                       :autosize="{ minRows: 6, maxRows: 10}"></el-input>
           </el-form-item>
@@ -499,6 +531,16 @@
           </el-form-item>
           <el-form-item label="温馨提示:" :label-width="formLabelWidth" style="margin: 5px 0">
             <el-input type="textarea" v-model="updateAdminLinePrepareObj.ts_pt_HappyNotice" placeholder="请输入温馨提示"
+                      size="small"
+                      :autosize="{ minRows: 4, maxRows: 6}"></el-input>
+          </el-form-item>
+          <el-form-item label="景点温馨提示:" :label-width="formLabelWidth" style="margin: 5px 0">
+            <el-input type="textarea" v-model="updateAdminLinePrepareObj.ts_pt_TicketHappyNotice" placeholder="请输入景点温馨提示"
+                      size="small"
+                      :autosize="{ minRows: 4, maxRows: 6}"></el-input>
+          </el-form-item>
+          <el-form-item label="酒店温馨提示:" :label-width="formLabelWidth" style="margin: 5px 0">
+            <el-input type="textarea" v-model="updateAdminLinePrepareObj.ts_pt_HotelHappyNotice" placeholder="请输入酒店温馨提示"
                       size="small"
                       :autosize="{ minRows: 4, maxRows: 6}"></el-input>
           </el-form-item>
@@ -637,7 +679,7 @@
             <div style="clear: both"></div>
             <div v-for="item,index in updateAdminLinePrepareObj.tourList" v-show="updateAdminLinePrepareObj.tourList.length">
               <h2>景点{{index+1}}</h2>
-              <el-form-item label="景点名称:" :label-width="formLabelWidth">
+              <el-form-item label="景点名称:" :label-width="formLabelWidth" required>
                 <el-input v-model="item.ts_ts_TourName" placeholder="请输入景点名称" size="small"></el-input>
               </el-form-item>
               <el-form-item label="时间:" :label-width="formLabelWidth">
@@ -653,17 +695,17 @@
                 </el-time-select>
                 <!--<el-input v-model="item.ts_ts_Time" placeholder="请输入时间" size="small"></el-input>-->
               </el-form-item>
-              <el-form-item label="游玩时长:" :label-width="formLabelWidth">
+              <el-form-item label="游玩时长:" :label-width="formLabelWidth" required>
                 <el-input v-model="item.ts_ts_NeedMinute" placeholder="请输入游玩时长" size="small"></el-input>
               </el-form-item>
-              <el-form-item label="开放时间:" :label-width="formLabelWidth" style="margin: 5px 0">
+              <el-form-item label="开放时间:" :label-width="formLabelWidth" style="margin: 5px 0" required>
                 <el-input type="textarea" v-model="item.ts_ts_OpenTime" placeholder="请输入开放时间" size="small"
                           :autosize="{ minRows: 4, maxRows: 6}"></el-input>
               </el-form-item>
               <el-form-item label="景点地址:" :label-width="formLabelWidth">
-                <el-input v-model="item.ts_ts_Address" placeholder="请输入景点地址" size="small"></el-input>
+                <el-input v-model="item.ts_ts_Address" placeholder="请输入景点地址" size="small" required></el-input>
               </el-form-item>
-              <el-form-item label="费用情况:" :label-width="formLabelWidth" style="margin: 5px 0">
+              <el-form-item label="费用情况:" :label-width="formLabelWidth" style="margin: 5px 0" required>
                 <el-select v-model="item.ts_ts_Fee" placeholder="请选择" size="small">
                   <el-option
                     label="自费"
@@ -695,6 +737,10 @@
               </el-form-item>
               <el-form-item label="景区简介:" :label-width="formLabelWidth" style="margin: 15px 0">
                 <el-input type="textarea" v-model="item.ts_ts_Des" placeholder="请输入景区简介" size="small"
+                          :autosize="{ minRows: 4, maxRows: 6}"></el-input>
+              </el-form-item>
+              <el-form-item label="温馨提示:" :label-width="formLabelWidth" style="margin: 15px 0">
+                <el-input type="textarea" v-model="item.ts_ts_Prompt" placeholder="请输入温馨提示" size="small"
                           :autosize="{ minRows: 4, maxRows: 6}"></el-input>
               </el-form-item>
             </div>
@@ -846,6 +892,59 @@
     },
     data() {
       return {
+        //验证
+        rules:{
+          ts_pt_TourShow: [
+            { required: true, message: '请输入行程概览', trigger: 'blur' },
+          ],
+          ts_pt_HappyNotice:[
+            { required: true, message: '请输入温馨提示', trigger: 'blur' },
+          ],
+          ts_pt_FreeTitle:[
+            { required: true, message: '请输入自由活动标题', trigger: 'blur' },
+          ],
+          ts_pt_FreeDes:[
+            { required: true, message: '请输入自由活动介绍', trigger: 'blur' },
+          ],
+          ts_pt_Day:[
+            { required: true, message: '请输入第几天行程', trigger: 'blur' },
+          ],
+          ts_pt_Describe:[
+            { required: true, message: '请输入日程明细', trigger: 'blur' },
+          ],
+        },
+        rules1:{
+          ts_ts_TourName: [
+            { required: true, message: '请输入景点名称', trigger: 'blur' },
+          ],
+          ts_ts_Time: [
+            { required: true, message: '请输入时间', trigger: 'blur' },
+          ],
+          ts_ts_NeedMinute: [
+            { required: true, message: '请输入游玩时长', trigger: 'blur' },
+          ],
+          ts_ts_OpenTime: [
+            { required: true, message: '请输入开放时间', trigger: 'blur' },
+          ],
+          ts_ts_Address: [
+            { required: true, message: '请输入景点地址', trigger: 'blur' },
+          ],
+
+        },
+        rules2:{
+          ts_hl_HotelName: [
+            { required: true, message: '请输入酒店名称', trigger: 'blur' },
+          ],
+          ts_hl_Time: [
+            { required: true, message: '请输入酒店时间', trigger: 'blur' },
+          ],
+          ts_hl_Star: [
+            { required: true, message: '请输入酒店星级', trigger: 'blur' },
+          ],
+          ts_hl_Address: [
+            { required: true, message: '请输入酒店地址', trigger: 'blur' },
+          ],
+        },
         addUpdateFreeRadioIndex:0,
         addUpdateTourSiteRadioIndex:0,
         addUpdateHotelRadioIndex:0,
@@ -959,6 +1058,8 @@
           "ts_pt_FreeImage": "",//自由活动图片
           "ts_pt_TourShow": "",//行程概览
           "ts_pt_HappyNotice": "",//温馨提示
+          "ts_pt_TicketHappyNotice":"",//景点温馨提示
+          "ts_pt_HotelHappyNotice":"",//酒店温馨提示
         },
         addOptions: {
           "loginUserID": "huileyou",
@@ -1211,6 +1312,7 @@
             "ts_ts_Address": "",//景点地址
             "ts_ts_Fee": "",//费用情况  自费/免费
             "ts_ts_Time": "",//时间 格式HH:mm
+            "ts_ts_Prompt":"",//温馨提示
           })
         }
       },
@@ -1350,6 +1452,7 @@
         //初始化
         this.titleJson = []
         this.tourSiteJson = []
+        this.FreeImageURL = []
         this.foodJson =  [{
           "ts_fd_Title": "",
           ImageURL: [],
@@ -1406,64 +1509,110 @@
       },
       //添加提交
       addSubmit() {
-        if (this.FreeImageURL.length) {
-          this.addData.ts_pt_FreeImage = JSON.stringify(this.FreeImageURL)
-        }
-        this.titleJson.push({
-          "ts_dtp_FromSite": this.ReachSite,//出发站点
-          "ts_dtp_GoWay": '',//出行方式0汽车  1火车 2飞机  3轮船
-          "ts_dtp_ReachSite": this.ReachSite,
-        })
-//        "ts_dtp_FromSite": "",//出发站点
-//          "ts_dtp_GoWay": '',//出行方式0汽车  1火车 2飞机  3轮船
-//          "ts_dtp_ReachSite": "",
-        if (this.hotelJson.length) {
-          for (var i = 0; i < this.hotelJson.length; i++) {
-            this.hotelJson[i].ts_hl_HotelImage = JSON.stringify(this.hotelJson[i].ImageURL)
-            delete this.hotelJson[i].ImageURL
-          }
-        }
-        if (this.foodJson.length) {
-          for (var i = 0; i < this.foodJson.length; i++) {
-            this.foodJson[i].ts_fd_Image = JSON.stringify(this.foodJson[i].ImageURL)
-            delete this.foodJson[i].ImageURL
-          }
-        }
-        if (this.tourSiteJson.length) {
-          for (var i = 0; i < this.tourSiteJson.length; i++) {
-            this.tourSiteJson[i].ts_ts_Image = JSON.stringify(this.tourSiteJson[i].ImageURL)
-            delete this.tourSiteJson[i].ImageURL
-          }
-        }
-        if (isNaN(this.addData.ts_pt_Day)) {
+        if(!this.$refs.ruleForm1){
           this.$notify({
-            message: '第几天行程请输入数字!',
+            message: '请添加景点信息!',
             type: 'error'
           });
-          return
+          return;
         }
-        this.addOptions.titleJson = this.titleJson;
-        this.addOptions.hotelJson = this.hotelJson;
-        this.addOptions.tourSiteJson = this.tourSiteJson;
-        this.addOptions.foodJson = this.foodJson;
+        if(!this.$refs.ruleForm2){
+          this.$notify({
+            message: '请添加酒店信息!',
+            type: 'error'
+          });
+          return;
+        }
+        this.$refs.ruleForm.validate((valid) => {
+          if (valid) {
+            //景点验证
+            this.$refs.ruleForm1[0].validate((valid) => {
+              if (valid) {
+                //酒店验证
+                this.$refs.ruleForm2[0].validate((valid) => {
+                  if (valid) {
+                    if (this.FreeImageURL.length) {
+                      this.addData.ts_pt_FreeImage = JSON.stringify(this.FreeImageURL)
+                    }
+                    this.titleJson.push({
+                      "ts_dtp_FromSite": this.ReachSite,//出发站点
+                      "ts_dtp_GoWay": '',//出行方式0汽车  1火车 2飞机  3轮船
+                      "ts_dtp_ReachSite": this.ReachSite,
+                    })
+                    if (this.hotelJson.length) {
+                      for (var i = 0; i < this.hotelJson.length; i++) {
+                        this.hotelJson[i].ts_hl_HotelImage = JSON.stringify(this.hotelJson[i].ImageURL)
+                        delete this.hotelJson[i].ImageURL
+                      }
+                    }
+                    if (this.foodJson.length) {
+                      for (var i = 0; i < this.foodJson.length; i++) {
+                        this.foodJson[i].ts_fd_Image = JSON.stringify(this.foodJson[i].ImageURL)
+                        delete this.foodJson[i].ImageURL
+                      }
+                    }
+                    if (this.tourSiteJson.length) {
+                      for (var i = 0; i < this.tourSiteJson.length; i++) {
+                        this.tourSiteJson[i].ts_ts_Image = JSON.stringify(this.tourSiteJson[i].ImageURL)
+                        delete this.tourSiteJson[i].ImageURL
+                      }
+                    }
+                    if (isNaN(this.addData.ts_pt_Day)) {
+                      this.$notify({
+                        message: '第几天行程请输入数字!',
+                        type: 'error'
+                      });
+                      return
+                    }
+                    this.addOptions.titleJson = this.titleJson;
+                    this.addOptions.hotelJson = this.hotelJson;
+                    this.addOptions.tourSiteJson = this.tourSiteJson;
+                    this.addOptions.foodJson = this.foodJson;
 
-        this.addData.ts_pt_Product_LineID = this.id;
-        this.addOptions.data = this.addData;
-        this.$store.dispatch('AddAdminLinePrepare', this.addOptions)
-        .then((suc) => {
-          this.$notify({
-            message: suc,
-            type: 'success'
-          });
+                    this.addData.ts_pt_Product_LineID = this.id;
+                    this.addOptions.data = this.addData;
+                    this.$store.dispatch('AddAdminLinePrepare', this.addOptions)
+                    .then((suc) => {
+                      this.$notify({
+                        message: suc,
+                        type: 'success'
+                      });
 //          window.location.reload()
-          this.initData(this.id)
-        }, err => {
-          this.$notify({
-            message: err,
-            type: 'error'
-          });
+                      this.initData(this.id)
+                    }, err => {
+                      this.$notify({
+                        message: err,
+                        type: 'error'
+                      });
+                    });
+                    this.addDialog = false
+                  } else {
+                    this.$notify({
+                      message: '请输入酒店必填项!',
+                      type: 'error'
+                    });
+                    return false;
+                  }
+                });
+
+              } else {
+                this.$notify({
+                  message: '请输入景点必填项!',
+                  type: 'error'
+                });
+                return false;
+              }
+            });
+
+          } else {
+            this.$notify({
+              message: '请输入必填信息!',
+              type: 'error'
+            });
+            return;
+          }
         });
-        this.addDialog = false
+
       },
       //修改
       updateAdminLinePrepare(obj) {
@@ -1522,6 +1671,8 @@
             "ts_pt_FreeImage": JSON.stringify(this.updateAdminLinePrepareObj.ts_pt_FreeImage),//自由活动图片
             "ts_pt_TourShow": this.updateAdminLinePrepareObj.ts_pt_TourShow,//行程概览
             "ts_pt_HappyNotice": this.updateAdminLinePrepareObj.ts_pt_HappyNotice,//温馨提示
+            ts_pt_TicketHappyNotice:this.updateAdminLinePrepareObj.ts_pt_TicketHappyNotice,
+            ts_pt_HotelHappyNotice:this.updateAdminLinePrepareObj.ts_pt_HotelHappyNotice,
           },
           titleJson:this.updateAdminLinePrepareObj.titleList,
           foodJson:this.updateAdminLinePrepareObj.foodList,
@@ -1578,7 +1729,7 @@
       }
     },
     created() {
-      for (var i = 1; i < 8; i++) {
+      for (var i = 1; i < 16; i++) {
         this.options.push({
           id: i,
           value: i
@@ -1610,5 +1761,8 @@
     top: 30px;
     font-style: normal;
     color: #42b983;
+  }
+  .el-form-item .el-form-item {
+    margin-bottom: 20px !important;
   }
 </style>

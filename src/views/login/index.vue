@@ -90,6 +90,7 @@ export default {
             }
 
           },err=>{
+            this.loading = false;
             this.$notify({
               message: err,
               type: 'error'
@@ -99,7 +100,7 @@ export default {
             this.loading = false;
           })
         } else {
-
+          this.loading = false;
           return false
         }
       })

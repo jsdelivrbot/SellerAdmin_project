@@ -255,7 +255,7 @@
         this.addOptions.data.ts_pt_ID = this.id;
 //        console.log(this.addOptions.data)
 //        return
-        this.$store.dispatch('UpdateAdminQueryProductInformation', this.addOptions)
+        this.$store.dispatch('UpdateAdminQueryProductInformationM', this.addOptions)
           .then(() => {
             this.$notify({
               message: '添加成功!',
@@ -275,6 +275,7 @@
         for(let attr in obj){
           obj[attr] = goEscapeVal(obj[attr])
         }
+
         this.updateOptions = obj;
         this.$nextTick(()=>{
           this.$refs.editor.setHtml(obj.ts_pt_BookKnow)
@@ -304,7 +305,7 @@
             ts_pt_LimitDuty: getEscapeVal(this.updateOptions.ts_pt_LimitDuty)//违约责任
           }
         }
-        this.$store.dispatch('UpdateAdminQueryProductInformation', updateOptions)
+        this.$store.dispatch('UpdateAdminQueryProductInformationM', updateOptions)
           .then(() => {
             this.$notify({
               message: '修改成功!',

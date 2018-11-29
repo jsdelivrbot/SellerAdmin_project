@@ -259,6 +259,16 @@ export const getWafiType = val=>{
       return '免费有线';
     case 2:
       return '收费有线';
+    case 3:
+      return '收费有线宽带和免费无线宽带';
+    case 4:
+      return '免费有线宽带和免费无线宽带';
+    case 5:
+      return '免费有线宽带和收费无线宽带';
+    case 6:
+      return '收费有线宽带和收费无线宽带';
+    case 7:
+      return '无';
     default:
       return '未知';
   }
@@ -270,10 +280,23 @@ export const getCancelType = val=>{
       return '可取消';
     case 1:
       return '不可取消';
+    case 2:
+      return '限时取消';
     default:
       return '未知';
   }
 };
+//状态
+export const getCancelState = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '正常';
+    case 1:
+      return '取消';
+    default:
+      return '未知';
+  }
+}
 //房间锁定状态
 export const getLockStatus = val=>{
   switch (Number(val)) {

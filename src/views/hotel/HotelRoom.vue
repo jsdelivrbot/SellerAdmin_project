@@ -980,11 +980,27 @@
     width: 33.333333%;
     float: left;
     color: #ccc;
-    display: inline-block;
+    position: relative;
   }
   .dialogList span em{
     font-style: normal;
   }
+
+  .dialogList span:after {
+    content: '》';
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .dialogList span.active:after {
+    color: #409EFF;
+  }
+
+  .dialogList span:last-of-type:after {
+    display: none;
+  }
+
   .dialogList span.active em{
     color: #409EFF;
     font-style: normal;

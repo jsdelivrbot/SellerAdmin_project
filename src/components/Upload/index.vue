@@ -18,7 +18,7 @@
 
   export default {
     name: '',
-    props: ['attrs','index'],
+    props: ['attrs','index','i'],
     data() {
       return {
         clearShow:true,
@@ -106,6 +106,7 @@
         this.clearShow = true
         var obj = JSON.parse(message)
         obj.index = this.index;
+        obj.i = this.i;
 
         this.$emit('getData',obj);
       },

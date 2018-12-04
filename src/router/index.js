@@ -29,16 +29,26 @@ export const constantRouterMap = [
   { path: '/authredirect', component: _import('login/authredirect'), hidden: true },
   {path: '/404', component: () => import('@/views/404'), hidden: true},
   {path: '/demo', component: () => import('@/views/demo'), hidden: true},
-  { path: '/', component: _import('login/index'), hidden: true,name:"Home" },
+  // { path: '/', component: _import('login/index'), hidden: true,name:"Home" },
   /**
    *  首页
    **/
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: 'dashboard',
+  //   children: [{
+  //     path: 'dashboard',
+  //     component:  () => import('@/views/dashboard'),
+  //     name: 'dashboard',
+  //     meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
+  //   }]
+  // },
   {
-    path: '/',
+    path: '/dashboard',
     component: Layout,
-    redirect: 'dashboard',
     children: [{
-      path: 'dashboard',
+      path: '',
       component:  () => import('@/views/dashboard'),
       name: 'dashboard',
       meta: { title: 'dashboard', icon: 'dashboard', noCache: true }

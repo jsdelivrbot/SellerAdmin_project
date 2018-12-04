@@ -126,69 +126,6 @@
       <!--<div class="dialogList">-->
       <!--<span v-for="item,index in textList" :class="{active:n==index}"><em>{{item.name}}</em></span>-->
       <!--</div>-->
-      <!--房间添加-->
-      <el-form :model="addOptions">
-        <el-form-item label="房间名称:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.ht_bt_RoomName"></el-input>
-        </el-form-item>
-        <el-form-item label="床型:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.ht_bt_BedType"></el-input>
-        </el-form-item>
-        <el-form-item label="最多入住数:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.ht_bt_MostIn"></el-input>
-        </el-form-item>
-        <el-form-item label="楼层:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.ht_bt_Level"></el-input>
-        </el-form-item>
-        <el-form-item label="面积(平方):" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.ht_bt_Area"></el-input>
-        </el-form-item>
-        <el-form-item label="无烟房:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.ht_bt_Smoke"></el-input>
-        </el-form-item>
-        <el-form-item label="加床:" :label-width="formLabelWidth">
-          <el-input v-model="addOptions.ht_bt_AddBed"></el-input>
-        </el-form-item>
-        <el-form-item label="图片上传:" :label-width="formLabelWidth">
-          <p>单张图片不能大于600KB</p>
-          <Upload @getData="getData" :attrs="imageObj"></Upload>
-
-          <div class="imgWap">
-            <p v-for="item,index in ImageURL"
-               style="display: inline-block;position: relative;margin-right: 70px">
-              <span style="color: #f60" @click="deleteImageURL(item)">X</span>
-              <em>
-                <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
-              </em>
-              <img
-                :src="item"
-                width="280"
-                height="125"
-                v-show="ImageURL.length"
-              >
-            </p>
-          </div>
-        </el-form-item>
-        <el-form-item label="创建时间:" :label-width="formLabelWidth">
-          <el-date-picker
-            v-model="addOptions.ht_bt_CreateTime"
-            type="date"
-            placeholder="选择日期"
-            value-format="yyyy-MM-dd"
-          >
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="备注:" :label-width="formLabelWidth">
-          <el-input
-            type="textarea"
-            :rows="4"
-            placeholder="请输入内容"
-            v-model="addOptions.ht_bt_Remark">
-          </el-input>
-        </el-form-item>
-
-      </el-form>
-      <!--房间产品-->
       <el-form :model="roomInfoOptions">
         <el-form-item label="添加房间产品个数:" :label-width="newFormLabelWidth">
           <el-select v-model="num" filterable placeholder="请选择" style="width: 80px;float: left;"
@@ -206,10 +143,10 @@
             <!--roomInfoOptions-->
             <el-form :model="item">
               <el-form-item label="房间产品名称:" :label-width="formLabelWidth">
-                <el-input v-model="item.ht_rpp_Name"></el-input>
+                <el-input v-model="item.data.ht_rpp_Name"></el-input>
               </el-form-item>
               <el-form-item label="床型:" :label-width="formLabelWidth">
-                <el-select v-model="item.ht_rpp_BedType" placeholder="请选择">
+                <el-select v-model="item.data.ht_rpp_BedType" placeholder="请选择">
                   <el-option
                     v-for="item in BedTypeList"
                     :key="item.value"
@@ -219,7 +156,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="早餐类型:" :label-width="formLabelWidth">
-                <el-select v-model="item.ht_rpp_BreakfastType" placeholder="请选择">
+                <el-select v-model="item.data.ht_rpp_BreakfastType" placeholder="请选择">
                   <el-option
                     v-for="item in BreakfastTypeList"
                     :key="item.value"
@@ -229,7 +166,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="WIFI:" :label-width="formLabelWidth">
-                <el-select v-model="item.ht_rpp_WafiType" placeholder="请选择">
+                <el-select v-model="item.data.ht_rpp_WafiType" placeholder="请选择">
                   <el-option
                     v-for="item in WAFIList"
                     :key="item.value"
@@ -239,7 +176,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="取消类型:" :label-width="formLabelWidth">
-                <el-select v-model="item.ht_rpp_CancelType" placeholder="请选择">
+                <el-select v-model="item.data.ht_rpp_CancelType" placeholder="请选择">
                   <el-option
                     v-for="item in CancelTypeList"
                     :key="item.value"
@@ -249,7 +186,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="房间产品价格:" :label-width="formLabelWidth">
-                <el-input v-model="item.ht_rpp_ProductPrice"></el-input>
+                <el-input v-model="item.data.ht_rpp_ProductPrice"></el-input>
               </el-form-item>
               <!--<el-form-item label="房间数量:" :label-width="formLabelWidth">-->
               <!--<el-input v-model="addOptions.data.ht_rpp_RoomNumber"></el-input>-->
@@ -266,7 +203,7 @@
                 </el-option>
               </el-select>
               <div style="clear: both"></div>
-              <div v-for="val,index in item.HouseNumberArry">
+              <div v-for="val,index in item.data.HouseNumberArry">
                 <h2>房间门牌号{{index+1}}</h2>
                 <el-form :model="val">
                   <p style="color: red">注:房间门牌号添加规则(栋数-楼层-房号),例:8-8-08即8栋8楼08号 <span></span></p>
@@ -326,8 +263,7 @@
             <el-form :model="val">
 
               <el-form-item label="房间设施类型:" :label-width="formLabelWidth">
-                <el-select v-model="val.RoomFacilitiesTypeID" placeholder="请选择类型"
-                           @change="changeRoomFacilities(val,index)">
+                <el-select v-model="val.data.RoomFacilitiesTypeID" placeholder="请选择类型" @change="changeRoomFacilities">
                   <el-option
                     v-for="item in hotelRoomFacilitiesTypeList"
                     :key="item.ht_rht_ID"
@@ -337,7 +273,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="房间设施:" :label-width="formLabelWidth">
-                <el-select v-model="val.ht_rth_RoomHardIDList" multiple placeholder="请选择">
+                <el-select v-model="val.data.ht_rth_RoomHardIDList" multiple placeholder="请选择">
                   <el-option
                     v-for="item in roomFacilitiesList"
                     :key="item.ht_rh_ID"
@@ -350,8 +286,6 @@
           </div>
         </el-form-item>
       </el-form>
-
-
       <div slot="footer" class="dialog-footer">
         <el-button @click="addDialog = false">取 消</el-button>
         <el-button type="primary" @click="addSubmit">确 定</el-button>
@@ -451,7 +385,7 @@
     },
     data(){
       return {
-        options: {
+        options:{
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "操作员编码",
@@ -492,9 +426,9 @@
             ]
           }
         },
-        newFormLabelWidth: '200px',
+        newFormLabelWidth:'200px',
         //房间设施
-        HotelRoomRoomFacilitiesOptions: {
+        HotelRoomRoomFacilitiesOptions:{
           "loginUserID": "huileyou",
           "loginUserPass": "123",
           "operateUserID": "操作员编码",
@@ -506,9 +440,9 @@
             "ht_ht_hotelID": "",//酒店ID
           }
         },
-        ht_rth_RoomHardIDList: [],
-        HotelRoomEntityImageURL: [],
-        HotelRoomEntityRadioIndex: '',
+        ht_rth_RoomHardIDList:[],
+        HotelRoomEntityImageURL:[],
+        HotelRoomEntityRadioIndex:'',
         //床型
         BedTypeList: [
           {
@@ -528,7 +462,7 @@
             value: 4
           },
         ],
-        num: 0,
+        num:0,
         //早餐类型
         BreakfastTypeList: [
           {
@@ -643,15 +577,15 @@
             "ht_re_ImagePath": "",//房间图片
           }
         },
-        textList: [
+        textList:[
           {
-            name: '房间产品'
+            name:'房间产品'
           },
           {
-            name: '房间门牌号'
+            name:'房间门牌号'
           },
           {
-            name: '房间设施'
+            name:'房间设施'
           }
         ],
         options: [],
@@ -662,36 +596,43 @@
         roomName: '',
         total: 0,
         hotelID: '',
-        n: -1,
+        n:-1,
         isLoading: false,
         addDialog: false,
         updateDialog: false,
         formLabelWidth: '120px',
         addOptions: {
-          "ht_bt_HotelID": "",//酒店编码
-          "ht_bt_RoomName": "",//房间名称
-          "ht_bt_BedType": "",//床型
-          "ht_bt_MostIn": "",//最多入住数
-          "ht_bt_Level": "",//楼层
-          "ht_bt_ImagePath": "",//房间图片
-          "ht_bt_Area": "",//面积
-          "ht_bt_Smoke": "",//无烟房
-          "ht_bt_AddBed": "",//加床
-          "ht_bt_IsDelete": "",//是否启用
-          "ht_bt_CreateTime": "",//创建时间
-          "ht_bt_Remark": "",//备注
+          "loginUserID": "huileyou",
+          "loginUserPass": "123",
+          "operateUserID": "操作员编码",
+          "operateUserName": "操作员名称",
+          "pcName": "",
+          "data": {
+            "ht_bt_HotelID": "",//酒店编码
+            "ht_bt_RoomName": "",//房间名称
+            "ht_bt_BedType": "",//床型
+            "ht_bt_MostIn": "",//最多入住数
+            "ht_bt_Level": "",//楼层
+            "ht_bt_ImagePath": "",//房间图片
+            "ht_bt_Area": "",//面积
+            "ht_bt_Smoke": "",//无烟房
+            "ht_bt_AddBed": "",//加床
+            "ht_bt_IsDelete": "",//是否启用
+            "ht_bt_CreateTime": "",//创建时间
+            "ht_bt_Remark": "",//备注
+          }
         },
         imageObj: {accept: 'image/*'},
         radioIndex: 0,
-        RoomID: '',
+        RoomID:'',
         updateRadioIndex: 0,
-        RoomFacilitiesTypeID: '',
+        RoomFacilitiesTypeID:'',
         isNewUploaNode: true,
-        hotelRoomInfoList: [],
-        HotelRoomRoomFacilitiesList: [],
-        HotelRoomRoomFacilitiesNum: 0,
-        HouseNumberArry: [],
-        HouseNumberArryNum: 0
+        hotelRoomInfoList:[],
+        HotelRoomRoomFacilitiesList:[],
+        HotelRoomRoomFacilitiesNum:0,
+        HouseNumberArry:[],
+        HouseNumberArryNum:0
       }
     },
     computed: mapGetters([
@@ -723,12 +664,13 @@
     methods: {
       //选择房间门牌号个数
       changeHouseNumberArry(index){
+        console.log(this.hotelRoomInfoList[index].num)
 //        this.HouseNumberArry = []
-        this.hotelRoomInfoList[index].HouseNumberArry = []
-        for (var i = 0; i < this.hotelRoomInfoList[index].num; i++) {
-          this.hotelRoomInfoList[index].HouseNumberArry.push({
-            HouseNumberList: [],
-            HotelRoomEntityImageURL: [],
+        this.hotelRoomInfoList[index].data.HouseNumberArry = []
+        for(var i=0;i<this.hotelRoomInfoList[index].num;i++){
+          this.hotelRoomInfoList[index].data.HouseNumberArry.push({
+            HouseNumberList:[],
+            HotelRoomEntityImageURL:[],
             "ht_rth_RoomID": "",//房间ID
             "ht_ht_hotelID": "",//酒店ID
           })
@@ -737,10 +679,21 @@
       //选择房间设施个数
       changeHotelRoomRoomFacilities(){
         this.HotelRoomRoomFacilitiesList = []
-        for (var i = 0; i < this.HotelRoomRoomFacilitiesNum; i++) {
+        for(var i=0;i<this.HotelRoomRoomFacilitiesNum;i++){
           this.HotelRoomRoomFacilitiesList.push({
-            ht_rth_RoomHardIDList: [],
-            RoomFacilitiesTypeID: ''
+            "loginUserID": "huileyou",
+            "loginUserPass": "123",
+            "operateUserID": "操作员编码",
+            "operateUserName": "操作员名称",
+            "pcName": "",
+            num:0,
+            "data": {
+              ht_rth_RoomHardIDList:[],
+              RoomFacilitiesTypeID:'',
+              "ht_rth_RoomHardID": "",//房间设施
+              "ht_rth_RoomID": "",//房间ID
+              "ht_ht_hotelID": "",//酒店ID
+            }
           })
         }
       },
@@ -749,16 +702,23 @@
         this.hotelRoomInfoList = [];
         for (var i = 0; i < this.num; i++) {
           this.hotelRoomInfoList.push({
-            num: 0,
-            "ht_rpp_RoomID": "",//房间编码
-            "ht_rpp_Name": "",//房间产品名称
-            "ht_rpp_BedType": "",//床型 1单床 2双床 3三床
-            "ht_rpp_BreakfastType": "",//0无早  1 单早 2 双早 3 三早 4 四早
-            "ht_rpp_WafiType": "",//0免费WAFI  1免费有线 2收费有线
-            "ht_rpp_CancelType": "",//取消类型
-            "ht_rpp_ProductPrice": "",//产品价格
-            "ht_rpp_RoomNumber": "",//房间数量
-            HouseNumberArry: []
+            "loginUserID": "huileyou",
+            "loginUserPass": "123",
+            "operateUserID": "操作员编码",
+            "operateUserName": "lb",
+            "pcName": "",
+            num:0,
+            "data": {
+              "ht_rpp_RoomID": "",//房间编码
+              "ht_rpp_Name": "",//房间产品名称
+              "ht_rpp_BedType": "",//床型 1单床 2双床 3三床
+              "ht_rpp_BreakfastType": "",//0无早  1 单早 2 双早 3 三早 4 四早
+              "ht_rpp_WafiType": "",//0免费WAFI  1免费有线 2收费有线
+              "ht_rpp_CancelType": "",//取消类型
+              "ht_rpp_ProductPrice": "",//产品价格
+              "ht_rpp_RoomNumber": "",//房间数量
+              HouseNumberArry:[]
+            }
           })
         }
       },
@@ -767,7 +727,7 @@
         this.HotelRoomRoomFacilitiesOptions.data.ht_ht_hotelID = this.hotelID;
         this.HotelRoomRoomFacilitiesOptions.data.ht_rth_RoomID = this.RoomID;
         this.HotelRoomRoomFacilitiesOptions.data.ht_rth_RoomHardID = this.ht_rth_RoomHardIDList.join(',')
-        this.$store.dispatch('AddHotelRoomRoomFacilities', this.HotelRoomRoomFacilitiesOptions)
+        this.$store.dispatch('AddHotelRoomRoomFacilities',this.HotelRoomRoomFacilitiesOptions)
         .then(suc => {
           this.$notify({
             message: suc,
@@ -792,8 +752,8 @@
             type: 'success'
           });
           //房间门牌号
-          this.n = 1;
-          if (data.data) {
+          this.n=1;
+          if(data.data){
             this.RoomProductID = data.data
           }
         }, err => {
@@ -804,7 +764,7 @@
         });
       },
       //选中房间设施类型
-      changeRoomFacilities(val, index){
+      changeRoomFacilities(){
         //获取对应设施
         let options = {
           "loginUserID": "huileyou",
@@ -814,10 +774,10 @@
           "pcName": "",
           "ht_rh_ID": "",//房型设施
           "ht_rh_Name": "",//设施名称
-          "ht_rh_RoomHardTypeID": this.HotelRoomRoomFacilitiesList[index].RoomFacilitiesTypeID,//房间设施类型ID
+          "ht_rh_RoomHardTypeID": this.RoomFacilitiesTypeID,//房间设施类型ID
           "ht_rh_IsHot": "",//是否热门
         }
-        this.$store.dispatch('initRoomFacilities', options)
+        this.$store.dispatch('initRoomFacilities',options)
       },
       //惠乐游房间设施类型
       initFacilitiesType(){
@@ -856,7 +816,7 @@
             type: 'success'
           });
           //房间设施
-          this.n = 2;
+          this.n=2;
         }, err => {
           this.$notify({
             message: err,
@@ -866,15 +826,16 @@
       },
       //房间门牌号图片上传
       HotelRoomEntityOptionsGetData(data) {
+        console.log(this.HouseNumberArry,data)
         if (!this.HotelRoomEntityRadioIndex) {
-          this.hotelRoomInfoList[data.i].HouseNumberArry[data.index].HotelRoomEntityImageURL.push(data.data);
+          this.hotelRoomInfoList[data.i].data.HouseNumberArry[data.index].HotelRoomEntityImageURL.push(data.data);
         } else {
-          this.hotelRoomInfoList[data.i].HouseNumberArry[data.index].HotelRoomEntityImageURL.splice(this.HotelRoomEntityRadioIndex - 1, 1, data.data);
+          this.hotelRoomInfoList[data.i].data.HouseNumberArry[data.index].HotelRoomEntityImageURL.splice(this.HotelRoomEntityRadioIndex - 1, 1, data.data);
           this.HotelRoomEntityRadioIndex = '';
         }
       },
       //删除房间门牌号对应图片
-      HotelRoomEntityDeleteImageURL(val, index) {
+      HotelRoomEntityDeleteImageURL(val,index) {
         this.HouseNumberArry[index].HotelRoomEntityImageURL = this.HouseNumberArry[index].HotelRoomEntityImageURL.filter(v => {
           if (v == val) {
             return false
@@ -883,18 +844,22 @@
         })
       },
       //点击X
-      handleClose(tag, j, i, index){
-        this.hotelRoomInfoList[i].HouseNumberArry[index].HouseNumberList.splice(this.hotelRoomInfoList[i].HouseNumberArry[index].HouseNumberList.indexOf(tag), 1);
+      handleClose(tag,j,i,index){
+        this.hotelRoomInfoList[i].data.HouseNumberArry[index].HouseNumberList.splice(this.hotelRoomInfoList[i].data.HouseNumberArry[index].HouseNumberList.indexOf(tag), 1);
       },
       //点击添加门票编码
-      AddHouseNumber(v, index, i){
-        this.hotelRoomInfoList[i].HouseNumberArry[index].ht_re_HouseNumber = '';
-//        this.$refs.input[index].focus()
+      AddHouseNumber(v,index,i){
+        console.log(v,index,i)
+        console.log(this.hotelRoomInfoList)
+//        console.log(index,this.hotelRoomInfoList)
+        this.hotelRoomInfoList[i].data.HouseNumberArry[index].ht_re_HouseNumber = '';
+        console.log(this.$refs)
+        this.$refs.input[index].focus()
         if (v) {
-          if (v.indexOf(',') > -1) {
-            this.hotelRoomInfoList[i].HouseNumberArry[index].HouseNumberList = this.hotelRoomInfoList[i].HouseNumberArry[index].HouseNumberList.concat(v.split(','));
-          } else {
-            this.hotelRoomInfoList[i].HouseNumberArry[index].HouseNumberList.push(v)
+          if(v.indexOf(',')>-1){
+            this.hotelRoomInfoList[i].data.HouseNumberArry[index].HouseNumberList = this.hotelRoomInfoList[i].data.HouseNumberArry[index].HouseNumberList.concat(v.split(','));
+          }else{
+            this.hotelRoomInfoList[i].data.HouseNumberArry[index].HouseNumberList.push(v)
           }
         } else {
           this.$notify({
@@ -1006,96 +971,46 @@
         if (uploader) {
           uploader.querySelector('ul').innerHTML = ''
         }
-        for (let attr in this.addOptions) {
-          if (typeof this.addOptions[attr] == 'object') {
-            for (let attr1 in this.addOptions[attr]) {
-              this.addOptions[attr][attr1] = ''
+        for (let attr in this.addOptions.data) {
+          if (typeof this.addOptions.data[attr] == 'object') {
+            for (let attr1 in this.addOptions.data[attr]) {
+              this.addOptions.data[attr][attr1] = ''
             }
           } else {
-            this.addOptions[attr] = ''
+            this.addOptions.data[attr] = ''
           }
         }
         this.ImageURL = [];
         this.ImageURL1 = [];
-        this.HotelRoomRoomFacilitiesList = []
-        this.hotelRoomInfoList = []
-        this.HotelRoomRoomFacilitiesNum = 0,
-        this.HouseNumberArryNum = 0
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
       },
       //添加提交
       addSubmit(){
-        this.addOptions.ht_bt_HotelID = this.hotelID;
-        this.addOptions.ht_bt_ImagePath = this.ImageURL.join(',');
-//        console.log('房间',this.addOptions)
-//        console.log('设施',this.HotelRoomRoomFacilitiesList)
-//        console.log('房间产品和房间门牌号',this.hotelRoomInfoList)
-        let options = {
-          "loginUserID": "huileyou",
-          "loginUserPass": "123",
-          "operateUserID": "操作员编码",
-          "operateUserName": "操作员名称",
-          "pcName": "",
-          "token": "",
-          "data": {
-            "ht_bt_HotelID": this.addOptions.ht_bt_HotelID,
-            "ht_bt_RoomName": this.addOptions.ht_bt_RoomName,
-            "ht_bt_BedType": this.addOptions.ht_bt_BedType,
-            "ht_bt_MostIn": this.addOptions.ht_bt_MostIn,
-            "ht_bt_Level": this.addOptions.ht_bt_Level,
-            "ht_bt_ImagePath": this.addOptions.ht_bt_ImagePath,
-            "ht_bt_Area": this.addOptions.ht_bt_Area,
-            "ht_bt_Smoke": this.addOptions.ht_bt_Smoke,
-            "ht_bt_AddBed": this.addOptions.ht_bt_AddBed,
-            "ht_bt_IsDelete": '',
-            "ht_bt_Remark": this.addOptions.ht_bt_Remark,
-//            HouseNumberArry
-            "roomInfo": [],
-            "HotelRoomHardArray": ''
-          }
-        }
-        options.data.roomInfo = this.hotelRoomInfoList.map(item => {
-          return {
-            "ht_rpp_Name": item.ht_rpp_Name,
-            "ht_rpp_BedType": item.ht_rpp_BedType,
-            "ht_rpp_BreakfastType": item.ht_rpp_BreakfastType,
-            "ht_rpp_WafiType": item.ht_rpp_WafiType,
-            "ht_rpp_CancelType": item.ht_rpp_CancelType,
-            "ht_rpp_ProductPrice": item.ht_rpp_ProductPrice,
-            "ht_rpp_RoomNumber": '0',
-            HouseNumberArry: item.HouseNumberArry.map(v => {
-              return {
-                "ht_re_HouseNumber": v.HouseNumberList.join(','),
-                "ht_re_ImagePath": v.HotelRoomEntityImageURL.join(',')
-              }
-            })
-          }
-        })
-        options.data.HotelRoomHardArray = this.HotelRoomRoomFacilitiesList.map(item => {
-          return item.ht_rth_RoomHardIDList.join(',')
-        }).join(',')
-//        console.log(options)
-//        return
-//        return
-        this.$store.dispatch('AddHotelRoom', options)
+        console.log(this.HouseNumberArry)
+        console.log(this.HotelRoomRoomFacilitiesList)
+        console.log(this.hotelRoomInfoList)
+        return
+        this.addOptions.data.ht_bt_HotelID = this.hotelID;
+        this.addOptions.data.ht_bt_ImagePath = this.ImageURL.join(',');
+        this.$store.dispatch('AddHotelRoom', this.addOptions)
         .then(data => {
           this.$notify({
             message: data.resultcontent,
             type: 'success'
           });
-//          if(data.data){
-//            this.RoomID = data.data
-//            this.n = 0;
-//          }
-          this.initData(this.roomName, 1)
+          if(data.data){
+            this.RoomID = data.data
+            this.n = 0;
+          }
+
         }, err => {
           this.$notify({
             message: err,
             type: 'error'
           });
         });
-        this.addDialog = false;
+//        this.addDialog = false;
       },
 
       //修改
@@ -1164,24 +1079,21 @@
   .el-form-item .el-form-item {
     margin-bottom: 20px !important;
   }
-
-  .dialogList {
+  .dialogList{
     padding-left: 120px;
     width: 100%;
     overflow: hidden;
     padding-bottom: 15px;
     margin-bottom: 20px;
   }
-
-  .dialogList span {
+  .dialogList span{
     text-align: center;
     width: 33.333333%;
     float: left;
     color: #ccc;
     position: relative;
   }
-
-  .dialogList span em {
+  .dialogList span em{
     font-style: normal;
   }
 
@@ -1200,13 +1112,12 @@
     display: none;
   }
 
-  .dialogList span.active em {
+  .dialogList span.active em{
     color: #409EFF;
     font-style: normal;
     padding-bottom: 5px;
-    border-bottom: 2px solid #409EFF;
+    border-bottom:2px solid #409EFF;
   }
-
   .imgWap span {
     position: absolute;
     right: -15px;

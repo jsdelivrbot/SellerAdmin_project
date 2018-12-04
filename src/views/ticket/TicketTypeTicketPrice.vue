@@ -8,7 +8,7 @@
       <el-col :span="24" class="formSearch">
         <el-form :inline="true">
           <el-form-item>
-            <span>票种编码筛选:</span>
+            <span>日期筛选:</span>
           </el-form-item>
           <!--<el-select v-model="ticketTypeNumber" placeholder="请选择票种" size="mini" style="margin-top: 7px;">-->
           <!--<el-option-->
@@ -125,16 +125,16 @@
 
       <el-dialog title="添加票种票价" :visible.sync="addDialog" :close-on-click-modal="false">
         <el-form :model="addOptions">
-          <el-form-item label="票种编号:" :label-width="formLabelWidth">
-            <el-select v-model="addOptions.tm_tt_ID" placeholder="如果没有数据先查询">
-              <el-option
-                v-for="item in ticketTypeList"
-                :key="item.tm_tt_ID"
-                :label="item.tm_tt_Name"
-                :value="item.tm_tt_ID">
-              </el-option>
-            </el-select>
-          </el-form-item>
+          <!--<el-form-item label="票种编号:" :label-width="formLabelWidth">-->
+            <!--<el-select v-model="addOptions.tm_tt_ID" placeholder="如果没有数据先查询">-->
+              <!--<el-option-->
+                <!--v-for="item in ticketTypeList"-->
+                <!--:key="item.tm_tt_ID"-->
+                <!--:label="item.tm_tt_Name"-->
+                <!--:value="item.tm_tt_ID">-->
+              <!--</el-option>-->
+            <!--</el-select>-->
+          <!--</el-form-item>-->
           <el-form-item label="限售张数:" :label-width="formLabelWidth">
             <el-input v-model="addOptions.tm_tp_Limit"></el-input>
           </el-form-item>
@@ -343,6 +343,7 @@
           "pcName": "",
           "data": this.addOptions
         };
+        insertTicketTypePrice.data.tm_tt_ID =this.$route.params.id;
         this.$store.dispatch('addTicketTypeTicketPriceSubmit', insertTicketTypePrice)
           .then(suc => {
             this.$notify({

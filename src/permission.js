@@ -60,6 +60,7 @@ router.beforeEach((to, from, next) => {
         return
       }else{
         if(!store.getters.isGenerateRoutes){
+          sessionStorage.setItem('PartnerType',admin.sm_ui_PartnerType)
           store.commit('GenerateRoutes',admin.sm_ui_PartnerType)
           if(store.getters.asyncRouterMap.length){
             router.addRoutes(store.getters.asyncRouterMap)

@@ -4,7 +4,7 @@
     <uploader-unsupport></uploader-unsupport>
     <uploader-drop>
       <p>上传文件</p>
-      <uploader-btn >点击上传</uploader-btn>
+      <uploader-btn>点击上传</uploader-btn>
       <uploader-btn v-show="attrs.accept== 'image/*'">选中替换</uploader-btn>
       <!--<uploader-btn :attrs="attrs">select images</uploader-btn>-->
       <!--<uploader-btn :directory="true">select folder</uploader-btn>-->
@@ -107,6 +107,8 @@
         var obj = JSON.parse(message)
         obj.index = this.index;
         obj.i = this.i;
+        let files = document.querySelectorAll('input[type=file]')[0]
+        console.log(files.value)
 
         this.$emit('getData',obj);
       },

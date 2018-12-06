@@ -271,6 +271,7 @@
                 <el-form :model="val">
                   <p style="color: red">注:房间门牌号添加规则(栋数-楼层-房号),例:8-8-08即8栋8楼08号 <span></span></p>
                   <p style="color: red">注: 没有栋数的(楼层-房号),例:8-08即8楼08号<span></span></p>
+                  <p style="color: red">注: 门牌号以英文状态下的逗号隔开,例:1-1-01,1-1-02,1-1-03<span></span></p>
                   <el-form-item label="选中的房间门牌号:" :label-width="infoWidth">
                     <el-tag :key="j" type="warning" v-for="r,j in val.HouseNumberList" size="small" closable
                             @close="handleClose(r,j,i,index)" style="margin-right: 5px">{{r}}
@@ -288,7 +289,7 @@
                     <div class="imgWap">
                       <p v-for="item,s in val.HotelRoomEntityImageURL"
                          style="display: inline-block;position: relative;margin-right: 70px">
-                        <span style="color: #f60" @click="HotelRoomEntityDeleteImageURL(item,s)">X</span>
+                        <span style="color: #f60" @click="HotelRoomEntityDeleteImageURL(item,index,i)">X</span>
                         <em>
                           <el-radio v-model="HotelRoomEntityRadioIndex" :label="s+1">替换</el-radio>
                         </em>
@@ -373,6 +374,7 @@
 
     <!--修改酒店房间-->
     <el-dialog title="修改酒店房间" :visible.sync="updateDialog">
+      <!--<ElUploader></ElUploader>-->
       <el-form :model="updateHotelRoomObj">
         <el-form-item label="房间名称:" :label-width="formLabelWidth">
           <el-input v-model="updateHotelRoomObj.ht_bt_RoomName"></el-input>
@@ -444,10 +446,12 @@
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
   import Upload from '@/components/Upload'
+  import ElUploader from '@/components/ElUploader'
   export default{
     name: '',
     components: {
-      Upload
+      Upload,
+      ElUploader
     },
     data(){
       return {
@@ -874,8 +878,8 @@
         }
       },
       //删除房间门牌号对应图片
-      HotelRoomEntityDeleteImageURL(val, index) {
-        this.HouseNumberArry[index].HotelRoomEntityImageURL = this.HouseNumberArry[index].HotelRoomEntityImageURL.filter(v => {
+      HotelRoomEntityDeleteImageURL(val, index,i) {
+        this.hotelRoomInfoList[i].HouseNumberArry[index].HotelRoomEntityImageURL = this.hotelRoomInfoList[i].HouseNumberArry[index].HotelRoomEntityImageURL.filter(v => {
           if (v == val) {
             return false
           }
@@ -1019,7 +1023,8 @@
         this.ImageURL1 = [];
         this.HotelRoomRoomFacilitiesList = []
         this.hotelRoomInfoList = []
-        this.HotelRoomRoomFacilitiesNum = 0,
+        this.HotelRoomRoomFacilitiesNum = 0;
+        this.num = 0;
         this.HouseNumberArryNum = 0
         this.$store.commit('setTranstionFalse');
         this.addDialog = true;
@@ -1078,6 +1083,8 @@
 //        console.log(options)
 //        return
 //        return
+        console.log(options)
+        return
         this.$store.dispatch('AddHotelRoom', options)
         .then(data => {
           this.$notify({

@@ -98,24 +98,25 @@
         </el-form-item>
 
         <el-form-item label="图片上传:" :label-width="formLabelWidth">
-          <p>单张图片不能大于600KB</p>
-          <Upload @getData="getData" :attrs="imageObj"></Upload>
+          <ElUploader @getData="getData"></ElUploader>
+          <!--<p>单张图片不能大于600KB</p>-->
+          <!--<Upload @getData="getData" :attrs="imageObj"></Upload>-->
 
-          <div class="imgWap">
-            <p v-for="item,index in ImageURL"
-               style="display: inline-block;position: relative;margin-right: 70px">
-              <span style="color: #f60" @click="deleteImageURL(item)">X</span>
-              <em>
-                <el-radio v-model="radioIndex" :label="index+1">替换</el-radio>
-              </em>
-              <img
-                :src="item"
-                width="280"
-                height="125"
-                v-show="ImageURL.length"
-              >
-            </p>
-          </div>
+          <!--<div class="imgWap">-->
+            <!--<p v-for="item,index in ImageURL"-->
+               <!--style="display: inline-block;position: relative;margin-right: 70px">-->
+              <!--<span style="color: #f60" @click="deleteImageURL(item)">X</span>-->
+              <!--<em>-->
+                <!--<el-radio v-model="radioIndex" :label="index+1">替换</el-radio>-->
+              <!--</em>-->
+              <!--<img-->
+                <!--:src="item"-->
+                <!--width="280"-->
+                <!--height="125"-->
+                <!--v-show="ImageURL.length"-->
+              <!--&gt;-->
+            <!--</p>-->
+          <!--</div>-->
         </el-form-item>
 
         <el-form-item label="备注:" :label-width="formLabelWidth">
@@ -186,10 +187,12 @@
   import {mapGetters} from 'vuex'
   import {getNewStr} from '@/assets/js/public'
   import Upload from '@/components/Upload'
+  import ElUploader from '@/components/ElUploader'
   export default{
     name: '',
     components: {
-      Upload
+      Upload,
+      ElUploader
     },
     data(){
       return {

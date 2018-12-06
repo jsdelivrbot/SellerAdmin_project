@@ -7,7 +7,36 @@
 <script>
 export default {
   name: 'App',
+  methods:{
+    //初始化酒店信息
+    initHotelData() {
+      let sm_ui_ID = JSON.parse(sessionStorage.getItem('admin')).sm_ui_ID;
+      let HotelDetailInfo = {
+        "loginUserID": "huileyou",
+        "loginUserPass": "123",
+        "sm_ai_AgentInfoID": sm_ui_ID,
+      };
+      this.$store.dispatch('initMyHotelDetails', HotelDetailInfo)
+      .then(hotelID => {
+        if(hotelID){
+          sessionStorage.setItem('hotelID',hotelID);
+        }
+      }, err => {
+        this.$notify({
+          message: err,
+          type: 'error'
+        });
+      })
+    },
+  },
   mounted(){
+    let PartnerType = sessionStorage.getItem('PartnerType')
+    switch (Number(PartnerType)){
+      case 2:
+        //酒店
+        this.initHotelData()
+        break
+    }
 //    this.$nextTick(()=>{
 //      document.addEventListener('click',()=>{
 //        let appMain = document.querySelector('.el-menu')
